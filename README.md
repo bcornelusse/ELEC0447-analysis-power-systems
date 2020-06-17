@@ -1,11 +1,13 @@
 # ELEC0447 Analysis of Electrical Power and Energy Systems
 
+**UNDER CONSTRUCTION**
+
 This is an introductory course on Power systems analysis given at Master's level at ULiège.
 
 Prerequisites: 
  - Notions of electrical circuits analysis (https://github.com/bcornelusse/livre_circuits_electriques_ELEC0053/)
  - Notions of (complex) calculus
- - Notions of scientific computing (We will use Python)
+ - Notions of scientific computing (we will use Python)
 
 # Lectures 
 
@@ -13,6 +15,7 @@ Prerequisites:
 | --- | --- |
 | September 14 | Lecture 1: [Introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1.md)
 | September 21 | Lecture 2: [3-phase systems](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2.md)
+| September 28 | Lecture 2: [The transmission line, and power flow analysis part 1](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3.md)
 
 # talk-template
 

@@ -319,12 +319,61 @@ The most widespread method to solve this system is the *Newton-Raphson method*.
 
 ## Newton-Raphson example in 1D
 
-TODO link to python notebook or gif.
+ - Let's assume we want to solve $c-f(x) = 0$ with $f$ a non-linear function.
+ - We start with a first guess for $x$, $x^{(0)}$, at iteration $i=0$
+ - Then, while $|c-f(x^{(i)})| > \epsilon$:
+   - $x^{(i+1)} = x^{(i)} + \frac{c-f(x^{(i)})}{f'(x^{(i)})}$
+   - $i \leftarrow i + 1$ 
+
+For $c=4$ and $f(x) = x^3$ (see `NR-demo-1D.ipynb`): 
+.center[.width-50[![](figures/NR-1D.png)]]
+
+The *convergence is quadratic* if we start with x(0) "close” to the solution.
 
 ---
 
-## Newton-Raphson 
+## Newton-Raphson for the power flow problem
 
+We apply exactly the same idea to our problem, except that we are in dimension $2 n\_{PQ} + n\_{PV}$. 
+
+Hence we must compute partial derivatives to compute the update steps :
+$$\mathbf{\bar{V}}^{(i+1)} = \mathbf{\bar{V}}^{(i)} + \underbrace{\left[\mathbf{J}(\mathbf{\bar{V}}^{(i)})\right]^{-1} (\mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}))}\_{\Delta \mathbf{\bar{V}}}$$
+where
+ - $\mathbf{F}^0$ gathers the measured active powers at buses in $\mathcal{N}\_{PQ} \cup \mathcal{N}\_{PV}$ and reactive powers at buses $\mathcal{N}\_{PQ}$
+ - $\mathbf{f}(\mathbf{\bar{V}})$ gathers the active and power flow equations at the corresponding buses.
+ - $\mathbf{J}(\mathbf{\bar{V}})$ is the jacobian of $\mathbf{f}$, of size $(2 n\_{PQ} + n\_{PV}) \times (2 n\_{PQ} + n\_{PV})$
+
+
+---
+
+## Remarks
+
+ - In practice, instead of computing the inverse of the Jacobian, we solve the system 
+$$\mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}} = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)})$$ to get the update step
+ - The Jacobian is often sparse, since a bus is connected to a few neighbors; it is very important to take into account the sparsity properties in practical implementations
+ - The Jacobian is not necessarily updated at every iteration, especially close to convergence
+
+---
+
+## Fast decoupled power flow
+
+Remember that 
+- active power flow is mostly a function of voltage angles
+- reactive power flow is mostly a function of voltage magnitudes
+
+If we apply these ideas stricly, we can subdivide the problem in two much simpler subproblems:
+ - one problem for angles, based on the active power measurements and the sub-Jacobian containing the partial derivatives of the active power flow equations w.r.t. angles
+ - one problem for magnitudes, based on the reactive power measurements and the sub-Jacobian containing the partial derivatives of the reactive power flow equations w.r.t. magnitudes
+
+
+---
+
+## DC power flow
+
+
+---
+
+## Sensitivity analysis
 
 ---
 
