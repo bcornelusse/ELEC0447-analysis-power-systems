@@ -51,8 +51,9 @@ class: middle, center
 
 ## A part of ELIA's network
 
-.center[.width-100[![](figures/carte_ELIA_2019_Liege.png)]]
+.center[.width-100[![](figures/carte_ELIA_2019_Liege.PNG)]]
 
+Source: https://www.elia.be/fr/infrastructure-et-projets/nos-infrastructures
 
 ---
 
@@ -213,7 +214,7 @@ Power base (3-phase): 100 MVA
 
 ## Result of the tiny example using pandapower
 
-TODO link to python notebook
+[Link to the Python notebook](notebooks/first_PF_pandapower.ipynb)
 
 |    |   vm_pu |   va_degree |    p_mw |   q_mvar |
 |---:|--------:|------------:|--------:|---------:|
@@ -275,7 +276,7 @@ where $P$ and $Q$ are the vectors of active and reactive power injections, respe
 
 If we develop this relation for a node $k$, we have:
 $$\begin{aligned}
-P\_k &= G\_{kk} V\_k^2  & + V\_k \sum\_{m \in \mathcal{N} \setminus k} V\_m(G\_{km} = \cos\theta\_{km} + B\_{km} \sin\theta\_{km}) & = p\_k(\mathbf{\bar{V}}) \\\\
+P\_k &= G\_{kk} V\_k^2  & + V\_k \sum\_{m \in \mathcal{N} \setminus k} V\_m(G\_{km} \cos\theta\_{km} + B\_{km} \sin\theta\_{km}) & = p\_k(\mathbf{\bar{V}}) \\\\
 Q\_k &= -B\_{kk} V\_k^2 & + V\_k \sum\_{m \in \mathcal{N} \setminus k} V\_m(G\_{km} \sin\theta\_{km} - B\_{km} \cos\theta\_{km}) &= q\_k(\mathbf{\bar{V}})
 \end{aligned}$$
 with 
@@ -325,7 +326,7 @@ The most widespread method to solve this system is the *Newton-Raphson method*.
    - $x^{(i+1)} = x^{(i)} + \frac{c-f(x^{(i)})}{f'(x^{(i)})}$
    - $i \leftarrow i + 1$ 
 
-For $c=4$ and $f(x) = x^3$ (see `NR-demo-1D.ipynb`): 
+For $c=4$ and $f(x) = x^3$ ([Link to the Python notebook](notebooks/first_PF_pandapower.ipynb)): 
 .center[.width-50[![](figures/NR-1D.png)]]
 
 The *convergence is quadratic* if we start with x(0) "close” to the solution.
@@ -336,11 +337,12 @@ The *convergence is quadratic* if we start with x(0) "close” to the solution.
 
 We apply exactly the same idea to our problem, except that we are in dimension $2 n\_{PQ} + n\_{PV}$. 
 
-Hence we must compute partial derivatives to compute the update steps :
-$$\mathbf{\bar{V}}^{(i+1)} = \mathbf{\bar{V}}^{(i)} + \underbrace{\left[\mathbf{J}(\mathbf{\bar{V}}^{(i)})\right]^{-1} (\mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}))}\_{\Delta \mathbf{\bar{V}}}$$
+Hence we must compute partial derivatives to compute the update steps:
+$$\mathbf{\bar{V}}^{(i+1)}\_x = \mathbf{\bar{V}}^{(i)}\_x + \underbrace{\left[\mathbf{J}(\mathbf{\bar{V}}^{(i)})\right]^{-1} (\mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}))}\_{\Delta \mathbf{\bar{V}}\_x}$$
 where
  - $\mathbf{F}^0$ gathers the measured active powers at buses in $\mathcal{N}\_{PQ} \cup \mathcal{N}\_{PV}$ and reactive powers at buses $\mathcal{N}\_{PQ}$
- - $\mathbf{f}(\mathbf{\bar{V}})$ gathers the active and power flow equations at the corresponding buses.
+ - $\mathbf{f}(\mathbf{\bar{V}})$ gathers the active and power flow equations at the corresponding buses
+ - $\mathbf{\bar{V}}\_x$ is the subvector of $\mathbf{\bar{V}}$ that gathers the unknwon voltage magnitudes and angles at the the corresponding buses
  - $\mathbf{J}(\mathbf{\bar{V}})$ is the jacobian of $\mathbf{f}$, of size $(2 n\_{PQ} + n\_{PV}) \times (2 n\_{PQ} + n\_{PV})$
 
 
@@ -349,7 +351,7 @@ where
 ## Remarks
 
  - In practice, instead of computing the inverse of the Jacobian, we solve the system 
-$$\mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}} = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)})$$ to get the update step
+$$\mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}}\_x = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)})$$ to get the update step
  - The Jacobian is often sparse, since a bus is connected to a few neighbors; it is very important to take into account the sparsity properties in practical implementations
  - The Jacobian is not necessarily updated at every iteration, especially close to convergence
 
@@ -365,17 +367,27 @@ If we apply these ideas stricly, we can subdivide the problem in two much simple
  - one problem for angles, based on the active power measurements and the sub-Jacobian containing the partial derivatives of the active power flow equations w.r.t. angles
  - one problem for magnitudes, based on the reactive power measurements and the sub-Jacobian containing the partial derivatives of the reactive power flow equations w.r.t. magnitudes
 
+This procedure, through the sub-Jacobian that are computed, also provide information useful for *sensitivity analysis*.
 
 ---
 
 ## DC power flow
 
+"Direct Current" power flow is a further simplification:
+ - it is assumed that the impact of the reactance of lines is much bigger than the impact of their resistance, and shunt conductances are neglected
+ - voltage magnitudes are assumed equal to $1 pu$ 
+ - angle differences are small
+ - active power losses are neglected, reactive power flows as well
+ 
+$$P\_k =  \sum\_{m \in \mathcal{N} \setminus k} B\_{km} \theta\_{km} $$ for every bus but the slack bus, which sets the angle difference, and collects the algebraic sum of all other injected powers.
+
+In matrix form, with $\mathbf{Y}$ the admittance matrix defined before: 
+$$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
+
+This is usefull for fast simulations, or when including a power flow model in an optimization problem, e.g. [day-ahead market coupling](https://bcornelusse.github.io/material/CoursEM20170331.pdf).
 
 ---
 
-## Sensitivity analysis
-
----
 
 # References
 
