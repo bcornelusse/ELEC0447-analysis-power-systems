@@ -20,8 +20,6 @@ Bertrand Cornélusse<br>
 
 You will be able to do exercises ... from the Ned Mohan's book.
 
-
-
 ---
 
 class: middle
@@ -34,23 +32,87 @@ class: middle, center, black-slide
 
 <iframe width="600" height="450" src="https://www.youtube.com/embed/vh_aCAHThTQ" frameborder="0" allowfullscreen></iframe>
 
+---
+
+voltage changed on average 5 times between gen and load.
+
 
 ---
 
-class: middle, center
-
-## A part of ELIA's network
-
-.center[.width-100[![](figures/carte_ELIA_2019_Liege.png)]]
+## Ideal model
 
 ---
 
-## The generic transmission line
+## Hysteresis $B$ vs, $H$
 
-Adapt from VCT's slides on power flow
+Losses 
+
+$\mu\_m$ vs $\mu\_0$
+
+Max $B$ in core around 1.6 T
+
+One of the core losses (or iron losses).
+
+---
+
+## Eddy currents
+
+-> Laminated magnetic cores
+
+One of the core losses (or iron losses).
+
+---
+
+## Copper losses 
+
+---
+
+## Non-ideal model
+
+---
+
+## Transfer of impedance through the ideal transformer
+
+$n^2$ from $1$ to $n$
+
+---
+
+## Per unit representation
+
+---
+
+## Example 6.1
+
+---
+
+## Efficiency
+
+---
+
+## Tap changers
+
+---
+
+## Auto-transformers
+
+---
+
+## Phase shift in delta-star transformers
+
+---
+
+## Power flow regulation by phase shifting
 
 
+---
 
+## Three-winding transformers
+
+---
+
+## Three-phase transformers
+
+Three single phase tfos vs on three-phase 
 
 
 ---
@@ -59,7 +121,12 @@ class: middle
 
 # Transformers in the power flow analysis
 
+
 ---
+
+## The generic transmission line
+
+Adapt from VCT's slides on power flow
 
 ---
 

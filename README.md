@@ -1,13 +1,17 @@
-# ELEC0447 Analysis of Electrical Power and Energy Systems
+# ELEC0447 Analysis of Electric Power and Energy Systems
 
 **UNDER CONSTRUCTION**
 
-This is an introductory course on Power systems analysis given at Master's level at ULiège.
+This is an introductory course on power systems analysis given at Master's level at ULiège.
 
 Prerequisites: 
  - Notions of electrical circuits analysis (https://github.com/bcornelusse/livre_circuits_electriques_ELEC0053/)
  - Notions of (complex) calculus
  - Notions of scientific computing (we will use Python)
+
+Instructors: 
+ - Bertrand Cornélusse
+ - Louis Wehenkel
 
 # Lectures 
 
