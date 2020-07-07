@@ -59,17 +59,24 @@ class: middle, center, black-slide
 
 ## Non-ideal model
 
+.center.width-90[![](figures/non-ideal-transformer.png)]
+
+The ideal model is complemented by elements 
+- $X\_m$ that models the magnetizing inductance
+- $X\_{leakage, i}$ that models the flux not captured by the core on side $i$
+- $R\_{core}$ that models eddy current and hysteresis losses, i.e. losses in the iron core
+- $R\_{1}$ and $R\_{2}$ that model (coil) copper losses
+
+Parameters are either given in the datasheet or obtained by open-circuit and short-cirtuit tests.
+
 ---
 
-## Hysteresis $B$ vs, $H$
+The excitation current, sum of the currents in $R\_{core}$ and $X\_m$, is often neglected, leading to a simpler non-ideal model, and the series impedances can be transferred from one side to the other:
 
-Losses 
-
-$\mu\_m$ vs $\mu\_0$
-
-Max $B$ in core around 1.6 T
-
-One of the core losses (or iron losses).
+.grid[
+.kol-1-2[.center.width-90[![](figures/non-ideal-transformer-2.png)]]
+.kol-1-2[
+with $$Z\_p = R\_1 + X\_{leakage, 1}$$ and $$Z\_s = R\_2 + X\_{leakage, 2}$$]]
 
 ---
 
