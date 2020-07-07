@@ -28,18 +28,36 @@ class: middle
 
 ---
 
+A (single phase) transformer is made of two magnetically coupled coils. An ideal transformer is a two-port represented as 
+
+.grid[
+.kol-1-2[.width-80[![](figures/ideal_transformer.png)]]
+.kol-1-2[
+with
+$$u\_2  = n u\_1$$ 
+$$i\_2  = -\frac{1}{n}i\_1$$
+]]
+
+
+In power systems, transformers are mainly used to transmit power over long distances by changing the voltage level, thus decreasing the current for a given power level.
+
+Voltage is changed around 5 times between generation and load.
+
+It is also used to 
+ 
+- measure currents and voltages
+- electrically isolate parts of a circuit
+- match impedances
+
+---
+
 class: middle, center, black-slide
 
 <iframe width="600" height="450" src="https://www.youtube.com/embed/vh_aCAHThTQ" frameborder="0" allowfullscreen></iframe>
 
 ---
 
-voltage changed on average 5 times between gen and load.
-
-
----
-
-## Ideal model
+## Non-ideal model
 
 ---
 
