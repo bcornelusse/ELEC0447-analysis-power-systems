@@ -69,6 +69,8 @@ The ideal model is complemented by elements
 
 Parameters are either given in the datasheet or obtained by open-circuit and short-cirtuit tests.
 
+Laminated core to decrease losses.
+
 ---
 
 The excitation current, sum of the currents in $R\_{core}$ and $X\_m$, is often neglected, leading to a simpler non-ideal model, and the series impedances can be transferred from one side to the other:
@@ -76,29 +78,7 @@ The excitation current, sum of the currents in $R\_{core}$ and $X\_m$, is often 
 .grid[
 .kol-1-2[.center.width-90[![](figures/non-ideal-transformer-2.png)]]
 .kol-1-2[
-with $$Z\_p = R\_1 + X\_{leakage, 1}$$ and $$Z\_s = R\_2 + X\_{leakage, 2}$$]]
-
----
-
-## Eddy currents
-
--> Laminated magnetic cores
-
-One of the core losses (or iron losses).
-
----
-
-## Copper losses 
-
----
-
-## Non-ideal model
-
----
-
-## Transfer of impedance through the ideal transformer
-
-$n^2$ from $1$ to $n$
+with $$Z\_p = R\_1 + jX\_{leakage, 1}$$ and $$Z\_s = R\_2 + jX\_{leakage, 2}$$]]
 
 ---
 
