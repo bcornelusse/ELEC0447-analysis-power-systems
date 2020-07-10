@@ -218,9 +218,10 @@ If we have a device that can generate an adjustable phase shift, we can control 
 This is the purpose of *phase-shifting transformers*.
 
 In practice phase shifting is achieved by "combining the signal with a fraction of itself shifted by 90°".
-For the details of how it is implemented, see 
- - [https://en.wikipedia.org/wiki/Quadrature_booster](Wikipedia)
- - Section 5.7. of Weedy, Birron Mathew, et al. Electric power systems. John Wiley & Sons, 2012.
+For the details of how it is implemented or modeled, see 
+ - [Wikipedia](https://en.wikipedia.org/wiki/Quadrature_booster)
+ - Section 5.7. of the Weedy or ELEC0014.
+ - [ENTSO-E - Phase Shift Transformers Modelling, Version 1.0.0, May 2015](https://eepublicdownloads.blob.core.windows.net/public-cdn-container/clean-documents/CIM_documents/Grid_Model_CIM/ENTSOE_CGMES_v2.4.14_28May2014_PSTmodelling.pdf)
 
 ---
 
