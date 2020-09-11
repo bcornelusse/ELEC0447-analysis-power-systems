@@ -114,13 +114,289 @@ Larger nominal voltages have been used progressively
 
 ## Structure of electric network  (case of Belgium)
 
-**TODO insert fig of VCT**
+.center.width-100[![](figures/network_structure.png)]
 
 .footnote[In Belgium there are 30 and 36 kV underground cable networks, in Brussels and Antwerp areas. These are meshed and play the role of sub-transmission.]
 
 
 ---
 
+## 400 (and 220 kV) grid in Belgium and interconnections
+
+
+.center.width-100[![](figures/intro_elia.png)]
+
+---
+
+## Length of network by voltage level and type in Belgium
+
+.center.width-100[![](figures/stats_cables_and_lines_be.png)]
+
+.footnote[source : SYNERGRID, as of December 2008]
+
+---
+
+##  Electrical energy balance over the year 2018 in Belgium
+
+.center.width-100[![](figures/energy_balance_BE_2018.png)]
+
+---
+
+##   Network losses
+
+.center.width-90[![](figures/network_losses_world.png)]
+
+
+Transporting and distributing electrical energy is an industrial process with a relatively high efficiency
+
+---
+
+##  Consumption outlook
+
+.center.width-100[![](figures/consumption_be.png)]
+
+---
+
+##  
+
+.center.width-100[![](figures/consumption_be_zoom.png)]
+
+---
+
+##  Peak load on some grids
+
+.center.width-100[![](figures/peaks_be.png)]
+
+---
+
+##  From large centralized to small dispersed power plants
+
+.center.width-100[![](figures/danemark_RES.png)]
+
+---
+
+class: middle
+
+# Energy outlook
+
+---
+
+##   Sources of electrical energy in Belgium in 2018
+
+.center.width-100[![](figures/sources_be.png)]
+
+.footnote[source : ENTSOE]
+
+
+---
+
+##  Comments
+
+- “Nuclear generation capacity” involves all units, even those temporarily shut down for technical reasons, or waiting for the decision to extend their lifetime
+- gas power plants includes small CHP (Combined Heat Power) units
+- same for biomass plants
+- purposes of pumping storage :   
+   - pumping : convert electrical energy into mechanical (potential) energy when  demand is low compared to available generation (e.g. during night)
+   - turbining : reverse operation when demand is high (e.g. at day peak)$\rightarrow$  “peak shaving” and “valley filling” of daily load curveefficiency of whole cycle  $\approx$  85 % 
+   - usually profitable since cost of electricity higher when demand is high
+   - fast reserve : a hydro unit can be started (resp. pumping stopped) quickly to replace a generation unit that is taken out of service 
+   - allows keeping base units (e.g. nuclear) in operation when load is very low
+
+---
+
+##  Comments: capacity factor
+
+- Capacity Factor:
+ $\frac{\text{energy produced in 1 year (MWh)}}{\text{generation capacity (MW)} \times 365 \times 24 (h)}$
+- usually close to 90 % for nuclear, but some Belgian units have high unavailability 
+- note the low value for solar energy!
+
+---
+
+##   Some trends in Belgium
+
+- Early retirement of gas power plants not enough competitive on electricity market, too expensive to maintain
+ - political decision to keep a “strategic reserve” !
+- Natural hydro resources saturated in Belgium
+ - there are plans to expand the pumping storage
+ - Coo power plant : currently  $(3 \times 158  +  3 \times 230  =)$ 1164 MW  installed capacity
+- wind energy :
+ - public opposition to new on-shore wind farms (densely populated country !)
+ - NIMBY attitude :   Not In My BackYard
+- off-shore wind farms have a higher capacity factor than on-shore ones: wind is more steady in the sea
+- Belgian off-shore wind farms in 2018 : 
+ - 5 wind parks with an installed capacity of 1186 MW have produced 3,408 TWh
+ - Capacity Factor =  $(3,408 \times 10^6)/(1186 \times 365 \times24)$ =  32 %
+- still a great potential for new off-shore wind farms :
+ - 3 under construction (+ 1076 MW) $\rightarrow$  8 TWh production expected in 2020
+
+---
+
+##  Wind generation potential
+
+https://globalwindatlas.info/
+
+.center.width-100[![](figures/wind_gen_DE.png)]
+
+x axis: hour of the year 2013
+
+---
+
+##  PV generation potential
+
+https://re.jrc.ec.europa.eu/pvg_download/map_index_c.html#!
+
+.center.width-100[![](figures/PV_gen_DE.png)]
+x axis: hour of the year 2013
+
+---
+
+class: middle
+# Power balance
+
+---
+
+##  The power balance issue
+
+.center.width-80[![](figures/power_balance.png)]
+Conservation of Energy over an infinitesimal time $dt$:
+$$dE\_{gen} = dE\_{cons} + dE\_{lost} + dE\_{net}$$
+
+Introducing the corresponding powers at time $t$:
+$$p\_{gen}(t).dt = p\_{cons}(t).dt + p\_{lost}(t).dt + p\_{net}(t).dt$$
+Hence 
+$$p\_{gen}(t) = p\_{cons}(t) + p\_{lost}(t) + p\_{net}(t)$$
+
+---
+
+$p\_{cons}(t)$: The consumers decide how much power they want to consume !
+- this demand fluctuates at any time
+
+$p\_{lost}(t)$: Losses mainly due to Joule effects  $\rightarrow$ depend on currents in components
+- kept as small as possible, not really controllable
+
+$p\_{net}(t)$: Network elements which store electrical energy : inductors and capacitors
+- In sinusoidal steady state, the power in an inductor (or a capacitor) reverts every quarter of a period, and is zero on the average
+- in balanced three-phase operation, the sum of the powers in the inductors/capacitors of the three phases is zero at any time !
+- hence, electrical energy cannot be stored in the AC network
+- to be stored, electrical energy has to be converted into another form of energy
+ - mechanical: e.g. potential energy of water     in the upper reservoir of a pumping station, flywheels, etc.
+ - chemical: batteries (but amounts of stored energy are still very small !!)
+
+ **Give example of Tesla batteries in Australia**
+ **Give example of NaS in Italy NGK**
+
+
+---
+
+## Conclusion
+
+The variations of load power have to be compensated by the generators but the conversion (primary energy $\rightarrow$ electrical energy) is not instantaneous
+ - example: changing the flow of steam or water in a turbine takes a few seconds
+Hence, an “energy buffer” is needed to quickly compensate power imbalances 
+- this is provided by the rotating masses of synchronous generators
+- a deficit (resp. excess) of generation wrt load results in a decrease (resp. increase) of speed of rotation speeds (and hence, frequency)
+- in a synchronous generator and its turbine, kinetic energy  nominal power of the generator produced during 2 to 5 seconds
+- controlling the power balance in a power system without rotating machines (only power electronic interfaces) would be a challenge (still at research level) !
+Larger variations in load (e.g. during the day) require starting up/shutting down power plants ahead of time
+
+
+---
+
+class: middle
+# Large AC interconnections
+
+
+---
+
+## Motivations :
+mutual support between partners to face the loss of generation units
+each partner would have to set up a larger “reserve” if it would operate isolated
+larger diversity of energy sources available within the interconnection
+allows exploiting complementarity of nuclear, hydro and wind power plants
+allows partners to sell/buy energy, to create a large electricity market.
+
+---
+
+## Constraints:
+if one partner is unable to properly “contain” a major incident, the effects may propagate to the other partners’ networks
+a transaction from one point to another cannot be forced to follow a “contractual” path; it distributes over parallel paths (“wheeling”) : see example in slide # 27. 
+	Partners not involved in the transaction undergo the effects of the power flow.
+in large AC interconnections, there may be emergence of badly damped interarea electromechanical oscillations (frequency in the range 0.1 - 0.5 Hz)
+rotors of synchronous generators in one area oscillate against the rotors of generators located in another area
+it may not be possible to connect two networks with different power quality standards
+
+
+---
+
+## European networks
+
+.center.width-50[![](figures/EU_net_flows.png)]
+Energy flows in 2018 (in GWh)
+
+
+ENTSOe :
+European Network of Transmission System Operators 
+for electricity
+
+41 Transmission System Operators (TSOs) from 34 countries
+
+---
+
+## The synchronous grids of Europe 
+
+.center.width-100[![](figures/EU_TSOs.png)]
+
+.footnote[Source: ENTSOE]
+
+---
+
+##  Example of paths followed by power due to a transaction
+
+Paths taken by a production increment of 100 MW in Belgium
+covered by a load increase of 100 MW in Italy (variation of losses neglected): 
+
+.center.width-50[![](figures/EU_Path_flows.png)]
+
+---
+
+class: middle
+#  The come-back of Direct Current
+
+Advances in power electronics  $\rightarrow$  rectifiers and inverters able to carry larger currents through higher voltages  $\rightarrow$  transmission applications made possible
+
+---
+
+## Transmission over longer distances through overhead lines
+
+.center.width-90[![](figures/DC_line.png)]
+
+---
+
+## Transmission through submarine cables
+
+
+- DC more attractive than AC for distances above >= 50 km : owing to capacitive effects of AC cables
+- Existing links in Europe : see [a previous slide](#10)
+- Projects involving Belgium: Nemo with England, Alegro with Germany : see [a previous slide](#10)
+- Connection of off-shore wind parks (source: ENTSOE, AC and DC connections of off-shore wind parks in North Sea to the grid of the Tennet German TSO, links under construction shown with dotted lines):
+.center.width-50[![](figures/DC_cable.png)]
+
+---
+
+## Connection of AC networks with different frequencies
+
+.center.width-50[![](figures/different_frequencies.png)]
+
+Two networks with different nominal frequencies
+- connection of 50 and 60 Hz systems in Japan
+- connection of Brazil at 60 Hz with Argentina at 50 Hz
+- two networks that have the same nominal frequency but cannot be merged into a single C network, e.g. for stability reasons 
+ - UCTE and Russian (IPS/UPS) system
+ - Eastern - Western interconnections in North-America
+ - Western Europe (see previous slides)
+
+---
 # References
 
 Main reference book:
