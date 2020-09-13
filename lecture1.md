@@ -3,9 +3,8 @@ count: false
 
 # ELEC0447 - Analysis of electric power and energy systems
 
-Lecture 1: Introduction and course organization
+Lecture 1: Course organization and introduction
 
-*Adapted from ELEC0014 introduction by Thierry Van Cutsem*
 
 <br><br>
 
@@ -33,6 +32,22 @@ class: center, middle
   - Present your results to the class
  - Oral exam in January
   - Theory and exercise
+
+---
+# References
+
+Main reference book:
+- Mohan, Ned. Electric power systems: a first course. John Wiley & Sons, 2012.
+
+Other references: 
+- Course notes of ELEC0014 by Pr. Thierry Van Cutsem. (In french)
+- Weedy, Birron Mathew, et al. Electric power systems. John Wiley & Sons, 2012.
+
+---
+
+class: center, middle
+# Introduction
+*Adapted from ELEC0014 introduction by Thierry Van Cutsem*
 
 
 ---
@@ -216,9 +231,9 @@ class: middle
 ##  Comments
 
 - “Nuclear generation capacity” involves all units, even those temporarily shut down for technical reasons, or waiting for the decision to extend their lifetime
-- gas power plants includes small CHP (Combined Heat Power) units
-- same for biomass plants
-- purposes of pumping storage :   
+- Gas power plants includes small CHP (Combined Heat Power) units
+- Same for biomass plants
+- Purposes of pumping storage :   
    - pumping : convert electrical energy into mechanical (potential) energy when  demand is low compared to available generation (e.g. during night)
    - turbining : reverse operation when demand is high (e.g. at day peak)$\rightarrow$  “peak shaving” and “valley filling” of daily load curveefficiency of whole cycle  $\approx$  85 % 
    - usually profitable since cost of electricity higher when demand is high
@@ -231,8 +246,8 @@ class: middle
 
 - Capacity Factor:
  $\frac{\text{energy produced in 1 year (MWh)}}{\text{generation capacity (MW)} \times 365 \times 24 (h)}$
-- usually close to 90 % for nuclear, but some Belgian units have high unavailability 
-- note the low value for solar energy!
+ - usually close to 90 % for nuclear, but some Belgian units have high unavailability 
+ - note the low value for solar energy!
 
 ---
 
@@ -240,12 +255,19 @@ class: middle
 
 - Early retirement of gas power plants not enough competitive on electricity market, too expensive to maintain
  - political decision to keep a “strategic reserve” !
+ - [Angleur](https://edfluminus.edf.com/edf/la-centrale-electrique-d-angleur)
+- [Biomass plant of "Les Awirs" just decommissioned.](https://www.rtbf.be/info/regions/liege/detail_flemalle-fermeture-de-la-plus-grande-centrale-biomasse-de-wallonie-aux-awirs?id=10555470)
 - Natural hydro resources saturated in Belgium
  - there are plans to expand the pumping storage
  - Coo power plant : currently  $(3 \times 158  +  3 \times 230  =)$ 1164 MW  installed capacity
 - wind energy :
  - public opposition to new on-shore wind farms (densely populated country !)
  - NIMBY attitude :   Not In My BackYard
+
+---
+
+##   Some trends in Belgium (...)
+
 - off-shore wind farms have a higher capacity factor than on-shore ones: wind is more steady in the sea
 - Belgian off-shore wind farms in 2018 : 
  - 5 wind parks with an installed capacity of 1186 MW have produced 3,408 TWh
@@ -303,16 +325,17 @@ $p\_{cons}(t)$: The consumers decide how much power they want to consume !
 $p\_{lost}(t)$: Losses mainly due to Joule effects  $\rightarrow$ depend on currents in components
 - kept as small as possible, not really controllable
 
+---
+
 $p\_{net}(t)$: Network elements which store electrical energy : inductors and capacitors
 - In sinusoidal steady state, the power in an inductor (or a capacitor) reverts every quarter of a period, and is zero on the average
 - in balanced three-phase operation, the sum of the powers in the inductors/capacitors of the three phases is zero at any time !
 - hence, electrical energy cannot be stored in the AC network
 - to be stored, electrical energy has to be converted into another form of energy
  - mechanical: e.g. potential energy of water     in the upper reservoir of a pumping station, flywheels, etc.
- - chemical: batteries (but amounts of stored energy are still very small !!)
-
- **Give example of Tesla batteries in Australia**
- **Give example of NaS in Italy NGK**
+ - chemical: batteries, but amounts of stored energy are still very small !! Really?
+  - [Hornsdale Power Reserve](https://en.wikipedia.org/wiki/Hornsdale_Power_Reserve)
+  - [NGK's batteries](https://www.energy-storage.news/blogs/sponsored-ngks-nas-grid-scale-batteries-in-depth)
 
 
 ---
@@ -324,7 +347,7 @@ The variations of load power have to be compensated by the generators but the co
 Hence, an “energy buffer” is needed to quickly compensate power imbalances 
 - this is provided by the rotating masses of synchronous generators
 - a deficit (resp. excess) of generation wrt load results in a decrease (resp. increase) of speed of rotation speeds (and hence, frequency)
-- in a synchronous generator and its turbine, kinetic energy  nominal power of the generator produced during 2 to 5 seconds
+- in a synchronous generator and its turbine, kinetic energy $\approx$ nominal power of the generator produced during 2 to 5 seconds
 - controlling the power balance in a power system without rotating machines (only power electronic interfaces) would be a challenge (still at research level) !
 Larger variations in load (e.g. during the day) require starting up/shutting down power plants ahead of time
 
@@ -346,26 +369,30 @@ class: middle
 ---
 
 ## Constraints:
-if one partner is unable to properly “contain” a major incident, the effects may propagate to the other partners’ networks
-a transaction from one point to another cannot be forced to follow a “contractual” path; it distributes over parallel paths (“wheeling”) : see example in slide # 27. 
-	Partners not involved in the transaction undergo the effects of the power flow.
-in large AC interconnections, there may be emergence of badly damped interarea electromechanical oscillations (frequency in the range 0.1 - 0.5 Hz)
-rotors of synchronous generators in one area oscillate against the rotors of generators located in another area
-it may not be possible to connect two networks with different power quality standards
+- If one partner is unable to properly “contain” a major incident, the effects may propagate to the other partners’ networks
+- A transaction from one point to another cannot be forced to follow a “contractual” path; it distributes over parallel paths (“wheeling”) : see example on another slide. 
+ - Partners not involved in the transaction undergo the effects of the power flow.
+- In large AC interconnections, there may be emergence of badly damped interarea electromechanical oscillations (frequency in the range 0.1 - 0.5 Hz)
+ - Rotors of synchronous generators in one area oscillate against the rotors of generators located in another area
+ - It may not be possible to connect two networks with different power quality standards
 
 ---
 
 ## European networks
 
-.center.width-50[![](figures/EU_net_flows.png)]
-Energy flows in 2018 (in GWh)
-
-
-ENTSOe :
+.grid[
+.kol-1-2[ENTSOe :
 European Network of Transmission System Operators 
 for electricity
 
 41 Transmission System Operators (TSOs) from 34 countries
+]
+.kol-1-2[.center.width-100[![](figures/EU_net_flows.png)]
+Energy flows in 2018 (in GWh)]]
+
+
+
+
 
 ---
 
@@ -405,32 +432,28 @@ Advances in power electronics  $\rightarrow$  rectifiers and inverters able to c
 - DC more attractive than AC for distances above >= 50 km : owing to capacitive effects of AC cables
 - Existing links in Europe : see [a previous slide](#10)
 - Projects involving Belgium: Nemo with England, Alegro with Germany : see [a previous slide](#10)
-- Connection of off-shore wind parks (source: ENTSOE, AC and DC connections of off-shore wind parks in North Sea to the grid of the Tennet German TSO, links under construction shown with dotted lines):
-.center.width-50[![](figures/DC_cable.png)]
+
+.grid[
+.kol-1-2[Connection of off-shore wind parks (source: ENTSOE, AC and DC connections of off-shore wind parks in North Sea to the grid of the Tennet German TSO, links under construction shown with dotted lines):]
+.kol-1-2[.center.width-100[![](figures/DC_cable.png)]]]
 
 ---
 
-## Connection of AC networks with different frequencies
+## Connection of AC networks with different frequencies or ...
 
-.center.width-50[![](figures/different_frequencies.png)]
-
-Two networks with different nominal frequencies
+.grid[
+.kol-1-2[Two networks with different nominal frequencies
 - connection of 50 and 60 Hz systems in Japan
 - connection of Brazil at 60 Hz with Argentina at 50 Hz
 - two networks that have the same nominal frequency but cannot be merged into a single C network, e.g. for stability reasons 
  - UCTE and Russian (IPS/UPS) system
  - Eastern - Western interconnections in North-America
- - Western Europe (see previous slides)
+ - Western Europe (see previous slides)]
+ .kol-1-2[.center.width-100[![](figures/different_frequencies.png)]]]
 
----
-# References
 
-Main reference book:
-- Mohan, Ned. Electric power systems: a first course. John Wiley & Sons, 2012.
 
-Other references: 
-- Course notes of ELEC0014 by Pr. Thierry Van Cutsem. (In french)
-- Weedy, Birron Mathew, et al. Electric power systems. John Wiley & Sons, 2012.
+
 
 ---
 
