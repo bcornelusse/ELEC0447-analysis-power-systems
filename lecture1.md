@@ -14,7 +14,30 @@ Bertrand Cornélusse<br>
 
 ---
 
-## Objectives of the lecture
+
+class: center, middle
+
+<iframe src="https://giphy.com/embed/FQyQEYd0KlYQ" width="480" height="266" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+# Welcome to ELEC0447
+
+---
+
+# Course organization
+
+ - Theory lectures (maximum 2 hours) 
+ - Practice sessions (remainder of the session) $\rightarrow$ bring your laptop
+ - Homeworks: 
+  - Implement a power-flow solver for a particular grid configuration, step by step
+ - Project: 
+  - Analyse a system using power flow analyses (power flow solver given)
+  - Present your results to the class
+ - Oral exam in January
+  - Theory and exercise
+
+
+---
+
+# Objectives of this lecture
 
 - Show the overall structure of an electric power system
 - Highlight a few important features of power system operation
@@ -30,8 +53,8 @@ In modern society, electricity has become a “commodity”:
 
 *“marketable good or service whose instances are treated by the market as equivalent with no regard to who produced them”*
 
-- “behind the power outlet” there is a complex industrial process
-- electric energy systems are the largest systems ever built by man
+- “Behind the power outlet” there is a complex industrial process
+- Electric energy systems are the largest systems ever built by man
  - thousands of km of overhead lines and underground cables, of transformers
  - tens/hundreds of power plants + a myriad of distributed energy sources
  - devices to (dis)connect elements: substations, circuit breakers, isolators
@@ -39,7 +62,7 @@ In modern society, electricity has become a “commodity”:
  - real-time measurements : active and reactive power flows, voltage magnitudes, current magnitudes, energy   meters, phasor measurement units
  - controllers: distributed (e.g. in power plant) or centralized (control center)
  - etc.
-- unlike most other complex systems built by man, power systems are exposed to external “aggressions” (rain, wind, ice, storm, lightning, etc.)
+- Unlike most other complex systems built by man, power systems are exposed to external “aggressions” (rain, wind, ice, storm, lightning, etc.)
 
 ---
 
@@ -79,8 +102,8 @@ Large-scale failures (blackouts) have tremendous societal consequences
 
 - Cascade tripping of interconnection lines $\rightarrow$ separation of Italy from rest of UCTE system
 .center.width-50[![](figures/blackout_italy.png)]
-- Deficit of 6 660 MW imported in Italian system, causing frequency to collapse in Italy
-- 340 power plants shut down, 55 million people disconnected initially - 27 000 MW lost  (blackout occurred during night)
+- Deficit of 6.7 GW imported in Italian system $\rightarrow$ frequency to collapse in Italy
+- 340 power plants shut down, 55 million people disconnected initially - 27 GW lost  (blackout occurred during night)
 - Estimated cost of disruption  $\approx$ 139 million US $
 - Restoration time: 15 hours
 
@@ -97,7 +120,7 @@ Impossibility to transmit large powers with direct current:
   - if the voltage cannot be increased, the current must be
   - but  $\text{power lost} = \text{resistance} \times \text{current}^2$        $\rightarrow$  big waste of  energy
   - and large sections of conductors required               $\rightarrow$  expensive and heavy
- - impossible to interrupt a large DC current (no zero crossing), for instance after a short-circuit
+ - Hard to interrupt a large DC current (no zero crossing), for instance after a short-circuit
 
 ---
 ## Network: ... to present high-voltage AC
@@ -177,7 +200,7 @@ Transporting and distributing electrical energy is an industrial process with a 
 
 class: middle
 
-# Energy outlook
+# Energy outlook for Belgium
 
 ---
 
@@ -232,13 +255,18 @@ class: middle
 
 ---
 
+class: middle
+
+# Renewable generation
+
+---
+
 ##  Wind generation potential
 
 https://globalwindatlas.info/
 
 .center.width-100[![](figures/wind_gen_DE.png)]
-
-x axis: hour of the year 2013
+.center[Hour of the year 2013]
 
 ---
 
@@ -247,7 +275,7 @@ x axis: hour of the year 2013
 https://re.jrc.ec.europa.eu/pvg_download/map_index_c.html#!
 
 .center.width-100[![](figures/PV_gen_DE.png)]
-x axis: hour of the year 2013
+.center[Hour of the year 2013]
 
 ---
 
@@ -306,15 +334,14 @@ Larger variations in load (e.g. during the day) require starting up/shutting dow
 class: middle
 # Large AC interconnections
 
-
 ---
 
-## Motivations :
-mutual support between partners to face the loss of generation units
-each partner would have to set up a larger “reserve” if it would operate isolated
-larger diversity of energy sources available within the interconnection
-allows exploiting complementarity of nuclear, hydro and wind power plants
-allows partners to sell/buy energy, to create a large electricity market.
+## Motivations:
+ - Mutual support between partners to face the loss of generation units
+ - Each partner would have to set up a larger “reserve” if it would operate isolated
+ - Larger diversity of energy sources available within the interconnection
+ - Allows exploiting complementarity of nuclear, hydro and wind power plants
+ - Allows partners to sell/buy energy, to create a large electricity market.
 
 ---
 
@@ -325,7 +352,6 @@ a transaction from one point to another cannot be forced to follow a “contract
 in large AC interconnections, there may be emergence of badly damped interarea electromechanical oscillations (frequency in the range 0.1 - 0.5 Hz)
 rotors of synchronous generators in one area oscillate against the rotors of generators located in another area
 it may not be possible to connect two networks with different power quality standards
-
 
 ---
 
