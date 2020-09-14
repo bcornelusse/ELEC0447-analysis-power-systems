@@ -41,6 +41,7 @@ count: false
 .center[.width-100[![](figures/the_team.png)]]
 
 ---
+
 # References
 
 Main reference book:
