@@ -15,6 +15,7 @@ Bertrand Cornélusse<br>
 
 
 class: center, middle
+count: false
 
 <iframe src="https://giphy.com/embed/FQyQEYd0KlYQ" width="480" height="266" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 # Welcome to ELEC0447
@@ -32,6 +33,12 @@ class: center, middle
   - Present your results to the class
  - Oral exam in January
   - Theory and exercise
+
+---
+
+# The teaching team
+
+.center[.width-100[![](figures/the_team.png)]]
 
 ---
 # References
@@ -235,7 +242,8 @@ class: middle
 - Same for biomass plants
 - Purposes of pumping storage :   
    - pumping : convert electrical energy into mechanical (potential) energy when  demand is low compared to available generation (e.g. during night)
-   - turbining : reverse operation when demand is high (e.g. at day peak)$\rightarrow$  “peak shaving” and “valley filling” of daily load curveefficiency of whole cycle  $\approx$  85 % 
+   - turbining : reverse operation when demand is high (e.g. at day peak)$\rightarrow$  “peak shaving” and “valley filling” of daily load curve 
+   - efficiency of whole cycle  $\approx$  85 % 
    - usually profitable since cost of electricity higher when demand is high
    - fast reserve : a hydro unit can be started (resp. pumping stopped) quickly to replace a generation unit that is taken out of service 
    - allows keeping base units (e.g. nuclear) in operation when load is very low
@@ -260,7 +268,7 @@ class: middle
 - Natural hydro resources saturated in Belgium
  - there are plans to expand the pumping storage
  - Coo power plant : currently  $(3 \times 158  +  3 \times 230  =)$ 1164 MW  installed capacity
-- wind energy :
+- Wind energy :
  - public opposition to new on-shore wind farms (densely populated country !)
  - NIMBY attitude :   Not In My BackYard
 
@@ -329,8 +337,8 @@ $p\_{lost}(t)$: Losses mainly due to Joule effects  $\rightarrow$ depend on curr
 
 $p\_{net}(t)$: Network elements which store electrical energy : inductors and capacitors
 - In sinusoidal steady state, the power in an inductor (or a capacitor) reverts every quarter of a period, and is zero on the average
-- in balanced three-phase operation, the sum of the powers in the inductors/capacitors of the three phases is zero at any time !
-- hence, electrical energy cannot be stored in the AC network
+ - in balanced three-phase operation, the sum of the powers in the inductors/capacitors of the three phases is zero at any time !
+ - hence, electrical energy cannot be stored in the AC network
 - to be stored, electrical energy has to be converted into another form of energy
  - mechanical: e.g. potential energy of water     in the upper reservoir of a pumping station, flywheels, etc.
  - chemical: batteries, but amounts of stored energy are still very small !! Really?
