@@ -6,11 +6,7 @@ This is an introductory course on power systems analysis given at Master's level
 
 In 2020-2021, the course is scheduled on Mondays from 8:30AM to 12:30AM in room R.7, building B28.
 
-*The first lecture (September 14) will start at 10:15 AM*
-
 We will use eCampus for notifications, homeworks submissions, questions, etc. 
-
-You can connect to the lifesize session *ELEC0447*. We will however not take questions live if you attend remotely and the course can be given "physically".
 
 Prerequisites: 
  - Notions of electrical circuits analysis (https://github.com/bcornelusse/livre_circuits_electriques_ELEC0053/)
