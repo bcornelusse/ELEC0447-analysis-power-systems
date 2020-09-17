@@ -23,8 +23,6 @@ Bertrand Cornélusse<br>
 
 You will be able to do exercises 2.1, 2.2, 2.4, 2.5, 2.9, 2.11, 2.12, 2.14, 2.16, 2.17, 2.18, 2.19 and 2.20 from the Ned Mohan's book.
 
-
-
 ---
 
 class: middle
@@ -51,7 +49,6 @@ class: middle, center, black-slide
 <iframe width="600" height="450" src="https://www.youtube.com/embed/S4O5voOCqAQ" frameborder="0" allowfullscreen></iframe>
 
 The cyclist vs the toaster.
-
 
 ---
 
@@ -105,7 +102,6 @@ class: middle, center
 .center[![](figures/Unfasor.gif)]
 https://en.wikipedia.org/wiki/Phasor
 
-
 ---
 
 ## Impedance
@@ -123,7 +119,6 @@ such that $\bar{U} = Z \bar{I}$ with
  - for a resistor, $Z = R$
  - for a self, $Z = jX = j\omega L$
  - for a capacitor, $Z = jX = -j\frac{1}{\omega C}$
-
 
 ---
 
@@ -160,6 +155,13 @@ $$Z = \frac{\bar{U}}{\bar{I}} = \frac{{U}}{{I}} \angle (\phi\_u - \phi_i)$$
 ## Phasor diagrams
 
 Plot the phasors in the complex plane!
+
+.center.width-50[![](figures/phasor_diagram.png)]
+
+Inductive or capacitive? Which is which?
+.grid[
+.kol-1-2[.center.width-40[![](figures/phasor_diagram_L.png)]]
+.kol-1-2[.center.width-50[![](figures/phasor_diagram_C.png)]]]
 
 ---
 
@@ -206,6 +208,7 @@ A 120V voltage source at 60 Hz that feeds a R-L load $1858.4 + j 1031.4 \ VA $
 
 
 ---
+
 ## Power transfer between AC systems
 .grid[
 .kol-1-2[Consider the following simple system <br></br>
@@ -219,10 +222,10 @@ S\_r &= \bar{V}\_r\bar{I}^*  = V\_r \left(\frac{V\_s \angle -\delta - V\_r}{-jX}
      &= \frac{V\_s V\_r \sin \delta }{X} +j \frac{V\_s V\_r \cos \delta - V^2\_r}{X} 
 \end{aligned}$$
 
-Let's remember two things: 
+**Let's remember two things:**
 
- - The active power is highly sensitive to $\delta$ 
- - The reactive power acts on the voltage magnitude (look at what happens for $\delta=0$)
+ - The **active** power is highly sensitive to **$\delta$**
+ - The **reactive** power acts on the **voltage magnitude** (look at what happens for $\delta=0$)
 
 ---
 
