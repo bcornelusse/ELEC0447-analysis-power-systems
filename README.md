@@ -4,7 +4,7 @@
 
 This is an introductory course on power systems analysis given at Master's level at ULiège.
 
-In 2020-2021, the course is scheduled on Mondays from 8:30AM to 12:30AM in room R.7, building B28.
+In 2020-2021, the course is scheduled on Mondays from 8:30AM to 12:30AM in room **1.94**, building B28.
 
 We will use eCampus for notifications, homeworks submissions, questions, etc. 
 

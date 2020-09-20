@@ -36,7 +36,7 @@ class: middle
  - Power measures the rate of use of energy
  - It is expressed in Watt [W]: 1 W = 1 Joule/second
  - In an electric system, $$p(t) = u(t) \times i(t)$$
-  - $u(t)$ is the voltage measured in volt [V], the line intergral of the electric field between two points.
+  - $u(t)$ is the voltage measured in volt [V], the line integral of the electric field between two points.
   - $i(t)$ is the current measured in amps [A]
   - $t$ is the time 
  - To measure energy in power systems, we use units ranging from a kWh (a microgrid) to a TWh (a country)
@@ -86,7 +86,7 @@ class: middle
 Unless otherwise specified, we will always work with sinusoidal signals and in steady state:
 $$y(t)= \sqrt{2} Y \cos(\omega t + \phi\_y).$$
 
-$Y$ is the rms value of the signal, $\phi\_y$ its phase and $\omega$ its angular frequency.
+$Y$ is the *rms* value of the signal, $\phi\_y$ its phase and $\omega$ its angular frequency.
 
 At a specific frequency $f = \frac{\omega}{2\pi}$, the signal can be represented as a phasor
 $$\bar{Y} = Y \angle \phi_y = Y e^{j \phi_y}$$
@@ -212,7 +212,7 @@ A 120V voltage source at 60 Hz that feeds a R-L load $1858.4 + j 1031.4 \ VA $
 ## Power transfer between AC systems
 .grid[
 .kol-1-2[Consider the following simple system <br></br>
-We have $\bar{I} = \frac{\bar{V}\_r-\bar{V}\_s}{jX}$]
+We have $\bar{I} = \frac{\bar{V}\_s-\bar{V}\_r}{jX}$]
 .kol-1-2[
 .center.width-100[![](figures/power-transfer_AC.svg)]]]
 
@@ -397,7 +397,7 @@ Let the base power $S\_B$ be the three-phase power, and $U\_b=\sqrt{3}V\_B$ be t
 
 The (single-phase) base current is $$I\_B = \frac{S\_B}{3V\_B} = \frac{S\_B}{\sqrt{3}U\_B}$$
 
-The base impedance is $$Z\_B = \frac{V\_B}{I\_B} = \frac{3V^2\_B}{S\_B} = \frac{U\_B}{S\_B}$$
+The base impedance is $$Z\_B = \frac{V\_B}{I\_B} = \frac{3V^2\_B}{S\_B} = \frac{U\_B^2}{S\_B}$$
 
 In a single phase equivalent representation, the power values in per unit can be multiplied by $S\_b$ to get the total three-phase power.
 
