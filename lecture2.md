@@ -255,7 +255,7 @@ By design the voltage sources are shifted by 120°:
 $$\begin{aligned}
 \bar{V}\_{ga} &= V e^{j\phi\_u} \\\\
 \bar{V}\_{gb} &= V e^{j(\phi\_u - 2 \pi / 3)} = \bar{V}\_{ga} e^{-j 2 \pi / 3} \\\\
-\bar{V}\_{gb} &= V e^{j(\phi\_u - 4 \pi / 3)} = \bar{V}\_{ga} e^{-j 4 \pi / 3}
+\bar{V}\_{gc} &= V e^{j(\phi\_u - 4 \pi / 3)} = \bar{V}\_{ga} e^{-j 4 \pi / 3}
 \end{aligned}$$
 
 These voltages represent the **phase voltages**. If we now look at the **line to line voltages**: 
