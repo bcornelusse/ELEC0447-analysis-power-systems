@@ -71,7 +71,11 @@ Magnetic fields have a central role to model the behavior of equipment (lines, t
 
 As this course will not be focused on modeling devices, but rather a system of devices, magnetic effects will often be highly abstracted (an inductance, or a turns ratio).
 
-Let's just recall that a magnetic field is due to charges in movement or magnetized materials. It is measured in amps/meter (for $H$) or in Tesla (for $B$) when we capture the effect of the material (the $\mu\_0$ coefficient in the air). The magnetic flux ($\phi$ in weber) measures the magnetic field crossing a surface. A time varying magnetic flux induces a voltage (Lenz). This is the fundamental principle behind transformers.
+Let's just recall that 
+- a magnetic field is due to charges in movement or magnetized materials
+- it is measured in amps/meter (for $H$) or in Tesla (for $B$) when we capture the effect of the material (the $\mu\_0$ coefficient in the air)
+- the magnetic flux ($\phi$ in weber) measures the magnetic field crossing a surface
+- a time varying magnetic flux induces a voltage (Lenz), this is the fundamental principle behind transformers.
 
 ---
 
