@@ -23,8 +23,6 @@ Bertrand Cornélusse<br>
 
 You will be able to do exercises 2.1, 2.2, 2.4, 2.5, 2.9, 2.11, 2.12, 2.14, 2.16, 2.17, 2.18, 2.19 and 2.20 from the Ned Mohan's book.
 
-
-
 ---
 
 class: middle
@@ -38,7 +36,7 @@ class: middle
  - Power measures the rate of use of energy
  - It is expressed in Watt [W]: 1 W = 1 Joule/second
  - In an electric system, $$p(t) = u(t) \times i(t)$$
-  - $u(t)$ is the voltage measured in volt [V], the line intergral of the electric field between two points.
+  - $u(t)$ is the voltage measured in volt [V], the line integral of the electric field between two points.
   - $i(t)$ is the current measured in amps [A]
   - $t$ is the time 
  - To measure energy in power systems, we use units ranging from a kWh (a microgrid) to a TWh (a country)
@@ -51,7 +49,6 @@ class: middle, center, black-slide
 <iframe width="600" height="450" src="https://www.youtube.com/embed/S4O5voOCqAQ" frameborder="0" allowfullscreen></iframe>
 
 The cyclist vs the toaster.
-
 
 ---
 
@@ -74,7 +71,11 @@ Magnetic fields have a central role to model the behavior of equipment (lines, t
 
 As this course will not be focused on modeling devices, but rather a system of devices, magnetic effects will often be highly abstracted (an inductance, or a turns ratio).
 
-Let's just recall that a magnetic field is due to charges in movement or magnetized materials. It is measured in amps/meter (for $H$) or in Tesla (for $B$) when we capture the effect of the material (the $\mu\_0$ coefficient in the air). The magnetic flux ($\phi$ in weber) measures the magnetic field crossing a surface. A time varying magnetic flux induces a voltage (Lenz). This is the fundamental principle behind transformers.
+Let's just recall that 
+- a magnetic field is due to charges in movement or magnetized materials
+- it is measured in amps/meter (for $H$) or in Tesla (for $B$) when we capture the effect of the material (the $\mu\_0$ coefficient in the air)
+- the magnetic flux ($\phi$ in weber) measures the magnetic field crossing a surface
+- a time varying magnetic flux induces a voltage (Lenz), this is the fundamental principle behind transformers.
 
 ---
 
@@ -89,7 +90,7 @@ class: middle
 Unless otherwise specified, we will always work with sinusoidal signals and in steady state:
 $$y(t)= \sqrt{2} Y \cos(\omega t + \phi\_y).$$
 
-$Y$ is the rms value of the signal, $\phi\_y$ its phase and $\omega$ its angular frequency.
+$Y$ is the *rms* value of the signal, $\phi\_y$ its phase and $\omega$ its angular frequency.
 
 At a specific frequency $f = \frac{\omega}{2\pi}$, the signal can be represented as a phasor
 $$\bar{Y} = Y \angle \phi_y = Y e^{j \phi_y}$$
@@ -104,7 +105,6 @@ class: middle, center
 
 .center[![](figures/Unfasor.gif)]
 https://en.wikipedia.org/wiki/Phasor
-
 
 ---
 
@@ -123,7 +123,6 @@ such that $\bar{U} = Z \bar{I}$ with
  - for a resistor, $Z = R$
  - for a self, $Z = jX = j\omega L$
  - for a capacitor, $Z = jX = -j\frac{1}{\omega C}$
-
 
 ---
 
@@ -160,6 +159,13 @@ $$Z = \frac{\bar{U}}{\bar{I}} = \frac{{U}}{{I}} \angle (\phi\_u - \phi_i)$$
 ## Phasor diagrams
 
 Plot the phasors in the complex plane!
+
+.center.width-50[![](figures/phasor_diagram.png)]
+
+Inductive or capacitive? Which is which?
+.grid[
+.kol-1-2[.center.width-40[![](figures/phasor_diagram_L.png)]]
+.kol-1-2[.center.width-50[![](figures/phasor_diagram_C.png)]]]
 
 ---
 
@@ -206,10 +212,11 @@ A 120V voltage source at 60 Hz that feeds a R-L load $1858.4 + j 1031.4 \ VA $
 
 
 ---
+
 ## Power transfer between AC systems
 .grid[
 .kol-1-2[Consider the following simple system <br></br>
-We have $\bar{I} = \frac{\bar{V}\_r-\bar{V}\_s}{jX}$]
+We have $\bar{I} = \frac{\bar{V}\_s-\bar{V}\_r}{jX}$]
 .kol-1-2[
 .center.width-100[![](figures/power-transfer_AC.svg)]]]
 
@@ -219,10 +226,10 @@ S\_r &= \bar{V}\_r\bar{I}^*  = V\_r \left(\frac{V\_s \angle -\delta - V\_r}{-jX}
      &= \frac{V\_s V\_r \sin \delta }{X} +j \frac{V\_s V\_r \cos \delta - V^2\_r}{X} 
 \end{aligned}$$
 
-Let's remember two things: 
+**Let's remember two things:**
 
- - The active power is highly sensitive to $\delta$ 
- - The reactive power acts on the voltage magnitude (look at what happens for $\delta=0$)
+ - The **active** power is highly sensitive to **$\delta$**
+ - The **reactive** power acts on the **voltage magnitude** (look at what happens for $\delta=0$)
 
 ---
 
@@ -248,7 +255,7 @@ By design the voltage sources are shifted by 120°:
 $$\begin{aligned}
 \bar{V}\_{ga} &= V e^{j\phi\_u} \\\\
 \bar{V}\_{gb} &= V e^{j(\phi\_u - 2 \pi / 3)} = \bar{V}\_{ga} e^{-j 2 \pi / 3} \\\\
-\bar{V}\_{gb} &= V e^{j(\phi\_u - 4 \pi / 3)} = \bar{V}\_{ga} e^{-j 4 \pi / 3}
+\bar{V}\_{gc} &= V e^{j(\phi\_u - 4 \pi / 3)} = \bar{V}\_{ga} e^{-j 4 \pi / 3}
 \end{aligned}$$
 
 These voltages represent the **phase voltages**. If we now look at the **line to line voltages**: 
@@ -394,7 +401,7 @@ Let the base power $S\_B$ be the three-phase power, and $U\_b=\sqrt{3}V\_B$ be t
 
 The (single-phase) base current is $$I\_B = \frac{S\_B}{3V\_B} = \frac{S\_B}{\sqrt{3}U\_B}$$
 
-The base impedance is $$Z\_B = \frac{V\_B}{I\_B} = \frac{3V^2\_B}{S\_B} = \frac{U\_B}{S\_B}$$
+The base impedance is $$Z\_B = \frac{V\_B}{I\_B} = \frac{3V^2\_B}{S\_B} = \frac{U\_B^2}{S\_B}$$
 
 In a single phase equivalent representation, the power values in per unit can be multiplied by $S\_b$ to get the total three-phase power.
 

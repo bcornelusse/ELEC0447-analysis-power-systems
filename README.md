@@ -4,6 +4,10 @@
 
 This is an introductory course on power systems analysis given at Master's level at ULiège.
 
+In 2020-2021, the course is scheduled on Mondays from 8:30AM to 12:30AM in room **1.94**, building B28.
+
+We will use eCampus for notifications, homeworks submissions, questions, etc. 
+
 Prerequisites: 
  - Notions of electrical circuits analysis (https://github.com/bcornelusse/livre_circuits_electriques_ELEC0053/)
  - Notions of (complex) calculus
@@ -17,8 +21,8 @@ Instructors:
 
 | Date | Topic |
 | --- | --- |
-| September 14 | Lecture 1: [Introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1.md) |
-| September 21 | Lecture 2: [3-phase systems](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2.md) |
+| September 14 | Lecture 1: [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture1.pdf))|
+| September 21 | Lecture 2: [3-phase systems](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture2.pdf)) <br> Practice session: [Python installation instructions](pdf/python_install.pdf), [list of exercises](pdf/ELEC0447_TP1-2.pdf)|
 | September 28 | Lecture 3: [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3.md) <br> Homework: write a power flow in python (apply to the case of the slides). |
 | October 5 | Lecture 4: [The transformer and its inclusion in the power flow analysis.](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) <br> Homework: add a transformer to the power flow problem. |
 | October 12 | Lecture 5: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) <br> Homework: add a HVDC line to the power flow analysis. |
