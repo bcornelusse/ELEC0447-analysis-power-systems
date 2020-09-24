@@ -102,15 +102,20 @@ $$\bar{V}(x) = \bar{V}\_R \cos(\beta x) + j Z_c \bar{I}\_R sin(\beta x)$$
 
 ## Surge impedance loading
 
-If the line is assumed lossless and we close it with $Z_c$, assuming $\bar{V}\_R = V_R \angle 0$:
+If the line is assumed lossless and *we close it with $Z_c$*, assuming $\bar{V}\_R = V_R \angle 0$:
 .center[.width-100[![](figures/SIL.png)]]
-then the voltage magnitude is constant over the line: $\bar{V}(x) = V_R e^{j\beta x}$, and only the angle increases with $x$.
+then the voltage *magnitude is constant* over the line: $\bar{V}(x) = V_R e^{j\beta x}$, and only the *angle increases with $x$*.
 Similar conclusion for $\bar{I}(x)$.
 
 Why? The reactive power consumed by the line is the same as the reactive power produced, everywhere.
 
+---
+
+$Z\_c$ depends on the line charactericstics/geometry, hence is function of the voltage level mainly (distances between conductors, etc.)
+
 The surge impedance loading is the power drawn by the load $Z\_c$, which depends on the voltage level $V\_{LL}$
-$$SIL = \frac{V_{LL}}{Z_c}$$
+$$SIL = \frac{V^2\_{LL}}{Z\_c}$$
+
 Example: for $500 kV$, $SIL \approx 1020 MW$
 
 
@@ -133,9 +138,12 @@ The SIL gives and idea of the loadability of a line depending on its length:
 
 ## Lumped transmission line model in steady state aka *the $\pi$ model*
 
-If $l$ is relatively small ($< 300 kM$), we can approximate the line with lumped parameters: 
+If $l$ is relatively small ($< 300 km$), we can approximate the line with lumped parameters: 
 .center[.width-60[![](figures/pi_1.png)]]
-with $Z\_{series} = R l +  j \omega L l$ and $\frac{Y\_{shunt}}{2} = j \frac{\omega C l}{2}$,
+with, by manipulation of the previous equations and assuming $\beta l$ small, 
+- $Z\_{series} = R l +  j \omega L l$ 
+- $\frac{Y\_{shunt}}{2} = j \frac{\omega C l}{2}$
+
 (remember that $R$, $L$ and $C$ are per km values).
 
 This $\pi$ model is symmetrical by design.
@@ -157,21 +165,16 @@ class: middle
 
 ## What is a power flow analysis?
 
-Power flow (or load flow) analysis is about determining the electrical state of a system, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
+Power flow (or load flow) analysis is about determining the *electrical state of a system*, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
 
 This type of analysis is commonly used by power companies for planning and operation purposes. 
 
-If voltage magnitude and angles were measured at all buses, then it would boil down to solving a set of simple linear equations. 
-In a similar way, mesh or nodal analysis could be used if we had a full model of the system, even without all voltage measurements. 
-But here the situation is different, because we mainly have access to *power* measurements. The system is no more linear.
-
----
-
-## SCADA systems: a note about measurement and communication 
-
-SCADA means "supervisory control and data aquisition". This video defines a number of terms that are commonly used.
-
-.center[<iframe width="600" height="450" src="https://www.youtube.com/embed/nlFM1q9QPJw" frameborder="0"  allowfullscreen></iframe>]
+- If voltage magnitude and angles were measured at all buses, 
+ - then it would boil down to solving a set of simple linear equations. 
+- In a similar way, mesh or nodal analysis could be used if we had a full model of the system, 
+ - even without all voltage measurements. 
+- But here the situation is different, because we mainly have access to *power* measurements.
+ - The system is no more linear.
 
 ---
 
@@ -385,6 +388,14 @@ In matrix form, with $\mathbf{Y}$ the admittance matrix defined before:
 $$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
 
 This is usefull for fast simulations, or when including a power flow model in an optimization problem, e.g. [day-ahead market coupling](https://bcornelusse.github.io/material/CoursEM20170331.pdf).
+
+---
+
+## SCADA systems: a note about measurement and communication 
+
+SCADA means "supervisory control and data aquisition". This video defines a number of terms that are commonly used.
+
+.center[<iframe width="600" height="450" src="https://www.youtube.com/embed/nlFM1q9QPJw" frameborder="0"  allowfullscreen></iframe>]
 
 ---
 
