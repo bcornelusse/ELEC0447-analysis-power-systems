@@ -51,7 +51,7 @@ class: middle, center
 
 ## A part of ELIA's network
 
-.center[.width-100[![](figures/carte_ELIA_2019_Liege.PNG)]]
+.center[.width-100[![](figures/carte_ELIA_2019_Liege.png)]]
 
 Source: https://www.elia.be/fr/infrastructure-et-projets/nos-infrastructures
 
