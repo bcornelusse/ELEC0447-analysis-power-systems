@@ -19,7 +19,7 @@ Bertrand Cornélusse<br>
 - An introduction to power flow analysis
 
 
-You will be able to do exercises ... from the Ned Mohan's book.
+You will be able to do exercises 4.3, 4.4, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, Lab4 (power-flow in python), 5.1, 5.2, 5.5, 5.6 from the Ned Mohan's book.
 
 
 
@@ -96,7 +96,7 @@ Whith
  - $Z_c = \sqrt{\frac{L}{C}} $ the *surge impedance*
 
 Boundary conditions at $x=0$ allow to determine constants $\bar{V}\_1$ and $\bar{V}\_2$, and finally 
-$$\bar{V}(x) = \bar{V}\_R \cos(\beta x) + j Z_c \bar{I}\_R sin(\beta x)$$
+$$\bar{V}(x) = \bar{V}\_R \cos(\beta x) + j Z_c \bar{I}\_R \sin(\beta x)$$
 
 ---
 
@@ -108,6 +108,15 @@ then the voltage *magnitude is constant* over the line: $\bar{V}(x) = V_R e^{j\b
 Similar conclusion for $\bar{I}(x)$.
 
 Why? The reactive power consumed by the line is the same as the reactive power produced, everywhere.
+
+---
+
+## Illustration in Python
+
+See Python notebook.
+
+.center[.width-90[![](figures/line_model_voltage.png)]]
+.center[SIL, 230 kV line params]
 
 ---
 
@@ -138,7 +147,7 @@ The SIL gives and idea of the loadability of a line depending on its length:
 
 ## Lumped transmission line model in steady state aka *the $\pi$ model*
 
-If $l$ is relatively small ($< 300 km$), we can approximate the line with lumped parameters: 
+If $l$ is relatively small ($< 300 km$), we can *approximate* the line with lumped parameters: 
 .center[.width-60[![](figures/pi_1.png)]]
 with, by manipulation of the previous equations and assuming $\beta l$ small, 
 - $Z\_{series} = R l +  j \omega L l$ 
@@ -148,6 +157,14 @@ with, by manipulation of the previous equations and assuming $\beta l$ small,
 
 This $\pi$ model is symmetrical by design.
 
+---
+
+## Illustration in Python
+
+See Python notebook.
+
+.center[.width-80[![](figures/pi_model_voltage.png)]]
+.center[Loading at $Z\_c/2$, 230 kV line params. Dots correspond to the $\pi$-model, continuous line to the distributed parameter representation.]
 
 ---
 
