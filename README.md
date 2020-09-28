@@ -22,7 +22,7 @@ Instructors:
 | Date | Topic |
 | --- | --- |
 | September 14 | Lecture 1: [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture1.pdf))|
-| September 21 | Lecture 2: [3-phase systems](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture2.pdf)) <br> Practice session: [Python installation instructions](pdf/python_install.pdf), [list of exercises](pdf/ELEC0447_TP1-2.pdf)|
+| September 21 | Lecture 2: [3-phase systems](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture2.pdf)) <br> Practice session: [Python installation instructions](pdf/python_install.pdf), [list of exercises for lectures 2 and 3](pdf/ELEC0447_TP1-2.pdf)|
 | September 28 | Lecture 3: [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture3.pdf))<br> Homework: write a power flow in python (apply to the case of the slides). |
 | October 5 | Lecture 4: [The transformer and its inclusion in the power flow analysis.](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) <br> Homework: add a transformer to the power flow problem. |
 | October 12 | Lecture 5: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) <br> Homework: add a HVDC line to the power flow analysis. |
