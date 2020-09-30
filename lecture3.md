@@ -262,15 +262,15 @@ Results for the lines:
  - Some buses are interconnected by transmission lines, given by their $\pi$ models
  - Let $Y\_{kG}$ be the sum of admittances connected between node $k$ and the ground: 
   - the shunt admittances of the lines incident to $k$, and the admittances of the devices connected at node $k$ if any.
- - For two nodes $k$ and $m$, let $Z\_{km}$ be the series impedance of the line connecting them ($Z\_{km} = 0 \Omega$ if there is no line), and $Y\_{km} = Z\_{km}^{-1}$
+ - For two nodes $k$ and $m$, let $Z\_{km}$ be the series impedance of the line connecting them and $Y\_{km} = Z\_{km}^{-1}$ ($Y\_{km} = 0$ if there is no line)
 
 The current injection at node $k$ is 
- $$\bar{I}\_k = Y\_{kG} \bar{V}\_k + \sum\_{m \in \mathcal{N} \setminus k} {\frac{\bar{V}\_k - \bar{V}\_m } {Z_{km}}} $$
+ $$\bar{I}\_k = Y\_{kG} \bar{V}\_k + \sum\_{m \in \mathcal{N} \setminus k} {(\bar{V}\_k - \bar{V}\_m) Y_{km}} $$
 
 ---
 
 This last equation can be rewritten as 
-$$\bar{I}\_k =  \bar{V}\_k \left(Y\_{kG}+ \sum\_{m \in \mathcal{N} \setminus k} Z\_{km}^{-1} \right) - \sum\_{m \in \mathcal{N} \setminus k} {\frac{\bar{V}\_m } {Z_{km}}} $$
+$$\bar{I}\_k =  \left(Y\_{kG}+ \sum\_{m \in \mathcal{N} \setminus k} Y\_{km} \right) \bar{V}\_k  - \sum\_{m \in \mathcal{N} \setminus k} Y_{km} \bar{V}\_m $$
 
 which highlights the possibility to write in matrix form 
 
