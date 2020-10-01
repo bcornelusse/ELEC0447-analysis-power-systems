@@ -286,13 +286,13 @@ The *admittance matrix* $\mathbf{Y}$ can be determined by inspection:
 
 ---
 
-But remember that we have power and voltage measurements. So we can derive 
+But remember that we have power measurements only (and voltage magnitudes at a few buses). So we can derive 
 
 $$\begin{aligned} 
 \mathbf{P} +j \mathbf{Q} &= \mathbf{\bar{V}} \circ \mathbf{\bar{I}}^{\star} \\\\ 
 &= \mathbf{\bar{V}} \circ \mathbf{Y}^{\star} \mathbf{\bar{V}}^{\star}
 \end{aligned}$$
-where $P$ and $Q$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product. 
+where $\mathbf{P}$ and $\mathbf{Q}$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product. 
 
 If we develop this relation for a node $k$, we have:
 $$\begin{aligned}
