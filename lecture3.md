@@ -19,7 +19,7 @@ Bertrand Cornélusse<br>
 - An introduction to power flow analysis
 
 
-You will be able to do exercises ... from the Ned Mohan's book.
+You will be able to do exercises 4.3, 4.4, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, Lab4 (power-flow in python), 5.1, 5.2, 5.5, 5.6 from the Ned Mohan's book.
 
 
 
@@ -96,21 +96,35 @@ Whith
  - $Z_c = \sqrt{\frac{L}{C}} $ the *surge impedance*
 
 Boundary conditions at $x=0$ allow to determine constants $\bar{V}\_1$ and $\bar{V}\_2$, and finally 
-$$\bar{V}(x) = \bar{V}\_R \cos(\beta x) + j Z_c \bar{I}\_R sin(\beta x)$$
+$$\bar{V}(x) = \bar{V}\_R \cos(\beta x) + j Z_c \bar{I}\_R \sin(\beta x)$$
 
 ---
 
 ## Surge impedance loading
 
-If the line is assumed lossless and we close it with $Z_c$, assuming $\bar{V}\_R = V_R \angle 0$:
+If the line is assumed lossless and *we close it with $Z_c$*, assuming $\bar{V}\_R = V_R \angle 0$:
 .center[.width-100[![](figures/SIL.png)]]
-then the voltage magnitude is constant over the line: $\bar{V}(x) = V_R e^{j\beta x}$, and only the angle increases with $x$.
+then the voltage *magnitude is constant* over the line: $\bar{V}(x) = V_R e^{j\beta x}$, and only the *angle increases with $x$*.
 Similar conclusion for $\bar{I}(x)$.
 
 Why? The reactive power consumed by the line is the same as the reactive power produced, everywhere.
 
+---
+
+## Illustration in Python
+
+See Python notebook.
+
+.center[.width-90[![](figures/line_model_voltage.png)]]
+.center[SIL, 230 kV line params]
+
+---
+
+$Z\_c$ depends on the line charactericstics/geometry, hence is function of the voltage level mainly (distances between conductors, etc.)
+
 The surge impedance loading is the power drawn by the load $Z\_c$, which depends on the voltage level $V\_{LL}$
-$$SIL = \frac{V_{LL}}{Z_c}$$
+$$SIL = \frac{V^2\_{LL}}{Z\_c}$$
+
 Example: for $500 kV$, $SIL \approx 1020 MW$
 
 
@@ -133,13 +147,24 @@ The SIL gives and idea of the loadability of a line depending on its length:
 
 ## Lumped transmission line model in steady state aka *the $\pi$ model*
 
-If $l$ is relatively small ($< 300 kM$), we can approximate the line with lumped parameters: 
+If $l$ is relatively small ($< 300 km$), we can *approximate* the line with lumped parameters: 
 .center[.width-60[![](figures/pi_1.png)]]
-with $Z\_{series} = R l +  j \omega L l$ and $\frac{Y\_{shunt}}{2} = j \frac{\omega C l}{2}$,
+with, by manipulation of the previous equations and assuming $\beta l$ small, 
+- $Z\_{series} = R l +  j \omega L l$ 
+- $\frac{Y\_{shunt}}{2} = j \frac{\omega C l}{2}$
+
 (remember that $R$, $L$ and $C$ are per km values).
 
 This $\pi$ model is symmetrical by design.
 
+---
+
+## Illustration in Python
+
+See Python notebook.
+
+.center[.width-80[![](figures/pi_model_voltage.png)]]
+.center[Loading at $Z\_c/2$, 230 kV line params. Dots correspond to the $\pi$-model, continuous line to the distributed parameter representation.]
 
 ---
 
@@ -157,21 +182,16 @@ class: middle
 
 ## What is a power flow analysis?
 
-Power flow (or load flow) analysis is about determining the electrical state of a system, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
+Power flow (or load flow) analysis is about determining the *electrical state of a system*, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
 
 This type of analysis is commonly used by power companies for planning and operation purposes. 
 
-If voltage magnitude and angles were measured at all buses, then it would boil down to solving a set of simple linear equations. 
-In a similar way, mesh or nodal analysis could be used if we had a full model of the system, even without all voltage measurements. 
-But here the situation is different, because we mainly have access to *power* measurements. The system is no more linear.
-
----
-
-## SCADA systems: a note about measurement and communication 
-
-SCADA means "supervisory control and data aquisition". This video defines a number of terms that are commonly used.
-
-.center[<iframe width="600" height="450" src="https://www.youtube.com/embed/nlFM1q9QPJw" frameborder="0"  allowfullscreen></iframe>]
+- If voltage magnitude and angles were measured at all buses, 
+ - then it would boil down to solving a set of simple linear equations. 
+- In a similar way, mesh or nodal analysis could be used if we had a full model of the system, 
+ - even without all voltage measurements. 
+- But here the situation is different, because we mainly have access to *power* measurements.
+ - The system is no more linear.
 
 ---
 
@@ -242,15 +262,15 @@ Results for the lines:
  - Some buses are interconnected by transmission lines, given by their $\pi$ models
  - Let $Y\_{kG}$ be the sum of admittances connected between node $k$ and the ground: 
   - the shunt admittances of the lines incident to $k$, and the admittances of the devices connected at node $k$ if any.
- - For two nodes $k$ and $m$, let $Z\_{km}$ be the series impedance of the line connecting them ($Z\_{km} = 0 \Omega$ if there is no line), and $Y\_{km} = Z\_{km}^{-1}$
+ - For two nodes $k$ and $m$, let $Z\_{km}$ be the series impedance of the line connecting them and $Y\_{km} = Z\_{km}^{-1}$ ($Y\_{km} = 0$ if there is no line)
 
 The current injection at node $k$ is 
- $$\bar{I}\_k = Y\_{kG} \bar{V}\_k + \sum\_{m \in \mathcal{N} \setminus k} {\frac{\bar{V}\_k - \bar{V}\_m } {Z_{km}}} $$
+ $$\bar{I}\_k = Y\_{kG} \bar{V}\_k + \sum\_{m \in \mathcal{N} \setminus k} {(\bar{V}\_k - \bar{V}\_m) Y_{km}} $$
 
 ---
 
 This last equation can be rewritten as 
-$$\bar{I}\_k =  \bar{V}\_k \left(Y\_{kG}+ \sum\_{m \in \mathcal{N} \setminus k} Z\_{km}^{-1} \right) - \sum\_{m \in \mathcal{N} \setminus k} {\frac{\bar{V}\_m } {Z_{km}}} $$
+$$\bar{I}\_k =  \left(Y\_{kG}+ \sum\_{m \in \mathcal{N} \setminus k} Y\_{km} \right) \bar{V}\_k  - \sum\_{m \in \mathcal{N} \setminus k} Y_{km} \bar{V}\_m $$
 
 which highlights the possibility to write in matrix form 
 
@@ -266,13 +286,13 @@ The *admittance matrix* $\mathbf{Y}$ can be determined by inspection:
 
 ---
 
-But remember that we have power and voltage measurements. So we can derive 
+But remember that we have power measurements only (and voltage magnitudes at a few buses). So we can derive 
 
 $$\begin{aligned} 
 \mathbf{P} +j \mathbf{Q} &= \mathbf{\bar{V}} \circ \mathbf{\bar{I}}^{\star} \\\\ 
 &= \mathbf{\bar{V}} \circ \mathbf{Y}^{\star} \mathbf{\bar{V}}^{\star}
 \end{aligned}$$
-where $P$ and $Q$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product. 
+where $\mathbf{P}$ and $\mathbf{Q}$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product. 
 
 If we develop this relation for a node $k$, we have:
 $$\begin{aligned}
@@ -385,6 +405,14 @@ In matrix form, with $\mathbf{Y}$ the admittance matrix defined before:
 $$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
 
 This is usefull for fast simulations, or when including a power flow model in an optimization problem, e.g. [day-ahead market coupling](https://bcornelusse.github.io/material/CoursEM20170331.pdf).
+
+---
+
+## SCADA systems: a note about measurement and communication 
+
+SCADA means "supervisory control and data aquisition". This video defines a number of terms that are commonly used.
+
+.center[<iframe width="600" height="450" src="https://www.youtube.com/embed/nlFM1q9QPJw" frameborder="0"  allowfullscreen></iframe>]
 
 ---
 
