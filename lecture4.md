@@ -21,7 +21,7 @@ Bertrand Cornélusse<br>
 - The power transformer
 - The next part of power flow analysis: how to include transformers, and transformers with tap changers
 
-You will be able to do exercises **TODO** from the Ned Mohan's book.
+You will be able to do exercises 6.2, 6.3, 6.4 from the Ned Mohan's book.
 
 ---
 
@@ -42,15 +42,12 @@ $$i\_2  = -\frac{1}{n}i\_1$$
 ]]
 
 
-In power systems, transformers are mainly used to transmit power over long distances by changing the voltage level, thus decreasing the current for a given power level.
+In power systems, transformers are mainly used to transmit power over long distances by changing the voltage level, thus decreasing the current for a given power level. Voltage level of synchronous generator around 20kV.
 
 Voltage is changed around 5 times between generation and load.
 
-It is also used to 
- 
-- measure currents and voltages
-- electrically isolate parts of a circuit (not the auto-transformer we will see)
-- match impedances
+It is also used to *measure* currents and voltages, electrically *isolate* parts of a circuit (not the auto-transformer we will see), *match* impedances.
+
 
 ---
 
@@ -87,13 +84,18 @@ with $$Z\_p = R\_1 + jX\_{leakage, 1}$$ and $$Z\_s = R\_2 + jX\_{leakage, 2}$$]]
 
 ## Per unit representation
 
-Let's consider the rated voltages and currents on both sides of the (ideal) transformer as base values. As $$V\_{s, base} = n V\_{p, base} $$ and $$ I\_{p, base} = n V\_{s, base},$$
+Let's consider the rated voltages and currents on both sides of the (ideal) transformer as base values. As $$V\_{s, base} = n V\_{p, base} $$ and $$ I\_{p, base} = n I\_{s, base},$$
 the *MVA base is the same on both sides*, and thus
 $$Z\_{s, base} = n^2 Z\_{p, base}$$
 
-Hence, *in per unit, the transformer can be replaced by a single impedance* equal to 
+.grid[
+.kol-1-2[
+Hence, *in per unit, the transformer can be replaced by a single impedance*  
 $$Z\_{tr} = \frac{Z\_{p}}{Z\_{p, base}}+\frac{Z\_{s}}{Z\_{s, base}}.$$
-
+]
+.kol-1-2[
+.center.width-100[![](figures/tfo-pu.png)]
+]]
 ---
 
 Thus we have also that $$\begin{aligned}Z\_{tr} &= \frac{Z\_{p}+ Z\_s/n^2}{Z\_{p, base}} \\\\ &= \frac{n^2 Z\_{p} + Z\_s}{Z\_{s, base}}\end{aligned}$$
@@ -191,12 +193,13 @@ The star part has $n$ times the number of turns of the delta part (primary side)
 
 Let's reason on phase $a$,
 - Voltage $\bar{V}\_{a,s}$ is on the same core as $\bar{V}\_{AC,p} = \sqrt{3}\bar{V}\_{a,p} \angle{-30^\circ}$ where $\bar{V}\_{a,p}$ is the (virtual) phase-neutral voltage on the primary side.
-- Hence 
-$$\bar{V}\_{a,s} = n\sqrt{3} \bar{V}\_{a,p} \angle{-30^\circ}$$
+- Since  $\bar{V}\_{a,s} = n \bar{V}\_{AC,p}$, $\bar{V}\_{a,s} = n\sqrt{3} \bar{V}\_{a,p} \angle{-30^\circ}$
 
-We gain a $\sqrt{3}$ in the amplification, but a lagging phase shift of 30°.
+.center.width-50[![](figures/tfo-delta-star.png)]
 
-The same reasoning olds for phases $b$ and $c$.
+We *gain a $\sqrt{3}$ factor* in the amplification, but a *lagging phase shift of 30°*.
+
+The same reasoning holds for phases $b$ and $c$.
 
 
 ---
@@ -235,7 +238,7 @@ For the details of how it is implemented or modeled, see
 2. line Meerhout (B) - Maasbracht (NL)
 3. line Gramme (B) - Maasbracht (NL)
  - nominal power 3VN Imax = 1400 MVA
- - phase shift adjustment: 35 positions, +17/-17 × 1.5o (at no load)
+ - phase shift adjustment: 35 positions, +17/-17 × 1.5° (at no load)
 
 .footnote[From ELEC0014.]
 
@@ -248,7 +251,7 @@ For the details of how it is implemented or modeled, see
 220/150 kV : 
  - in series with the Chooz (F) - Monceau (B) line nominal power: 400 MVA
  - in-phase adjustment : 21 positions, +10/-10 × 1.5 % 
- - quadrature adjustment: 21 positions, +10/-10 × 1.2o
+ - quadrature adjustment: 21 positions, +10/-10 × 1.2°
 
 .footnote[From ELEC0014.]
 
@@ -309,10 +312,9 @@ In the [power flow analysis](?p=lecture3.md#23), you must **pay attention to thi
 
 ---
 
-## TODO add an example with pandapower 
+## Pandapower example
 
-- explain how they are controlled
-- show the impact
+See python notebook / video recording.
 
 ---
 
