@@ -99,7 +99,7 @@ $$Z\_{tr} = \frac{Z\_{p}}{Z\_{p, base}}+\frac{Z\_{s}}{Z\_{s, base}}.$$
 ---
 
 Thus we have also that $$\begin{aligned}Z\_{tr} &= \frac{Z\_{p}+ Z\_s/n^2}{Z\_{p, base}} \\\\ &= \frac{n^2 Z\_{p} + Z\_s}{Z\_{s, base}}\end{aligned}$$
-i.e. the impedance if the same whether we see it from the primary or the secondary side, although the voltage bases differ.
+i.e. *the impedance if the same whether we see it from the primary or the secondary side, although the voltage bases differ*.
 
 Also, if the three-phase transformer is *wye-delta* connected, a *30° phase shift* must be applied (more on this later).
 
@@ -129,7 +129,8 @@ with
 
 ### In the (345 kV, 100 MVA) base:
 
-- the pu value of the impedance is the same in the (*500* kV, 1000 MVA) and (**345** kV, 1000 MVA) bases
+- the pu value of the impedance is the same in the (*500* kV, 1000 MVA) and (**345** kV, 1000 MVA) bases, 
+ - since we can transfer the impedance from one side of each transformer to the other, cf. a previous remark
 
 - if we now change the MVA base to 100 MVA, 
  $$Z\_{12} = 0.0232 + j 0.6608  \times (100/1000) pu =  0.00232 + j 0.06608 pu$$ since the base impedance is proportional to the inverse of the MVA base.
