@@ -53,7 +53,60 @@ Magnetic field created by the stator
 
 ## Magnetic field created by the stator
 
-several slides from transp-g-1.pdf
+-   stator (or *armature*) = motionless, separated from the rotor by a
+    small air gap
+
+-   subjected to varying magnetic flux ⇒ built up of thin laminations to
+    decrease *eddy (or Foucault)* currents
+
+-   equipped with three windings, distributed 120 degrees apart in
+    space.
+
+ 
+Magnetic field created by a direct current flowing in one of the stator
+windings:
+
+.center.width-50[![](figures/stator_field.jpg)]
+
+---
+
+The magnetic field lines cross the air gap radially.
+
+
+
+The amplitude $B(\varphi)$ of the magnetic flux density at point P :
+
+-   is a periodic function of $\varphi$ with period $2\pi$
+
+-   this function has a “staircase” shape
+
+-   is made as close as possible to a sinusoid, by properly distributing
+    the conductors along the air gap.
+
+ 
+
+Layout of the three phases (each winding represented by a single turn for clarity):
+
+.center.width-30[![](figures/layout_phases.jpg)]
+
+
+---
+
+Total flux density created by the three phases at point P corresponding to angle $\varphi$:
+
+$$B\_{3 \\phi}(\\varphi) = k i\_a \\cos \\varphi + k i\_b \\cos(\\varphi - \\frac{2
+\\pi}{3}) + k i\_c \\cos(\\varphi - \\frac{4 \\pi}{3})$$
+
+If three-phase alternating currents are flowing in the windings:
+
+$$B\_{3 \\phi}(\\varphi) = \frac{3 \sqrt{2} k I}{2}  \cos(\omega t + \psi - \varphi)$$
+
+The three-phase alternating currents all together produce the same
+magnetic field as a magnet (or a coil carrying a direct current)
+rotating at the angular speed $\omega$
+
+ - North pole of magnet ≡ maximum of $B(\varphi)$
+ - South pole of magnet ≡ minimum of $B(\varphi)$
 
 
 ---
@@ -68,13 +121,138 @@ Magnetic field created by the rotor
 
 ## Magnetic field created by the rotor
 
-several slides from transp-g-1.pdf
+-   rotor = rotating part, separated from the rotor by the air gap
+
+-   carries a winding in which a direct current flows, in steady-state
+    operation
+
+-   referred to as *field* winding (in French: enroulement d'excitation)
+
+ 
+
+Magnetic field created by this direct current (field winding represented by a single turn for clarity)
+:
+
+.center.width-50[![](figures/rotor_field.jpg)]
 
 ---
 
-## The two types of synchronous machines
+## Interaction between magnetic fields and electromechanical conversion
 
-several slides from transp-g-1.pdf
+-   In a synchronous machine, in steady state, the rotor rotates at the
+    same angular speed $\omega$ as the magnetic field produced by the stator
+-   thus, the stator and rotor magnetic fields are fixed with respect to
+    each other
+-   both fields tend to align in the manner of two magnets
+-   if one pulls apart those two magnets, an electromagnetic torque
+    appears.
+
+Mechanical analogy:
+
+.center.width-50[![](figures/interaction_fields.jpg)]
+
+.center[generator operation <-> motor operation]
+
+There exists a max value of the electromagnetic torque $T\_e$ $\; \rightarrow \;$ loss of synchronism
+
+---
+
+class: middle, center 
+
+# The two types of synchronous machines
+
+---
+
+## Machines with multiple pairs of poles
+
+Some turbines operate at a lower speed, but AC voltages and currents at the stator must keep the same period $T=\\frac{1}{f}$
+
+.grid[
+.kol-1-2[
+-   the rotor carries $p$ pairs of poles
+-   during a period $T$, the rotor makes only $\frac{1}{p}$ of a whole revolution
+-   the stator carries $p$ sets of (a, b, c) windings
+]
+.kol-1-2[
+.center.width-50[![](figures/several_poles.jpg)]
+.center[example: $p=2$ ]
+]]
+
+-   one winding spans an angle of $\frac{\pi}{p}$  radians
+-   during a period $T$, each stator winding is still swept by one North and one South pole of rotor.
+
+
+Speed: $\\displaystyle \\frac{3000}{p}$ rev/min at 50 Hz, the various windings relative to a given phase are connected (in series
+or parallel) to end up with a three-phase machine.
+
+---
+
+## Round-rotor generators (or turbo-alternators)
+
+.center.width-80[![](figures/round_rotor.png)]
+
+Driven by steam or gas turbines, which rotate at high speed
+
+-   $p=1$ (conventional thermal units)   or   $p=2$ (nuclear units)
+
+-   cylindrical rotor made up of solid steel forging
+
+-   diameter  << length (centrifugal force !)
+
+-   field winding made up of conductors distributed on the rotor, in
+    milled slots
+
+-   even if the generator efficiency is around 99 %, the heat produced
+    by Joule losses has to be evacuated !  Large generators are cooled by hydrogen (heat evacuation 7 times
+    better than air) or water (12 times better) flowing in the hollow
+    stator conductors.
+---
+
+## Salient-pole generators
+
+.center.width-70[![](figures/salient_poles.png)]
+
+
+-   Driven by hydraulic turbines (or diesel engines), which rotate at
+    low speed
+
+-   $p$ is much higher (at least 4)  ⇒  it is more convenient to have
+    field windings concentrated and placed on the poles
+
+-   diameter  >>  length (to have space for the many poles)
+
+-   rotor is laminated (poles easier to construct)
+
+-   generators usually cooled by the flow of air around the rotor.
+
+---
+
+
+## Damper windings (or amortisseurs)
+
+-   round-rotor machines: copper/brass bars placed in the same slots at
+    the field winding, and interconnected to form a damper cage (similar
+    to the squirrel cage of an induction motor)
+
+-   salient-pole machines: copper/brass rods embedded in the poles and
+    connected at their ends to rings or segments.
+
+Why?
+
+-   in perfect steady state: the magnetic fields produced by both the
+    stator and the rotor are fixed relative to the rotor ⇒ no current
+    induced in dampers
+
+-   after a disturbance: the rotor moves with respect to stator magnetic
+    field  
+    ⇒ currents are induced in the dampers…  
+    ... which, according to Lenz’s law, create a *damping torque* helping
+    the rotor to align on the stator magnetic field.
+
+ 
+
+Remark: in round-rotor generators: the solid rotor offers a path for eddy currents,
+which produce an effect similar to those of dampers.
 
 ---
 
