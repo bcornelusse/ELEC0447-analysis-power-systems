@@ -279,10 +279,62 @@ $\delta$ is called the *internal angle* or *load angle* of the machine.
 Start from this, transp-g-2.pdf slide 11/23
 
 Then top down approach to show how to obtain  $X$, $R\_a$, $\delta$, ...
+Use explanations from Ned Mohans book
+
+---
+
+## Induced EMF due to the rotation of the field flux with the rotor
+
+---
+
+## Induced EMF due to the rotating magnetic field created by the stator currents
+
+Also known as *Armature reaction*.
+
+---
+
+## Combined induced EMF
+
+Figure 9.10
+
+---
+
+# Models for other types of analysis
+
+Synchronous, transient and subtransient reactances
+
+Quick summary of 9.7, basically explain that there are models depending on the type of analysis, conditions.
+
+
+---
+
+class: middle, center
+
+# Properties of the model
+
+---
+
+## Power output, stability, and loss of synchronism
+
+From ned Mohan section 9.4
+
+Also transp-g-2.pdf slide 19/23
+
+---
+
+## Adjusting reactive power 
+
+Intuitive explanations of sections 9.5, overexcitation, under excitation.
+
+From ned Mohan section 9.5
+
+A word about synchronous condesers
 
 ---
 
 ## Power balance
+
+*From VCT*
 
 Try to give intuition, 
 
@@ -311,29 +363,6 @@ Mechanical power + field current.
 Slide 20/23
 
 Explanation of limits.
-
---- 
-
-## Power output, stability, and loss of synchronism
-
-
-From ned Mohan section 9.4
-
-Also transp-g-2.pdf slide 19/23
-
---- 
-
-## Adjusting reactive power 
-
-Intuitive explanations of sections 9.5, overexcitation, under excitation.
-
-From ned Mohan section 9.5
-
-A word about synchronous condesers
-
---- 
-
-
 
 ---
 
