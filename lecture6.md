@@ -264,6 +264,18 @@ class: middle
 
 ## Per phase equivalent circuit
 
+.center.width-70[![](figures/generator_model.png)]
+ 
+The synchronous reactance $X$ characterizes the steady-state operation of the machine (see [Course notes of ELEC0014](https://people.montefiore.uliege.be/vct/courses.html) for 8 slides to determine $X$ from the geometry of the machine).
+
+$R\_a$ is the resistance of each phase
+
+$\delta$ is the phase shift between the internal e.m.f. $E\_q$ and the terminal voltage $\bar{V}$.
+
+$\delta$ is called the *internal angle* or *load angle* of the machine.
+
+---
+
 Start from this, transp-g-2.pdf slide 11/23
 
 Then top down approach to show how to obtain  $X$, $R\_a$, $\delta$, ...
@@ -336,9 +348,8 @@ class: middle
 ---
 
 # References
-
-- Mohan, Ned. Electric power systems: a first course. John Wiley & Sons, 2012.
 - [Course notes of ELEC0014](https://people.montefiore.uliege.be/vct/courses.html) by Pr. Thierry Van Cutsem.
+- Mohan, Ned. Electric power systems: a first course. John Wiley & Sons, 2012.
 - L. Thurner, A. Scheidler, F. Schäfer et al, pandapower - an Open Source Python Tool for Convenient Modeling, Analysis and Optimization of Electric Power Systems, in IEEE Transactions on Power Systems, vol. 33, no. 6, pp. 6510-6521, Nov. 2018.
 
 ---
