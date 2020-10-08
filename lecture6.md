@@ -172,18 +172,25 @@ Some turbines operate at a lower speed, but AC voltages and currents at the stat
 -   the rotor carries $p$ pairs of poles
 -   during a period $T$, the rotor makes only $\frac{1}{p}$ of a whole revolution
 -   the stator carries $p$ sets of (a, b, c) windings
+-   one winding spans an angle of $\frac{\pi}{p}$  radians
+-   during a period $T$, each stator winding is still swept by one North and one South pole of rotor.
 ]
 .kol-1-2[
-.center.width-50[![](figures/several_poles.jpg)]
+.center.width-60[![](figures/several_poles.jpg)]
 .center[example: $p=2$ ]
 ]]
 
--   one winding spans an angle of $\frac{\pi}{p}$  radians
--   during a period $T$, each stator winding is still swept by one North and one South pole of rotor.
 
+---
 
-Speed: $\\displaystyle \\frac{3000}{p}$ rev/min at 50 Hz, the various windings relative to a given phase are connected (in series
+## Machines with multiple pairs of poles (...)
+
+Speed: $\\displaystyle \\frac{3000}{p}$ rev/min at 50 Hz
+
+The various windings relative to a given phase are connected (in series
 or parallel) to end up with a three-phase machine.
+
+**Caution**: $p$ sometimes denotes the number of poles, sometimes the number of pairs of poles.
 
 ---
 
@@ -262,49 +269,47 @@ class: middle
 
 ---
 
-## Per phase equivalent circuit
+## Induced emf in the stator windings
 
-.center.width-70[![](figures/generator_model.png)]
- 
-The synchronous reactance $X$ characterizes the steady-state operation of the machine (see [Course notes of ELEC0014](https://people.montefiore.uliege.be/vct/courses.html) for 8 slides to determine $X$ from the geometry of the machine).
+There are two sources that induce an *emf* (electromotive force) in the stator windings. 
 
-$R\_a$ is the resistance of each phase
+ - the effect of the rotor's induced field ($\bar{E}\_{af}$)
+ - the effect of the current flowing in the stator itself, called the armature reaction ($- j X\_s \bar{I}\_a$).
 
-$\delta$ is the phase shift between the internal e.m.f. $E\_q$ and the terminal voltage $\bar{V}$.
+By superimposing them, we get the resulting emf.
 
-$\delta$ is called the *internal angle* or *load angle* of the machine.
-
----
-
-Start from this, transp-g-2.pdf slide 11/23
-
-Then top down approach to show how to obtain  $X$, $R\_a$, $\delta$, ...
-Use explanations from Ned Mohans book
+We assume there is no magnetic saturation.
 
 ---
 
-## Induced EMF due to the rotation of the field flux with the rotor
+## Per phase equivalent circuit (for phase $a$)
+
+.center.width-50[![](figures/generator_model.svg)]
+- $R\_s$ is the resistance of a phase
+- the *synchronous reactance* $X\_s$ characterizes the *steady-state operation* of the machine (magnetizing + leakage reactances)
+- $\delta$, the phase shift between the internal emf $\bar{E}\_{af}$ and the terminal voltage $\bar{V}\_a$,  is called the *internal angle* or *load angle* of the machine.
+
+.footnote[See [sourse notes of ELEC0431](https://people.montefiore.uliege.be/geuzaine/ELEC0431/3_Synchronous.pdf) for more details.]
+
+We thus have 
+$$\bar{V}\_a = \bar{E}\_{af} - R\_s \bar{I}\_a - j X\_s \bar{I}\_a$$
+
+---
+## Phasor diagram representation
+
+.center.width-70[![](figures/generator_diagram.svg)]
 
 ---
 
-## Induced EMF due to the rotating magnetic field created by the stator currents
+## Remark: models for other types of analysis
 
-Also known as *Armature reaction*.
+So far we are mostly interested in steady-state.
 
----
+But note that depending on the type of analysis carried out, the model used should be adapted: 
+- *Subtransient condition* (e.g. just after a short circuit fault): $X''\_s << X\_s$
+- *transient state* (after the subtransient condition, before steady state):  $X'\_s < X\_s$ but $X'\_s < X''\_s$
 
-## Combined induced EMF
-
-Figure 9.10
-
----
-
-# Models for other types of analysis
-
-Synchronous, transient and subtransient reactances
-
-Quick summary of 9.7, basically explain that there are models depending on the type of analysis, conditions.
-
+The field induced emf has to be adapted as well depending on the type of analysis.
 
 ---
 
@@ -323,6 +328,8 @@ Also transp-g-2.pdf slide 19/23
 ---
 
 ## Adjusting reactive power 
+
+By controlling the field current, it is possible to control the induced emf and the reactive power delivered.
 
 Intuitive explanations of sections 9.5, overexcitation, under excitation.
 
