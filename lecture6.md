@@ -301,6 +301,14 @@ $$\bar{V}\_a = \bar{E}\_{af} - R\_s \bar{I}\_a - j X\_s \bar{I}\_a$$
 
 ---
 
+## Machine parameters in per unit on the machine base
+
+$R\_s \approx 0.005$ pu
+
+$X\_s \in [1.5, 2.5]$ pu (for a round-rotor machine as considered in this lecture)
+
+---
+
 ## Remark: models for other types of analysis
 
 So far we are mostly interested in steady-state.
@@ -342,7 +350,6 @@ The angle $\delta$
 If the field current is constant, $E\_{af}$ is constant. Then the power of the generator is proportional to $\sin \delta$.
 
 There are **limits** on the value of $\delta$.
-
 
 ---
 
@@ -406,32 +413,6 @@ $$Q = - 3 V\_a I\_a \sin \phi$$
 
 - This is the basic principle behind automatic voltage regulation
 - Devices called "synchronous condensers" are synchronous machines used solely for voltage regulation (they consume active power from the grid).
-
----
-
-## Power balance
-
-*From VCT*
-
-Try to give intuition, 
-
----
-
-## power balance of stator
-
-$p\_{r\rightarrow s} = 3 P + p\_{Js}$
-
-Mechanical power converted in electrical power + Joule losses of the stator
-
----
-
-## power balance of rotor
-
-Mechanical power + field current.
-
-- In steady state, the power entering the field winding is dissipated in Joule losses !
- - magnetizes the rotor
-- all mechanical power transfered to the stator
 
 ---
 
