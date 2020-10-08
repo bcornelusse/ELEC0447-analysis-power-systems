@@ -321,21 +321,91 @@ class: middle, center
 
 ## Power output, stability, and loss of synchronism
 
-From ned Mohan section 9.4
+Suppose a generator is connected to an external grid (imposing $\bar{V}\_\infty = V\_\infty$) through a transmission line. 
 
-Also transp-g-2.pdf slide 19/23
+.center.width-80[![](figures/generator_to_grid.svg)]
+
+Let $X\_T$ model the total reactance resulting from the reactance of the line, the reactance of the transformer, and the synchronous reactance of the machine. We neglect resistances.
+
+The three phase active power delivered by the generator is (see [lecture 2](?p=lecture2.md#19)) 
+$$ P = \frac{E\_{af}{V}\_\infty}{X\_T} \sin \delta$$
+
+---
+
+## About the internal angle $\delta$
+
+The angle $\delta$ 
+- is the angle between $\bar{E}\_{af}$ and $\bar{V}\_\infty$
+- is positive in generator mode
+- is a measure of the angular displacement of the rotor with respect to the synchronously rotating reference axis
+
+If the field current is constant, $E\_{af}$ is constant. Then the power of the generator is proportional to $\sin \delta$.
+
+There are **limits** on the value of $\delta$.
+
+
+---
+
+## Steady state stability limit
+
+.center.width-90[![](figures/steady_state_stability_limit.png)]
+
+Above $\delta = 90^\circ$ (maximum power generated), the synchronism is lost:
+ - more mechanical power, less electrical power $\Rightarrow$ increase of $\delta$ $\Rightarrow$ too high currents
+
+In practive the limit is well below, at around $\delta = 40^\circ$
+
 
 ---
 
 ## Adjusting reactive power 
 
-By controlling the field current, it is possible to control the induced emf and the reactive power delivered.
 
-Intuitive explanations of sections 9.5, overexcitation, under excitation.
+We take the previous example and we want 
+ - *to keep the same active power generation*
+ - to adjust the reactive power generated or absorbed
 
-From ned Mohan section 9.5
+Initially, assume the field current is adjusted to have a unitary power factor (case 1)
 
-A word about synchronous condesers
+.center.width-100[![](figures/adjusting_Q_diagram.svg)]
+
+
+What can we do?
+
+--
+
+By controlling the field current, it is possible to control the induced emf and the reactive power delivered (or absorbed).
+
+---
+
+## Overexcitation (case 2)
+
+- Increasing the field current will increase $E\_{af}$ (no magnetic saturation)
+- But $E\_{af} \sin \delta$ must stay the same, and $I\_a \cos \phi$ as well
+- $\bar{I}\_a$ is lagging behind $\bar{V}\_a$
+- The grid absorbs the reactive power
+$$Q = 3 V\_a I\_a \sin \phi$$
+- The generator behaves like a capacitor
+
+---
+
+## Underexcitation (case 3)
+
+- Decreasing the field current will decrease $E\_{af}$
+- But $E\_{af} \sin \delta$ must stay the same, and $I\_a \cos \phi$ as well
+- $\bar{I}\_a$ is leading $\bar{V}\_a$
+- The generator absorbs the reactive power
+$$Q = - 3 V\_a I\_a \sin \phi$$
+- The generator behaves like an inductor
+
+
+---
+
+
+## Remarks:
+
+- This is the basic principle behind automatic voltage regulation
+- Devices called "synchronous condensers" are synchronous machines used solely for voltage regulation (they consume active power from the grid).
 
 ---
 
@@ -367,9 +437,42 @@ Mechanical power + field current.
 
 ## Capability curves
 
-Slide 20/23
+Seen from the network, a generator is characterized by three variables: $V$, $P$ et $Q$
 
-Explanation of limits.
+The *capability curves* define the set of admissible operating points in the  $(P, Q)$ space, 
+**under constant voltage $V$** (justified by automatic voltage regulator) 
+
+.center.width-80[![](figures/capability.jpg)]
+
+---
+
+## Explanation of limits
+
+
+-   Lower limit on active power caused by stability of combustion in
+    thermal power plants
+
+-   maximum reactive power *in*creases when the active power
+    *de*creases
+
+    -   to relieve an overloaded machine, $P$ can be decreased but this
+        power has to be produced by some other generators !
+
+-   for a given value of $P$, the maximum reactive power increases with
+    $V$
+
+    -   this holds true under the simplifying assumption of a non
+        saturated machine
+
+-   in practice, under $V=1$ pu, the two-by-two intersection points of
+    respectively the turbine, the rotor and the stator limits are close
+    to each other ("coherent" design of stator and rotor)
+
+- Under-excitation limit 
+    - Corresponds to a stability, not a thermal limit: absorbing more $Q$
+$\Rightarrow$ decreasing $E_{af}$ $\Rightarrow$ decreasing field current
+$\rightarrow$ maximum torque $T_e$ decreases $\Rightarrow$ risk of
+losing synchronism (see course on voltage regulation).
 
 ---
 
@@ -379,7 +482,26 @@ class: middle
 
 ---
 
-## TODO
+## Reaching the bus var limit
+
+Given what we have established, this is straightforward:
+
+ - Implement the bounds of the capability curves in the power flow tool
+  - How would you do this? 
+ - Solve assuming generators regulate $P$ and $V$ $\RightArrow$ *PV bus*
+ - If a boundary of the capability domain is reached
+  - switch the generator to a *PQ bus* with the same *P* but the binding *Q*
+  - solve the power flow again
+
+This may require iterations, since other generators could need a switch.
+
+.footnote[See section 5.10 of the book]
+
+---
+
+## Example with PandaPower
+
+See the python notebook.
 
 ---
 
