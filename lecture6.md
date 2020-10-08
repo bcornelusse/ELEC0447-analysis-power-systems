@@ -3,7 +3,7 @@ count: false
 
 # Analysis of electric power and energy systems
 
-Lecture 5: High Voltage DC transmission
+Lecture 6: High Voltage DC transmission
 
 <br><br>
 

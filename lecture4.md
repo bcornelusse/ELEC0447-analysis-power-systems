@@ -315,7 +315,7 @@ In the [power flow analysis](?p=lecture3.md#23), you must **pay attention to thi
 
 ## Pandapower example
 
-See python notebook / video recording.
+See [python notebook](notebooks/PF_2_transformer_pandapower.ipynb) / video recording.
 
 ---
 

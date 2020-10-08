@@ -3,7 +3,7 @@ count: false
 
 # Analysis of electric power and energy systems
 
-Lecture 6: Synchronous generators
+Lecture 5: Synchronous generators
 
 <br><br>
 
@@ -469,7 +469,7 @@ Given what we have established, this is straightforward:
 
  - Implement the bounds of the capability curves in the power flow tool
   - How would you do this? 
- - Solve assuming generators regulate $P$ and $V$ $\RightArrow$ *PV bus*
+ - Solve assuming generators regulate $P$ and $V$ $\Rightarrow$ *PV bus*
  - If a boundary of the capability domain is reached
   - switch the generator to a *PQ bus* with the same *P* but the binding *Q*
   - solve the power flow again
@@ -482,7 +482,7 @@ This may require iterations, since other generators could need a switch.
 
 ## Example with PandaPower
 
-See the python notebook.
+See the [python notebook](notebooks/PF_3_transformer_gen_limits_pandapower.ipynb).
 
 ---
 
