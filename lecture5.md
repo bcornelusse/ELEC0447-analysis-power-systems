@@ -19,7 +19,7 @@ Bertrand Cornélusse<br>
 - How we can model them for our analyses
 - How to include generator limits in power flow computation.
 
-You will be able to do exercises **TODO**
+You will be able to do exercises 9.5 to 9.9 of Ned Mohan's book.
 
 
 ---
