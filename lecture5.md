@@ -121,11 +121,8 @@ Magnetic field created by the rotor
 
 ## Magnetic field created by the rotor
 
--   rotor = rotating part, separated from the rotor by the air gap
-
--   carries a winding in which a direct current flows, in steady-state
-    operation
-
+-   rotor = rotating part, separated from the stator by the air gap
+-   carries a winding in which a direct current flows, in steady-state operation
 -   referred to as *field* winding (in French: enroulement d'excitation)
 
  
@@ -315,7 +312,11 @@ So far we are mostly interested in steady-state.
 
 But note that depending on the type of analysis carried out, the model used should be adapted: 
 - *Subtransient condition* (e.g. just after a short circuit fault): $X''\_s << X\_s$
-- *transient state* (after the subtransient condition, before steady state):  $X'\_s < X\_s$ but $X'\_s < X''\_s$
+- *transient state* (after the subtransient condition, before steady state):  $X'\_s < X\_s$ but $X''\_s < X'\_s$
+
+Hence: 
+
+$$X''\_s < X'\_s < X\_s$$
 
 The field induced emf has to be adapted as well depending on the type of analysis.
 
