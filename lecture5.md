@@ -27,6 +27,7 @@ You will be able to do exercises 9.5 to 9.9 of Ned Mohan's book.
 class: middle
 
 # Principle
+Most slides of this section are adapted from former course ELEC0014.
 
 ---
 
@@ -157,6 +158,7 @@ There exists a max value of the electromagnetic torque $T\_e$ $\; \rightarrow \;
 class: middle, center 
 
 # The two types of synchronous machines
+Slides of this section are adapted from former course ELEC0014.
 
 ---
 
@@ -426,10 +428,12 @@ The *capability curves* define the set of admissible operating points in the  $(
 
 .center.width-80[![](figures/capability.jpg)]
 
+
+.footnote[Adapted from former course ELEC0014.]
+
 ---
 
 ## Explanation of limits
-
 
 -   Lower limit on active power caused by stability of combustion in
     thermal power plants
@@ -455,6 +459,8 @@ The *capability curves* define the set of admissible operating points in the  $(
 $\Rightarrow$ decreasing $E_{af}$ $\Rightarrow$ decreasing field current
 $\rightarrow$ maximum torque $T_e$ decreases $\Rightarrow$ risk of
 losing synchronism (see course on voltage regulation).
+
+.footnote[Adapted from former course ELEC0014.]
 
 ---
 
