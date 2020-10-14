@@ -738,13 +738,13 @@ $$P\_{dr} = V\_{dr}I\_d, \; \; P\_{di} = V\_{di}I\_d = P\_{dr} - R\_d I\_d^2$$
 
 ---
 
-## Available controls
+## Available controls <a name="vdrdef"></a>
 
 .grid[
 .kol-1-2[
 We thus have  
 $$ V\_{dr} = V\_{d0r} \cos \alpha - R\_{cr} I\_d $$
-$$ V\_{di} = V\_{d0i} \cos \gamma - R\_{ci} I\_d $$
+$$ V\_{di} = V\_{d0i} \cos \gamma - R\_{ci} I\_d $$ 
 $$ V\_{dr} = V\_{di} + R\_d I\_d $$
 and as established previously
 $$V\_{d0r} = \frac{3 \sqrt{2}}{\pi} n\_r U\_r $$
@@ -784,13 +784,16 @@ Overall principle :
 
 ---
 
-Ideal steady-state $V-I$ characteristics:
+## Ideal steady-state $V-I$ characteristics:
 
-.grid[
-.kol-1-2[
-]
-.kol-1-2[
-]]
+.center.width-60[![](figures/HVDC/control1.png)]
+
+- Rectifier characteristic : $I\_d = $ constant
+- Inverter characteristic : from previous equations
+  $$V\_{dr}=V\_{d0i}\cos \gamma +(R\_d -R\_{ci})I\_d$$
+  generally, $R\_{ci}$ is slightly larger than $R\_{d}$ and the characteristic has a small negative slope
+- Operating state : point **E** at the intersection of the two characteristics
+
 
 ---
 
@@ -800,11 +803,44 @@ class: middle
 
 ---
 
-Discuss the simple implementation in panda power.
+## A simple implementation in panda power for point to point HVDC
 
-Discuss the implementation of Bondhala - 2011 - Power Flow Studies of an AC-DC Transmission System
+From https://pandapower.readthedocs.io/en/v2.4.0/elements/dcline.html:
+
+.grid[
+.kol-1-2[
+A DC line is modelled as two generators in the loadflow:<br><br><br>
+.center.width-100[![](figures/HVDC/dcline1.png)]<br>
+.center.width-100[![](figures/HVDC/dcline2.png)]
+]
+.kol-1-2[
+- The active power at the from side is defined by the parameters in the dcline table. 
+- The active power at the to side is equal to the active power on the from side minus the losses of the DC line.
+- The voltage control with reactive power works just as described for the generator model. Maximum and Minimum reactive power limits are considered in the OPF, and in the PF if it is run with enforce_q_lims=True.
+]]
+
+---
+
+## More advanced implementation (OPF setting)
+
+Hotz, M., & Utschick, W. (2019). hynet: An optimal power flow framework for hybrid AC/DC power systems. IEEE Transactions on Power Systems, 35(2), 1036-1047.
+
+"While the modeling of DC grids, where DC lines and cables are considered via their equivalent series resistance, resembles that of AC grids and is rather straightforward, the modeling of VSCs is more intricate. Elaborate models for VSC stations comprise a transformer, filter, phase reactor, and converter. While the former three can be considered via equivalent $\pi$-models, the converter is modeled as a lossy transfer of active power between the AC and DC side of the converter with the provision of reactive power on the AC side (...). Many recent works model the converter losses as a quadratic function of the converter current (...) In terms of operating limits, the most elaborate characterizations include a converter current limit as well as constraints that restrict the provision of reactive power based on the coupling of the AC- and DC-side voltage (...). As a consequence of the significant increase in model complexity compared to AC systems, the mathematical formulation and parameterization of the OPF problem for hybrid AC/DC power systems is intricate and extensive."
+
+---
+
+## Other implementations examples
 
 Braunagel, Kraft, Whysong - 1976 - Inclusion of DC converter and transmission equations directly in a newton power flow.
+
+Bondhala, U., & Sarkar, V. (2011). Power Flow Studies of an AC-DC Transmission System (Doctoral dissertation, Indian Institute of Technology Hyderabad).
+
+
+---
+
+# Example with Pandapower
+
+See the python notebook
 
 ---
 
