@@ -838,7 +838,7 @@ Bondhala, U., & Sarkar, V. (2011). Power Flow Studies of an AC-DC Transmission S
 
 ---
 
-# Example with Pandapower
+## Example with Pandapower
 
 See the python notebook
 
