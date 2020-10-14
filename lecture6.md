@@ -16,9 +16,14 @@ Bertrand Cornélusse<br>
 # What will we learn today?
 
 - Why HVDC systems are used and how they are implemented (focus on LCC)
+- What are LCCs
+- What are thyristors
+- Basic control principles of LCC HVDC
 - How to insert a point-to-point HVDC line in a power flow analysis
 
 You will be able to do exercises *TODO*.
+
+Note that I have mainly taken material from former course "ELEC0445 - HVDC grids", but it follows the logic of Chapter 7 of Ned Mohan's book.
 
 ---
 
@@ -26,7 +31,7 @@ class: middle, center
 
 # Overview of HVDC applications
 
-Introduction of former course "ELEC0445 - High Voltage Direct Current grids".
+Introduction of former course "ELEC0445 - HVDC grids".
 
 ---
 
@@ -62,7 +67,7 @@ Introduction of former course "ELEC0445 - High Voltage Direct Current grids".
 
     -   creation of a rotating field easy with three-phase AC windings
 
-    -   impossibility to raise the DC voltage $\Rightarrow$
+    -   Difficulty to raise the DC voltage $\Rightarrow$
         impossibility to transmit large powers with DC
 
     -   limitation of the power of early converters : a few kW only
@@ -78,45 +83,37 @@ Introduction of former course "ELEC0445 - High Voltage Direct Current grids".
 -   Advances in power electronics : converters can carry larger currents
     through higher voltages $\Rightarrow$ higher power ratings
     $\Rightarrow$ transmission applications possible
-
 -   1882 : Marcel Deprez (France) and Oskar Von Miller (Germany, AEG)
     design the first transmission link between a DC source and a DC
     load:
     $15 \,\text{kW} ~~ 2\, \text{kV} ~~ 56.3\, \text{km}$
-
+- See also René Thury's work: https://en.wikipedia.org/wiki/Ren%C3%A9_Thury
 -   mid ‘30s : mercury-arc valve rectifiers made available.
     They open the way to HVDC transmission link projects
-
 -   1945 : first commercial project of HVDC transmission in Germany.
     Not commissioned and moved to USSR (Moscow-Kashira) in 1950:
     $60\,\text{MW} ~~ 200\, \text{kV} ~~ 115 \, \text{km}$, with buried
     cables
-
+    - Nekrasov, A. M., & Posse, A. V. (1959). Work done in the Soviet Union on high-voltage long-distance dc power transmission. Transactions of the American Institute of Electrical Engineers. Part III: Power Apparatus and Systems, 78(3), 515-521.
 -   1954 : first commercial HVDC submarine installation : from Gotland
     island to Sweden:
     $20 \,\text{MW} ~~ 100\, \text{kV} ~~ 98 \, \text{km}$
-
 -   Up to the mid ‘60s, due to its higher cost, HVDC was favoured only
     where AC met operational difficulties, e.g. sea crossing
-
 
 ---
 
 ## Historical perspective (cont’d)
 
 -   late ‘60s : advent of high power *thyristor*-based valve converters
-
 -   1975 : 1st long-distance HVDC transmission using thyristor valve
     converters : Cahora Bassa in Mozambique: 
     $1920\,  \text{MW} ~~ 533\, \text{kV} ~~ 1420 \, \text{km}$, with
     overhead line
 .center.width-20[![](figures/HVDC/Cahora_Bassa.png)]
-
 -   thyristor ratings have grown up to $V=9$ kV and $I=4$ kA (per thyristor)
-
 -   late ‘90s : high power *transistor*-based components become
     available : IGBT, MOSFET
-
 -   development of *Voltage Source Converters*.
     Among other advantages, they allow controlling both the active and
     the reactive powers at the AC terminals of an HVDC link.
@@ -264,7 +261,7 @@ At a similar voltage level (RMS phase-to-phase vs. DC pole-to-ground) :
 
 *Two AC networks with different nominal frequencies.*
 
-    *Back-to-back connection (rectifier and inverter in same substation)*
+Back-to-back connection (rectifier and inverter in same substation)
 
 .grid[
 .kol-1-2[
@@ -400,6 +397,7 @@ Power is reversed by reversing the current.
 class: middle, center
 
 # Components of an LCC HVDC link
+Extract of chapter 1 of former course "ELEC0445 - HVDC grids".
 
 ---
 
@@ -415,9 +413,9 @@ class: middle, center
 
 -   one converter at each terminal : the sending power end acts as a
     rectifier, the receiving power end as an inverter
--   each converter includes one or several thyristor bridges
--   each bridge is made up of 6 thyristor valves
--   each thyristor valve contains hundreds of individual thyristors
+    -   each converter includes one or several thyristor *bridges*
+    -   each bridge is made up of *6* thyristor *valves*
+    -   each thyristor valve contains *hundreds of individual thyristors*
 
 ---
 
@@ -426,11 +424,11 @@ class: middle, center
 .center.width-100[![](figures/HVDC/typical-HVDC2.png)]
 
 
--   designed to operate with high harmonic currents
--   generally more expensive than typical transmission transformers of
-    the same rating
 -   most generally equipped with load tap changers. The transformer
     ratios are adjusted to optimize the HVDC link operation
+-   designed to operate with high harmonic currents
+    -   generally more expensive than typical transmission transformers of the same rating
+
 
 ---
 
@@ -439,9 +437,9 @@ class: middle, center
 .center.width-100[![](figures/HVDC/typical-HVDC3.png)]
 
 -   aimed at limiting the DC current variations
--   designed considering response to DC faults and commutation failures
--   typical values of inductance : 0.1 to 0.5 H
--   air-core, natural air cooling type
+    -   designed considering response to DC faults and commutation failures
+    -   typical values of inductance : 0.1 to 0.5 H
+    -   air-core, natural air cooling type
 
 
 ---
@@ -451,9 +449,9 @@ class: middle, center
 .center.width-100[![](figures/HVDC/typical-HVDC4.png)]
 
 -   aimed at filtering the harmonics generated by the AC/DC conversion
--   most important harmonics to eliminate : 11th, 13th, 23rd and 25th
-    (for converters with two bridges)
--   some HVDC systems are also equipped with filters on the DC side
+    -   most important harmonics to eliminate : 11th, 13th, 23rd and 25th
+        (for converters with two bridges)
+    -   some HVDC systems are also equipped with filters on the DC side
 
 ---
 
@@ -482,6 +480,7 @@ class: middle, center
 class: middle, center
 
 # Thyristor valves
+A summary of chapter 2 of former course "ELEC0445 - HVDC grids".
 
 ---
 
@@ -504,6 +503,19 @@ Three $pn$ junctions $J_1$, $ J_2$, $J_3$
 -   both transistors remain in saturation even if $I_G$ is suppressed
 .center.width-70[![](figures/HVDC/thyristor2.png)]
 ]]
+
+---
+
+## Usage of a thyristor
+
+A thyristor can be used as a controllable bistable switch
+- the control is performed by injecting a current at the gate input
+ - the thyristor is *ON* and conducts when it is forward biased and the gate receives a current pulse
+ - the thyristor keeps on conducting as long as it is forward biased
+ - the thyristor is turned *OFF* when the anode current falls below the holding current threshold IH or when it is reverse biased
+ - the thyristor remains in blocking mode until it is triggered by a new gate pulse current
+- the process of turning OFF is called commutation
+ - when commutating, the thyristor cannot immediately withstand a forward voltage; it should remain reverse biased for a minimum time, otherwise *commutation failure* can take place.
 
 ---
 
@@ -554,24 +566,47 @@ A *forward voltage $v_{AK}>0$* is applied and *a current $I\_g$ is injected*.
 
 ## Operation of the thyristor in on-state
 
-.center.width-100[![](figures/HVDC/thyristor4.png)]
--   once the anode current $i$ reaches $I_L$, the , the thyristor
+.center.width-60[![](figures/HVDC/thyristor4.png)]
+-   once the anode current $i$ reaches $I_L$, the *latching curent*, the thyristor
     switches to on-state
 -   once the thyristor is in on-state, the gate current can be removed
 -   the gate current is usually a short pulse lasting 10-50 $\mu$s
--   if $i$ falls below $I_H$, the , the thyristor switches to off-state.
+-   if $i$ falls below $I_H$, the *holding curent*, the thyristor switches to off-state.
+-   **commutation is not instantaneous** -> dynamics -> and care must be taken with applied currents and voltages -> snubber circuits
 
 ---
 
 ## The ideal characteristic
 
+.grid[
+.kol-1-2[
 .center.width-100[![](figures/HVDC/thyr-id2.png)]
+]
+.kol-1-2[
 .center.width-100[![](figures/HVDC/thyr-id1.png)]
+]]
 
 -   closed order given by gate current
--   in open state, $V_{BR}$ and $V_{BF}$ are assumed infinite
+-   in open state, $V\_{BR}$ and $V\_{BF}$ are assumed infinite
 -   when the thyristor conducts, a zero internal resistance is assumed
 -   when the thyristor conducts, a zero terminal voltage is assumed.
+
+---
+
+## Thyristor valves 
+
+.grid[
+.kol-1-2[
+Thyristor modules (i.e. thyristor + snubber circuit + voltage balancing circuits) are associated in series to form a thyristor valve.
+- Objective : reach the HVDC link
+- voltage rating :
+ - thyristor : up to 5 to 9 kV
+ - HVDC link : 500 to 800 kV
+]
+.kol-1-2[
+.center.width-80[![](figures/HVDC/Manitoba_Hydro-BipoleII_Valve.jpg)]
+A 2000A, 250 kV high voltage direct current (HVDC) thyristor valve at Manitoba Hydro's Henday converter station. Photo taken April 2001. Source: Wikipedia.
+]]
 
 ---
 
@@ -603,17 +638,45 @@ A *forward voltage $v_{AK}>0$* is applied and *a current $I\_g$ is injected*.
 
 ---
 
-Summary of chap2.pdf
-
----
-
 class: middle, center
 
 # Operation of the LCC line
+A summary of chapter 3 of former course "ELEC0445 - High Voltage Direct Current grids".
 
 ---
 
-Almost all of chap3.pdf
+## Diode based rectifier
+
+.grid[  
+.kol-1-2[.center.width-100[![](figures/HVDC/3pulseconv.png)]]
+.kol-1-2[.center.width-100[![](figures/HVDC/3pulsevred.png)]
+.center.width-100[![](figures/HVDC/3pulseired.png)]]]
+
+Without filtering, we already have a relatively good rectification.
+
+---
+
+To get a more constant current, we use smoothing reactors in series. 
+The bigger $L\_d$, the more constant the current.
+
+Hence we suppose $I\_d$ is constant, and the currents in the 3 phases on the AC side look like
+.center.width-50[![](figures/HVDC/currents3pulse.png)]
+
+Note that in practice, as there are inductors in the system, currents cannot vary abruptly, and there is a *commutation overlap* (two of the three diodes conducting simultaneously), hence an angle $\mu$ and a voltage reduction.
+We'll neglect this in the sequel (to keep it simple), but this is important in practice.
+
+---
+
+## The thyristor-based 6-pulse rectier with *no ignition delay*
+
+In this case Thyristor = Diode (natural conduction)
+
+.grid[
+.kol-1-2[.center.width-100[![](figures/HVDC/6pulsebridge.png)]]
+.kol-1-2[.center.width-100[![](figures/HVDC/6pulsevolt1.png)]]]
+
+Average direct voltage = integral of line voltage over a period of length $\pi/3$
+$$V\_{d0} = \frac{3\sqrt{2}}{\pi} U = 1.35 U$$
 
 ---
 
@@ -625,23 +688,91 @@ class: middle, center, black-slide
 
 ---
 
+## With an ignition delay $\alpha$
+
+.center.width-70[![](figures/HVDC/6pulse-alpha1.png)]
+
+.grid[
+.kol-1-2[
+The ignition can be delayed up to $\alpha=180^\circ$
+ - for instance : switching from valve 1 to valve 3 is possible as long as $v\_a < v\_b$.
+ - After that, valve 3 is in reverse blocking mode.
+]
+.kol-1-2[
+.center.width-50[![](figures/Regulated_rectifier.gif)]
+Waveforms in a rectified multiple thyristor circuit controlling an AC current.
+Red trace: load (output) voltage
+Blue trace: trigger voltage. Source: Wikipidia (Thyristor)]
+]]
+
+---
+
+## Average direct voltage and power factor
+
+Average direct voltage: $$V\_{d} = V\_{d} \cos \alpha$$
+- $V\_d$ may take values from $V\_{d0}$ down to $-V\_{d0}$
+    -   positive values of $V\_d$ ($0 < \alpha < 90^{\circ}$) : rectifier operation.<br> Power flows from AC to DC since    $V\_d I\_d > 0$
+    -   negative values of $V\_d$ ($90 < \alpha < 180^{\circ}$) : inverter operation.<br> Power flows from DC to AC since    $V\_d I\_d < 0$.
+
+
+With accounting for commutation delays, it can be shown that 
+$$\cos \phi = \cos \alpha$$
+
+---
+
 class: middle, center
 
 # Control
 
 ---
 
-A summary of chap4.pdf, aligned with Ned Mohan's book.
+## The HVDC link, its equivalent circuit and its voltage profile
+
+
+.center.width-60[![](figures/HVDC/HVDC-equiv.png)]
+
+Thus 
+$$I\_d=\frac{V\_{d0r}\cos \alpha - V\_{d0i} \cos \gamma}{R\_{cr} + R\_d - R\_{ci}}$$
+and 
+$$P\_{dr} = V\_{dr}I\_d, \; \; P\_{di} = V\_{di}I\_d = P\_{dr} - R\_d I\_d^2$$
 
 ---
 
-class: middle, center
+## Available controls
 
-# Interaction between AC and DC
+.grid[
+.kol-1-2[
+We thus have  
+$$ V\_{dr} = V\_{d0r} \cos \alpha - R\_{cr} I\_d $$
+$$ V\_{di} = V\_{d0i} \cos \gamma - R\_{ci} I\_d $$
+$$ V\_{dr} = V\_{di} + R\_d I\_d $$
+and as established previously
+$$V\_{d0r} = \frac{3 \sqrt{2}}{\pi} n\_r U\_r $$
+$$V_{d0i} = \frac{3 \sqrt{2}}{\pi} n\_i U\_i$$
+]
+.kol-1-2[
+Available controls are used in complementary manner :
+-   the internal DC voltage   $V\_{d0r}\cos \alpha$   by adjusting the ignition angle $\alpha$
+-   the internal DC voltage   $V\_{d0i}\cos \gamma$   by adjusting the extinction angle $\gamma$
+-   the AC voltages of the converters through the transformer ratios $n\_r$ and $n\_i$.
+]]
 
 ---
 
-Elements of Chap6.pdf as a transition with pf analysis
+## Remarks
+
+Attention must be paid to :
+-   avoiding too low a current $I\_d$ (unstable commutation)
+-   avoiding too high a current $I\_d$ (overload of valves) 
+-   having a stable HVDC link operation in spite of variations of AC voltages.
+
+The power $P\_{dr}$ (or $P\_{di}$) can be controlled instead of the current $I\_d$.
+
+---
+
+## Control principle
+
+
 
 ---
 
