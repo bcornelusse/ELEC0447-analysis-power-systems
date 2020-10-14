@@ -772,7 +772,25 @@ The power $P\_{dr}$ (or $P\_{di}$) can be controlled instead of the current $I\_
 
 ## Control principle
 
+Overall principle :
 
+-   the regulations of resp. $V\_d$ and $I\_d$ are performed by the terminals separately
+-   this does not require fast exchange of information between both
+    terminals
+    -   only when the respective roles of the rectifier and the inverter change
+-   Under normal operation :
+    -   the rectifier maintains a Constant Current (CC) $I_d$ mode
+    -   the inverter maintains Constant Extinction Angle (CEA) $\gamma$ mode.
+
+---
+
+Ideal steady-state $V-I$ characteristics:
+
+.grid[
+.kol-1-2[
+]
+.kol-1-2[
+]]
 
 ---
 
