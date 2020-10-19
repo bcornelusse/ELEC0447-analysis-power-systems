@@ -21,8 +21,6 @@ Bertrand Cornélusse<br>
 - Basic control principles of LCC HVDC
 - How to insert a point-to-point HVDC line in a power flow analysis
 
-You will be able to do exercises *TODO*.
-
 Note that I have mainly taken material from former course "ELEC0445 - HVDC grids", but it follows the logic of Chapter 7 of Ned Mohan's book.
 
 ---
@@ -320,7 +318,6 @@ Another application : collect power from off-shore wind parks
 ## Meshed DC grids
 
 -   still at research level
-
 -   typical targeted application : (i) collect power from off-shore
     wind parks, and (ii) allow power exchanges between on-shore
     grids
@@ -328,10 +325,8 @@ Another application : collect power from off-shore wind parks
 .center.width-50[![](figures/HVDC/supergrid.png)]
 
 -   main technological challenges :
-
     -   identification of faults in DC grid (to isolate only the
         faulted branch)
-
     -   DC circuit breaker to interrupt the DC fault current
 
 ---
@@ -356,7 +351,7 @@ Another application : collect power from off-shore wind parks
 -   lower power ratings (but fast growing technology)
 -   less harmonic filters needed
 -   can operate with a weak AC grid
--   active powers can be controlled
+-   active **and reactive** powers can be controlled
 -   can be used as off-shore terminal to collect wind power
 -   black start capability
 ]]
@@ -610,34 +605,6 @@ A 2000A, 250 kV high voltage direct current (HVDC) thyristor valve at Manitoba H
 
 ---
 
-## Switching characteristics
-
-**From off-state to on-state**:
-
--   initially, the thyristor is forward biased ($v_{AK}>0$)
--   one pulse of $I_G$ initiates conduction
--   switching takes place during the (a few $\mu$s):
-    -   the current increases
-    -   the voltage decreases to about 0.5 - 2.5 V
-
-.center.width-100[![](figures/HVDC/thyristor5.png)]
-
----
-
-**From on-state to off-state**:
-
--   the thyristor turns off when $i$ falls below $I_H$ and reverses
--   recombinations of charge carriers take place in junctions $J_1$ and
-    $J_3$, which switch to reverse bias mode
--   a maximum reverse current is observed and the voltage is reversed
--   an over-voltage can be observed if current extinction is too fast
--   once the charge carrier recombination is completed, $i$ goes to
-    zero.
-
-.center.width-100[![](figures/HVDC/thyristor6.png)]
-
----
-
 class: middle, center
 
 # Operation of the LCC line
@@ -680,14 +647,6 @@ $$V\_{d0} = \frac{3\sqrt{2}}{\pi} U = 1.35 U$$
 
 ---
 
-class: middle, center, black-slide
-
-<iframe width="600" height="450" src="https://www.youtube.com/embed/WVI8Z7p_rdY" frameborder="0" allowfullscreen></iframe>
-
-6-pulse rectifier
-
----
-
 ## With an ignition delay $\alpha$
 
 .center.width-70[![](figures/HVDC/6pulse-alpha1.png)]
@@ -709,13 +668,13 @@ Blue trace: trigger voltage. Source: Wikipidia (Thyristor)]
 
 ## Average direct voltage and power factor
 
-Average direct voltage: $$V\_{d} = V\_{d} \cos \alpha$$
+Average direct voltage: $$V\_{d} = V\_{d0} \cos \alpha$$
 - $V\_d$ may take values from $V\_{d0}$ down to $-V\_{d0}$
     -   positive values of $V\_d$ ($0 < \alpha < 90^{\circ}$) : rectifier operation.<br> Power flows from AC to DC since    $V\_d I\_d > 0$
     -   negative values of $V\_d$ ($90 < \alpha < 180^{\circ}$) : inverter operation.<br> Power flows from DC to AC since    $V\_d I\_d < 0$.
 
 
-With accounting for commutation delays, it can be shown that 
+Without accounting for commutation delays, it can be shown that 
 $$\cos \phi = \cos \alpha$$
 
 ---
@@ -835,12 +794,6 @@ Braunagel, Kraft, Whysong - 1976 - Inclusion of DC converter and transmission eq
 
 Bondhala, U., & Sarkar, V. (2011). Power Flow Studies of an AC-DC Transmission System (Doctoral dissertation, Indian Institute of Technology Hyderabad).
 
-
----
-
-## Example with Pandapower
-
-See the python notebook
 
 ---
 
