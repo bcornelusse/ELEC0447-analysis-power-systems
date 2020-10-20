@@ -27,10 +27,10 @@ Instructors:
 | October 5 | Lecture 4: [The transformer and its inclusion in the power flow analysis.](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) <br> Practice session: [List of exercises on transmission lines](pdf/ELEC0447_TP3-2.pdf)|
 | October 12 | Lecture 5: [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf)) <br> Practice session: : [List of exercises on transformers](pdf/ELEC0447_TP4v2.pdf)|
 | October 19 | Lecture 6: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) <br> Practice session: [List of exercises](pdf/ELEC0447_TP5.pdf) <br> Homework: add generator limits to the power flow problem, add a transformer to the power flow problem.|
-| October 26 | Lecture 7: [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) <br> Homework: .|
-| November 9 | Lecture 8: [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) <br> Homework: .|
-| November 16 | Lecture 9: [Frequency control](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) <br> Homework: .|
-| November 23 | Lecture 10: [Fault analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture10.md) <br> Homework: .|
+| October 26 | Lecture 7: [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf)) |
+| November 9 | Lecture 8: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) <br> Homework: .|
+| November 16 | Lecture 9: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) <br> Homework: .|
+| November 23 | Lecture 10: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture10.md) <br> Homework: .|
 
 
 # talk-template
@@ -45,7 +45,24 @@ This a fork of the talk template https://github.com/glouppe/talk-template from G
 python -m http.server 8001
 ```
 - Edit `lectureX.md` for making your slides.
-- Use [decktape](https://github.com/astefanutti/decktape) for exporting slides to PDF.
+- Use [decktape](https://github.com/astefanutti/decktape) for exporting slides to PDF:
+
+  - download and install *node.js* (a recent version)
+  - install decktape: 
+
+    npm install -g decktape
+
+ 
+  - ensure an http server is running, e.g. on localhost at port 8001, from the directory where the sources are
+
+    python -m http.server 8001 
+
+  - run decktape: 
+
+    decktape http://0.0.0.0:8001/?p=lecture7.md pdf/lecture7.pdf
+
+
+
 
 ## Markup language
 
