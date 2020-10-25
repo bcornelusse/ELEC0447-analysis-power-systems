@@ -5,6 +5,9 @@ count: false
 
 python3 -m http.server 8001
 
+
+decktape http://0.0.0.0:8001/?p=lecture7.md pdf/lecture7.pdf
+
 http://0.0.0.0:8001/?p=lecture7.md#1
 -->
 
@@ -24,12 +27,12 @@ Louis Wehenkel<br>
 
 - Voltage regulation and reactive power compensation in EHV grids 
 - Voltage instability and voltage collapse
-- Voltage control and reactive power compensation devices 
-- Likely impact of the energy transition, and distribution grid
-  voltage control
+- EHV Voltage control and reactive power compensation devices
+- Voltage control in the distribution systems
+- Likely impact of the energy transition on these topics
 
-
-This lecture expands on Chapter 10 from the Ned Mohan's book.
+***
+**This lecture expands on Chapter 10 from the Ned Mohan's book.**
 
 ---
 class: middle
@@ -46,13 +49,18 @@ EHV-line
 
 .center[.width-95[![](figureslw/fig10-1.png)]]
 
-Neglecting line resistance, we have ${\bar{V}_S = \bar{V}_R}+ {j X_L}\bar{I}$ and hence
+Neglecting line resistance $R_L$, we have ${\bar{V}_S = \bar{V}_R}+ {j X_L}\bar{I}$ and hence
 $$P_R = \frac{V_R V_S }{X_L}\sin \delta  = P_S$$  $$Q_R = \frac{V_R}{X_L}(V_S\cos \delta - V_R)$$
 
 where $\delta$ is the angle of the source (generator) bus w.r.t. the receiving
 (load) bus.
 <!-- = Y \angle \phi_y = Y e^{j \phi_y}$$ Y \angle \phi_y = Y e^{j -->
 <!-- \phi_y}$$ -->
+
+***
+
+*Notice that in EHV (transmission systems) at 100kV-750kV: $X_L/R_L \approx
+10-30$.*
 
 ---
 
@@ -100,13 +108,14 @@ class: middle
 
 ---
 
-## The $P-V$ curve (aka 'nose curve')
+## The $(P_R,V_R)$ curve (aka 'nose or PV curve')
 
-Consider the case of Figure (a) below, assuming an ideal voltage source:
+Consider the case of Figure (a) below, assuming an ideal voltage
+source and neglecting line resistance and line capacitance:
 
 .center[.width-95[![](figureslw/fig10-4.png)]]
 
-From Figure (b), we see that there  (for each PF)  is a maximum value of $P_R$ that can
+From Figure (b) above, we see that  (for each PF) there is a maximum value of $P_R$ that can
 be transfered to the load. Below this maximum of $P_R$, there are two possible modes
 of operation
 
@@ -124,6 +133,7 @@ engine to construct PV curve (for different LFs)
 - Discuss load-restoration process and its impact -->
 
 ---
+## The $(P_R,Q_R,V_R)$ surface 
 
 .center[.width-95[![](figureslw/fig-pqv.png)]]
 
@@ -177,10 +187,24 @@ Beyond this level, further decreasing the load resistance $R_R$
 actually decreases the load power $P_R$ and voltage $V_R$ starts
 to drop, more and more quickly.
 
+---
+
+## Voltage instability mechanism 2: reactive power limit of generators
+
+We the load power increases, the source generator must supply more and
+more reactive power.
+
+.center[.width-75[![](figureslw/pv-imp-gen-lim.jpg)]]
+
+
+
+The red "PV-curve" corresponds to the source generator reaching its
+excitation current limit: the ideal voltage source is replaced by adding its
+synchronous reactance in series with the line.
 
 ---
 
-## Voltage instability mechanism 2: line tripping
+## Voltage instability mechanism 3: line tripping
 
 Imagine that $X_L$ represents the equivalent reactance of a double
 circuit EHV line, and that one of the two-circuits suddenly trips 
@@ -195,49 +219,55 @@ a significant drop in voltage and received power.
 
 ---
 
-## Voltage instability mechanism 3: load restoration
+## Voltage instability mechanism 4: load restoration
 
 
 .center[.width-75[![](figureslw/pv-imp-restore.jpg)]]
 
 After the "instantaneous" (dashed arrow) switch of the operating
-point, the load power has well
-redecreased.
+point, the load power has well decreased.
 
-Subsequently, the load tries to restore itself to the level at which
+Subsequently, the load active power tries to restore itself to the level at which
 it was before the line tripping (plain arrows).
 
 This restoration process can yield voltage collapse as shown on the
-graph. Its speed depends on the nature of the load restoration process.
+graph. Its speed depends on the nature of the load restoration
+process.
 
 ---
 
-## Voltage instability mechanism 4: reactive power limit of generators
+## Load power restoration mechanisms
 
 
-.center[.width-75[![](figureslw/pv-imp-gen-lim.jpg)]]
-
-We the load power increases, the source generator must supply more and
-more reactive power.
-
-The red "PV-curve" corresponds to the source generator reaching his
-excitation current limit: the ideal voltage source is replaced by adding its
-synchronous reactance in series with the line.
-
-NB: in practice all voltage instability mechanisms can combine.
-
----
-
-## Load restoration mechanisms
-
-
-- Fast (less than a minute): automatic controls acting on electric loads, such as
+- *Fast* (less than a minute): automatic controls acting on electric
+  loads, such as speed control of 
   trains, elevators, and in general motors
 
-- Medium speed (a few minutes): automatic controls acting on the voltage level in the
-  distribution system, since most loads are voltage senstive
+- *Medium speed* (a few minutes): automatic controls of transformer
+  ratios (taps) acting on the voltage level in the
+  distribution system (since most loads are voltage sensitive)
 
-- Slow (tens of minutes): thermostatic loads, human feedback mechanisms 
+- *Slow* (tens of minutes): thermostatic loads, manual 'human-driven' feedback
+mechanisms
+
+***
+
+*NB: in practice, the various voltage instability and load-restoration
+mechanisms may act in combination.*
+
+***
+
+*NB-bis: although we made a 2-bus analysis, the same phenomena are
+observed in multi-bus systems.*
+
+***
+
+*NB-ter: voltage instability has led to several large-scale power
+ system blackouts.*
+
+***
+
+---
 
 
 ## Systemic threats to voltage stability
@@ -251,11 +281,12 @@ NB: in practice all voltage instability mechanisms can combine.
 
 ## Counter-measures
 
-- Reactive power compensation (series and shunt capacitors) but caveat
+- Switchable reactive power compensation devices (capacitors, inductors) 
 
-- Ensure availability of local reactive power reserves
+- Ensuring the availability of reactive power reserves close to load areas
 
-- Ad hoc under-voltage load-shedding schemes and clever power electronics
+- Ad hoc and clever voltage
+  control schemes
 
 ---
 
@@ -277,8 +308,45 @@ class: middle
 ## Control strategies and methods
 
 - Preventive control
+<ul>
+<li>Must-run generators (days/hours ahead in time)</li>
+<li>Setting of control device parameters (weeks/months ahead in time)</li>
+<li>Installation of reactive compensation devices (months/years ahead
+in time)</li>
+</ul>
 - Corrective control
+<ul>
+<li>Primary/Secondary/Tertiary voltage control</li>
+<li>Fast backup generation unit start-up</li>
+</ul>
 - Emergency control
+<ul>
+<li>On-load transformer tap changer blocking</li>
+<li>Under voltage load-shedding</li>
+</ul>
+
+---
+
+class: middle
+
+# Voltage control in distribution networks
+
+---
+
+Distribution systems are (typically) radial, operate at lower voltage levels, and
+have no synchronous generation installed.
+
+Voltage is mostly controlled by using tap-changing transformers. Wires
+copper sections are chosen in order to cover peak demand along the feeder.
+
+.center[.width-75[![](figureslw/distrib-net.png)]]
+
+##### Figure from: Electric power systems, Weedy, B.M. et al. John Wiley & Sons, 2012
+
+***
+
+*Notice that in MV-LV (distribution systems) at 200V-20kV:
+$X_L/R_L \approx 0.2 - 1$*
 
 ---
 
@@ -290,10 +358,18 @@ class: middle
 
 ## A think tank
 
-- Less synchronous generators in operation at the transmission level
-- Duck curve
-- Higher variability of flows and flow-directions at the distribution level
-- Tech opportunities 
+- Increasing difficulties
+ - Fewer synchronous generators in operation at the transmission level
+ - More and more pronounced 'Duck'-curve
+.center[.width-45[![](figureslw/duck-curve.png)]]
+
+ - Higher variability of flows and flow-directions at the distribution
+  and transmission level
+- New 'high-tech' opportunities
+<ul>
+<li> Power electronics </li>
+<li> Smart-grid technologies </li>
+</ul>
 
 ---
 
@@ -302,7 +378,8 @@ class: middle
 
 - Mohan, Ned. Electric power systems: a first course. John Wiley & Sons, 2012.
 - Van Cutsem, Thierry and Vournas, Costas. Voltage stability of
-  electric power systems. Kluwer Academic Publishers, 1998
+electric power systems. Kluwer Academic Publishers, 1998
+- Weedy, B.M. et al. Electric power systems. John Wiley & Sons, 2012
 
 ---
 
