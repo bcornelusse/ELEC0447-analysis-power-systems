@@ -28,7 +28,7 @@ Instructors:
 | October 12 | Lecture 5: [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf)) <br> Practice session: : [List of exercises on transformers](pdf/ELEC0447TP4v2.pdf)|
 | October 19 | Lecture 6: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) <br> Practice session: [List of exercises](pdf/ELEC0447_TP5.pdf) <br> Homework 2: [Transformers and generator limits in the power flow analysis](pdf/ELEC0447_homework2.pdf)|
 | October 26 | Lecture 7: [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf)) <br> Practice session: solution of some exercises of previous sessions. |
-| November 2 | Project [description](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1-3.pdf) |
+| November 2 | Project [description](pdf/ELEC0447_project_1-3.pdf) |
 | November 9 | Lecture 8: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) <br> |
 | November 16 | Lecture 9: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) <br> |
 | November 23 | Lecture 10: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture10.md) <br> |
