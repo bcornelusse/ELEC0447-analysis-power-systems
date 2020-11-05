@@ -29,12 +29,11 @@ Instructors:
 | October 19 | Lecture 6: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) <br> Practice session: [List of exercises](pdf/ELEC0447_TP5.pdf) <br> Homework 2: [Transformers and generator limits in the power flow analysis](pdf/ELEC0447_homework2.pdf)|
 | October 26 | Lecture 7: [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf)) <br> Practice session: solution of some exercises of previous sessions. |
 | November 2 | PandaPower Project [description](pdf/ELEC0447_project_1-3.pdf) |
-| November 9 | Lecture 8: [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) <br> ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
-| November 16 | Lecture 9: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) <br> |
+| November 9 | Lecture 8: [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
+| November 16 | Lecture 9: [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
 | November 23 | Lecture 10: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture10.md) <br> |
 | November 30 | TBD |
 | December 7  | PandaPower project presentation |
-| December 14 | If needed |
 
 
 # talk-template
