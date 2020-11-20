@@ -31,8 +31,8 @@ Instructors:
 | November 2 | PandaPower Project [description](pdf/ELEC0447_project_1-3.pdf) |
 | November 9 | Lecture 8: [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
 | November 16 | Lecture 9: [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
-| November 23 | Lecture 10: [TBD](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture10.md) <br> |
-| November 30 | TBD |
+| November 20 | [Oral examination questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
+| November 30 | |
 | December 7  | PandaPower project presentation |
 
 
