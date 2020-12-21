@@ -132,7 +132,7 @@ Example: for $500 kV$, $SIL \approx 1020 MW$
 
 ## Line loadability
 
-The SIL gives and idea of the loadability of a line depending on its length: 
+The SIL gives an idea of the loadability of a line depending on its length: 
  - short line, $ l < 100 km$ 
   - load limit $= 3 \times SIL$ 
   - thermal limit
