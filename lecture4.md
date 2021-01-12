@@ -279,7 +279,7 @@ class: middle
 
 A transfomer, in the per unit representation, can thus be represented 
  - as a two-port if the shunt admittance are considered
- - as a simple series leakge impedance if the shunt admittance is neglected
+ - as a simple series leakage impedance if the shunt admittance is neglected
 
 
 ---
