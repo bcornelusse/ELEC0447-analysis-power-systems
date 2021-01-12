@@ -363,7 +363,7 @@ There are **limits** on the value of $\delta$.
 Above $\delta = 90^\circ$ (maximum power generated), the synchronism is lost:
  - more mechanical power, less electrical power $\Rightarrow$ increase of $\delta$ $\Rightarrow$ too high currents
 
-In practive the limit is well below, at around $\delta = 40^\circ$
+In practice the limit is well below, at around $\delta = 40^\circ$
 
 
 ---
