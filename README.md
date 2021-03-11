@@ -1,7 +1,5 @@
 # ELEC0447 Analysis of Electric Power and Energy Systems
 
-**UNDER CONSTRUCTION**
-
 This is an introductory course on power systems analysis given at Master's level at ULiège.
 
 In 2020-2021, the course is scheduled on Mondays from 8:30AM to 12:30AM in room **1.94**, building B28.
