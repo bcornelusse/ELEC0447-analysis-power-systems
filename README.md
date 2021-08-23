@@ -2,7 +2,7 @@
 
 This is an introductory course on power systems analysis given at Master's level at ULiège.
 
-In 2020-2021, the course is scheduled on Mondays from 8:30AM to 12:30AM in room **1.94**, building B28.
+In 2021-2022, the course is scheduled on Thursdays from 8:30AM to 12:30AM in room **R.75**, building B28.
 
 We will use eCampus for notifications, homeworks submissions, questions, etc. 
 
@@ -15,7 +15,13 @@ Instructors:
  - Bertrand Cornélusse
  - Louis Wehenkel
 
-# Lectures 
+# Lectures (2021-2022)
+
+| Date | Topic |
+| --- | --- |
+| September 16 | Lecture 1: [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1.md) ([pdf]
+
+# Lectures (2020-2021)
 
 | Date | Topic |
 | --- | --- |
