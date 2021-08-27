@@ -288,7 +288,7 @@ We assume there is no magnetic saturation.
 - the *synchronous reactance* $X\_s$ characterizes the *steady-state operation* of the machine (magnetizing + leakage reactances)
 - $\delta$, the phase shift between the internal emf $\bar{E}\_{af}$ and the terminal voltage $\bar{V}\_a$,  is called the *internal angle* or *load angle* of the machine.
 
-.footnote[See [sourse notes of ELEC0431](https://people.montefiore.uliege.be/geuzaine/ELEC0431/3_Synchronous.pdf) for more details.]
+.footnote[See [course notes of ELEC0431](https://people.montefiore.uliege.be/geuzaine/ELEC0431/3_Synchronous.pdf) for more details.]
 
 We thus have 
 $$\bar{V}\_a = \bar{E}\_{af} - R\_s \bar{I}\_a - j X\_s \bar{I}\_a$$
@@ -489,7 +489,8 @@ This may require iterations, since other generators could need a switch.
 
 ## Example with PandaPower
 
-See the [python notebook](notebooks/PF_3_transformer_gen_limits_pandapower.ipynb).
+See the [
+notebook](notebooks/PF_3_transformer_gen_limits_pandapower.ipynb).
 
 ---
 
