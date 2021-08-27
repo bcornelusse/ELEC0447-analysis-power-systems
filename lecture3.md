@@ -113,7 +113,7 @@ Why? The reactive power consumed by the line is the same as the reactive power p
 
 ## Illustration in Python
 
-See Python notebook.
+See [Python notebook](https://colab.research.google.com/drive/1FDHjHhW1a6JECWwfznBeP2T5-M9UaJn8?usp=sharing).
 
 .center[.width-90[![](figures/line_model_voltage.png)]]
 .center[SIL, 230 kV line params]
@@ -161,7 +161,7 @@ This $\pi$ model is symmetrical by design.
 
 ## Illustration in Python
 
-See Python notebook.
+See [Python notebook](https://colab.research.google.com/drive/1FDHjHhW1a6JECWwfznBeP2T5-M9UaJn8?usp=sharing).
 
 .center[.width-80[![](figures/pi_model_voltage.png)]]
 .center[Loading at $Z\_c/2$, 230 kV line params. Dots correspond to the $\pi$-model, continuous line to the distributed parameter representation.]
