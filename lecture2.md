@@ -206,7 +206,7 @@ The power factor does not tell you whether the system is leading or lagging
 
 Produce some $Q$ to cancel out $\phi$.
 
-*Exemple:* 
+*Example:* 
 
 A 120V voltage source at 60 Hz that feeds a R-L load $1858.4 + j 1031.4 \ VA $
 
