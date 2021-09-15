@@ -1,7 +1,7 @@
 class: middle, center, title-slide
 count: false
 
-# ELEC0447 - Analysis of electric power and energy systems
+# ELEC0447 — Analysis of electric power and energy systems
 
 Lecture 1: Course organization and introduction
 
@@ -26,13 +26,14 @@ count: false
 
  - Theory lectures (maximum 2 hours) 
  - Practice sessions (remainder of the session) $\rightarrow$ bring your laptop
- - Homeworks: 
-  - Implement a power-flow solver for a particular grid configuration, step by step
+ - Homework assignments:  
+ - **Mandatory test on September 23**, on sinusoidal steady-state analysis (reminder given after this introduction)
+  - For self-assessment, but mandatory. 
  - Project: 
-  - Analyse a system using power flow analyses (power flow solver given)
-  - Present your results to the class
+  - Analyze a system using power flow analyzes (power flow solver provided)
+  - (Present your results to the class)
  - Oral exam in January
-  - Theory and exercise
+  - Theory (list of questions available) and one exercise
 
 ---
 
