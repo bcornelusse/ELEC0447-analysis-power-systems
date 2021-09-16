@@ -212,7 +212,7 @@ Transporting and distributing electrical energy is an industrial process with a 
 
 ##  Peak load on some grids
 
-.center.width-100[![](figures/peaks_be.png)]
+.center.width-100[![](figures/peaks_BE.png)]
 
 ---
 
@@ -230,7 +230,7 @@ class: middle
 
 ##   Sources of electrical energy in Belgium in 2018
 
-.center.width-100[![](figures/sources_be.png)]
+.center.width-100[![](figures/sources_BE.png)]
 
 .footnote[source : ENTSOE]
 
