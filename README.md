@@ -17,9 +17,11 @@ Instructors:
 
 # Lectures (2021-2022)
 
-| Date | Topic |
-| --- | --- |
-| September 16 | Lecture 1: [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1.md) ([pdf]
+| Date | Lecture | Topics |
+| --- | --- | --- |
+| September 16 | 1 | [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_intro.md) ([pdf file ](pdf/lecture1_intro.pdf))|
+|              |   | [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf fril](pdf/lecture1_SSSA.pdf))|
+|              |   | Exercises.pdf |
 
 # Lectures (2020-2021)
 
