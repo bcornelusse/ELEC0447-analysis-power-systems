@@ -209,25 +209,7 @@ Produce some $Q$ to cancel out $\phi$.
 A 120V voltage source at 60 Hz that feeds a R-L load $1858.4 + j 1031.4 \ VA $
 
 
----
 
-## Power transfer between AC systems
-.grid[
-.kol-1-2[Consider the following simple system <br></br>
-We have $\bar{I} = \frac{\bar{V}\_s-\bar{V}\_r}{jX}$]
-.kol-1-2[
-.center.width-100[![](figures/power-transfer_AC.svg)]]]
-
-Let $\delta$ be the angle between $\bar{V}\_r$ and $\bar{V}\_s$, then 
-$$\begin{aligned}
-S\_r &= \bar{V}\_r\bar{I}^*  = V\_r \left(\frac{V\_s \angle -\delta - V\_r}{-jX}\right) \\\\
-     &= \frac{V\_s V\_r \sin \delta }{X} +j \frac{V\_s V\_r \cos \delta - V^2\_r}{X} 
-\end{aligned}$$
-
-**Let's remember two things:**
-
- - The **active** power is highly sensitive to **$\delta$**
- - The **reactive** power acts on the **voltage magnitude** (look at what happens for $\delta=0$)
 ---
 
 class: end-slide, center

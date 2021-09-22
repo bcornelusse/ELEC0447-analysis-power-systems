@@ -15,15 +15,40 @@ Bertrand Cornélusse<br>
 
 # What will we learn today?
 
+- Power transfer between AC systems
 - 3-phase systems
 - Per unit normalization
 
 
 You will be able to do exercises 2.1, 2.2, 2.4, 2.5, 2.9, 2.11, 2.12, 2.14, 2.16, 2.17, 2.18, 2.19 and 2.20 from the Ned Mohan's book.
 
+---
+
+## Power transfer between AC systems
+
+.grid[
+.kol-1-2[Consider the following simple system <br></br>
+We have $\bar{I} = \frac{\bar{V}\_s-\bar{V}\_r}{jX}$]
+.kol-1-2[
+.center.width-100[![](figures/power-transfer_AC.svg)]]]
+
+Let $\delta$ be the angle between $\bar{V}\_r$ and $\bar{V}\_s$, then 
+$$\begin{aligned}
+S\_r &= \bar{V}\_r\bar{I}^*  = V\_r \left(\frac{V\_s \angle -\delta - V\_r}{-jX}\right) \\\\
+     &= \frac{V\_s V\_r \sin \delta }{X} +j \frac{V\_s V\_r \cos \delta - V^2\_r}{X} 
+\end{aligned}$$
+
+**Let's remember two things:**
+
+ - The **active** power is highly sensitive to **$\delta$**
+ - The **reactive** power acts on the **voltage magnitude** (look at what happens for $\delta=0$)
+
+---
 
 class: middle
+
 # Three-phase systems
+
 
 ---
 
@@ -37,6 +62,7 @@ Here the load is connected as a *star*. A neutral point is present.
 
 The neutral conductor is not necessarily implemented. 
 
+
 ---
 
 By design the voltage sources are shifted by 120°: 
@@ -47,10 +73,22 @@ $$\begin{aligned}
 \bar{V}\_{gc} &= V e^{j(\phi\_u - 4 \pi / 3)} = \bar{V}\_{ga} e^{-j 4 \pi / 3}
 \end{aligned}$$
 
+
+.center.width-70[![](figures/3ph_time_vs_phasor.PNG)]
+
+---
+
+## Phase voltage vs line to line voltage
+
 These voltages represent the **phase voltages**. If we now look at the **line to line voltages**: 
 
 $$\bar{U}\_{ab} = \bar{V}\_{ga} - \bar{V}\_{gb} = \sqrt{3} \bar{V}\_{ga} e^{j\pi / 6}$$
 and similarly for $\bar{U}\_{bc}$ and $\bar{U}\_{ca}$.
+
+
+---
+
+## Total power
 
 The total complex power transmitted to the load is 
 $$S = \sum\_{k \in \\{a, b, c\\}} \bar{V}\_{gk} \bar{I}^*\_{k} $$
@@ -74,7 +112,7 @@ In every phase there is a current flowing. In a balanced system, currents are ph
 
 Some loads can also be connected in "delta", hence the neutral is not accessible. 
 
-Finally, in unbalanced systems currents are dictated by the impedances seen in the different phases and have no perfectly known relation among them.
+Finally, in unbalanced systems, currents are dictated by the impedances seen in the different phases. There is no perfectly known relation, a priori.
 
 ---
 
