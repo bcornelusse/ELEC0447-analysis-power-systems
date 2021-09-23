@@ -15,10 +15,11 @@ Bertrand Cornélusse<br>
 
 # What will we learn today?
 
+Mostly from Chapter 2 of Ned Mohan's book.
+
 - Power transfer between AC systems
 - 3-phase systems
 - Per unit normalization
-
 
 You will be able to do exercises 2.1, 2.2, 2.4, 2.5, 2.9, 2.11, 2.12, 2.14, 2.16, 2.17, 2.18, 2.19 and 2.20 from the Ned Mohan's book.
 
@@ -42,6 +43,12 @@ S\_r &= \bar{V}\_r\bar{I}^*  = V\_r \left(\frac{V\_s \angle -\delta - V\_r}{-jX}
 
  - The **active** power is highly sensitive to **$\delta$**
  - The **reactive** power acts on the **voltage magnitude** (look at what happens for $\delta=0$)
+
+---
+
+## Demo
+
+ See https://colab.research.google.com/drive/1wrJYI082Y6qE6TyaT5a7eWO1lB0CCWiu?usp=sharing
 
 ---
 
