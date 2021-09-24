@@ -234,7 +234,7 @@ Power base (3-phase): 100 MVA
 
 ## Result of the tiny example using pandapower
 
-[Link to the Python notebook](notebooks/first_PF_pandapower.ipynb)
+[Link to the Python notebook](https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing)
 
 |    |   vm_pu |   va_degree |    p_mw |   q_mvar |
 |---:|--------:|------------:|--------:|---------:|
@@ -346,7 +346,7 @@ The most widespread method to solve this system is the *Newton-Raphson method*.
    - $x^{(i+1)} = x^{(i)} + \frac{c-f(x^{(i)})}{f'(x^{(i)})}$
    - $i \leftarrow i + 1$ 
 
-For $c=4$ and $f(x) = x^3$ ([Link to the Python notebook](notebooks/first_PF_pandapower.ipynb)): 
+For $c=4$ and $f(x) = x^3$ ([Link to the Python notebook](https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing)): 
 .center[.width-50[![](figures/NR-1D.png)]]
 
 The *convergence is quadratic* if we start with x(0) "close” to the solution.
