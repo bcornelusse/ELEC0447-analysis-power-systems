@@ -23,7 +23,7 @@ Instructors:
 | September 23 | 2 | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf))|
 |              |   | **Mandatory test on sinusoïdal steady-state analysis** |
 | September 30 | 3 | [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | Exercises on 3-phase systems, per unit normalization |
+|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447_TP2.pdf) |
 
 # Lectures (2020-2021)
 
