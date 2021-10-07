@@ -295,7 +295,7 @@ Let $Y\_l$ be the leakage admittance and $t$ be the off-nominal turns ratio:
 
 We have 
 $$\bar{I}\_1 = \left(\bar{V}\_1 - \frac{\bar{V}\_2}{t}\right) Y\_l$$
-and since $\frac{\bar{V}\_2}{t} \bar{I}\_1^\star = \bar{V}\_2 \bar{I}\_2^\star$ by energy conservation
+and since $\frac{\bar{V}\_2}{t} \bar{I}\_1^\star = -\bar{V}\_2 \bar{I}\_2^\star$ by energy conservation
 $$\bar{I}\_2 = - \frac{\bar{I}\_1}{t^\star} = - \bar{V}\_1 \frac{Y\_l}{t^\star} + \bar{V}\_2 \frac{Y\_l}{|t|^2}$$
 
 ---
