@@ -33,15 +33,15 @@ Instructors:
 |              |   | Exercises on transformers |
 | October 21   | 6 | HVDC |
 |              |   | Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system, submit on GradeScope. 
-| October 28   | 7 | Voltage regulation (TBC) |
+| October 28   | 7 | Voltage regulation  |
 |              |   | Exercises session |
 |              |   | PandaPower project description |
-| November 18  | 8 | Transient and dynamic stability (TBC)    |
+| November 18  | 8 | Transient and dynamic stability     |
 |              |   | Exercises session |
-| November 25  | 9 | Control of interconnected power systems and economic dispatch (TBC)   |
+| November 25  | 9 | Control of interconnected power systems and economic dispatch  |
 |              |   | Exercises session |
-| December 2   | 10 | Q&A session (TBC) |
-| December 9   | 11 | Oral presentation of PandaPower project results by students (TBC)|
+| December 2   | 10 | Q&A session |
+| December 9   | 11 | Oral presentation of PandaPower project results by students|
 
 
 # Lectures (2020-2021)
