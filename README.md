@@ -28,9 +28,20 @@ Instructors:
 | October 7    | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
 |              |   | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
 |              |   | [Exercises on transmission lines](pdf/ELEC0447_TP3.pdf)|
-|              |   | Assignment: implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/statement0_solved.pdf) |
+|              |   | Assignment 1: implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/statement0_solved.pdf) |
 | October 14   | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
 |              |   | Exercises on transformers |
+| October 21   | 6 | HVDC |
+|              |   | Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system, submit on GradeScope. 
+| October 28   | 7 | Voltage regulation (TBC) |
+|              |   | Exercises session |
+|              |   | PandaPower project description |
+| November 18  | 8 | Transient and dynamic stability (TBC)    |
+|              |   | Exercises session |
+| November 25  | 9 | Control of interconnected power systems and economic dispatch (TBC)   |
+|              |   | Exercises session |
+| December 2   | 10 | Q&A session (TBC) |
+| December 9   | 11 | Oral presentation of PandaPower project results by students (TBC)|
 
 
 # Lectures (2020-2021)
