@@ -23,13 +23,13 @@ Instructors:
 | September 23 | 2 | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf))|
 |              |   | **Mandatory test on sinusoïdal steady-state analysis** |
 | September 30 | 3 | [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447_TP2.pdf) |
+|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) |
 | October 7    | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
 |              |   | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
-|              |   | [Exercises on transmission lines](pdf/ELEC0447_TP3-2.pdf)|
-|              |   | Assignment: implement power flow analysis on a 4-bus test system, submit on GradeScope.|
-| October 14   | 5 | |
-|              |   |  |
+|              |   | [Exercises on transmission lines](pdf/ELEC0447_TP3.pdf)|
+|              |   | Assignment: implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/statement0_solved.pdf) and its [python notebook](notebooks/Test1_solved.ipynb) |
+| October 14   | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
+|              |   | Exercises on transformers |
 
 
 # Lectures (2020-2021)
