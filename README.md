@@ -32,7 +32,8 @@ Instructors:
 | October 14   | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
 |              |   | Exercises on transformers |
 | October 21   | 6 | HVDC |
-|              |   | Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system, submit on GradeScope. 
+|              |   | Exercises on synchronous machines |
+|              |   | Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system, submit on GradeScope. |
 | October 28   | 7 | Voltage regulation  |
 |              |   | Exercises session |
 |              |   | PandaPower project description |
