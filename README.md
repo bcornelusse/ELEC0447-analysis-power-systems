@@ -27,7 +27,7 @@ Instructors:
 |              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) |
 | October 7    | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
 |              |   | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
-|              |   | [Exercises on transmission lines](pdf/ELEC0447_TP3.pdf)|
+|              |   | [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)|
 |              |   | Assignment: implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/statement0_solved.pdf) |
 | October 14   | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
 |              |   | Exercises on transformers |
