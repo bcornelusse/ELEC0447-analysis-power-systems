@@ -489,8 +489,8 @@ This may require iterations, since other generators could need a switch.
 
 ## Example with PandaPower
 
-See the [
-notebook](notebooks/PF_3_transformer_gen_limits_pandapower.ipynb).
+See the [Python 
+notebook](https://colab.research.google.com/drive/1Q9E62wzrKiCsBIyRH9JnCTMSibSlY9OG?usp=sharing).
 
 ---
 
