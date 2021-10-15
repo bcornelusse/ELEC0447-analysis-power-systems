@@ -35,7 +35,6 @@ Instructors:
 |              |   | Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system, submit on GradeScope. |
 |              |   | [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) (please watch the video available on eCampus) |
 | October 28   | 7 | Voltage regulation  |
-|              |   | Exercises session |
 |              |   | PandaPower project description |
 | November 18  | 8 | Transient and dynamic stability     |
 |              |   | Exercises session |
