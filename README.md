@@ -41,7 +41,8 @@ Instructors:
 | November 25  | 9 | Control of interconnected power systems and economic dispatch  |
 |              |   | Exercises session |
 | December 2   | 10 | Q&A session |
-| December 9   | 11 | Oral presentation of PandaPower project results by students|
+| December 9   | 11 | Q&A session |
+| December 16   | 11 | Oral presentation of PandaPower project results by students|
 
 
 # Lectures (2020-2021)
@@ -61,6 +62,7 @@ Instructors:
 | November 20 | [Oral examination questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
 | November 30 | |
 | December 7  | PandaPower project presentation |
+
 
 
 # talk-template
