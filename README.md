@@ -37,9 +37,9 @@ Instructors:
 | October 28   | 7 | [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf))  |
 |              |   | [PandaPower project description](PandapowerProject/2021_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/1laIHGFlrfPkd_WFO0_UyB-wjXEZEzHoX?usp=sharing)|
 | November 18  | 8 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
-|              |   | Exercises session |
+|              |   | [Exercises session](pdf/ELEC0447-TP6.pdf) |
 | November 25  | 9 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
-|              |   | Exercises session |
+|              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
 | December 2   | 10 | Q&A session |
 | December 9   | 11 | Q&A session |
 | December 16   | 11 | Oral presentation of PandaPower project results by students|
