@@ -26,12 +26,13 @@ count: false
 
  - Theory lectures (maximum 2 hours) 
  - Practice sessions (remainder of the session) $\rightarrow$ bring your laptop
- - Homework assignments:  
- - **Mandatory test on September 23**, on sinusoidal steady-state analysis (reminder given after this introduction)
+ - **Mandatory test on September 22**, on sinusoidal steady-state analysis (reminder given after this introduction)
   - For self-assessment, but mandatory. 
+ - Homework assignments:  
+  - Two small programming assignments, direct application of course concepts
  - Project: 
   - Analyze a system using power flow analyzes (power flow solver provided)
-  - (Present your results to the class)
+  - Present your results on December 16
  - Oral exam in January
   - Theory (list of questions available) and one exercise
 
@@ -77,16 +78,67 @@ In modern society, electricity has become a “commodity”:
 
 *“marketable good or service whose instances are treated by the market as equivalent with no regard to who produced them”*
 
-- “Behind the power outlet” there is a complex industrial process
-- Electric energy systems are the largest systems ever built by man
- - thousands of km of overhead lines and underground cables, of transformers
- - tens/hundreds of power plants + a myriad of distributed energy sources
- - devices to (dis)connect elements: substations, circuit breakers, isolators
- - protection systems: to eliminate faults
- - real-time measurements : active and reactive power flows, voltage magnitudes, current magnitudes, energy   meters, phasor measurement units
- - controllers: distributed (e.g. in power plant) or centralized (control center)
- - etc.
-- Unlike most other complex systems built by man, power systems are exposed to external “aggressions” (rain, wind, ice, storm, lightning, etc.)
+
+But “Behind the power outlet” there is a complex industrial process!
+
+Electric energy systems are the largest systems ever built by man
+
+---
+
+## Thousands of km of overhead lines and underground cables, of transformers
+
+.width-40[![](figures/hq_securite_1-filsdangereux-en1-reconnaitrelesfils_img4-en.jpg)] 
+Source: https://www.hydroquebec.com/safety/transmission-lines/understand-transmission-lines.html <br>
+
+.width-40[![](figures/What_Specifically_is_a_Power_Transformer.jpeg)]
+Source:  https://www.bbntimes.com/society/common-reasons-for-use-power-transformers-in-residential-areas
+
+---
+
+## Tens/hundreds of power plants + a myriad of distributed energy sources
+
+.width-45[![](figures/Tihange_Nuclear_Power_Station.jpg)]
+Source: Wikipedia <br>
+
+.width-45[![](figures/Offshore_Wind_Aerial_XL_721_420_80_s_c1.webp)] 
+Source:  https://www.greentechmedia.com/articles/read/another-major-oil-company-invests-in-clean-energy1
+---
+
+## Devices to (dis)connect elements: substations, circuit breakers, isolators
+
+.width-100[![](figures/substation_energy_flow.jpg)]
+
+Source: https://www.osha.gov/etools/electric-power/illustrated-glossary/sub-station
+
+---
+
+## Protection systems: to eliminate faults
+
+.center.width-80[![](figures/shutterstock_679069147-1.jpg)] 
+
+Source: https://www.exa-ecs.com/courant-fort-quels-sont-les-composants-dune-armoire-electrique/
+
+---
+
+## Real-time measurements : active and reactive power flows, voltage magnitudes, current magnitudes, energy meters, phasor measurement units
+
+.center.width-60[![](figures/phasor-measurement-unit.png)] 
+
+Source: https://new.siemens.com/global/en/products/energy/energy-automation-and-smart-grid/protection-relays-and-control/general-protection/phasor-measurement-unit-pmu.html
+
+---
+
+## Controllers: distributed (e.g. in power plant) or centralized (control center)
+
+.center.width-80[![](figures/control-room-640x350-1.jpg)]
+
+Source: https://eliagrid-int.com/egi_projects/elia-national-control-centre-support/
+
+---
+
+## Unlike most other complex systems built by man, power systems are exposed to external “aggressions” (rain, wind, ice, storm, lightning, etc.)
+
+.center[<iframe width="600" height="480" src="https://www.youtube.com/embed/bSSO5XT1k1I" title="touching a power line with a tree branch" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]
 
 ---
 
@@ -173,6 +225,16 @@ Larger nominal voltages have been used progressively
 
 .center.width-100[![](figures/intro_elia.png)]
 
+[Updated version here](map-of-the-high-voltage-grid-2022.pdf)
+
+---
+
+# Flows on the belgian grid
+
+.center.width-60[![](figures/20220914_ELIA_flows.png)]
+
+[See here](https://www.elia.be/fr/donnees-de-reseau/transport/flux-de-bouclage-par-frontiere/flux-physiques-sur-le-reseau-haute-tension-belge)
+
 ---
 
 ## Length of network by voltage level and type in Belgium
@@ -249,6 +311,8 @@ class: middle
    - usually profitable since cost of electricity higher when demand is high
    - fast reserve : a hydro unit can be started (resp. pumping stopped) quickly to replace a generation unit that is taken out of service 
    - allows keeping base units (e.g. nuclear) in operation when load is very low
+
+.center.width-40[![](figures/Coo-Trois-Ponts.svg.png)]
 
 ---
 
