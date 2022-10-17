@@ -35,9 +35,9 @@ Instructors:
 |              |   | **TO BE UPDATED** [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf). Submit on GradeScope. |
 |              |   | [Exercises on synchronous machines](pdf/ELEC0447_TP5.pdf)|
 | October 27   | 7 | [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf))  |
-|              |   | **TO BE UPDATED** [PandaPower project description](PandapowerProject/2021_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/1laIHGFlrfPkd_WFO0_UyB-wjXEZEzHoX?usp=sharing)|
 | November 10  | 8 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
 |              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
+|              |   | **TO BE UPDATED** [PandaPower project description](PandapowerProject/2021_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/1laIHGFlrfPkd_WFO0_UyB-wjXEZEzHoX?usp=sharing)|
 | November 17  | 9 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
 |              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
 | November 24   | 10 | TBD |
