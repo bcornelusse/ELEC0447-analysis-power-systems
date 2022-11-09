@@ -42,11 +42,7 @@ Instructors:
 |              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
 | November 24   | 10 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
 | December 1   | 11 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
-|              |    | Seminar by Dr. Bertrand Godard, Ampacimon. Alors que les réseaux électriques du monde entier sont de plus en plus congestionnés et limités en raison des changements de production et des pics de demande, les gestionnaires de réseau doivent répondre rapidement à de nouveaux points de congestion tout en maintenant une fiabilité élevée et des coûts bas pour le consommateur d’énergie.
-Traditionnellement, la capacité du réseau est augmentée en remplaçant des équipements lourds tels que les sous-stations, les conducteurs aériens et les câbles souterrains. Ces types de projets ne prennent pas en compte la capacité inutilisée des lignes existantes, nécessitent des investissements importants et impliquent des années de planification et de développement
-Le Dynamic Line Rating (DLR) d’une ligne de transport ou de distribution est la capacité de transport de courant réelle basée sur des mesures directes de l’état du conducteur et des conditions météorologiques environnantes.
-Le capteur Ampacimon est un capteur DLR basé sur les vibrations du conducteur. Il détermine la capacité de transport en temps-réel en prévisionnelle en déterminant la flèche des conducteurs et le vent agissant sur les portées critiques. La combinaison des mesures temps-réel du capteur Ampacimon et de techniques modernes (type machine learning) permettent également de fournir une prévision de la capacité d’une ligne de transport (jusqu’à quelques jours).
-Les mesures temps-réel des capteurs Ampacimon permettent également de fournir aux gestionnaires de réseaux des informations sur l’état des lignes (accrétion de glace, anomalies mécaniques et / ou électriques, etc)|
+|              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
 | December 8   | 12 | Oral presentation of PandaPower project results by students|
 | December 15   | 13 | No activity planned for now |
 
