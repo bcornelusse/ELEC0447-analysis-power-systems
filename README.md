@@ -42,6 +42,7 @@ Instructors:
 |              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
 | November 24   | 10 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
 | December 1   | 11 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
+|              |    | Seminar by Dr. Bertrand Godard, Ampacimon. |
 | December 8   | 12 | Oral presentation of PandaPower project results by students|
 | December 15   | 13 | No activity planned for now |
 
