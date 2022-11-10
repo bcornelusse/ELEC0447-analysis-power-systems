@@ -37,14 +37,14 @@ Instructors:
 | October 27   | NO LECTURE | 
 | November 10  | 7 | [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf))  |
 |              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
-|              |   | [PandaPower project description](PandapowerProject/2022_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/1laIHGFlrfPkd_WFO0_UyB-wjXEZEzHoX?usp=sharing)|
-| November 17  | 9 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
+|              |   | [PandaPower project description](PandapowerProject/2022_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/10quG_fRyqRbz1JwFu6GGfXqlMp_1dKyO?usp=sharing)|
+| November 17  | 8 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
 |              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
-| November 24   | 10 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
-| December 1   | 11 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
+| November 24   | 9 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
+| December 1   | 10 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
-| December 8   | 12 | Oral presentation of PandaPower project results by students|
-| December 15   | 13 | No activity planned for now |
+| December 8   | 11 | Oral presentation of PandaPower project results by students|
+| December 15   | 12 | No activity planned for now |
 
 
 
