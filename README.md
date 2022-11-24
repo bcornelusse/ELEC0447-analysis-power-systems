@@ -49,39 +49,6 @@ Instructors:
 | January      |  | Oral exam, [list of questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
 
 
-# Old lectures (2021-2022)
-
-| Date | Lecture | Topics |
-| --- | --- | --- |
-| September 16 | 1 | [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_intro.md) ([pdf file](pdf/lecture1_intro.pdf))|
-|              |   | [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))|
-|              |   | [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) |
-| September 23 | 2 | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf))|
-|              |   | Mandatory test on sinusoïdal steady-state analysis |
-|              |   | [**Test solution and statistics on results**](notebooks/Test1_solved.ipynb) |
-| September 30 | 3 | [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) |
-| October 7    | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
-|              |   | [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)|
-|              |   | Assignment 1: implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/statement0_solved.pdf) |
-| October 14   | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
-|              |   | [Exercises on transformers](pdf/ELEC0447-TP4.pdf) |
-| October 21   | 6 | [Exercises on synchronous machines](pdf/ELEC0447_TP5.pdf) (starts at 13:45)|
-|              |   | [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf). Submit on GradeScope. |
-|              |   | [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) (please watch the video available on eCampus) |
-| October 28   | 7 | [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf))  |
-|              |   | [PandaPower project description](PandapowerProject/2021_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/1laIHGFlrfPkd_WFO0_UyB-wjXEZEzHoX?usp=sharing)|
-| November 18  | 8 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
-|              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
-| November 25  | 9 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
-|              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
-| December 2   | 10 | Q&A session |
-| December 9   | 11 | Q&A session |
-| December 16   | 11 | Oral presentation of PandaPower project results by students|
-
-
-
 
 # talk-template
 
