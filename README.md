@@ -44,8 +44,8 @@ Instructors:
 |              |   | [Exercises session](pdf/ELEC0447-TP8.pdf) |
 | December 1   | 10 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
-| December 8   | 11 | Oral presentation of PandaPower project results by students|
-| December 15   | 12 | No activity planned for now |
+| December 8   | 11 | Q&A if needed. |
+| December 15   | 12 | Oral presentation of PandaPower project results by students. |
 
 
 
