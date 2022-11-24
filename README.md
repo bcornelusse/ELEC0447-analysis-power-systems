@@ -41,6 +41,7 @@ Instructors:
 | November 17  | 8 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
 |              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
 | November 24   | 9 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
+|              |   | [Exercises session](pdf/ELEC0447-TP8.pdf) |
 | December 1   | 10 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
 | December 8   | 11 | Oral presentation of PandaPower project results by students|
