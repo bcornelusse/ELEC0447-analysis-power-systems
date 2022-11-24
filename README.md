@@ -46,7 +46,7 @@ Instructors:
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
 | December 8   | 11 | Q&A if needed. |
 | December 15   | 12 | Oral presentation of PandaPower project results by students. |
-
+| January      |  | Oral exam, [list of questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
 
 
 # Old lectures (2021-2022)
