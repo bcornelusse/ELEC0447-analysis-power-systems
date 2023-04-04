@@ -135,6 +135,14 @@ Magnetic field created by this direct current (field winding represented by a si
 
 ---
 
+class: middle, center, black-slide
+
+<iframe width="329" height="586" src="https://www.youtube.com/embed/RK3OFyeoCPU" title="#animation  of Three-Phase Distributed Winding" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+Magnetic field created by the rotor
+
+---
+
 ## Interaction between magnetic fields and electromechanical conversion
 
 -   In a synchronous machine, in steady state, the rotor rotates at the
