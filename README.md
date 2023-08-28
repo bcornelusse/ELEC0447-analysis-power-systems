@@ -26,7 +26,7 @@ Teaching assistant:
 |              |   | [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) |
 | September 21 | 2 | **!!! The lecture starts at 1 PM !!!** |
 |              |   | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf)) |
-|              |   |  ** No exercise session, info session. ** |
+|              |   |  **No exercise session, info session.** |
 |              |   | **To be updated** Homework test on sinusoïdal steady-state analysis. Do it on your own, and submit it on Gradescope if you want feedback. |
 | September 28 | 3 | [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
 |              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) |
