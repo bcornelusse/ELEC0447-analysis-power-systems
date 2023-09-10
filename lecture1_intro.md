@@ -483,8 +483,7 @@ Energy flows in 2018 (in GWh)]]
 Paths taken by a production increment of 100 MW in Belgium
 covered by a load increase of 100 MW in Italy (variation of losses neglected): 
 
-.center.width-50[![](figures/EU_Path_flows.png)]
-
+.center.width-50[![](figures/EU_path_flows.png)]
 ---
 
 class: middle
