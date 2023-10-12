@@ -35,7 +35,7 @@ Teaching assistant:
 | October 12   | 5 | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
 |              |   | [Exercises on transformers](pdf/ELEC0447-TP4.pdf) |
 |              |   | **To be updated** Assignment 1: Implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/CASE0.pdf) |
-| October 20   | 6 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
+| **October 20**   | 6 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
 |              |   | [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) |
 |              |   | **To be updated** [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf). Submit on GradeScope. |
 |              |   | [Exercises on synchronous machines](pdf/ELEC0447_TP5.pdf)|
@@ -46,7 +46,7 @@ Teaching assistant:
 |              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
 | November 16  | 9 |  **To be updated** [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
 |              |   | [Exercises session](pdf/ELEC0447-TP8.pdf) |
-| November 23   | 10 | **To be confirmed**  Visit of Elia's national dispatch center. |
+| **November 24**  | 10 | Visit of Elia's national dispatch center (organisational details on ecampus) |
 | November 30   | 11 | Oral presentation of PandaPower project results by students. |
 | December 7   | 12 | **To be confirmed** Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. |
