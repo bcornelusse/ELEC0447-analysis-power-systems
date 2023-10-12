@@ -19,9 +19,9 @@ Bertrand Cornélusse<br>
 # What will we learn today?
 
 - The power transformer
-- The next part of power flow analysis: how to include transformers, and transformers with tap changers
+- The next part of power flow analysis: how to include transformers and transformers with tap changers
 
-You will be able to do exercises 6.2, 6.3, 6.4 from the Ned Mohan's book.
+You will be able to do exercises 6.2, 6.3, 6.4 from Ned Mohan's book.
 
 ---
 
@@ -42,11 +42,11 @@ $$i\_2  = -\frac{1}{n}i\_1$$
 ]]
 
 
-In power systems, transformers are mainly used to transmit power over long distances by changing the voltage level, thus decreasing the current for a given power level. Voltage level of synchronous generator around 20kV.
+In power systems, transformers are mainly used to transmit power over long distances by changing the voltage level, thus decreasing the current for a given power level. The voltage level of a synchronous generator is around 20kV.
 
-Voltage is changed around 5 times between generation and load.
+Voltage is changed around five times between generation and load.
 
-It is also used to *measure* currents and voltages, electrically *isolate* parts of a circuit (not the auto-transformer we will see), *match* impedances.
+It is also used to *measure* currents and voltages, electrically *isolate* parts of a circuit (not the auto-transformer we will see), and *match* impedances.
 
 
 ---
@@ -64,16 +64,16 @@ class: middle, center, black-slide
 The ideal model is complemented by elements 
 - $X\_m$ that models the magnetizing inductance
 - $X\_{leakage, i}$ that models the flux not captured by the core on side $i$
-- $R\_{core}$ that models eddy current and hysteresis losses, i.e. losses in the iron core
+- $R\_{core}$ that models eddy current and hysteresis losses, i.e., losses in the iron core
 - $R\_{1}$ and $R\_{2}$ that model (coil) copper losses
 
-Parameters are either given in the datasheet or obtained by open-circuit and short-cirtuit tests.
+Parameters are either given in the datasheet or obtained by open-circuit and short-circuit tests.
 
 Laminated core to decrease losses.
 
 ---
 
-The excitation current, sum of the currents in $R\_{core}$ and $X\_m$, is often neglected, leading to a simpler non-ideal model, and the series impedances can be transferred from one side to the other:
+The excitation current, the sum of the currents in $R\_{core}$ and $X\_m$, is often neglected, leading to a simpler non-ideal model, and the series impedances can be transferred from one side to the other:
 
 .grid[
 .kol-1-2[.center.width-90[![](figures/non-ideal-transformer-2.png)]]
@@ -99,7 +99,7 @@ $$Z\_{tr} = \frac{Z\_{p}}{Z\_{p, base}}+\frac{Z\_{s}}{Z\_{s, base}}.$$
 ---
 
 Thus we have also that $$\begin{aligned}Z\_{tr} &= \frac{Z\_{p}+ Z\_s/n^2}{Z\_{p, base}} \\\\ &= \frac{n^2 Z\_{p} + Z\_s}{Z\_{s, base}}\end{aligned}$$
-i.e. *the impedance if the same whether we see it from the primary or the secondary side, although the voltage bases differ*.
+i.e. *the impedance is the same whether we see it from the primary or the secondary side, although the voltage bases differ*.
 
 Also, if the three-phase transformer is *wye-delta* connected, a *30° phase shift* must be applied (more on this later).
 
@@ -113,7 +113,7 @@ Consider the one-line diagram
 
 with 
  - a 200 km line with $R = 0.029 \Omega/km$, $X=0.326 \Omega/km$, neglected shunt impedances
- - two ransformers with a leakage reactance of $0.2 pu$ in the (500 kV, 1000 MVA) base, and losses neglected.
+ - two transformers with a leakage reactance of $0.2 pu$ in the (500 kV, 1000 MVA) base, and losses neglected.
 
 *What is the equivalent model in a (345 kV, 100 MVA) base?*
 
@@ -123,7 +123,7 @@ with
 
 - $Z\_{line, pu} = 200 \times (0.029 + j 0.326) / (500^2/1000) = 0.0232 + j 0.2608 pu$
 
-- hence the total impedance between buses 1 and 2 is $$Z\_{12} = 0.0232 + j 0.2608  + 2 * j 0.2pu =  0.0232 + j 0.6608 pu $$
+- hence, the total impedance between buses 1 and 2 is $$Z\_{12} = 0.0232 + j 0.2608  + 2 * j 0.2pu =  0.0232 + j 0.6608 pu $$
 
 ---
 
@@ -133,7 +133,7 @@ with
  - since we can transfer the impedance from one side of each transformer to the other, cf. a previous remark
 
 - if we now change the MVA base to 100 MVA, 
- $$Z\_{12} = 0.0232 + j 0.6608  \times (100/1000) pu =  0.00232 + j 0.06608 pu$$ since the base impedance is proportional to the inverse of the MVA base.
+ $$Z\_{12} = (0.0232 + j 0.6608)  \times (100/1000) pu =  0.00232 + j 0.06608 pu$$ since the base impedance is proportional to the inverse of the MVA base.
 
 ---
 
@@ -234,7 +234,7 @@ For the details of how it is implemented or modeled, see
  
 .center.width-50[![](figures/phase-shifters-be.png)]
 
-380/380 kV : in series with:
+380/380 kV: in series with:
 1. line Zandvliet (B) - Borssele (NL) and Zandvliet (B) - Geertruidenberg (NL)
 2. line Meerhout (B) - Maasbracht (NL)
 3. line Gramme (B) - Maasbracht (NL)
@@ -251,7 +251,7 @@ For the details of how it is implemented or modeled, see
 
 220/150 kV : 
  - in series with the Chooz (F) - Monceau (B) line nominal power: 400 MVA
- - in-phase adjustment : 21 positions, +10/-10 × 1.5 % 
+ - in-phase adjustment: 21 positions, +10/-10 × 1.5 % 
  - quadrature adjustment: 21 positions, +10/-10 × 1.2°
 
 .footnote[From ELEC0014.]
@@ -262,9 +262,9 @@ For the details of how it is implemented or modeled, see
 
 In *three-phase operation*,  
  - either there are three separate single-phase transformers (easier to fix when there is a problem on a phase, more modular)
- - or a *three-phase transformer*, that is a single core with three auto-transormers on it, cf. the video at the beginning of this presentation (cheaper, lighter core and less copper).
+ - or a *three-phase transformer*, that is a single core with three auto-transformers on it, cf. the video at the beginning of this presentation (cheaper, lighter core and less copper).
 
-Some transformers called *three-winding transformers* are equiped with a third winding (not to be confused with a three-phase transformer) that is used for auxiliary purposes (feeding auxiliary devices e.g. fans, providing reactive power support, ...)
+Some transformers called *three-winding transformers* are equipped with a third winding (not to be confused with a three-phase transformer) that is used for auxiliary purposes (feeding auxiliary devices e.g., fans, providing reactive power support, ...).
 
 
 ---
@@ -277,8 +277,8 @@ class: middle
 
 ## Transformer without regulation
 
-A transfomer, in the per unit representation, can thus be represented 
- - as a two-port if the shunt admittance are considered
+A transformer, in the per-unit representation, can thus be represented 
+ - as a two-port if the shunt admittance is considered
  - as a simple series leakage impedance if the shunt admittance is neglected
 
 
@@ -309,7 +309,7 @@ $$\left[\begin{array}{c} \bar{I}\_1 \\\\ \bar{I}\_2\end{array}\right]
 - if $ 0 < t \leq 1$, this can be represented as a $\pi$ two-port
 - if $ 0 < |t| \leq 1$ but is complex, this is not the case
 
-In the [power flow analysis](?p=lecture3.md#23), you must **pay attention to this when contructing the system-wide admittance matrix.**
+In the [power flow analysis](?p=lecture3.md#23), you must **pay attention to this when constructing the system-wide admittance matrix.**
 
 ---
 
