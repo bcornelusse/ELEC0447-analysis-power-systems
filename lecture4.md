@@ -142,7 +142,7 @@ with
 The efficiency expressed in % is 
 $$100 \times \frac{P\_{output}}{P\_{input}} = 100 \times \left(1 - \frac{P\_{losses}}{P\_{input}}\right) $$
 
-- maximal when copper losses = iron losses (cancel derivative of efficiency w.r.t current) 
+- maximal when loaded such that copper losses = iron losses (cancel derivative of efficiency w.r.t current) 
 - Around 99.5 % in large power transformers at full load.
 
 ---
