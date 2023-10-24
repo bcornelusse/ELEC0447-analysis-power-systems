@@ -535,7 +535,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 - There exist various solutions to <i> fill the curve </i>: Demand Side Management, Energy Buffer (e.g. batteries), increasing import/export capacities.
 
 <p align="center">
-<img src=figures_aclt/DuckCurve.png width="400" height="260" />
+<img src=figures_aclt/duckcurve.png width="400" height="260" />
 </p>
 
 .footnote[[13] https://www.powermag.com/epri-head-duck-curve-now-looks-like-a-canyon/]
