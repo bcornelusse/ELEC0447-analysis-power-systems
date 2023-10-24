@@ -46,7 +46,7 @@ Antonin Colot<br>
 </div>
 
  <p align="center">
- <img src=figures_aclt/ConceptOfStability.jpg width="450" height="200" />
+ <img src=figures_aclt/ConceptOfStability.png width="450" height="200" />
  </p>
 
 .footnote[[1] Keviczky, László, et al. "Stability of linear control systems." Control Engineering (2019): 197-239.]
@@ -112,7 +112,7 @@ Antonin Colot<br>
  - A cascading event caused the tripping of hundreds of lines and generating units.
 
 <p align="center">
-<img src=figures_aclt/USABlackOut.jpg width="280" height="320" />
+<img src=figures_aclt/USABlackOut.png width="280" height="320" />
 </p>
 
 <div class="warning" style='padding:0.01em; background-color:#F4FFFF; color:#20707E'>
@@ -373,7 +373,7 @@ The load on the secondary side is represented by a constant conductance $G$, con
 The voltage on the primary side is controlled by a synchronous generator. $V_g$ is kept constant as long as the reactive power limits of the generator are not reached.
 
 <p align="center">
-<img src=figures_aclt/OLTC.png width="400" height="200" />
+<img src=figures_aclt/OLTC.png width="380" height="170" />
 </p>
  
 ---
@@ -416,7 +416,7 @@ The disturbance can be the tripping of a line (as it is the case here), which le
 Consider an induction motor. The torque-speed curve is given below. 
 
 <p align="center">
-<img src=figures_aclt/MotorStalling.jpg width="300" height="210" />
+<img src=figures_aclt/MotorStalling.png width="300" height="210" />
 </p>
 
 $T_L$ is the mechanical torque. $C$ curves correspond to different electromechanical torques depending on the slip $s=\frac{\omega_s - \omega_r}{\omega_s}$. 
@@ -535,7 +535,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 - There exist various solutions to <i> fill the curve </i>: Demand Side Management, Energy Buffer (e.g. batteries), increasing import/export capacities.
 
 <p align="center">
-<img src=figures_aclt/DuckCurve.jpeg width="400" height="260" />
+<img src=figures_aclt/DuckCurve.png width="400" height="260" />
 </p>
 
 .footnote[[13] https://www.powermag.com/epri-head-duck-curve-now-looks-like-a-canyon/]
