@@ -228,7 +228,7 @@ $$Q_S = -Q_R$$
 <b> Question:</b> Where does the reactive power go?
 
  - Total reactive power loss: 
-$$Q_S-(-Q_R) = 2 Q_S$$
+$$Q_S-(-Q_S) = 2 Q_S$$
  - Line current: 
 $$\bar{I} = \frac{2 \sin(\delta/2)}{X_L} e^{j(\delta/2)}$$
  - Reactive power consumed by the line: 
@@ -380,17 +380,17 @@ The voltage on the primary side is controlled by a synchronous generator. $V_g$ 
 
 We assume an ideal transformer: $\frac{V}{V_2} = r$, $\frac{I_2}{I} = r$. 
 
-The impedance $G$ seen from the primary side becomes $r^2 G$. 
+The conductance $G$ seen from the primary side becomes $r^2 G$. 
 
-The load characteristic seen from the primary side becomes $P_G = G\left(\frac{V}{r}\right)^2$, with $P_G$ the power consumed by the impedance $G$. 
+The load characteristic seen from the primary side becomes $P_G = G\left(\frac{V}{r}\right)^2$, with $P_G$ the power consumed by the conductance $G$. 
 
 Now, imagine one wants to keep $V_2 = V_2^o$, if $V \searrow  \Rightarrow r \searrow$. Indirectly, by decreasing $r$, the OLTC tries to restore the load (since it increases $V_2$ and $P_G = G V_2^2$).
 
 Two different scenarii:
 
-1) $V$ decreases slower than $r$, $P_G \nearrow$ until the load is restored.
+1) $\frac{V}{r}$ converges towards $V_2^o$, the load is restored.
 
-2) $V$ decreases faster than $r$, $P_G \searrow$, the load is never restored and $V$ collapses.
+2) $\frac{V}{r}$ never converges towards $V_2^o$ and $V$ collapses.
 
 ---
 
@@ -423,13 +423,13 @@ $T_L$ is the mechanical torque. $C$ curves correspond to different electromechan
 
 The initial curve is $C_0^-$ and the machine operates on operating point $S_0$. If the voltage drops, the new curve becomes $C_0^+$. 
 
-The motor speed $\omega_r$ is reduced (thus $s$ increases), and we reach a new operating point $S_1$. Although the voltage has dropped, the power consumed stays the same. <i> This is similar to what happens with OLTCs (by changing the tap positions, they try to restore the load, thus to keep a constant power).</i>
+The motor speed $\omega_r$ is reduced (thus $s$ increases), and we reach a new operating point $S_1$. This increase in $s$ leads to an increase in motor current and the further decrease in voltage and electrical torque. If the rate of decreasing voltage is slower than that of increasing slip, the voltage settles down.
 
 ---
 
-If now the voltage drops further, and the new curve becomes $C_2$, the motor speed is reduced until it completely stops (since there is no intersection between $C_2$ and $T_L$). The induction motor acts as a large inductance, drawing reactive power.  
+If now the voltage drops faster, and the new curve becomes $C_2$, the motor speed is reduced until it completely stops (since there is no intersection between $C_2$ and $T_L$). The induction motor acts as a large inductance, drawing reactive power.  
 
-This is considered as a <b> Short-term Voltage Instability </b> as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions).
+This is considered as a <b> Short-term Voltage Instability </b> as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions). OLTCs are not able to restore the voltage.
 
 <p align="center">
 <img src=figures_aclt/InductionMotorVoltage.png width="350" height="280" />
@@ -514,12 +514,12 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 
 ---
 
-- In distribution systems, the $X/R \approx 1$. Active power flows have actually a greater influence on voltage magnitudes than reactive power flows.
+- In distribution systems, the $X/R < 1$. Active power flows have actually a greater influence on voltage magnitudes than reactive power flows.
 
 - One way to fight overvoltages in distribution networks with high penetration of solar inverters is to do active power curtailment and reactive power compensation.
 
 <p align="center">
-<img src=figures_aclt/VoltageCtrl.png width="650" height="300" />
+<img src=figures_aclt/VoltageCtrl.png width="700" height="300" />
 </p>
 
 .footnote[[12] Colot, A., Stegen, T., & Cornélusse, B. (2023, June). Fully distributed real-time voltage control in active distribution networks with large penetration of solar inverters. In 2023 IEEE Belgrade PowerTech (pp. 01-06). IEEE.] 
@@ -530,9 +530,9 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 
 - As we further increase the penetration of RES, changes appear in the demand profile (concept of Duck Curve, now becoming Canyon Curve)
 
-- Needs for flexibility to ensure power balance: shut down of flexible production plant when RES start to produce, activate them again when they stop producing
+- Needs for flexibility to ensure power balance: shut down of flexible production plants when RES start to produce, activate them again when they stop producing
 
-- There exist various solutions to <i> fill the curve </i>: Demand Side Management, Energy Buffer (e.g. batteries), increasing import/export capacities.
+- There exist various solutions to <i> fill the curve </i>: Demand Side Management, Energy Buffers (e.g. batteries), increasing import/export capacities.
 
 <p align="center">
 <img src=figures_aclt/duckcurve.png width="400" height="260" />
