@@ -131,7 +131,7 @@ Antonin Colot<br>
  - Disconnection of a transmission line in Germany for the transport of a ship approved by the local TSO.
  - The local TSO approved to advance the disconnection later that day, but the commercial flows remained unchanged.
  - Some lines were critically loaded because of the line disconnection and a fast increase of load consumption led to a cascading event.
- - European interconnected network has been splitted into 3 islands.
+ - European interconnected network has been split into 3 islands.
 
 <p align="center">
 <img src=figures_aclt/EuropeBlackOut.png width="280" height="200" />
@@ -325,7 +325,7 @@ $$V_R \approx \frac{(1-I^2)}{(1-I^2)+I^2/2}$$
 
 Since $I=\sin \delta \leq 1$, which implies that $(1-I^2) \geq 0$ and therefore $V_R$ decreases when $I$ increases.  
 
-It does so because the line is inductive, and thus consumes reactive power. The larger the current, the larger the reactive power consumed by the line, which pull the voltage down.
+It does so because the line is inductive, and thus consumes reactive power. The larger the current, the larger the reactive power consumed by the line, which pulls the voltage down.
 
 <b> Question:</b> Is that everything we need to know about nose curves?
 
@@ -364,9 +364,9 @@ The ideas previously developed still stand, except that now the load can:
 
 <em> Long-term instabilities </em>
 
-On-load tap changers (OLTCs) change the turn ratio of the transformers feeding the distribution systems to keep the voltages on the secondary-side as close as possible to a given setpoint. 
+On-load tap changers (OLTCs) change the turn ratio of the transformers feeding the distribution systems to keep the voltages on the secondary side as close as possible to a given setpoint. 
 
-Let us consider the following circuit, where the primary side of the transformer is the high voltage network, and the secondary side the low/medium voltage network. 
+Let us consider the following circuit, where the primary side of the transformer is the high voltage network, and the secondary side is the low/medium voltage network. 
 
 The load on the secondary side is represented by a constant conductance $G$, consuming active power. 
 
@@ -416,7 +416,7 @@ The disturbance can be the tripping of a line (as it is the case here), which le
 Consider an induction motor. The torque-speed curve is given below. 
 
 <p align="center">
-<img src=figures_aclt/MotorStalling.png width="300" height="210" />
+<img src=figures_aclt/Motorstalling.png width="300" height="210" />
 </p>
 
 $T_L$ is the mechanical torque. $C$ curves correspond to different electromechanical torques depending on the slip $s=\frac{\omega_s - \omega_r}{\omega_s}$. 
@@ -429,7 +429,7 @@ The motor speed $\omega_r$ is reduced (thus $s$ increases), and we reach a new o
 
 If now the voltage drops further, and the new curve becomes $C_2$, the motor speed is reduced until it completely stops (since there is no intersection between $C_2$ and $T_L$). The induction motor acts as a large inductance, drawing reactive power.  
 
-This is considered as a <b> Short-term Voltage Instability </b> as this phenomena is much quicker than what we have with OLTCs (it takes several seconds to change tap positions).
+This is considered as a <b> Short-term Voltage Instability </b> as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions).
 
 <p align="center">
 <img src=figures_aclt/InductionMotorVoltage.png width="350" height="280" />
