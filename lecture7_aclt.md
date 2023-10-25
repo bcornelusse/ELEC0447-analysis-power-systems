@@ -323,7 +323,7 @@ $$V_R \approx \frac{(1-I^2)}{(1-I^2)+I^2/2}$$
 <img src=figures_aclt/NoseCurveApprox.png width="550" height="280" />
 </p>
 
-Since $I=\sin \delta \leq 1$, which implies that $(1-I^2) \geq 0$ and therefore $V_R$ decreases when $I$ increases.  
+Since $I=\sin \delta \leq 1$, which implies that $(1-I^2) \geq 0$ and therefore $V_R$ decreases when $I$ increases. But after a given value of $I$, $V_R$ decreases faster than $I$ increases. Since $P_R = V_R I \cos{\phi}$, there is a maximum power transmissible.  
 
 It does so because the line is inductive, and thus consumes reactive power. The larger the current, the larger the reactive power consumed by the line, which pulls the voltage down.
 
