@@ -380,11 +380,9 @@ The voltage on the primary side is controlled by a synchronous generator. $V_g$ 
 
 We assume an ideal transformer: $\frac{V}{V_2} = r$, $\frac{I_2}{I} = r$. 
 
-The conductance $G$ seen from the primary side becomes $r^2 G$. 
-
 The load characteristic seen from the primary side becomes $P_G = G\left(\frac{V}{r}\right)^2$, with $P_G$ the power consumed by the conductance $G$. 
 
-Now, imagine one wants to keep $V_2 = V_2^o$, if $V \searrow  \Rightarrow r \searrow$. Indirectly, by decreasing $r$, the OLTC tries to restore the load (since it increases $V_2$ and $P_G = G V_2^2$).
+Now, imagine one wants to keep $V_2 = V_2^o$, if $V \searrow  \Rightarrow r \searrow$. Indirectly, by decreasing $r$, the OLTC tries to restore the load (since it increases $V_2$ and $P_G = G V_2^2 = G\left(\frac{V}{r}\right)^2$).
 
 Two different scenarii:
 
