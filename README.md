@@ -38,7 +38,7 @@ Teaching assistant:
 | **October 20**   | 6 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
 |              |   | [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) |
 |              |   | [Exercises on transformers](pdf/ELEC0447-TP4.pdf) |
-|              |   | **To be updated** [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf). Submit on GradeScope. |
+|              |   | [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf). Submit on GradeScope. |
 | October 26   |  7 |  **The lecture starts at 4PM** [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  |
 |              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
 | November 9  | 8 |  **To be updated** [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
