@@ -42,10 +42,9 @@ Teaching assistant:
 | October 26   |  7 |  **The lecture starts at 4PM** [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  |
 |              |   | **No exercise session.**|
 | November 9  | 8 |  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) |
-|              |   | [Exercises on synchronous machines](pdf/ELEC0447_TP5.pdf)|
-|              |   | **To be updated** [PandaPower project description](PandapowerProject/2022_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/10quG_fRyqRbz1JwFu6GGfXqlMp_1dKyO?usp=sharing)|
+|              |   | [PandaPower project zip](PandapowerProject/2023_pandapower_project_ELEC0447.pdf) & [VS code & Python notebook tutorial](https://shorturl.at/kpuzE)|
 | November 16  | 9 |  **To be updated** [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
-|              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & [Exercises session](pdf/ELEC0447-TP7.pdf)|
+|              |   | [Exercises on synchronous machines](pdf/ELEC0447_TP5.pdf) & [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & [Exercises session](pdf/ELEC0447-TP7.pdf)|
 | **November 24**  | 10 | Visit of Elia's national dispatch center (organisational details on ecampus) |
 | November 30   | 11 | Q&A if needed |
 |               |    | [Exercises session](pdf/ELEC0447-TP8.pdf) |
