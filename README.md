@@ -49,7 +49,7 @@ Teaching assistant:
 |              |      | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & [Exercises on transient stability](pdf/ELEC0447-TP7.pdf) & Q&A session Pandapower project pt. I and pt. II|
 | **November 24**  | 10 | Visit of Elia's national dispatch center (organisational details on ecampus) |
 | November 30   | 11 | Q&A if needed |
-|               |    | [Exercises session](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II|
+|               |    | [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II|
 | December 7   | 12 | **To be confirmed** Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. |
 | December 14   | 13 | Oral presentation of PandaPower project results by students. |
