@@ -43,7 +43,7 @@ Teaching assistant:
 |              |   | **No exercise session.**|
 | November 9  | 8 |  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) |
 |              |   | [PandaPower project (part 1) zip](PandapowerProject/2023_pandapower_project.zip) & [VS code & Python notebook tutorial](https://shorturl.at/kpuzE)|
-| November 16  | 9 |  **To be updated** [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
+| November 16  | 9 |  **To be updated** [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
 |              |   | [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) & Q&A session Pandapower project pt. I|
 | November 23  | 9bis | **No theoretical lesson** |
 |              |      | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & [Exercises on transient stability](pdf/ELEC0447-TP7.pdf) & Q&A session Pandapower project pt. I and pt. II|
