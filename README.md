@@ -46,7 +46,7 @@ Teaching assistant:
 | November 16  | 9 | **The lecture starts at 4PM** [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
 |              |   | [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) & Q&A session Pandapower project pt. I|
 | November 23  | 9bis | **No theoretical lesson** |
-|              |      | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & [Exercises on transient stability](pdf/ELEC0447-TP7.pdf) & Q&A session Pandapower project pt. I and pt. II|
+|              |      | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project pt. I and pt. II|
 | **November 24**  | 10 | Visit of Elia's national dispatch center (organisational details on ecampus) |
 | November 30   | 11 | Q&A if needed |
 |               |    | [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II|
