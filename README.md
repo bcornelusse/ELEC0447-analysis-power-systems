@@ -51,7 +51,7 @@ Teaching assistant:
 | November 30   | 11 | Q&A if needed |
 |               |    | [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II|
 | December 7   | 12 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
-|              |    | **To be confirmed** Seminar by Dr. Bertrand Godard, Ampacimon. |
+|              |    | Seminar by Daniel Mitcan, CTO of Ampacimon. |
 | December 14   | 13 | Oral presentation of PandaPower project results by students. |
 | January      |  | Oral exam, **To be updated** [list of questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
 
