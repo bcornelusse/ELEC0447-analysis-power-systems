@@ -53,7 +53,7 @@ Teaching assistant:
 | December 7   | 12 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Daniel Mitcan, CTO of Ampacimon. |
 | December 14   | 13 | Oral presentation of PandaPower project results by students. |
-| January      |  | Oral exam, **To be updated** [list of questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
+| January      |  | Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) |
 
 
 # Lectures from last year
@@ -88,7 +88,7 @@ Teaching assistant:
 |              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
 | December 8   | 11 | Q&A if needed. |
 | December 15   | 12 | Oral presentation of PandaPower project results by students. |
-| January      |  | Oral exam, [list of questions](pdf/20201110_ELEC0447_exam_questions.pdf) |
+| January      |  | Oral exam |
 
 
 
