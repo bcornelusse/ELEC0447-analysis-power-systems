@@ -31,12 +31,9 @@ Instructors:
 |	            	|		|	 [Exercises on transformers](pdf/ELEC0447-TP4.pdf) 	|
 |	              	|	   	|	 [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf) 	|
 |	 October 17   	|	5	|	No lecture 	|
-
 |	 October 24  	|	6	|	 [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) 	|
-
 |	November 7    	|	7	|	  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) 	|
 |	  |	   	|	 [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
-
 |	 November 14  	|	8	|	   [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  	|
 |	              	|	   	|	 [PandaPower project (part 1) zip](PandapowerProject/2023_pandapower_project.zip) & [VS code & Python notebook tutorial](https://shorturl.at/kpuzE)	|
 |	 November 21  	|	9	|	  [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) 	|
