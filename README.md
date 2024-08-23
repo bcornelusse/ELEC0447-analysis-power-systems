@@ -11,85 +11,40 @@ Prerequisites:
 
 Instructors: 
  - Bertrand Cornélusse
- - Louis Wehenkel
  - Antonin Colot
 
-Teaching assistant:
- - Manon Cornet
-
-# Lectures (2023-2024) 
+# Lectures (2024-2025) - tentative schedule, subject to change.
 
 | Date | Lecture | Topics |
 | --- | --- | --- |
-| September 14 | 1 | [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_intro.md) ([pdf file](pdf/lecture1_intro.pdf)) |
+| September 19 | 1 | [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_intro.md) ([pdf file](pdf/lecture1_intro.pdf)) |
 |              |   | [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))|
 |              |   | [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) |
-| September 21 | 2 | **!!! The lecture starts at 1 PM !!!** |
-|              |   | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf)) |
-|              |   |  **No exercise session, info session.** |
-|              |   | Homework test on sinusoïdal steady-state analysis. Do it on your own, and submit it on Gradescope. |
-| September 28 | 3 | [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | **No exercise session.** |
-| October 5    | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf)|
-| October 12   | 5 | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
-|              |   | [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)|
+| September 26 | 2 | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf)) |
+|              |   | Test on sinusoïdal steady-state analysis. Do it on your own, and submit it on Gradescope. |
+| October  3   | 3 | [The transmission line and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
+|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) |
+| October 10   | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
+|              |   | [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)||
+| October 17   | 5 | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
 |              |   | Assignment 1: Implement power flow analysis on a 4-bus test system [Case 0 solved during the practice session](pdf/CASE0.pdf) |
-| **October 20**   | 6 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
+| October 24   | 6 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
 |              |   | [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) |
 |              |   | [Exercises on transformers](pdf/ELEC0447-TP4.pdf) |
 |              |   | [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf) |
-| October 26   |  7 |  **The lecture starts at 4PM** [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  |
-|              |   | **No exercise session.**|
-| November 9  | 8 |  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) |
+| November 7   |  7 |   [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  |
 |              |   | [PandaPower project (part 1) zip](PandapowerProject/2023_pandapower_project.zip) & [VS code & Python notebook tutorial](https://shorturl.at/kpuzE)|
-| November 16  | 9 | **The lecture starts at 4PM** [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
+| November 14  | 8 |  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) |
 |              |   | [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) & Q&A session Pandapower project pt. I|
-| November 23  | 9bis | **No theoretical lesson** |
-|              |      | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project pt. I and pt. II|
-| **November 24**  | 10 | Visit of Elia's national dispatch center (organisational details on ecampus) |
-| November 30   | 11 | Q&A if needed |
-|               |    | [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II|
-| December 7   | 12 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
+| November 21  | 9 |  [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
+|              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project pt. I and pt. II |
+| November 28  | 10 | Visit of Elia's national dispatch center (organizational details on ecampus) |
+| December 5   | 11 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
 |              |    | Seminar by Daniel Mitcan, CTO of Ampacimon. |
-| December 14   | 13 | Oral presentation of PandaPower project results by students. |
+|              |    | [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II|
+| December 12  | 12 | Oral presentation of PandaPower project results by students. |
+| December 19  | 13 | Q&A if needed |
 | January      |  | Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) |
-
-
-# Lectures from last year
-| Date | Lecture | Topics |
-| --- | --- | --- |
-| September 15 | 1 | [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_intro.md) ([pdf file](pdf/lecture1_intro.pdf)) |
-|              |   | [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))|
-|              |   | [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) |
-| September 22 | 2 | [3-phase systems, per unit normalization](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture2_3ph_pu.md) ([pdf file](pdf/lecture2_3ph_pu.pdf))|
-|              |   | Mandatory test on sinusoïdal steady-state analysis |
-|              |   |  |
-| September 29 | 3 | [The transmission line, and introduction to the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) |
-| October 6    | 4 | [Power flow analysis - solution methods](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture3_tl_pf1.md#28) ([pdf file](pdf/lecture3_tl_pf1.pdf))|
-|              |   | [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) |
-|              |   | [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)|
-|              |   | Assignment 1: implement power flow analysis on a 4-bus test system, submit on GradeScope. [Case 0 solved during the practice session](pdf/CASE0.pdf) |
-| October 13   | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))|
-|              |   | [Exercises on transformers](pdf/ELEC0447-TP4.pdf) |
-| October 20   | 6 | [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) |
-|              |   | [Assignment 2: add a transformer and generator limits in power flow analysis on a 4-bus test system](pdf/statement0_solved_pf2.pdf). Submit on GradeScope. |
-|              |   | [Exercises on synchronous machines](pdf/ELEC0447_TP5.pdf)|
-| October 27   | NO LECTURE | 
-| November 10  | 7 | [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture7.pdf))  |
-|              |   | [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
-|              |   | [PandaPower project description](PandapowerProject/2022_pandapower_project_ELEC0447.pdf) and [code template](https://colab.research.google.com/drive/10quG_fRyqRbz1JwFu6GGfXqlMp_1dKyO?usp=sharing)|
-| November 17  | 8 | [Transient and dynamic stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture8.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture8.pdf)) |
-|              |   | [Exercises session](pdf/ELEC0447-TP7.pdf) |
-| November 24   | 9 | [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9.pdf)) |
-|              |   | [Exercises session](pdf/ELEC0447-TP8.pdf) |
-| December 1   | 10 | Seminar by Dr. Gilles Chaspierre, Elia Grid International. |
-|              |    | Seminar by Dr. Bertrand Godard, Ampacimon. 
-| December 8   | 11 | Q&A if needed. |
-| December 15   | 12 | Oral presentation of PandaPower project results by students. |
-| January      |  | Oral exam |
-
 
 
 # talk-template
