@@ -38,10 +38,11 @@ Instructors:
 |	              	|	   	|	 [PandaPower project (part 1) zip](PandapowerProject/2023_pandapower_project.zip) & [VS code & Python notebook tutorial](https://shorturl.at/kpuzE)	|
 |	 November 21  	|	9	|	  [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) 	|
 |	              	|	   	|	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
-|	 November 28  	|	10	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
-|	 December 5   	|	11	|	 Seminar by Dr. Gilles Chaspierre, Elia Grid International. 	|
+|	 November 28  	|	-	|	 No lecture |
+|	 December 5   	|	10	|	 Seminar by Dr. Gilles Chaspierre, Elia Grid International. 	|
 |	              	|	    |	 Seminar by Daniel Mitcan, CTO of Ampacimon. 	|
 |	              	|	    |	 [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II	|
+|	 December 6  	|	11	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
 |	 December 12  	|	12	|	 Oral presentation of PandaPower project results by students. 	|
 |	 December 19  	|	13	|	 Q&A if needed 	|
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
