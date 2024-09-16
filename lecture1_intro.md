@@ -22,29 +22,58 @@ count: false
 
 ---
 
-# Course organization
+## Objectives of this lecture
 
+- A few words about the organization
+- Show the overall structure of an electric power system
+- Highlight a few important features of power system operation
+- Illustrate those on the Belgian and European systems
+- Present some orders of magnitude it is important to have in mind
+- Introduce some terminology
+
+*Adapted from ELEC0014 introduction by Thierry Van Cutsem*
+
+
+---
+
+# Agenda
+
+ 1. Course organization
+ 2. Components and structure of an electrical power and energy system
+ 3. Energy outlook for Belgium
+ 4. Insight on renewable and dispersed generation
+ 5. The power balance problem
+ 6. From DC to AC, large interconnections and the come-back of DC
+
+---
+class: center, middle
+# 1. Course organization
+
+---
+
+## Course organization
  - Theory lectures (maximum 2 hours) 
  - Practice sessions (remainder of the session) $\rightarrow$ bring your laptop
- - **Mandatory test on September 22**, on sinusoidal steady-state analysis (reminder given after this introduction)
-  - For self-assessment, but mandatory. 
- - Homework assignments:  
-  - Two small programming assignments, direct application of course concepts
- - Project: 
+ - Project 1:   
+  - Model a simple distribution system in PandaPower and make some simple analyses.
+  - Oral presentation
+ - Project 2: 
   - Analyze a system using power flow analyzes (power flow solver provided)
-  - Present your results on December 16
+  - Oral presentation
  - Oral exam in January
   - Theory (list of questions available) and one exercise
 
 ---
 
-# The teaching team
+## The teaching team
 
-.center[.width-100[![](figures/the_team.png)]]
+ - Bertrand Cornélusse: main contact
+ - Geoffrey Bailly: exercise sessions + project 1
+ - Antonin Colot: last 2 lectures + project 2
 
 ---
 
-# References
+## References
 
 Main reference book:
 - Mohan, Ned. Electric power systems: a first course. John Wiley & Sons, 2012.
@@ -56,19 +85,10 @@ Other references:
 ---
 
 class: center, middle
-# Introduction
-*Adapted from ELEC0014 introduction by Thierry Van Cutsem*
+# 2. Components and structure of an electrical power and energy system
 
 
----
 
-# Objectives of this lecture
-
-- Show the overall structure of an electric power system
-- Highlight a few important features of power system operation
-- Illustrate those on the Belgian and European systems
-- Present some orders of magnitude it is important to have in mind
-- Introduce some terminology
 
 ---
 
@@ -76,12 +96,14 @@ class: center, middle
 
 In modern society, electricity has become a “commodity”:
 
-*“marketable good or service whose instances are treated by the market as equivalent with no regard to who produced them”*
+.center[*“Commodity: marketable good or service whose instances are treated by the market as equivalent with no regard to who produced them”*]
 
 
 But “Behind the power outlet” there is a complex industrial process!
 
-Electric energy systems are the largest systems ever built by man
+Electric energy systems are the largest systems ever built by man:
+
+.center[https://openinframap.org/]
 
 ---
 
@@ -185,29 +207,6 @@ Large-scale failures (blackouts) have tremendous societal consequences
 
 .footnote[Source : Union for the Co-ordination of Transmission of Electricity (UCTE) which is now part of ENTSOe]
 
----
-
-## Network: from early DC ...
-
-End of 19th century : Gramme, Edison devised the first generators, that produced Direct Current (DC) under relatively low voltages
-
-Impossibility to transmit large powers with direct current:
- - $\text{power} = \text{voltage}\times \text{current}$
-  - if the voltage cannot be increased, the current must be
-  - but  $\text{power lost} = \text{resistance} \times \text{current}^2$        $\rightarrow$  big waste of  energy
-  - and large sections of conductors required               $\rightarrow$  expensive and heavy
- - Hard to interrupt a large DC current (no zero crossing), for instance after a short-circuit
-
----
-## Network: ... to present high-voltage AC
-Changing for Alternating Current (AC)
- - voltage increased and lowered thanks to the transformer
- - standardized values of frequency : 50 and 60 Hz (other values used at a few places)
-
-Larger nominal voltages have been used progressively
- - up to 400 kV in Western Europe
- - up to 765 kV in North America
- - experimental lines at 1100 kV or 1200 kV (Kazakhstan, Japan, etc.)
 
 ---
 
@@ -225,15 +224,15 @@ Larger nominal voltages have been used progressively
 
 .center.width-100[![](figures/intro_elia.png)]
 
-[Updated version here](map-of-the-high-voltage-grid-2022.pdf)
+[Updated version here](figures/map-of-the-high-voltage-grid-2022.pdf)
 
 ---
 
-# Flows on the belgian grid
+## Flows on the belgian grid
 
 .center.width-60[![](figures/20220914_ELIA_flows.png)]
 
-[See here](https://www.elia.be/fr/donnees-de-reseau/transport/flux-de-bouclage-par-frontiere/flux-physiques-sur-le-reseau-haute-tension-belge)
+[See here](https://www.elia.be/fr/donnees-de-reseau/transport/flux-physiques-sur-le-reseau-haute-tension-belge)
 
 ---
 
@@ -276,23 +275,20 @@ Transporting and distributing electrical energy is an industrial process with a 
 
 .center.width-100[![](figures/peaks_BE.png)]
 
----
-
-##  From large centralized to small dispersed power plants
-
-.center.width-100[![](figures/danemark_RES.png)]
 
 ---
 
-class: middle
-
-# Energy outlook for Belgium
+class: center, middle
+# 3. Energy outlook for Belgium
 
 ---
 
 ##   Sources of electrical energy in Belgium in 2018
 
 .center.width-100[![](figures/sources_BE.png)]
+
+
+**Exercise: let's update this table together.**
 
 .footnote[source : ENTSOE]
 
@@ -351,9 +347,14 @@ class: middle
 
 ---
 
-class: middle
+class: center, middle
+# 4. Renewable generation
 
-# Renewable generation
+---
+
+##  From large centralized to small dispersed power plants
+
+.center.width-100[![](figures/danemark_RES.png)]
 
 ---
 
@@ -375,8 +376,8 @@ https://re.jrc.ec.europa.eu/pvg_download/map_index_c.html#!
 
 ---
 
-class: middle
-# Power balance
+class: center, middle
+# 5. Power balance
 
 ---
 
@@ -428,12 +429,36 @@ Larger variations in load (e.g. during the day) require starting up/shutting dow
 
 ---
 
-class: middle
-# Large AC interconnections
+class: center, middle
+# 6. From DC to AC, large interconnections and the come-back of DC
 
 ---
 
-## Motivations:
+## Network: from early DC ...
+
+End of 19th century : Gramme, Edison devised the first generators, that produced Direct Current (DC) under relatively low voltages
+
+Impossibility to transmit large powers with direct current:
+ - $\text{power} = \text{voltage}\times \text{current}$
+  - if the voltage cannot be increased, the current must be
+  - but  $\text{power lost} = \text{resistance} \times \text{current}^2$        $\rightarrow$  big waste of  energy
+  - and large sections of conductors required               $\rightarrow$  expensive and heavy
+ - Hard to interrupt a large DC current (no zero crossing), for instance after a short-circuit
+
+---
+## Network: ... to present high-voltage AC
+Changing for Alternating Current (AC)
+ - voltage increased and lowered thanks to the transformer
+ - standardized values of frequency : 50 and 60 Hz (other values used at a few places)
+
+Larger nominal voltages have been used progressively
+ - up to 400 kV in Western Europe
+ - up to 765 kV in North America
+ - experimental lines at 1100 kV or 1200 kV (Kazakhstan, Japan, etc.)
+
+---
+
+## Motivations for large interconnections
  - Mutual support between partners to face the loss of generation units
  - Each partner would have to set up a larger “reserve” if it would operate isolated
  - Larger diversity of energy sources available within the interconnection
@@ -465,9 +490,6 @@ for electricity
 Energy flows in 2018 (in GWh)]]
 
 
-
-
-
 ---
 
 ## The synchronous grids of Europe 
@@ -486,8 +508,7 @@ covered by a load increase of 100 MW in Italy (variation of losses neglected):
 .center.width-50[![](figures/EU_path_flows.png)]
 ---
 
-class: middle
-#  The come-back of Direct Current
+## The come-back of Direct Current
 
 Advances in power electronics  $\rightarrow$  rectifiers and inverters able to carry larger currents through higher voltages  $\rightarrow$  transmission applications made possible
 
