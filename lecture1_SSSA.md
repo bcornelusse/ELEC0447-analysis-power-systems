@@ -184,17 +184,16 @@ The apparent power is $|S| = UI$, measured in VA
 
 ---
 
-## Useful formulas
+## Useful formulas - leading and lagging circuits
 
 $$P = RI^2 = \frac{U^2}{R}$$
 $$Q = XI^2 = \frac{U^2}{X}$$
 $$\tan \phi = \frac{Q}{P}$$
 $$\cos \phi = \frac{P}{|S|}$$
 
-The power factor does not tell you whether the system is leading or lagging
- - in an inductive system, $u(t)$ precedes $i(t)$, $i(t)$ is lagging, thus $Q > 0$ (motor convention)
- - in a capacitive system, this is the opposite (leading).
-
+The power factor does not tell you whether the system is **leading** or **lagging**
+ - in an inductive system, $u(t)$ precedes $i(t)$, $i(t)$ is **lagging**, thus $Q > 0$ (motor convention)
+ - in a **capacitive** system, this is the opposite (**leading**).
 
 ---
 
