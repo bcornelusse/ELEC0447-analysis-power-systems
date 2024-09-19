@@ -12,6 +12,7 @@ Prerequisites:
 Instructors: 
  - Bertrand Cornélusse
  - Antonin Colot
+ - Geoffrey Bailly
 
 # Lectures (2024-2025) - tentative schedule, subject to change.
 
