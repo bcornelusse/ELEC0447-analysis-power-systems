@@ -78,7 +78,7 @@ class: middle
 
 On a per phase basis:
 
-.center[.width-80[![](figures/TL_distributed.PNG)]]
+.center[.width-80[![](figures/TL_distributed.png)]]
 
 How do voltage and current evolve as a function of the position on the line?
 - As $R$ is small, let's assume $R$ is considered as *lumped*.
