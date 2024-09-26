@@ -76,7 +76,7 @@ class: middle
 
 ## Distributed parameter representation in sinusoidal steady state
 
-On a per phase basis:
+On a per-phase basis:
 
 .center[.width-80[![](figures/TL_distributed.png)]]
 
@@ -91,7 +91,7 @@ Hence $$\frac{d^2\bar{V}(x)}{dx^2} + \beta^2 \bar{V}(x) = 0$$
  - which yields $\bar{V}(x) = \bar{V}\_1 e^{\beta j x} + \bar{V}\_2 e^{-\beta j x}$
  - and by derivation $\bar{I}(x) = (\bar{V}\_1 e^{\beta j x} - \bar{V}\_2 e^{-\beta j x}) / Z_c$
 
-Whith 
+With 
  - $\beta = \omega \sqrt{LC}$ the *propagation constant*
  - $Z_c = \sqrt{\frac{L}{C}} $ the *surge impedance*
 
@@ -120,7 +120,7 @@ See [Python notebook](https://colab.research.google.com/drive/1FDHjHhW1a6JECWwfz
 
 ---
 
-$Z\_c$ depends on the line charactericstics/geometry, hence is function of the voltage level mainly (distances between conductors, etc.)
+$Z\_c$ depends on the line characteristics/geometry and is, hence, mainly a function of the voltage level (distances between conductors, etc.).
 
 The surge impedance loading is the power drawn by the load $Z\_c$, which depends on the voltage level $V\_{LL}$
 $$SIL = \frac{V^2\_{LL}}{Z\_c}$$
