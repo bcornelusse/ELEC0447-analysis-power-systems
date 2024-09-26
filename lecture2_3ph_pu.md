@@ -123,6 +123,123 @@ Finally, in unbalanced systems, currents are dictated by the impedances seen in 
 
 ---
 
+# Exercise: Neutral break
+
+Consider a 3-phase Y-connected resistive circuit with unbalanced resistors in the phases. In normal operation there is a neutral wire. Then the neutral breaks.
+
+- Compute in both cases the voltages across the resistors, the currents and the consumed powers.
+
+- What can you observe?
+
+---
+
+First, we'll analyze the circuit when the neutral is connected, and then we'll analyze what happens when the neutral wire breaks. 
+
+### Assumptions:
+
+- 3-phase balanced voltage supply: $V\_{ab} = V\_{bc} = V\_{ca} = V\_L$ (line-to-line voltage)
+- Phase voltages (line-to-neutral) are given by $V\_{an} = V\_{bn} = V\_{cn} = \frac{V\_L}{\sqrt{3}}$, and the angle between them is $120^\circ$.
+- Unbalanced resistances: $R\_a$, $R\_b$, $R\_c$ (different resistances in each phase).
+
+---
+
+### Case 1: **Neutral Connected**
+
+#### Voltages:
+
+- In normal operation, with the neutral connected, each resistor has its corresponding phase voltage across it:
+  $$
+  V\_{R\_a} = V\_{an}, \quad V\_{R\_b} = V\_{bn}, \quad V\_{R\_c} = V\_{cn}
+  $$
+
+#### Currents:
+
+- The current in each phase is given by Ohm's law:
+  $$
+  I\_a = \frac{V\_{an}}{R\_a}, \quad I\_b = \frac{V\_{bn}}{R\_b}, \quad I\_c = \frac{V\_{cn}}{R\_c}
+  $$
+  
+- The neutral current, $ I\_n $, is the sum of the phase currents:
+  $$
+  I\_n = I\_a + I\_b + I\_c
+  $$
+  Due to the unbalanced resistances, $ I\_n $ will not be zero.
+
+---
+
+#### Powers:
+
+- The power consumed in each phase is:
+  $$
+  P\_a = V\_{an} I\_a = \frac{V\_{an}^2}{R\_a}, \quad P\_b = \frac{V\_{bn}^2}{R\_b}, \quad P\_c = \frac{V\_{cn}^2}{R\_c}
+  $$
+
+- Total power consumed:
+  $$
+  P\_{\text{total}} = P\_a + P\_b + P\_c
+  $$
+
+---
+### Case 2: **Neutral Broken**
+
+When the neutral breaks, the three resistors form a system without a direct connection to the neutral point. The current through each resistor still needs to sum to zero because the current has no return path through the neutral. This changes the voltage distribution across the resistors.
+
+
+---
+
+#### Voltages:
+
+- With the neutral broken, the phase voltages no longer remain symmetrical across the resistors. The voltages across each resistor will now depend on the values of $ R\_a $, $ R\_b $, and $ R\_c $. The voltage at the common point (where the three resistors connect) will shift depending on the relative resistances.
+  
+  To compute the new phase voltages, you can set up Kirchhoff's Current Law (KCL) at the common point (let's call it point $ N' $):
+  $$
+  V\_{aN'} = V\_{an} - V\_{nN'}, \quad V\_{bN'} = V\_{bn} - V\_{nN'}, \quad V\_{cN'} = V\_{cn} - V\_{nN'}
+  $$
+  
+  Here, $ V\_{nN'} $ is an unknown voltage offset at the floating point $ N' $ (the shifted neutral). Using KCL, you solve for this voltage by ensuring the sum of the currents at $ N' $ is zero:
+  $$
+  \frac{V\_{aN'}}{R\_a} + \frac{V\_{bN'}}{R\_b} + \frac{V\_{cN'}}{R\_c} = 0
+  $$
+  Solving this system gives you the new voltages across the resistors.
+
+---
+
+#### Currents:
+
+- The currents in each phase are then given by:
+  $$
+  I\_a = \frac{V\_{aN'}}{R\_a}, \quad I\_b = \frac{V\_{bN'}}{R\_b}, \quad I\_c = \frac{V\_{cN'}}{R\_c}
+  $$
+  
+  Since the neutral is broken, the sum of these currents must equal zero:
+  $$
+  I\_a + I\_b + I\_c = 0
+  $$
+
+#### Powers:
+
+- The power consumed in each phase is:
+  $$
+  P\_a = V\_{aN'} I\_a = \frac{(V\_{aN'})^2}{R\_a}, \quad P\_b = \frac{(V\_{bN'})^2}{R\_b}, \quad P\_c = \frac{(V\_{cN'})^2}{R\_c}
+  $$
+  
+- Total power consumed:
+  $$
+  P\_{\text{total}} = P\_a + P\_b + P\_c
+  $$
+
+---
+
+### Observations:
+
+- When the neutral is connected, the voltages across the resistors are straightforwardly determined by the phase-to-neutral voltages.
+- When the neutral is broken, the voltage distribution becomes more complex, and the voltages across the resistors are no longer the same as the phase-to-neutral voltages. The total current in the system remains zero, and the power distribution can also change depending on the values of the resistors.
+
+
+[A numerical example here.](https://colab.research.google.com/drive/1pXH21c8g9Hv3h94pb81OtuFVQfauG63T?usp=sharing)
+
+---
+
 class: middle, center, black-slide
 
 <iframe width="600" height="450" src="https://www.youtube.com/embed/HqZtptHnC2I" frameborder="0" allowfullscreen></iframe>
