@@ -131,6 +131,8 @@ Consider a 3-phase Y-connected resistive circuit with unbalanced resistors in th
 
 - What can you observe?
 
+**Remark**: In the next slides, the phasor notation is omitted, but all voltages and currents should be understood as phasors.
+
 ---
 
 First, we'll analyze the circuit when the neutral is connected, and then we'll analyze what happens when the neutral wire breaks. 
