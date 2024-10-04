@@ -27,9 +27,9 @@ Instructors:
 |	 October  3   	|	3	|	 [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) 	|
 |           	   	|	 	|	 [Project 1: Single-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2024.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2024_network.xlsx)|
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
-|	 October 10   	|	4	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))	|
-|	              	|	 	|	 [Exercises on transformers](pdf/ELEC0447-TP4.pdf) 	|
-|	 October 17   	|	5	|	[HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf))	|
+|	 October 10   	|	4	|	 [Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
+|	              	|	 	|	 Please watch the video on eCampus: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) 	|
+|	 October 17   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
 |	               |	 	|	 [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
 |	 October 24   	|	6	|	No lecture |
 |	November 7    	|	7	|	  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) 	|
