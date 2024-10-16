@@ -32,13 +32,12 @@ Instructors:
 |	 October 17   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
 |	               |	 	|	 [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
 |	 October 24   	|	6	|	No lecture |
-|	November 7    	|	7	|	  [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf)) 	|
-|	              	|	  |	 Project 1 presentations.	|
-|	              	|	  |	 Project 2: Transmission network analysis with PandaPower.	|
-|	 November 14  	|	8	|	   [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  	|
-|	 November 21  	|	9	|	  [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) 	|
+|	November 7    	|	7	|	 Project 1 presentations by students.  	|
+|	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
+|	 November 14  	|	8	|	 [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf))  	|
+|	 November 21  	|	9	|	 [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  	|
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
-|	 November 28  	|	-	|	 No lecture |
+|	 November 28  	|	-	|	 [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
 |	 December 5   	|	10	|	 Seminar by Dr. Gilles Chaspierre, Elia Grid International. 	|
 |	              	|	   |	 Seminar by Daniel Mitcan, CTO of Ampacimon. 	|
 |	              	|	   |	 [Exercises on primary frequency control](pdf/ELEC0447-TP8.pdf) & Q&A session Pandapower project pt. II	|
