@@ -23,11 +23,11 @@ Antonin Colot<br>
   - Concept of nose curve
   - Examples of voltage instabilities
 - (Some) counter-measures
-  - Network Reinforcement
+  - Network reinforcement
   - Voltage regulation
 - Impact of renewable energy resources (RES)
   - Reverse power flows in distribution systems
-  - Duck Curve
+  - Duck curve
 - What did we learn?
 
 ---
@@ -35,7 +35,7 @@ Antonin Colot<br>
 # Concept of stability
 ## General concept
 
- - Multiple definitions for different classes of stability
+ - Multiple definitions for different classes of stability.
  - One of them is: 
 
 <div class="warning" style='padding:0.01em; background-color:#F4FFFF; color:#20707E'>
@@ -81,8 +81,8 @@ Antonin Colot<br>
  - We often take electricity as a simple commodity.
  - But the electric power system is one of the most complex and largest man-made system.
  - The chances of system failures are very high taking into account the impact of external factors and rapid changes in system's state.
- - However, power systems are very reliable (operated 24h/24h 7d/7d and only few hours of power outages per year!).
- - But when instabilities occur, it can lead to black-outs with huge financial and societal consequences.
+ - However, power systems are very reliable (operated 24h/24h 7d/7d and only a few hours of power outages per year!).
+ - But when instabilities occur, it can lead to blackouts with huge financial and societal consequences.
 
 ---
 
@@ -126,7 +126,7 @@ Antonin Colot<br>
 
 ---
 
-## Europe 2004
+## Europe 2006
 
  - Disconnection of a transmission line in Germany for the transport of a ship approved by the local TSO.
  - The local TSO approved to advance the disconnection later that day, but the commercial flows remained unchanged.
@@ -151,7 +151,8 @@ Antonin Colot<br>
 
 ## Brazil 2023
 
- - We still don't know the root causes!
+ - False operation of a relay protection system led to a 500kV line disconnection.
+ - The Energy Management System did not operate properly.
 
 <div class="warning" style='padding:0.01em; background-color:#F4FFFF; color:#20707E'>
 <span>
@@ -202,9 +203,9 @@ From the expression of $Q_{R}$, dividing both sides by $\frac{V_R^2}{X_L}$, we g
 
 $$\frac{V_R}{V_S} = \cos \delta \left(\frac{1}{1+\frac{Q_R}{V^2_R/X_L}}\right)$$
 
-Assuming $P>>0$ and $V_R \approx V_S \approx 1$, it leads to $\delta >> 0 \rightarrow \cos \delta << 1$.
+Assuming $P_S>>0$ and $V_R \approx V_S \approx 1$, it leads to $\delta >> 0 \rightarrow \cos \delta << 1$.
 
-<b> Question:</b> What would be the sign of $Q_R$ to keep $\frac{V_R}{V_S}\approx 1$?
+<b> Question:</b> What would be the sign of $Q_R$ to keep $\frac{V_R}{V_S}\approx 1$ as you increase $P_S$?
 
 ---
 
@@ -214,7 +215,7 @@ Consider the following radial system, and the associated phasor diagram for whic
 <img src=figures_aclt/RadialSystem2.png width="600" height="200" />
 </p>
 
-Considering Kirchoff's Laws, one has:
+Considering Kirchhoff's Laws, one has:
 $$\bar{V}_S = \bar{V}_R + j X_L \bar{I} \Rightarrow \bar{I} =  \frac{e^{j \delta}-1}{j X_L} = \frac{2 \sin(\delta/2)}{X_L} e^{j(\delta/2)}$$
 
 As $\bar{I}$ is leading $\bar{V}_R$, $Q_R = |\bar{V}_R| |\bar{I}| \sin(-\delta/2)$ is negative. $Q_S$ is positive and one can write:
@@ -366,7 +367,7 @@ The ideas previously developed still stand, except that now the load can:
 
 On-load tap changers (OLTCs) change the turn ratio of the transformers feeding the distribution systems to keep the voltages on the secondary side as close as possible to a given setpoint. 
 
-Let us consider the following circuit, where the primary side of the transformer is the high voltage network, and the secondary side is the low/medium voltage network. 
+Let us consider the following circuit, where the primary side of the transformer is the high voltage network, and the secondary side is the medium voltage network. 
 
 The load on the secondary side is represented by a constant conductance $G$, consuming active power. 
 
@@ -480,8 +481,6 @@ A regulator is responsible for controlling the excitation current in a synchrono
 
 The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and reliable grid.
 
-<em>N.B. In MV networks, the only way to regulate voltages is through on-load tap changers, or capacitor banks.</em> 
-
 ---
 
 # Impact of renewable energy resources (RES)
@@ -514,7 +513,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 
 - In distribution systems, the $X/R < 1$. Active power flows have actually a greater influence on voltage magnitudes than reactive power flows.
 
-- One way to fight overvoltages in distribution networks with high penetration of solar inverters is to do active power curtailment and reactive power compensation.
+- One way to mitigate overvoltages in distribution networks with high penetration of solar inverters is to do active power curtailment and reactive power compensation.
 
 <p align="center">
 <img src=figures_aclt/VoltageCtrl.png width="700" height="300" />
@@ -542,13 +541,13 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 
 # What did we learn? 
 
- - In transmission systems, because lines are inductive $X/R >> 1$, reactive power flows impact voltage magnitudes, and active power flows impact voltage angles
+ - In transmission systems, because lines are inductive $X/R >> 1$, reactive power flows impact voltage magnitudes, and active power flows impact voltage angles.
 
  - There is a maximum transmissible power through a line.
 
  - Different voltage instabilities, caused by slow acting devices like OLTC (Long-term instabilities), or by faster dynamics like stalling of induction motors (Short-term instabilities).
 
- - To prevent voltage instabilities, one can reinforce the grid by adding new lines or new devices, or enforce voltage regulation (local voltage control tracking voltage setpoints given by the system operator)
+ - To prevent voltage instabilities, one can reinforce the grid by adding new lines or new devices, or enforce voltage regulation (local voltage control tracking voltage setpoints given by the system operator).
 
  - The increasing penetration of RES creates overvoltage problems in distribution networks and challenges for balancing the system.
 
