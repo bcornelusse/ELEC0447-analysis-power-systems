@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Why do we need to control power systems?}{4}{0}{1}
+\beamer@sectionintoc {2}{The link between frequency and power balance}{10}{0}{2}
+\beamer@sectionintoc {3}{Primary frequency control}{36}{0}{3}
+\beamer@sectionintoc {4}{Secondary frequency control (aka AGC)}{45}{0}{4}
+\beamer@sectionintoc {5}{Economic dispatch and optimal power flow (brief)}{60}{0}{5}
+\beamer@sectionintoc {6}{Assessing the security/reliability of an electric power system (brief)}{66}{0}{6}
