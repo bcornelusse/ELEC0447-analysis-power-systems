@@ -37,7 +37,7 @@ Instructors:
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
 |	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
 |	 November 27  	|	9	|	 [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
-|	 December 4   	|	10	|	 Seminar by Elia 	|
+|	 ??  	|	10	|	 Seminar by Elia 	|
 |	              	|	   |	 Q&A session Pandapower project 2.	|
 |	 ??  	|	11	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
 |	 December 11  	|	12	|	 Oral presentation of PandaPower project results by students. 	|
