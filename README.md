@@ -32,7 +32,7 @@ Instructors:
 |	               |	 	|	 [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
 |	 October 23   	|	- |	No lecture |
 |	November 6    	|	6	|	 Project 1 presentations by students.  	|
-|	 November 13 	|	7	|	 [Control of interconnected power systems and economic dispatch](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture9_frequency_control_2023_bcr.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_frequency_control_2023_bcr.pdf))  	|
+|	 November 13 	|	7	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	 November 20  	|	8	|	 [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  	|
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
 |	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
