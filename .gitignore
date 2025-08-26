@@ -1,0 +1,4 @@
+*.log
+*.fdb_latexmk
+*.gz
+.DS_Store
