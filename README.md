@@ -34,17 +34,20 @@ Instructors:
 |	 October 23   	|	- |	Q & A Project 1 |
 |	 October 30   	|	- | 	No lecture - Autumn break |
 |	November 6    	|	6	|	 Project 1 presentations by students.  	|
-|	 November 13 	|	7	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
+|	 November 13 	 |	7	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
 |	 November 20  	|	8	|	 [Voltage regulation](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture7_aclt.md) ([pdf](pdf/lecture7_aclt.pdf))  	|
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
 |	 November 27  	|	9	|	 [Transient stability](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=Lecture9_aclt.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture9_aclt.pdf)) |
-|	 ??  	|	10	|	 Seminar by Elia 	|
-|	              	|	   |	 Q&A session Pandapower project 2.	|
-|	 ??  	|	11	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
+|	 December 4  	 |	10	|	 Q&A session Pandapower project 2.	|
+|	              	|	   |	 (Seminar by Elia)	|
+|	 ??           	|	11	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
 |	 December 11  	|	12	|	 Oral presentation of PandaPower project results by students. 	|
 |	 December 18  	|	13	|	 Q&A if needed 	|
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
+
+
+
 
 
 # talk-template
