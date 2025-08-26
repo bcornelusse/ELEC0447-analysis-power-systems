@@ -26,11 +26,13 @@ Instructors:
 |	 October  2   	|	3	|	 [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) 	|
 |           	   	|	 	|	 [Project 1: Single-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2024.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2024_network.xlsx)|
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
-|	 October 9   	|	4	|	 [Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
-|	              	|	 	|	 Please watch the video on eCampus: [HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) 	|
-|	 October 16   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
+|	 October 9   	 |	4	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
 |	               |	 	|	 [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
-|	 October 23   	|	- |	No lecture |
+|	 October 16   	|	5	|	[HVDC and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture6.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture6.pdf)) 
+|	              	|	 	|	(Please watch the video on eCampus) |
+|	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
+|	 October 23   	|	- |	Q & A Project 1 |
+|	 October 30   	|	- | 	No lecture - Autumn break |
 |	November 6    	|	6	|	 Project 1 presentations by students.  	|
 |	 November 13 	|	7	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
