@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{padiyar1990hvdc}
+K.~Padiyar, {\em HVDC power transmission systems: technology and system interactions}.
+\newblock New Age International, 1990.
+
+\bibitem{thurner2018pandapower}
+L.~Thurner, A.~Scheidler, F.~Sch{\"a}fer, J.-H. Menke, J.~Dollichon, F.~Meier, S.~Meinecke, and M.~Braun, ``pandapower—an open-source python tool for convenient modeling, analysis, and optimization of electric power systems,'' {\em IEEE Transactions on Power Systems}, vol.~33, no.~6, pp.~6510--6521, 2018.
+
+\bibitem{mohan2012electric}
+N.~Mohan, {\em Electric power systems: a first course}.
+\newblock John Wiley \& Sons, 2012.
+
+\bibitem{vancutsemELEC0445}
+T.~Van~Cutsem {\em et~al.}, ``High voltage direct current ({HVDC}) {ELEC0445}.'' Course notes.
+
+\end{thebibliography}

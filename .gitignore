@@ -1,4 +1,11 @@
 *.log
 *.fdb_latexmk
 *.gz
-.DS_Store
+*.snm
+*.toc
+*.nav
+*.out
+*.fls
+*.aux
+*.DS_Store
+.venv
