@@ -9,3 +9,5 @@
 *.aux
 *.DS_Store
 .venv
+*.bbl
+*.blg
