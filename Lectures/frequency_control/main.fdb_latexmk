@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1752410331 "/Users/bcornelusse/Documents/GitHub/ELEC0447-analysis-power-systems/Lectures/frequency_control/main.tex" "main.pdf" "main" 1752410334 0
-  "/Users/bcornelusse/Documents/GitHub/ELEC0447-analysis-power-systems/Lectures/frequency_control/main.tex" 1752241640 2273 fe51dd54e009248882c4451145d20090 ""
+["pdflatex"] 1756820144 "/Users/bcornelusse/Documents/GitHub/ELEC0447-analysis-power-systems/Lectures/frequency_control/main.tex" "main.pdf" "main" 1756820147 0
+  "/Users/bcornelusse/Documents/GitHub/ELEC0447-analysis-power-systems/Lectures/frequency_control/main.tex" 1756820144 2273 e5cf0a0e9b3ab71bd20a3ac3a44a7f85 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/sourcesanspro/a_emkxm5.enc" 1587936753 3021 665788e9679767ade2a71155215d25e0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -298,7 +298,7 @@
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1706623239 7883460 36c558cfa9f11ecb24ef859691c96278 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
   "banner.jpg" 1741693857 99795 af79bb9b723ea250eabb673b7e5b721c ""
-  "content.tex" 1752410329 40766 a9bc005f1e11ea26b8f7fcc2fdb579f8 ""
+  "content.tex" 1756201181 40766 1e4a0efb15f1db8360fdf527ff57b8ad ""
   "images/1-2-3-freq.png" 1752142192 39662 e1b6dadc5ae70166604df74ea9347cb3 ""
   "images/diagramPf.PNG" 1752142191 43347 b0ef58d89af92e1a1e205284b516cc1d ""
   "images/droop-1gen.png" 1752142192 18885 153408ddc7b7c72f0da6acee61a88825 ""
@@ -310,11 +310,11 @@
   "images/speed_governor_transfer_function_2.pdf" 1752228028 35905 2119733a8286f88425a4f633dad8ef58 ""
   "images/two-gen-primary.png" 1752142192 87593 a1bfa8173836ac2dc22c8123ce1a65fc ""
   "images/zones.pdf" 1752249803 30433 df2629eaa2143379afdbcdfca0b5f6a7 ""
-  "main.aux" 1752410334 12382 d077c2b6d8cf5dcb4af592bc2502fd65 "pdflatex"
-  "main.nav" 1752410334 8228 927e9c7dcb38505087cabaf56b624331 "pdflatex"
-  "main.out" 1752410334 1945 42c30927662ae843dab76df182eb1fa9 "pdflatex"
-  "main.tex" 1752241640 2273 fe51dd54e009248882c4451145d20090 ""
-  "main.toc" 1752410334 485 e0aa24ab7d2929ef56cfc32dc8e8e362 "pdflatex"
+  "main.aux" 1756820146 12382 d077c2b6d8cf5dcb4af592bc2502fd65 "pdflatex"
+  "main.nav" 1756820146 8228 927e9c7dcb38505087cabaf56b624331 "pdflatex"
+  "main.out" 1756820146 1945 42c30927662ae843dab76df182eb1fa9 "pdflatex"
+  "main.tex" 1756820144 2273 e5cf0a0e9b3ab71bd20a3ac3a44a7f85 ""
+  "main.toc" 1756820146 485 e0aa24ab7d2929ef56cfc32dc8e8e362 "pdflatex"
   "uliege_faculte_sciencesappliquees_logo_rvb_pos.pdf" 1741693857 30611 c4cfcaecb7f7a9d206e8e44c7b48bb65 ""
   (generated)
   "main.aux"

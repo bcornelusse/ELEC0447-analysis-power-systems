@@ -11,3 +11,5 @@
 .venv
 *.bbl
 *.blg
+*.log
+*.fls
