@@ -15,13 +15,13 @@
 
 
 % Why and how to control voltage and frequency?
-\begin{frame}{Why to control power systems?}
+\begin{frame}{Why to control power systems? (recap)}
   \begin{itemize}
       \item Technical requirements: power system devices are designed so as to operate within well-defined "tolerance regions" 
       \begin{itemize}
-        \item around nominal values of voltage $V_n$: $1 \pm 0.1$ pu in Europe
+        \item \alert{around nominal values of voltage $V_n$: $1 \pm 0.1$ pu in Europe}
         \item around nominal value of frequency $f_n$: $50 \pm 0.2$  Hz in Europe (in steady state)
-        \item within the $P$-$Q$ capabilities of devices
+        \item \alert{within the $P$-$Q$ capabilities of devices}
         \item under the current limits of lines and transformers
       \end{itemize} 
       \item Large/persistent deviations from nominal values could lead to 
@@ -84,32 +84,41 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Tokyo 1987}
-\begin{itemize}
-    \item Unexpected load increase and presence of constant power devices (air conditioners) led to a voltage collapse.
-    \item \textbf{8 GW lost} and \textbf{2.8M customers impacted} \cite{ohno20061987, kurita1988power}
-\end{itemize}
+\begin{frame}{Tokyo 1987}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+    \begin{itemize}
+        \item Unexpected load increase and presence of constant power devices (air conditioners) led to a voltage collapse.
+        \item \textbf{8 GW lost} and \textbf{2.8M customers impacted} \cite{ohno20061987, kurita1988power}
+    \end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+    \begin{center}
+    \includegraphics[width=0.7\linewidth]{images/TokyoCollapse.png}
+    \end{center}
+\end{column}
+\end{columns}
 
-\begin{center}
-\includegraphics[width=0.4\textwidth]{images/TokyoCollapse.png}
-\end{center}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Canada/Northeast USA 2003}
-\begin{itemize}
-    \item Initial problem: not enough reactive power reserve. Hot weather and large consumption led to transmission lines overloading and eventually sagging into trees, further deteriorating the initial problem.
-    \item A cascading event caused the tripping of hundreds of lines and generating units.
-\end{itemize}
-\vspace{0.5cm}
-\begin{center}
-\includegraphics[width=0.4\textwidth]{images/USABlackOut.png}
-\end{center}
-\vspace{0.5cm}
-\begin{quote}
-    \textbf{63 GW lost} and \textbf{50M customers impacted} and \textbf{Estimated cost above \$5 Billion}
-\end{quote}
+\begin{frame}{Canada/Northeast USA 2003}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+    \begin{itemize}
+        \item Initial problem: not enough reactive power reserve. Hot weather and large consumption led to transmission lines overloading and eventually sagging into trees, further deteriorating the initial problem.
+        \item A cascading event caused the tripping of hundreds of lines and generating units.
+        \item \textbf{63 GW lost} and \textbf{50M customers impacted} and \textbf{Estimated cost above \$5 Billion}
+        \item Watch \tiny{\url{https://www.youtube.com/watch?v=nd3teNgUq8E}, \url{https://www.youtube.com/watch?v=KciAzYfXNwU}}
+    \end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+    \begin{center}
+    \includegraphics[width=0.6\linewidth]{images/USABlackOut.png}
+    \end{center}
+\end{column}
+\end{columns}
 
-Watch \url{https://www.youtube.com/watch?v=nd3teNgUq8E}, \url{https://www.youtube.com/watch?v=KciAzYfXNwU}
+
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Europe 2006}
@@ -123,7 +132,7 @@ Watch \url{https://www.youtube.com/watch?v=nd3teNgUq8E}, \url{https://www.youtub
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.4\textwidth]{images/EuropeBlackOut.png}
+\includegraphics[width=0.6\textwidth]{images/EuropeBlackOut.png}
 \end{center}
 \end{frame}
 
@@ -147,10 +156,11 @@ Watch \url{https://www.youtube.com/watch?v=nd3teNgUq8E}, \url{https://www.youtub
 
 \begin{frame}[allowframebreaks]{Impact of power flows on voltages}
 Consider a simple radial system.
-\vspace{0.5cm}
+
 \begin{center}
 \includegraphics[width=\textwidth]{images/RadialSystem.png}
 \end{center}
+
 Assuming no transmission-line losses:
 $$S_S = P_S + jQ_S = V_S e^{j \delta_S} \left(\frac{V_S e^{-j \delta_S} - V_R e^{-j \delta_R}}{X}\right) e^{j\frac{\pi}{2}}$$
 $$S_R = P_R + jQ_R = V_R e^{j \delta_R} \left(\frac{V_S e^{-j \delta_S} - V_R e^{-j \delta_R}}{X}\right) e^{j\frac{\pi}{2}}$$
@@ -212,7 +222,8 @@ Consider again the following simple radial system.
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/RadialSystem.png}
 \end{center}
-Consider $Q_R = 0 \Rightarrow \frac{V_S V_R \cos \delta}{X_L} - \frac{V^2_R}{X_L} = 0 \Rightarrow V_S \cos \delta = V_R$
+Consider $Q_R = 0 \Rightarrow \frac{V_S V_R \cos \delta}{X_L} - \frac{V^2_R}{X_L} = 0 \Rightarrow V_S \cos \delta = V_R$.
+
 We know $P_R = \frac{V_SV_R}{X_L}\sin \delta$, substituing the previous results in the expression of $P_R$ gives:
 $$P_R = \frac{V_S^2}{X_L}\sin \delta \cos \delta = \frac{V_S^2}{2 X_L}\sin (2\delta)$$
 We can determine the maximum transmissible power by setting the partial derivative to 0:
@@ -297,6 +308,7 @@ The ideas previously developed still stand, except that now the load can:
 \begin{frame}[allowframebreaks]{Examples of voltage instabilities: Long-term instabilities}
 
 On-load tap changers (OLTCs) change the turn ratio of the transformers feeding the distribution systems to keep the voltages on the secondary side as close as possible to a given setpoint.
+
 Let us consider the following circuit, where the primary side of the transformer is the high voltage network, and the secondary side is the medium voltage network.
 The load on the secondary side is represented by a constant conductance $G$, consuming active power.
 The voltage on the primary side is controlled by a synchronous generator. $V_g$ is kept constant as long as the reactive power limits of the generator are not reached.
@@ -327,22 +339,41 @@ Scenario 2) is a typical case of \textbf{Long-term Voltage Stability}.
 The disturbance can be the tripping of a line (as it is the case here), which leads to $X_L \nearrow$ or hitting the reactive power limits of a generator ($V_S$ is no longer maintained).
 \end{frame}
 
-\begin{frame} {Examples of voltage instabilities}
-\emph{Short-term instabilities}
-Consider an induction motor. The torque-speed curve is given below.
-\begin{center}
-\includegraphics[width=0.5\textwidth]{images/Motorstalling.png}
-\end{center}
-$T_L$ is the mechanical torque. $C$ curves correspond to different electromechanical torques depending on the slip $s=\frac{\omega_s - \omega_r}{\omega_s}$.
-The initial curve is $C_0^-$ and the machine operates on operating point $S_0$. If the voltage drops, the new curve becomes $C_0^+$.
-The motor speed $\omega_r$ is reduced (thus $s$ increases), and we reach a new operating point $S_1$. This increase in $s$ leads to an increase in motor current and the further decrease in voltage and electrical torque. If the rate of decreasing voltage is slower than that of increasing slip, the voltage settles down.
-\end{frame}
+\begin{frame}[allowframebreaks]{Examples of voltage instabilities: \textit{short-term instabilities}}
+\begin{columns}
+    \begin{column}{0.6\textwidth}
+        Consider an induction motor. The torque-speed curve is given below.
+        \begin{center}
+        \includegraphics[width=0.75\linewidth]{images/Motorstalling.png}
+        \end{center}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+        \begin{itemize}
+            \item $T_L$ is the mechanical torque.
+            \item $C$ curves correspond to different electromechanical torques depending on the slip $s=\frac{\omega_s - \omega_r}{\omega_s}$.
+            \item The initial curve is $C_0^-$ and the machine operates on operating point $S_0$. 
+        \end{itemize}
+    \end{column}
+\end{columns}
+If the voltage drops
+\begin{itemize}
+    \item the new curve becomes $C_0^+$
+    \item the motor speed $\omega_r$ is reduced (thus $s$ increases), and we reach a new operating point $S_1$
+    \item this increase in $s$ leads to an increase in motor current and the further decrease in voltage and electrical torque
+    \item if the rate of decreasing voltage is slower than that of increasing slip, the voltage settles down.
+\end{itemize}
 
-\begin{frame} {Examples of voltage instabilities}
-If now the voltage drops faster, and the new curve becomes $C_2$, the motor speed is reduced until it completely stops (since there is no intersection between $C_2$ and $T_L$). The induction motor acts as a large inductance, drawing reactive power.
-This is considered as a \textbf{Short-term Voltage Instability} as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions). OLTCs are not able to restore the voltage.
+If now the voltage drops faster
+\begin{itemize}
+    \item e.g. the new curve becomes $C_2$, 
+    \item the motor speed is reduced until it completely stops (since there is no intersection between $C_2$ and $T_L$).
+    \item The induction motor acts as a large inductance, drawing reactive power.
+    \item This is considered as a \textbf{Short-term Voltage Instability} as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions).
+    \item OLTCs are not able to restore the voltage.
+\end{itemize}
+
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/InductionMotorVoltage.png}
+\includegraphics[width=0.5\textwidth]{images/InductionMotorVoltage.png}
 \end{center}
 \end{frame}
 
@@ -361,7 +392,7 @@ To mitigate voltage problems, one solution is to reinforce the network by adding
 The second solution is to use the reactive power reserve already available.
 In transmission system, we have synchronous machines. They can provide or consume reactive power.
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/SG_EMF.png}
+\includegraphics[width=0.7\textwidth]{images/SG_EMF.png}
 \end{center}
 In this figure $E_{af}$ is the induced emf, $V_a$ the stator voltage, $I_a$ the stator current and $X_s$ the synchronous reactance. In case (a), there is no reactive power transfer. In case (b), the synchronous machine \textbf{provides reactive power} and in case (c), the machine \textbf{consumes reactive power}.
 
@@ -375,45 +406,46 @@ A regulator is responsible for controlling the excitation current in a synchrono
 \includegraphics[width=0.8\textwidth]{images/AVR.png}
 \end{center}
 The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and reliable grid.
+
+\begin{itemize}
+    \item Notice that if several generators are connected in parallel (either at the MV or at the EHV bus), it is necessary to coordinate their AVRs so that they share the reactive power in an even way.
+    \item The value of $Z_c$ may be adjusted in order to ensure such a coordination.
+\end{itemize}
 \end{frame}
 
-% Principle of Automatic Voltage Control
-\begin{frame}
-    \frametitle{Principle of Automatic Voltage Control}
+% Primary, secondary and tertiary voltage control
+\begin{frame}[allowframebreaks]{Primary, secondary and tertiary voltage control}
     \begin{itemize}
-        \item \textit{The main tool:} primary voltage control via \textit{Automatic Voltage Regulators (AVRs)} of large synchronous generators and synchronous condensers
-        \item Secondary voltage control and automatic switching of reactive compensation devices and transformer taps
-        \item Tertiary voltage control and voltage profile optimization
+        \item When a disturbance occurs, or subsequently to following the change in load (cf. 'duck curve'), the \textit{primary} voltage control loops maintain suitable voltage levels close to the large power plants equipped with AVRs.
+        \begin{itemize}
+            \item However, voltages at other buses may move out of tolerance intervals (in either direction), and reactive power reserves may not be shared in an even way among generators.
+        \end{itemize}
+        \item \textit{Secondary} voltage control loops can be used at the zonal level, to adjust the set-points of AVRs so as to control the voltage at 'pilot nodes' in the network while distributing the required reactive power evenly among generators.
+        \begin{itemize}
+            \item Secondary voltage control loops can also be used to switch shunt reactive compensation devices (capacitors/inductors) in order to increase reactive power generation margins in their zone (among a few large power plants).
+        \end{itemize}
+        \item \textit{Tertiary} voltage control uses OPF solvers to calculate set-points at pilot nodes and possibly adjust some transformer ratios, so as to minimize losses and maximize MVar reserves at the entire system level.
+        \item Response times of different levels of voltage control
+        \begin{itemize}
+            \item \textit{Primary:} 1-3 seconds ; \textit{Secondary:} 30 seconds -3 minutes ; \textit{Tertiary:} 10-15 minutes
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
-% Automatic voltage regulator of a synchronous machine (reminder)
-\begin{frame}{Automatic voltage regulator of a synchronous machine (reminder)}
-    \begin{columns}
-        \begin{column}{0.35\textwidth}
-            \includegraphics[width=\textwidth]{images/exciter.png}
-        \end{column}
-        \begin{column}{0.6\textwidth}
-            \includegraphics[width=\textwidth]{images/avr.png}
-        \end{column}
-    \end{columns}
-    \tiny{Figure on the right from: Voltage stability of electric power systems. T. Van Cutsem \& C. Vournas, KAP 1998}
-    \begin{itemize}
-        \item Notice that if several generators are connected in parallel (either at the MV or at the EHV bus), it is necessary to coordinate their AVRs so that they share the reactive power in an even way.
-        \item The value of $Z_c$ may be adjusted in order to ensure such a coordination.
-    \end{itemize}
-\end{frame}
+
+
+
 
 
 \section{Impact of renewable energy resources (RES)}
-\begin{frame}{Reverse power flows in distribution systems}
+\begin{frame}[allowframebreaks]{Reverse power flows in distribution systems}
 \begin{itemize}
     \item Distribution networks are radial networks (they are built as meshed networks, but operated radially)
     \item Before the venue of distributed energy resources (\emph{PV panels, batteries,...}), the power was flowing from the substation node, down to the end of the feeders.
     \item Increasing penetration of DERs led to reverse power flows.
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{images/VoltageProfile.png}
+\includegraphics[width=0.8\textwidth]{images/VoltageProfile.png}
 \end{center}
 \end{frame}
 
@@ -423,7 +455,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
     \item It leads to the disconnection of PV inverters $\Rightarrow$ loss of production.
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/PVdisconnection.png}
+\includegraphics[width=0.5\textwidth]{images/PVdisconnection.png}
 \end{center}
 \end{frame}
 
@@ -437,7 +469,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 \end{center}
 \end{frame}
 
-\begin{frame}{Duck Curve}
+\begin{frame}[allowframebreaks]{Duck Curve}
 \begin{itemize}
     \item As we further increase the penetration of RES, changes appear in the demand profile (concept of Duck Curve, now becoming Canyon Curve)
     \item Needs for flexibility to ensure power balance: shut down of flexible production plants when RES start to produce, activate them again when they stop producing
@@ -462,6 +494,16 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 \end{itemize}
 \end{frame}
 
+% Principle of Automatic Voltage Control
+\begin{frame}
+    \frametitle{Principle of Automatic Voltage Control}
+    \begin{itemize}
+        \item \textit{The main tool:} primary voltage control via \textit{Automatic Voltage Regulators (AVRs)} of large synchronous generators and synchronous condensers
+        \item Secondary voltage control and automatic switching of reactive compensation devices and transformer taps
+        \item Tertiary voltage control and voltage profile optimization
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Control resources}
     Which of these control resources are the main levers for voltage stability?
       \begin{itemize}
@@ -477,21 +519,3 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
       \end{itemize}
 \end{frame}
 
-% Primary, secondary and tertiary voltage control
-\begin{frame}[allowframebreaks]{Primary, secondary and tertiary voltage control}
-    \begin{itemize}
-        \item When a disturbance occurs, or subsequently to following the change in load (cf. 'duck curve'), the \textit{primary} voltage control loops maintain suitable voltage levels close to the large power plants equipped with AVRs.
-        \begin{itemize}
-            \item However, voltages at other buses may move out of tolerance intervals (in either direction), and reactive power reserves may not be shared in an even way among generators.
-        \end{itemize}
-        \item \textit{Secondary} voltage control loops can be used at the zonal level, to adjust the set-points of AVRs so as to control the voltage at 'pilot nodes' in the network while distributing the required reactive power evenly among generators.
-        \begin{itemize}
-            \item Secondary voltage control loops can also be used to switch shunt reactive compensation devices (capacitors/inductors) in order to increase reactive power generation margins in their zone (among a few large power plants).
-        \end{itemize}
-        \item \textit{Tertiary} voltage control uses OPF solvers to calculate set-points at pilot nodes and possibly adjust some transformer ratios, so as to minimize losses and maximize MVar reserves at the entire system level.
-        \item Response times of different levels of voltage control
-        \begin{itemize}
-            \item \textit{Primary:} 1-3 seconds ; \textit{Secondary:} 30 seconds -3 minutes ; \textit{Tertiary:} 10-15 minutes
-        \end{itemize}
-    \end{itemize}
-\end{frame}
