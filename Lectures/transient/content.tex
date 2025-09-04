@@ -189,7 +189,6 @@ Finally, we make the reasonable assumption that $\omega_m \approx \omega_{syn,m}
 \end{frame}
 
 
-
 \begin{frame}[allowframebreaks]{Transient stability using Equal-Area Criterion}
 From the swing equation (\ref{eq:swing})
 $$\left(\frac{2H}{\omega_{syn}}\right) \frac{d^2\delta}{dt^2} = P_{m,pu} - P_{e,pu}$$
@@ -197,72 +196,168 @@ Rearrange the terms and multiply both sides by $d\delta/dt$:
 $$2\frac{d\delta}{dt}\frac{d^2\delta}{dt^2} = \frac{\omega_{syn}}{H}\left(P_{m,pu}-P_{e,pu}\right)\frac{d\delta}{dt}$$
 Applying change of variables $\delta = \theta$, and integrating both sides between $\delta_0$ and an arbitrary angle $\delta$:
 $$\int_{\delta_0}^{\delta} \left(2\frac{d\theta}{dt}\frac{d^2\theta}{dt^2}\right) dt = \frac{\omega_{syn}}{H}\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right)d\theta$$
+
+
+For the left hand side, we observe that the integrand is of the form $2f(t)f'(t)$, which suggests a \textbf{u-substitution}.
+Let the function be $u = \frac{d\theta}{dt}$.
+
+The differential of $u$ with respect to $t$ is:
+$$ \frac{du}{dt} = \frac{d}{dt}\left(\frac{d\theta}{dt}\right) = \frac{d^2\theta}{dt^2} $$
+
+This implies that $ du = \frac{d^2\theta}{dt^2} dt $.
+By substituting $u$ and $du$ into the original integral, we transform it into a simpler form:
+$$ \int 2u \, du $$
+The indefinite integral of this expression is:
+$$ \int 2u \, du = 2\left(\frac{u^2}{2}\right) + C = u^2 + C $$
+Now, we substitute back the original expression for $u$:
+$$ u^2 = \left(\frac{d\theta}{dt}\right)^2 $$
+Finally, we apply the limits of integration from $t = \delta_0$ to $t = \delta$ for the definite integral:
+$$ \int_{\delta_0}^{\delta} \left(2\frac{d\theta}{dt}\frac{d^2\theta}{dt^2}\right) dt = \left[\left(\frac{d\theta}{dt}\right)^2\right]_{\delta_0}^{\delta} $$
+Evaluating the expression at the upper and lower limits:
+$$ = \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta} - \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta_0} $$
+
+
 Assume $\delta_0$ being an equilibrium point, \emph{i.e.} $d\delta/dt|_{\delta = \delta_0} = 0$, we have:
 $$\left(\frac{d\delta}{dt}\right)^2 = \frac{\omega_{syn}}{H}\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta$$
 
 
-The left term $\left(\frac{d\delta}{dt}\right)^2 = \Delta\omega^2$ represents the kinetic energy of the machine at an arbitrary angle $\delta^*$ (with respect to the synchronous speed $\omega_{syn}$) $\rightarrow$ rotational kinetic energy: $\frac{1}{2} J \omega^2$ with $J$ the moment-of-inertia and $\omega$ the angular speed.
-As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerates. For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy becomes 0, and thus:
+The left term $\left(\frac{d\delta}{dt}\right)^2 = \Delta\omega^2$ represents the kinetic energy of the machine at an arbitrary angle $\delta^*$ 
+(with respect to the synchronous speed $\omega_{syn}$) $\rightarrow$ rotational kinetic energy: $\frac{1}{2} J \omega^2$ with $J$ the moment-of-inertia and $\omega$ the angular speed.
+As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerates. For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy gain becomes 0, and thus:
 $$\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$
-Let us consider the following system; at time $t$ and angle $\delta_0$, a short-circuit occurs and is cleared at time $t+t_{cl}$ and angle $\delta_{cl}$ by tripping the line.
-\begin{center}
-\includegraphics[width=0.9\textwidth]{images/TransientStabilityEAC.png}
-\end{center}
+\end{frame}
 
-For a stable system, we highlighted that:
-$$\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$
-For our little example, one can write the same condition:
-$$\underbrace{\int_{\delta_0}^{\delta_{cl}} \left(P_{m,pu}-P_{e,fault,pu}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\delta_{cl}}^{\delta_{m}} \left(P_{e,post-fault,pu}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
-During the first part (Area A), the machine accelerates. After the fault (Area B), the machine decelerates and the net acceleration becomes 0. At angle $\delta_{m}$, there is still a mismatch between the electrical power and the mechanical power, thus the machine swings back (from $\delta_{m}$ to $\delta_{2}$).
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/SwingsBack.png}
-\end{center}
+\begin{frame}[allowframebreaks]{Equal Area Criterion: the case of a fault}
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+        Let us consider again the system of Figure~\ref{fig:OMIB}, where 
+        \begin{itemize} 
+            \item a \textbf{short-circuit (the fault)} occurs on one of the lines at time $t$ and angle $\delta_0$,
+            \item this short-circuit is \textbf{cleared} at time $t+t_{cl}$ and angle $\delta_{cl}$ by \textbf{tripping} the line.
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        \begin{center}
+        \includegraphics[width=0.99\textwidth]{images/TransientStabilityEAC_1.png}
+        \end{center}
+    \end{column}
+\end{columns}
 
-Without any damping (kinetic energy losses), the system oscillates indefinitely between angle $\delta_2$ and $\delta_m$.
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/RotorOscillation.png}
-\end{center}
-However, in a real system, the damping would cause the machine to settle down at an angle $\delta_1$ (new equilibrium point).
-Synchronous machines have \emph{damper windings}. In perfect steady state, the magnetic fields produced by both the stator and the rotor are fixed relative to the rotor so there is no current in the dampers. On the other hand, if the rotor moves with respect to the magnetic field, the current induced in the dampers create a damping torque according to Lenz's law.
+For a stable system, we highlighted that $\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$.
+
+For our short-circuit example, we can decompose the condition into:
+$$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\mathcolor{red}{P_{e,fault,pu}}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\mathcolor{green}{\delta_{cl}}}^{\delta_{m}} \left(\mathcolor{blue}{P_{e,post-fault,pu}}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+        \begin{itemize}
+            \item During the first part (Area A), the machine accelerates. 
+            \item After the fault (Area B), the machine decelerates and the net acceleration becomes 0. 
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        \begin{center}
+        \includegraphics[width=0.9\textwidth]{images/TransientStabilityEAC_2.png}
+        \end{center}
+    \end{column}
+\end{columns}
+
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        At angle $\delta_{m}$, there is still a mismatch between the electrical power and the mechanical power. 
+        
+        Thus the machine swings back, from $\delta_{m}$ to $\delta_{2}$.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \begin{center}
+        \includegraphics[width=0.99\linewidth]{images/SwingsBack.png}
+        \end{center}
+    \end{column}
+\end{columns}
+
+
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        Without any damping (kinetic energy losses), the system oscillates indefinitely between angle $\delta_2$ and $\delta_m$.
+        \begin{center}
+        \includegraphics[width=0.95\textwidth]{images/RotorOscillation.png}
+        \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        However, in a \textbf{real system}, the \textbf{damping} would cause the machine to settle down at an angle $\delta_1$ (new equilibrium point).
+        \vspace{\baselineskip}
+        {\scriptsize
+        Reminder: Synchronous machines have \emph{damper windings}. 
+        In perfect steady state, the magnetic fields produced by both the stator and the rotor are fixed relative to the rotor so there is no current in the dampers. On the other hand, if the rotor moves with respect to the magnetic field, the current induced in the dampers create a damping torque according to Lenz's law.}
+    \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame} {Critical Clearing Angle}
 Let us come back to our definition of stability for our little system:
-$$\underbrace{\int_{\delta_0}^{\delta_{cct}} \left(P_{m,pu}-P_{e,fault,pu}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\delta_{cct}}^{\delta_{max}} \left(P_{e,post-fault,pu}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
-\textbf{What are the conditions to ensure there exists $\delta_{cl}$ such that Area A = Area B?}
-We introduce the concept of critical clearing angle $\delta_{cct}$. Past this point, Area A will always be greater than Area B, such that the system cannot stabilize. We associate the critical clearing time $CCT$ to the critical clearing angle, \emph{i.e.} the maximum time allowed to clear the fault before the system gets unstable.
+$$\underbrace{\int_{\delta_0}^{\mathbf{\delta_{cl}}} \left(P_{m,pu}-P_{e,fault,pu}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\mathbf{\delta_{cl}}}^{\delta_{m}} \left(P_{e,post-fault,pu}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
+\textbf{What are the conditions to ensure there exists $\mathbf{\delta_{cl}}$ such that Area A = Area B?}
+
+We introduce the concept of critical \textbf{clearing angle} $\mathcolor{green}{\delta_{cct}}$. Past this point, Area A will always be greater than Area B, such that the system cannot stabilize. We associate the critical clearing time $CCT$ to the critical clearing angle, \emph{i.e.} the maximum time allowed to clear the fault before the system gets unstable.
 \end{frame}
 
-\begin{frame} {Critical Clearing Angle: Visual representation}
+\begin{frame}{Critical Clearing Angle: Mathematical formulation}
+\begin{equation}
+\underbrace{\int_{\mathcolor{blue}{\delta_0}}^{\mathcolor{green}{\delta_{cct}}} \left(P_{m,pu}-P_{e,fault,pu}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\mathcolor{green}{\delta_{cct}}}^{\mathcolor{red}{\delta_{max}}} \left(P_{e,post-fault,pu}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0  \label{eq:CCA_det}
+\end{equation}
+\end{frame}
+
+\begin{frame}{Critical Clearing Angle:  Visual representation}
+
+
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/CCT_example.png}
+\includegraphics[width=0.7\textwidth]{images/CCT_max.pdf}
 \end{center}
-\textbf{Mathematical formulation}
-$$\underbrace{\int_{\delta_0}^{\delta_{cct}} \left(P_{m,pu}-P_{e,fault,pu}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\delta_{cct}}^{\delta_{max}} \left(P_{e,post-fault,pu}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
-One has to determine the angle $\delta_{max}$ such that $P_{e,post-fault} = P_{m}$, and the angle $\delta_{0}$ such that $P_{e,pre-fault} = P_{m}$. Then solving this equation gives $\delta_{cct}$. Finally, using the \textbf{swing equation}, one can determine the critical clearing time $CCT$, \emph{i.e.} the time needed to reach the angle $\delta_{cct}$.
+
+
+\end{frame}
+
+\begin{frame}{Critical Clearing Angle: Solution procedure}
+\begin{block}{Solution procedure for Critical Clearing Angle determination}
+\begin{enumerate}
+    \item Determine 
+    \begin{itemize}
+        \item the angle $\color{blue}{\delta_0}$ such that $P_{e,pre-fault} = P_{m}$
+        \item the angle $\color{red}{\delta_{max}}$ such that $P_{e,post-fault} = P_{m}$. 
+    \end{itemize}
+    \item Then solve equation (\ref{eq:CCA_det}) to get $\color{green}{\delta_{cct}}$. 
+    \item Finally, using the \textbf{swing equation}, one can determine the critical clearing time $CCT$, \emph{i.e.} the time needed to reach the angle $\delta_{cct}$.
+\end{enumerate}
+\end{block}
+
 \end{frame}
 
 \section{Practical Example}
-\begin{frame}[allowframebreaks]{Problem statement}
+\begin{frame}{Problem statement}
 Let us consider the following system:
 \begin{center}
-\includegraphics[width=0.9\textwidth]{images/InitialSystem.png}
+\includegraphics[width=0.8\textwidth]{images/InitialSystem.png}
+$X_d' = 0.3, X_{tr} = 0.5, X_{l} = 1, X_{21} = 0.5, X_{22} = \frac{1}{6}, X_{23} = \frac{1}{3}$\\
+$\bar{E}_{t} = 1e^{j \pi/6}, \bar{E}_{B} = 1e^{j0}$.
 \end{center}
-and the following data:
-$$X_d' = 0.3, X_{tr} = 0.5, X_{l} = 1, X_{21} = 0.5, X_{22} = \frac{1}{6}, X_{23} = \frac{1}{3}$$
-and
-$$\bar{E}_{t} = 1e^{j \pi/6}, \bar{E}_{B} = 1e^{j0}$$
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Equivalent}
-We can derive the following equivalent:
-\begin{center}
-\includegraphics[width=0.9\textwidth]{images/InitialSystemEq.png}
-\end{center}
-where
-$$X_T = X_{tr} + X_{d}' + \frac{X_{l}\left(X_{21}+X_{22}+X_{23}\right)}{X_{21}+X_{22}+X_{23}+X_{l}} = 1.3$$
-The power transfer from the machine to the infinite-bus system takes the following form:
-$$P = \frac{E' E_{B}}{X_{T}} \sin \delta$$
+\begin{frame}{Equivalent}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        We can derive the following equivalent:
+        \begin{center}
+        \includegraphics[width=0.9\textwidth]{images/InitialSystemEq.pdf}
+        \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        where $$X_T = X_{tr} + X_{d}' + \frac{X_{l}\left(X_{21}+X_{22}+X_{23}\right)}{X_{21}+X_{22}+X_{23}+X_{l}} = 1.3 pu.$$
+        The power transfer from the machine to the infinite-bus system takes the following form:
+        $$P = \frac{E' E_{B}}{X_{T}} \sin \delta$$
+    \end{column}
+\end{columns}
+
+
+
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Find $\bar{E}'$, $P_e$ and $P_m$}
@@ -289,28 +384,41 @@ Maximum power output:
 $$\hat{P}_{e,bf} = \frac{E'E_{B}}{X_{T}} = 0.808$$
 \end{frame}
 
-\begin{frame}[allowframebreaks]{During-fault condition}
-A short-circuit occurs between lines $22$ and $23$. The circuit topology changes and is depicted below.
+\begin{frame}{During-fault condition}
+\begin{columns}
+\begin{column}{0.25\textwidth}
+A short-circuit occurs between lines $22$ and $23$. The circuit topology changes.
+\end{column}
+\begin{column}{0.75\textwidth}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{images/DuringFault.png}
+\includegraphics[width=\textwidth]{images/DuringFault.png}
 \end{center}
+\end{column}
+\end{columns}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{During-fault condition: Thévenin equivalent}
-We can derive the following Thevenin's equivalent
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/TheveninEquiv.png}
-\end{center}
-where
-$$\bar{E}_{th} = \bar{E'} \frac{X_{21} + X_{22}}{X_{d}+X_{tr} + X_{21} + X_{22}} = 0.478 e^{j 38.206/180}$$
-and
-$$X_{th} = \frac{1}{\frac{1}{X_d' + X_{tr}}+\frac{1}{X_{21}+X_{22}}} = 0.364$$
-and then get the maximum power output:
-$$\hat{P}_{e,df} = \frac{E_{th}E_{B}}{X_{th} + X_{l}} = 0.35$$
+\begin{frame}{During-fault condition: Thévenin equivalent}
+    \begin{columns}
+    \begin{column}{0.45\textwidth}
+        We can derive the following Thevenin's equivalent
+        \begin{center}
+        \includegraphics[width=\textwidth]{images/TheveninEquiv.pdf}
+        \end{center}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+        where
+        $$\bar{E}_{Th} = \bar{E'} \frac{X_{21} + X_{22}}{X_{d}+X_{tr} + X_{21} + X_{22}} = 0.478 e^{j 38.206/180}$$
+        and
+        $$X_{Th} = \frac{1}{\frac{1}{X_d' + X_{tr}}+\frac{1}{X_{21}+X_{22}}} = 0.364$$
+        and then get the maximum power output:
+        $$\hat{P}_{e,df} = \frac{E_{Th}E_{B}}{X_{Th} + X_{l}} = 0.35$$
+    \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Post-fault condition}
-The line $2$ is tripped to clear the short-circuit.
+The line $2$ is tripped to clear the short-circuit (a switch is open between the bus bar and $X_{21}$).
+
 The impedance of the path connecting the machine to the infinite-bus system becomes $X_d' + X_{tr} + X_{l} = 1.8$.
 The maximum power output is:
 $$\hat{P}_{e,pf} = \frac{E'E_{B}}{X_d' + X_{tr} + X_{l}} = 0.584$$
@@ -320,7 +428,7 @@ $$\hat{P}_{e,pf} = \frac{E'E_{B}}{X_d' + X_{tr} + X_{l}} = 0.584$$
 \begin{columns}
     \begin{column}{0.45\textwidth}
         The final $P-\delta$ curves are shown here under, with
-        $$\delta_1 = \arcsin \left(\frac{P_m}{\hat{P}_{e,bf}}\right) = 0.667$$ $$\delta_2 = \arcsin \left(\frac{P_m}{\hat{P}_{e,pf}}\right) = 1.028$$ $$ \delta_{max} = 2.114$$
+        $$\delta_1 = \arcsin \left(\frac{P_m}{\hat{P}_{e,bf}}\right) = 0.667$$ $$\delta_2 = \arcsin \left(\frac{P_m}{\hat{P}_{e,pf}}\right) = 1.028$$ $$ \delta_{max} = \pi - \delta_2 = 2.114$$
     \end{column}
     \begin{column}{0.55\textwidth}
         \begin{center}
