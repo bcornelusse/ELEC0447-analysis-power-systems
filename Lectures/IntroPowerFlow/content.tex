@@ -11,260 +11,295 @@
 
 \section{Introduction}
 
-% What will we learn slide
-\begin{frame}{What will we learn today?}
-    \small
+\begin{frame}[allowframebreaks]{What is a power flow analysis?}
+    Power flow (or load flow) analysis is about determining the \textit{electrical state of an electrical power system}, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
+    
+    This type of analysis is commonly used by power companies for planning and operation purposes.
     \begin{itemize}
-        \item The transmission line
-        \item An introduction to power flow analysis
-    \end{itemize}
-    You will be able to do exercises 4.3, 4.4, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.12, Lab4 (power-flow in python), 5.1, 5.2, 5.5, 5.6 from the Ned Mohan's book.
-\end{frame}
-
-% Video slide
-\begin{frame}
-    \begin{figure}
-        \centering
-        \href{https://www.youtube.com/embed/R_Z-A9KZr58}{\underline{Introduction video link}}
-    \end{figure}
-\end{frame}
-
-% Definition
-\begin{frame}{Definition}
-    \begin{itemize}
-        \item An (overhead) transmission line is a set of 3 bundles of conductors corresponding to the three phases of the system.
-        \item Commonly used voltages range from 70 kV to 380 kV in Belgium (more where distances are larger).
-        \item Minimum distances between conductors depend on the voltage level, and thus electrical properties also depend on the voltage level.
-        \item Underground cables are more and more used. They can be modeled in a similar way as overhead transmission lines, but hey have different properties.
+        \item If voltage magnitude and angles were measured at all buses,
+        \begin{itemize}
+            \item then it would boil down to solving a set of simple linear equations.
+        \end{itemize}
+        \item In a similar way, mesh or nodal analysis could be used if we had a full model of the system,
+        \begin{itemize}
+            \item even without all voltage measurements.
+        \end{itemize}
+        \item But here the situation is different, because we mainly have access to \textit{power} measurements.
+        \begin{itemize}
+            \item The system is no more linear.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
-% ELIA's network
-\begin{frame}{A part of ELIA's network}
-    \centering
-    \includegraphics[width=0.7\textwidth]{images/carte_ELIA_2019_Liege.png}\\
-    Source: \href{https://www.elia.be/fr/infrastructure-et-projets/nos-infrastructures}{https://www.elia.be/fr/infrastructure-et-projets/nos-infrastructures}
+\begin{frame}[allowframebreaks]{Power flow problem statement}
+    Determine \textbf{the voltage at every bus}, assuming we have a power system composed of transmission lines connecting the following bus types:
+    \begin{itemize}
+        \item \textit{PQ buses} are typically loads where active and reactive power are measured
+        \begin{itemize}
+            \item it can also be generation where voltage is not regulated (e.g. renewable generation)
+        \end{itemize}
+        \item \textit{PV buses} where the active power and the voltage are specified
+        \begin{itemize}
+            \item these are typically generators
+        \end{itemize}
+        \item one \textit{slack bus} that sets the reference for the voltage magnitudes and angles (it is usually at 1 pu)
+        \begin{itemize}
+            \item P and Q can take any value to reach the power balance in the system.
+        \end{itemize}
+    \end{itemize}
+    
+    Branch currents and losses can be determined from the voltages (magnitudes and phases).
+    
+    Note: as we will see, PV buses must be swithed to PQ buses in case they reach a limit of their capability curve.
 \end{frame}
 
-% Transmission line parameters
-\begin{frame}{Transmission line parameters}
-\begin{columns}
-    \begin{column}{0.5\textwidth}
-    A \textit{chunk} (a tiny piece)  of transmission line can be represented as:
+\begin{frame}[allowframebreaks]{A first tiny example}
     \begin{center}
-        \includegraphics[width=\textwidth]{images/TL_1.png}
+        \includegraphics[width=0.6\linewidth]{images/PF_net_1.png}
     \end{center}
-    with $R$, $L$ and $C$ expressed \textbf{per unit of length}.
-    \end{column}
-    \begin{column}{0.5\textwidth}
+    \begin{columns}
+        \begin{column}{0.5\linewidth}
+            Buses:
+            \begin{itemize}
+                \item Bus 1 is the slack, with V = 1 pu
+                \item Bus 2 is a PV bus, with V regulated at 1.05 pu and drawing P= 2 pu
+                \item Bus 3 is a PQ bus, consumes P = 5 pu and Q = 1 pu.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+            Lines:
+            \begin{itemize}
+                \item X = 0.376 Ohm/km (at 60 Hz)
+                \item R = 0.037 Ohm/km
+                \item Shunt susceptances are ignored (4.5e-6 S/km)
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    Voltage base (3-phase): 345 kV,
+    Power base (3-phase): 100 MVA
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Result of the tiny example using pandapower}
+    \url{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}
+    \begin{tabular}{|l|r|r|r|r|}
+        \hline
+        & \textbf{vm\_pu} & \textbf{va\_degree} & \textbf{p\_mw} & \textbf{q\_mvar} \\
+        \hline
+        0 & 1.00 & 0.00 & -308.38 & 81.61 \\
+        \hline
+        1 & 1.05 & -2.07 & -200.00 & -266.74 \\
+        \hline
+        2 & 0.98 & -8.79 & 500.00 & 100.00 \\
+        \hline
+    \end{tabular}
+   
+    
+    Are there losses?
+    
+    \vfill
+    \begin{block}{Results for the lines:}
+        \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+            \hline
+            & \textbf{p\_from\_mw} & \textbf{q\_from\_mvar} & \textbf{p\_to\_mw} & \textbf{q\_to\_mvar} & \textbf{pl\_mw} & \textbf{ql\_mvar} & \textbf{i\_from\_ka} & \textbf{i\_to\_ka} \\
+            \hline
+            0 & 68.99 & -110.87 & -68.20 & 118.95 & 0.80 & 8.08 & 0.22 & 0.22 \\
+            \hline
+            1 & 268.20 & 147.79 & -264.23 & -107.49 & 3.97 & 40.30 & 0.49 & 0.49 \\
+            \hline
+            2 & -235.77 & 7.49 & 239.38 & 29.26 & 3.62 & 36.75 & 0.40 & 0.40 \\
+            \hline
+        \end{tabular}
+    \end{block}
+   
+\end{frame}
+
+\section{The power flow equations}
+
+\begin{frame}[allowframebreaks]{The power flow equations}
+    \begin{itemize}
+        \item Let $\mathcal{N}$ be the set of buses of the network
+        \item Some buses are interconnected by transmission lines, given by their $\pi$ models
+        \item Let $Y_{kG}$ be the sum of admittances connected between node $k$ and the ground:
+        \begin{itemize}
+            \item the shunt admittances of the lines incident to $k$, and the admittances of the devices connected at node $k$ if any.
+        \end{itemize}
+        \item For two nodes $k$ and $m$, let $Z_{km}$ be the series impedance of the line connecting them and $Y_{km} = Z_{km}^{-1}$ ($Y_{km} = 0$ if there is no line)
+    \end{itemize}
+    
+    The current injection at node $k$ is
+    \begin{equation}
+        \bar{I}_k = Y_{kG} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus k} {(\bar{V}_k - \bar{V}_m) Y_{km}} \label{eq:bus_inj}
+    \end{equation}
+   
+
+    This last equation can be rewritten as
+    $$\bar{I}_k =  \left(Y_{kG}+ \sum_{m \in \mathcal{N} \setminus k} Y_{km} \right) \bar{V}_k  - \sum_{m \in \mathcal{N} \setminus k} Y_{km} \bar{V}_m$$
+    
+    which highlights the possibility to write in matrix form
+    \begin{equation}
+        \mathbf{\bar{I}} = \mathbf{Y} \mathbf{\bar{V}} \label{eq:bus_inj_mat}
+    \end{equation}
+    
+    with $\mathbf{\bar{I}}$ and $\mathbf{\bar{V}}$ the vectors of bus current injections and bus voltages, respectively.
+    
+    \vspace{1cm}
+    
+    The \textit{admittance matrix} $\mathbf{Y}$ can be determined by inspection:
+    \begin{itemize}
+        \item Element $y_{kk}$ is the sum of the admittances incident to bus $k$
+        \item Element $y_{km}, m \neq k$, is the opposite of the sum of the admittances connecting bus $k$ to bus $m$
+    \end{itemize}
+
+    But remember that we have power measurements only (and voltage magnitudes at a few buses). So we can derive
+    \begin{equation}
+        \mathbf{P} +j \mathbf{Q} = \mathbf{\bar{V}} \circ \mathbf{\bar{I}}^{\star}
+        = \mathbf{\bar{V}} \circ \mathbf{Y}^{\star} \mathbf{\bar{V}}^{\star} \label{eq:pf}
+    \end{equation}
+    where $\mathbf{P}$ and $\mathbf{Q}$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product.
+    
+    If we develop this relation for a node $k$, we have:
+    \begin{align*}
+        P_k &= G_{kk} V_k^2  + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) = p_k(\mathbf{\bar{V}}) \\
+        Q_k &= -B_{kk} V_k^2 + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km}) = q_k(\mathbf{\bar{V}})
+    \end{align*}
+   
+    with
+    \begin{itemize}
+        \item $Y_{km} = G_{km} + j B_{km}$
+        \item $Y_{kk} = G_{kk} + j B_{kk}$ is the sum of the admittances from bus $k$ to ground
+        \item $\theta_{km} = \theta_{k} - \theta_{m}$ the phase difference between voltages at nodes $k$ and $m$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Number of equations and unknowns}
+    If there are $n$ buses in total, among which $n_{PQ}$ PQ buses, $n_{PV}$ PV buses and one slack bus, hence
+    $$ n = n_{PQ} + n_{PV} + 1,$$
+    then
+    \begin{itemize}
+        \item $\mathbf{P}$ is known for $n_{PQ} + n_{PV}$ buses (all but the slack)
+        \item Elements of $\mathbf{Q}$ are known for the $n_{PQ}$ PQ buses
+        \item Voltage magnitude is known at PV buses and at the slack bus
+        \item Voltage angle is known at the slack bus.
+    \end{itemize}
+    
+    \vspace{1cm}
+    
+    In total, there are $2n$ equations for $2n$ unknowns: $n-1$ voltage angles, $n_{PQ}$ voltage magnitudes, $n_{PV} + 1$ reactive powers, and 1 active power.
+\end{frame}
+
+\section{Power flow solution method}
+
+\begin{frame}
+    \frametitle{Power flow solution method}
+    Let
+    \begin{itemize}
+        \item $\mathbf{P}^0$ be the active powers specified at the $\mathcal{N}_{PQ} \cup \mathcal{N}_{PV}$ buses
+        \item $\mathbf{Q}^0$ be the reactive powers specified at the $\mathcal{N}_{PQ}$ buses.
+    \end{itemize}
+    
+    To find $\mathbf{\bar{V}}$, we must solve
+    \begin{align*}
+        P_k^0 - p_k(\mathbf{\bar{V}}) &= 0, \ \forall k \in \mathcal{N}_{PQ} \cup \mathcal{N}_{PV} \\
+        Q_k^0 - q_k(\mathbf{\bar{V}}) &= 0, \ \forall k \in \mathcal{N}_{PQ}
+    \end{align*}
+    which is a set of $2 n_{PQ} + n_{PV}$ non-linear equations.
+    
+    The most widespread method to solve this system is the \textit{Newton-Raphson method}.
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Newton-Raphson example in 1D}
+    \begin{itemize}
+        \item Let's assume we want to solve $c-f(x) = 0$ with $f$ a non-linear function.
+        \item We start with a first guess for $x$, $x^{(0)}$, at iteration $i=0$
+        \item Then, while $|c-f(x^{(i)})| > \epsilon$:
+        \begin{itemize}
+            \item $x^{(i+1)} = x^{(i)} + \frac{c-f(x^{(i)})}{f'(x^{(i)})}$
+            \item $i \leftarrow i + 1$
+        \end{itemize}
+    \end{itemize}
+    
+    For $c=4$ and $f(x) = x^3$ (\url{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}):
+    \begin{center}
+        \includegraphics[width=0.5\linewidth]{images/NR-1D.png}
+    \end{center}
+    
+    The \textit{convergence is quadratic} if we start with x(0) "close” to the solution.
+
+    \textbf{TODO add NR example from transient analysis lecture}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Newton-Raphson for the power flow problem}
+    We apply exactly the same idea to our problem, except that we are in dimension $2 n_{PQ} + n_{PV}$.
+    
+    Hence we must compute partial derivatives to compute the update steps:
+    $$\mathbf{\bar{V}}^{(i+1)}_x = \mathbf{\bar{V}}^{(i)}_x + \underbrace{\left[\mathbf{J}(\mathbf{\bar{V}}^{(i)})\right]^{-1} (\mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}))}_{\Delta \mathbf{\bar{V}}_x}$$
     where
     \begin{itemize}
-        \item $R$ represents the series resistance, as small as possible to minimize $RI^2$ (influence of the frequency and skin effect)
-        \item the series inductance $L$ models the magnetic coupling between phases
-        \item the shunt capacitance $C$ models the capacitive coupling between phases
-        \item a shunt conductance $G$ can be added to model e.g. the leakage current through insulators
+        \item $\mathbf{F}^0$ gathers the measured active powers at buses in $\mathcal{N}_{PQ} \cup \mathcal{N}_{PV}$ and reactive powers at buses $\mathcal{N}_{PQ}$
+        \item $\mathbf{f}(\mathbf{\bar{V}})$ gathers the active and power flow equations at the corresponding buses
+        \item $\mathbf{\bar{V}}_x$ is the subvector of $\mathbf{\bar{V}}$ that gathers the unknwon voltage magnitudes and angles at the the corresponding buses
+        \item $\mathbf{J}(\mathbf{\bar{V}})$ is the jacobian of $\mathbf{f}$, of size $(2 n_{PQ} + n_{PV}) \times (2 n_{PQ} + n_{PV})$
     \end{itemize}
-    \end{column}
-\end{columns}
-    
+
+        \textbf{add NR code example applied to a tiny case (former homework)}
 
 \end{frame}
 
-\begin{frame}{Approximate Overhead Transmission Line Parameters}
-For bundled conductors at 60 Hz.
-\begin{table}
-\begin{tabular}{llll}
-\hline Nominal Voltage & $\boldsymbol{R}(\boldsymbol{\Omega} / \mathbf{k m})$ & $\omega L(\boldsymbol{\Omega} / \mathbf{k m})$ & $\omega \boldsymbol{C}(\boldsymbol{\mu} \boldsymbol{\mho} / \mathbf{k m})$ \\
-\hline 230 kV & 0.06 & 0.5 & 3.4 \\
-345 kV & 0.04 & 0.38 & 4.6 \\
-500 kV & 0.03 & 0.33 & 5.3 \\
-765 kV & 0.01 & 0.34 & 5.0 \\
-\hline
-\end{tabular}
-\end{table}
-\end{frame}
-
-\section{Distributed model}
-% Distributed parameter representation
-\begin{frame}[allowframebreaks]{Distributed parameter representation}
-    We consider that we are in sinusoidal steady state. 
-    On a per-phase basis, the line can be represented as many chunks connected to each other:  
-    \begin{center}
-        \includegraphics[width=0.75\textwidth]{images/TL_distributed.png}
-    \end{center}
-    \textbf{How do voltage and current evolve as a function of the position on the line?}
-
+\begin{frame}{Remarks}
     \begin{itemize}
-        \item As $R$ is small, let's assume $R$ is considered as \textit{lumped} (a discrete resistive element on one side of the line)
-        \item $\frac{d\bar{V}(x)}{dx} = j\omega L \bar{I}(x)$
-        \item $\frac{d\bar{I}(x)}{dx} = j\omega C \bar{V}(x)$
+        \item In practice, instead of computing the inverse of the Jacobian, we solve the system
+        $$\mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}}_x = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)})$$
+        to get the update step
+        \item The Jacobian is often sparse, since a bus is connected to a few neighbors; it is very important to take into account the sparsity properties in practical implementations
+        \item The Jacobian is not necessarily updated at every iteration, especially close to convergence
     \end{itemize}
-
-    Hence $$\frac{d^2\bar{V}(x)}{dx^2} + \beta^2 \bar{V}(x) = 0$$
-    with $\beta = \omega \sqrt{LC}$ the \textit{propagation constant}
-\end{frame}
-\begin{frame}[allowframebreaks]{Solution of the ODE}
-
-    The previous equation has a solution of the type 
-    $$\bar{V}(x) = \bar{V}_1 e^{\beta j x} + \bar{V}_2 e^{-\beta j x}.$$
-    
-        
-    By derivation, the current is  $$\bar{I}(x) = (\bar{V}_1 e^{\beta j x} - \bar{V}_2 e^{-\beta j x}) / Z_c.$$
-    
-    With the \textbf{surge impedance} $$Z_c = \sqrt{\frac{L}{C}}.$$
-    
-    The boundary conditions at $x=0$, $$\bar{V}(0) = \bar{V}_R = V_R \angle 0,$$  and $$\bar{I}(0) = \bar{I}_R$$
-    allow to determine constants $\bar{V}_1$ and $\bar{V}_2$, and finally
-    $$
-    \bar{V}(x) = \bar{V}_R \cos(\beta x) + j Z_c \bar{I}_R \sin(\beta x).
-    $$
 \end{frame}
 
-\section{Surge impedance loading}
-\begin{frame}{Closing the line on the surge impedance $Z_c$}
-    If the line is assumed lossless and \textit{we close it with $Z_c$}, assuming $\bar{V}_R = V_R \angle 0$:
-    \begin{center}
-        \includegraphics[width=\textwidth]{images/SIL.png}
-    \end{center}
-    then the voltage \textit{magnitude is constant} over the line: $\bar{V}(x) = V_R e^{j\beta x}$, and only the \textit{angle increases with $x$}.
-    Similar conclusion for $\bar{I}(x)$.
+\begin{frame}[allowframebreaks]{Fast decoupled power flow}
+    Remember that
     \begin{itemize}
-        \item Why? The reactive power consumed by the line is the same as the reactive power produced, everywhere.
-    \end{itemize}
-\end{frame}
-
-% Illustration in Python
-\begin{frame}{Illustration in Python}
-\begin{columns}
-    \begin{column}{0.55\textwidth}
-    \begin{center}
-        \includegraphics[width=\textwidth]{images/line_model_voltage.png}
-        \small{SIL, 230 kV line params}
-    \end{center}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-    See the \href{https://colab.research.google.com/drive/1FDHjHhW1a6JECWwfznBeP2T5-M9UaJn8?usp=sharing}{\underline{Python notebook}}.
-    \end{column}
-\end{columns}
-
-\end{frame}
-
-% Zc and SIL
-\begin{frame}{Surge impedance loading}
-    $Z_c$ depends on the line characteristics/geometry and is, hence, mainly a function of the voltage level (distances between conductors, etc.).
-
-    The surge impedance loading (SIL) is the power drawn by the load $Z_c$, which depends on the voltage level $V_{LL}$
-    $$
-    SIL = \frac{V^2_{LL}}{Z_c}
-    $$
-
-
-    Example: for $500 \text{ kV}$, $SIL \approx 1020 \text{ MW}.$
-\end{frame}
-
-% Line loadability
-\begin{frame}{Line loadability}
-    The SIL gives an idea of the loadability of a line depending on its length:
-    \begin{itemize}
-        \item short line, $ l < 100 \text{ km}$
-        \begin{itemize}
-            \item load limit $= 3 \times SIL$
-            \item thermal limit (See Section~\ref{sec:LR} on Line rating)
-        \end{itemize}
-        \item Medium length line, $ 100 \text{ km} < l < 300 \text{ km}$
-        \begin{itemize}
-            \item load limit $= 1.5$ to $3 \times SIL$
-            \item voltage drop $< 5\%$
-        \end{itemize}
-        \item Long line, $ l > 300 \text{ km}$
-        \begin{itemize}
-            \item load limit $\approx 1 \times SIL$
-            \item for system stability, the angle difference between line ends should stay $< 40^\circ$, see lecture on Transient stability.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-\section{Lumped transmission line model}
-\begin{frame}{The $\pi$ model}
-If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the line with \textbf{lumped} parameters,
-\begin{columns}
-    \begin{column}{0.55\textwidth}
-    \begin{center}
-        \includegraphics[width=\textwidth]{images/pi_1.png}
-    \end{center}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-    with, by manipulation of the previous equations and assuming $\beta l$ small,
-    \begin{itemize}
-        \item $Z_{\text{series}} = R l +  j \omega L l$
-        \item $\frac{Y_{\text{shunt}}}{2} = j \frac{\omega C l}{2}$
+        \item active power flow is mostly a function of voltage angles
+        \item reactive power flow is mostly a function of voltage magnitudes
     \end{itemize}
     
-    Remember that $R$, $L$ and $C$ are per km values.
-
-    This $\pi$ model is symmetrical by design.
-    \end{column}
-\end{columns}
-
+    If we apply these ideas stricly, we can subdivide the problem in two much simpler subproblems:
+    \begin{itemize}
+        \item one problem for angles, based on the active power measurements and the sub-Jacobian containing the partial derivatives of the active power flow equations w.r.t. angles
+        \item one problem for magnitudes, based on the reactive power measurements and the sub-Jacobian containing the partial derivatives of the reactive power flow equations w.r.t. magnitudes
+    \end{itemize}
     
+    This procedure, through the sub-Jacobian that are computed, also provide information useful for \textit{sensitivity analysis}.
 \end{frame}
 
-% Illustration in Python
-\begin{frame}{Illustration in Python}
+\begin{frame}[allowframebreaks]{DC power flow}
+    "Direct Current" power flow is a further simplification:
+    \begin{itemize}
+        \item it is assumed that the impact of the reactance of lines is much bigger than the impact of their resistance, and shunt conductances are neglected
+        \item voltage magnitudes are assumed equal to $1 pu$
+        \item angle differences are small
+        \item active power losses are neglected, reactive power flows as well
+    \end{itemize}
+    
+    $$P_k =  \sum_{m \in \mathcal{N} \setminus k} B_{km} \theta_{km}$$
+    for every bus but the slack bus, which sets the angle difference, and collects the algebraic sum of all other injected powers.
+    
+    In matrix form, with $\mathbf{Y}$ the admittance matrix defined before:
+    $$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
+    
+    This is usefull for fast simulations, or when including a power flow model in an optimization problem, e.g. \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{day-ahead market coupling}.
 
-\begin{columns}
-    \begin{column}{0.55\textwidth}
-    \begin{center}
-        \includegraphics[width=\textwidth]{images/pi_model_voltage.png}
-        \small{SIL, 230 kV line params}
-    \end{center}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-    Dots are obtained with the $\pi$ model, while plain lines are from the distributed model. The approximation error grows for $l > 300$ km.
-
-    See this \href{https://colab.research.google.com/drive/1FDHjHhW1a6JECWwfznBeP2T5-M9UaJn8?usp=sharing}{\underline{Python notebook}}.
-    \end{column}
-\end{columns}
+    \textbf{TODO add example, apply DC power flow to previous case with three buses}
 \end{frame}
 
-\section{Line rating}\label{sec:LR}
-\begin{frame}[allowframebreaks]{Static line rating}
 
-The \textbf{Static Line Rating} is the maximum continuous current a transmission line can carry under a specific set of predefined, fixed environmental conditions.
+\section{References}
 
-This rating is primarily constrained by \textbf{thermal limits} to ensure the safe and reliable operation of the line.
-
-\begin{itemize}
-\item \textbf{Conductor Thermal Limit:}
-\begin{itemize}
-\item The conductor's electrical resistance generates heat ($RI^2$).
-\item This heat must be balanced by cooling from the environment.
-\item An excessive temperature can cause:
-\begin{enumerate}
-\item \textbf{Increased Sag:} Conductor expansion due to heat causes the line to sag, potentially violating minimum clearance requirements to the ground, buildings, or other infrastructure.
-\item \textbf{Material Damage:} Prolonged high temperatures can anneal the conductor, reducing its tensile strength and lifespan.
-\end{enumerate}
-\end{itemize}
-
-\item \textbf{Environmental Conditions:}
-\begin{itemize}
-    \item The "static" nature of the rating comes from assuming a fixed set of weather parameters.
-    \item \textbf{Ambient Air Temperature:} A baseline temperature (e.g., $40^{\circ}C$) is used. Higher temperatures reduce the cooling capability of the air.
-    \item \textbf{Wind Speed:} A low, static wind speed (e.g., $2 \text{ ft/s}$ at a $45^{\circ}$ angle) is assumed to provide minimal convective cooling. Higher wind speeds would allow for more current.
-    \item \textbf{Solar Radiation:} A fixed value for solar heat gain is included, assuming a specific level of direct sunlight on the conductor.
-\end{itemize}
-
-\end{itemize}
-
-Static line ratings are a conservative and fundamental safety measure. They represent the worst-case continuous scenario to prevent physical damage and clearance violations under predictable conditions.
-
-
-\end{frame}
-% Video slide
-\begin{frame}{Dynamic line rating}
-    \begin{figure}
-        \centering
-        \href{https://www.youtube.com/embed/pzYvDuvM5JY}{{\underline{Dynamic line rating video link}}}
-    \end{figure}
+\begin{frame}
+    \frametitle{References}
+    \begin{itemize}
+        \item Mohan, Ned. Electric power systems: a first course. John Wiley \& Sons, 2012.
+        \item Course notes of ELEC0014 by Pr. Thierry Van Cutsem.
+        \item L. Thurner, A. Scheidler, F. Schäfer et al, pandapower - an Open Source Python Tool for Convenient Modeling, Analysis and Optimization of Electric Power Systems, in IEEE Transactions on Power Systems, vol. 33, no. 6, pp. 6510-6521, Nov. 2018.
+    \end{itemize}
 \end{frame}
