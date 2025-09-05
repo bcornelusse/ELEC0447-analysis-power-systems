@@ -143,8 +143,8 @@ For the system to be stable, the system has to stabilize at $\delta = \delta_2$ 
 \end{columns}
 \end{frame}
 
-\section{The Swing equation}
-\begin{frame} [allowframebreaks]{The swing equation}
+\section{The Equal Area Criterion}
+\begin{frame} [allowframebreaks]{The swing equation (reminder)}
 Let us define the following quantities; $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has:
 $$J_m\frac{d^2\delta_m}{dt^2} = T_m-T_e$$
 Multiplying both sides by $\omega_m$ (the rotor speed), one has:
@@ -189,7 +189,8 @@ Finally, we make the reasonable assumption that $\omega_m \approx \omega_{syn,m}
 \end{frame}
 
 
-\begin{frame}[allowframebreaks]{Transient stability using Equal-Area Criterion}
+\begin{frame}[allowframebreaks]{What is a criterion for transient stability?}
+
 From the swing equation (\ref{eq:swing})
 $$\left(\frac{2H}{\omega_{syn}}\right) \frac{d^2\delta}{dt^2} = P_{m,pu} - P_{e,pu}$$
 Rearrange the terms and multiply both sides by $d\delta/dt$:
@@ -223,8 +224,13 @@ $$\left(\frac{d\delta}{dt}\right)^2 = \frac{\omega_{syn}}{H}\int_{\delta_0}^{\de
 
 The left term $\left(\frac{d\delta}{dt}\right)^2 = \Delta\omega^2$ represents the kinetic energy of the machine at an arbitrary angle $\delta^*$ 
 (with respect to the synchronous speed $\omega_{syn}$) $\rightarrow$ rotational kinetic energy: $\frac{1}{2} J \omega^2$ with $J$ the moment-of-inertia and $\omega$ the angular speed.
-As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerates. For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy gain becomes 0, and thus:
-$$\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$
+As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerates. 
+
+\begin{block}{Criterion}
+For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy becomes 0, and thus:
+$$\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$    
+\end{block}
+
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Equal Area Criterion: the case of a fault}
@@ -256,7 +262,7 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
     \end{column}
     \begin{column}{0.45\textwidth}
         \begin{center}
-        \includegraphics[width=0.9\textwidth]{images/TransientStabilityEAC_2.png}
+        \includegraphics[width=0.9\textwidth]{images/EAC.pdf}
         \end{center}
     \end{column}
 \end{columns}
@@ -269,10 +275,17 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
     \end{column}
     \begin{column}{0.5\textwidth}
         \begin{center}
-        \includegraphics[width=0.99\linewidth]{images/SwingsBack.png}
+        \includegraphics[width=0.9\linewidth]{images/SwingsBack.png}
         \end{center}
     \end{column}
 \end{columns}
+\begin{block}{Exercises}
+    \begin{itemize}
+        \item Compute $\mathcolor{red}{\delta_m}$, the angle reached just after clearing the fault.
+        \item Compute $\delta_2$, the angle reached when swinging back.
+    \end{itemize}
+    
+\end{block}
 
 
 \begin{columns}
@@ -317,7 +330,7 @@ We introduce the concept of critical \textbf{clearing angle} $\mathcolor{green}{
 \end{frame}
 
 \begin{frame}{Critical Clearing Angle: Solution procedure}
-\begin{block}{Solution procedure for Critical Clearing Angle determination}
+\begin{block}{Solution procedure for Critical Clearing Angle and Time determination}
 \begin{enumerate}
     \item Determine 
     \begin{itemize}
@@ -490,16 +503,26 @@ where $P_{e,pu}(\delta(t))$ is a non-linear function depending on $\delta$; $P_{
 Thus, let us assume that the acceleration $\frac{d^2\delta(t)}{dt^2}$ is constant over time. We have:
 $$\delta_{cct} = \delta_1 + \Delta \omega_0\ CCT +a \frac{CCT^2}{2}$$
 where $a$ is the constant acceleration and $\Delta \omega_0$ the initial speed assumed to be 0.
-Let us assume two cases:
-\begin{enumerate}
-    \item We pick the maximum acceleration for angles in $[\delta_1,\delta_{cct}]$.
-    \item We pick the minimum acceleration for angles in $[\delta_1,\delta_{cct}]$.
-\end{enumerate}
 
-From the following figure
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/P-delta-example-cct.png}
-\end{center}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        Let us assume two cases:
+        \begin{enumerate}
+            \item We pick the maximum acceleration for angles in $[\delta_1,\delta_{cct}]$.
+            \item We pick the minimum acceleration for angles in $[\delta_1,\delta_{cct}]$.
+        \end{enumerate}
+        From the following figure
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \begin{center}
+        \includegraphics[width=0.8\textwidth]{images/P-delta-example-cct.png}
+        \end{center}
+    \end{column}
+\end{columns}
+
+
+
+
 it is clear that the acceleration is maximum for $\delta = \delta_1$, and minimum for $\delta = \delta_{cct}$ for $\delta \in [\delta_1,\delta_{cct}]$ (larger power mismatch when $\delta = \delta_1$ and smaller for $\delta = \delta_{cct}$).
 We have:
 $$a_{min} = \frac{\omega_{syn}}{2H}\left(P_{m,pu} - \hat{P}_{e,df}\sin \delta_{cct}\right)$$
@@ -523,13 +546,13 @@ $$\frac{d\delta(t)}{dt} = \omega_0 \Delta \omega(t)$$
 Euler discretization
 $$\Delta \omega_{t+1} = (1-\tau \frac{D}{2H})\Delta \omega_{t} + \frac{\tau}{2H}\left(P_m-P_{e,max}^{k \tau}\sin (\delta_{t})\right)$$
 $$\delta_{t+1} = \delta_{t} + \tau\omega_0\Delta \omega_t$$
-where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k \tau}$ is changing over time in a discretize fashion (pre-fault$\rightarrow$during-fault$\rightarrow$post-fault) through the superscript $k \tau$.
+where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k \tau}$ is changing over time in a discrete fashion (pre-fault$\rightarrow$during-fault$\rightarrow$post-fault) through the superscript $k \tau$.
 \end{frame}
 
-\begin{frame} {Extension on dynamics}
+\begin{frame} {Results  \textbf{without} damping, $t_{cl} = 0.214 s \leq CCT$}
 \begin{columns}
     \begin{column}{0.55\textwidth}
-        \textbf{Results without damping ($t_{cl} = 0.214 s \leq CCT$)}
+       
         \begin{center}
         \includegraphics[width=0.9\linewidth]{images/P-dynamics.png}
         \end{center}
@@ -540,10 +563,9 @@ where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k 
 \end{columns}
 \end{frame}
 
-\begin{frame} {Extension on dynamics}
+\begin{frame} {Results \textbf{with} damping, $t_{cl} = 0.214 \leq CCT$}
 \begin{columns}
     \begin{column}{0.55\textwidth}
-        \textbf{Results with damping ($t_{cl} = 0.214 \leq CCTs$)}
         \begin{center}
         \includegraphics[width=0.9\linewidth]{images/P-dynamics_bis.png}
         \end{center}
@@ -554,10 +576,9 @@ where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k 
 \end{columns}
 \end{frame}
 
-\begin{frame} {Extension on dynamics}
+\begin{frame} {Results \textbf{without} damping, $t_{cl} = 0.239 s \geq CCT$}
     \begin{columns}
     \begin{column}{0.55\textwidth}
-        \textbf{Results without damping ($t_{cl} = 0.239 s \geq CCT$)}
         \begin{center}
         \includegraphics[width=0.9\linewidth]{images/P-dynamics_failed.png}
         \end{center}
@@ -569,10 +590,9 @@ where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k 
 
 \end{frame}
 
-\begin{frame}{Extension on dynamics}
+\begin{frame}{Results \textbf{with} damping, $t_{cl} = 0.239 s \geq CCT$}
 \begin{columns}
     \begin{column}{0.55\textwidth}
-        \textbf{Results with damping ($t_{cl} = 0.239 s \geq CCT$)}
         \begin{center}
         \includegraphics[width=0.9\linewidth]{images/P-dynamics_bis_failed.png}
         \end{center}
@@ -676,7 +696,7 @@ There's a need for tools that can quickly perform security assessment to guarant
 \end{center}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Example 1: dynamic analysis}
+\begin{frame}[allowframebreaks]{Example 2: dynamic analysis}
 \begin{itemize}
     \item For dynamic analyses, we study the time-evolution of a power system trajectory (e.g. internal angle in transient stability)
     \item It requires solving the differential-algebraic equations for multiple scenarios (different short-circuit locations, different clearing schemes).
@@ -687,6 +707,3 @@ There's a need for tools that can quickly perform security assessment to guarant
 \includegraphics[width=0.95\textwidth]{images/ReachAn.png}
 \end{center}
 \end{frame}
-
-
-\end{document}
