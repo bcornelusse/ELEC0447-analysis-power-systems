@@ -12,7 +12,7 @@
 \section{Introduction}
 
 \begin{frame}[allowframebreaks]{What is a power flow analysis?}
-    Power flow (or load flow) analysis is about determining the \textit{electrical state of an electrical power system}, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
+    Power flow (or load flow) analysis aims at determining the \textit{electrical state of an electrical power system}, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
     
     This type of analysis is commonly used by power companies for planning and operation purposes.
     \begin{itemize}
@@ -55,7 +55,7 @@
 
 \begin{frame}[allowframebreaks]{A first tiny example}
     \begin{center}
-        \includegraphics[width=0.6\linewidth]{images/PF_net_1.png}
+        \includegraphics[width=0.8\linewidth]{images/PF_net_1.png}
     \end{center}
     \begin{columns}
         \begin{column}{0.5\linewidth}
@@ -79,8 +79,23 @@
     Power base (3-phase): 100 MVA
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Result of the tiny example using pandapower}
-    \url{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}
+
+\begin{frame}{Modeling the system in PandaPower}
+
+    We will see how to describe mathematically the problem and how to solve it in the next sections.
+
+    Usually, however, engineers use existing modeling and solution software.
+    One of those, which is open source and accessible through Python scripts, is PandaPower \cite{thurner2018pandapower}. 
+
+    \alert{TODO add python code to model network in PP explicitely here.}
+
+    \href{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}{\underline{Link to the PandaPower model}} 
+    
+\end{frame}
+
+\begin{frame}{Result of the tiny example using pandapower}
+    
+    \begin{center}
     \begin{tabular}{|l|r|r|r|r|}
         \hline
         & \textbf{vm\_pu} & \textbf{va\_degree} & \textbf{p\_mw} & \textbf{q\_mvar} \\
@@ -92,25 +107,24 @@
         2 & 0.98 & -8.79 & 500.00 & 100.00 \\
         \hline
     \end{tabular}
-   
-    
+\end{center}
+
     Are there losses?
     
-    \vfill
-    \begin{block}{Results for the lines:}
-        \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-            \hline
-            & \textbf{p\_from\_mw} & \textbf{q\_from\_mvar} & \textbf{p\_to\_mw} & \textbf{q\_to\_mvar} & \textbf{pl\_mw} & \textbf{ql\_mvar} & \textbf{i\_from\_ka} & \textbf{i\_to\_ka} \\
-            \hline
-            0 & 68.99 & -110.87 & -68.20 & 118.95 & 0.80 & 8.08 & 0.22 & 0.22 \\
-            \hline
-            1 & 268.20 & 147.79 & -264.23 & -107.49 & 3.97 & 40.30 & 0.49 & 0.49 \\
-            \hline
-            2 & -235.77 & 7.49 & 239.38 & 29.26 & 3.62 & 36.75 & 0.40 & 0.40 \\
-            \hline
-        \end{tabular}
-    \end{block}
-   
+    Results for the lines:
+    {\scriptsize
+    \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+        \hline
+        & \textbf{p\_from\_mw} & \textbf{q\_from\_mvar} & \textbf{p\_to\_mw} & \textbf{q\_to\_mvar} & \textbf{pl\_mw} & \textbf{ql\_mvar} & \textbf{i\_from\_ka} & \textbf{i\_to\_ka} \\
+        \hline
+        0 & 68.99 & -110.87 & -68.20 & 118.95 & 0.80 & 8.08 & 0.22 & 0.22 \\
+        \hline
+        1 & 268.20 & 147.79 & -264.23 & -107.49 & 3.97 & 40.30 & 0.49 & 0.49 \\
+        \hline
+        2 & -235.77 & 7.49 & 239.38 & 29.26 & 3.62 & 36.75 & 0.40 & 0.40 \\
+        \hline
+    \end{tabular}
+    }
 \end{frame}
 
 \section{The power flow equations}
@@ -119,7 +133,7 @@
     \begin{itemize}
         \item Let $\mathcal{N}$ be the set of buses of the network
         \item Some buses are interconnected by transmission lines, given by their $\pi$ models
-        \item Let $Y_{kG}$ be the sum of admittances connected between node $k$ and the ground:
+        \item Let $\mathcolor[RGB]{00,99,00}{Y_{kG}}$ be the sum of admittances connected between node $k$ and the ground:
         \begin{itemize}
             \item the shunt admittances of the lines incident to $k$, and the admittances of the devices connected at node $k$ if any.
         \end{itemize}
@@ -128,29 +142,33 @@
     
     The current injection at node $k$ is
     \begin{equation}
-        \bar{I}_k = Y_{kG} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus k} {(\bar{V}_k - \bar{V}_m) Y_{km}} \label{eq:bus_inj}
+        \mathcolor{blue}{\bar{I}_k} = \mathcolor[RGB]{00,99,00}{Y_{kG}} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus k} {(\bar{V}_k - \bar{V}_m) Y_{km}} \label{eq:bus_inj}
     \end{equation}
    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/bus_injection_model.pdf}
+        \caption{Illustration of current injection at bus $k$ as a function of exchanges with neighbor buses ($l$ and $m$) and shunt compensation device. Devices and lines connected to buses $l$ and $m$ are not shown.}
+        \label{fig:bus_injection}
+    \end{figure}
 
     This last equation can be rewritten as
-    $$\bar{I}_k =  \left(Y_{kG}+ \sum_{m \in \mathcal{N} \setminus k} Y_{km} \right) \bar{V}_k  - \sum_{m \in \mathcal{N} \setminus k} Y_{km} \bar{V}_m$$
+    $$\mathcolor{blue}{\bar{I}_k} =  \left(\mathcolor[RGB]{00,99,00}{Y_{kG}}+ \sum_{m \in \mathcal{N} \setminus k} Y_{km} \right) \bar{V}_k  - \sum_{m \in \mathcal{N} \setminus k} Y_{km} \bar{V}_m$$
     
     which highlights the possibility to write in matrix form
     \begin{equation}
         \mathbf{\bar{I}} = \mathbf{Y} \mathbf{\bar{V}} \label{eq:bus_inj_mat}
     \end{equation}
-    
     with $\mathbf{\bar{I}}$ and $\mathbf{\bar{V}}$ the vectors of bus current injections and bus voltages, respectively.
     
-    \vspace{1cm}
-    
+    \newpage
     The \textit{admittance matrix} $\mathbf{Y}$ can be determined by inspection:
     \begin{itemize}
         \item Element $y_{kk}$ is the sum of the admittances incident to bus $k$
-        \item Element $y_{km}, m \neq k$, is the opposite of the sum of the admittances connecting bus $k$ to bus $m$
+        \item Element $y_{km}, m \neq k$, is the opposite of the sum of the admittances connecting bus $k$ to bus $m$.
     \end{itemize}
 
-    But remember that we have power measurements only (and voltage magnitudes at a few buses). So we can derive
+    However, remember that we have power measurements only (and voltage magnitudes at a few PV buses). So we can derive
     \begin{equation}
         \mathbf{P} +j \mathbf{Q} = \mathbf{\bar{V}} \circ \mathbf{\bar{I}}^{\star}
         = \mathbf{\bar{V}} \circ \mathbf{Y}^{\star} \mathbf{\bar{V}}^{\star} \label{eq:pf}
@@ -218,15 +236,18 @@
         \end{itemize}
     \end{itemize}
     
-    For $c=4$ and $f(x) = x^3$ (\url{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}):
+    \begin{columns}
+    \begin{column}{0.55\textwidth}
+    For $c=4$ and $f(x) = x^3$:
     \begin{center}
-        \includegraphics[width=0.5\linewidth]{images/NR-1D.png}
+        \includegraphics[width=0.8\linewidth]{images/NR-1D.png}
     \end{center}
-    
+    \end{column}
+    \begin{column}{0.45\textwidth}
     The \textit{convergence is quadratic} if we start with x(0) "close” to the solution.
-
-    \textbf{TODO add NR example from transient analysis lecture}
-
+    \end{column}
+    \end{columns}
+    \href{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}{\underline{Link to Newton-Raphson 1D example in Python}} 
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Newton-Raphson for the power flow problem}
@@ -293,13 +314,3 @@
 \end{frame}
 
 
-\section{References}
-
-\begin{frame}
-    \frametitle{References}
-    \begin{itemize}
-        \item Mohan, Ned. Electric power systems: a first course. John Wiley \& Sons, 2012.
-        \item Course notes of ELEC0014 by Pr. Thierry Van Cutsem.
-        \item L. Thurner, A. Scheidler, F. Schäfer et al, pandapower - an Open Source Python Tool for Convenient Modeling, Analysis and Optimization of Electric Power Systems, in IEEE Transactions on Power Systems, vol. 33, no. 6, pp. 6510-6521, Nov. 2018.
-    \end{itemize}
-\end{frame}
