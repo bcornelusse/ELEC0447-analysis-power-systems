@@ -52,18 +52,7 @@
 %\usetikzlibrary{arrows.meta, positioning}
 
 
-lstset{
-    language=Python,
-    basicstyle=\ttfamily\small, % use a monospaced font at a smaller size
-    numbers=left, % add line numbers on the left
-    numberstyle=\tiny\color{gray}, % style for the line numbers
-    frame=single, % put a frame around the code block
-    showstringspaces=false, % don't show special characters for spaces in strings
-    tabsize=4, % set tab size
-    keywordstyle=\color{blue}\bfseries, % bold and blue keywords
-    stringstyle=\color{red}, % red strings
-    commentstyle=\color{green!60!black}\itshape % italic and dark green comments
-}
+
 
 \newcommand{\Z}       {\mathbb{Z} }
 \newcommand{\R}       {\mathbb{R} }
@@ -76,10 +65,26 @@ lstset{
 \definecolor{myRed}{RGB}{209,34,57} 
 
 
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\scriptsize, % use a monospaced font at a smaller size
+    numbers=left, % add line numbers on the left
+    numberstyle=\tiny\color{gray}, % style for the line numbers
+    frame=single, % put a frame around the code block
+    showstringspaces=false, % don't show special characters for spaces in strings
+    tabsize=4, % set tab size
+    keywordstyle=\color{blue}\bfseries, % bold and blue keywords
+    stringstyle=\color{red}, % red strings
+    commentstyle=\color{green!60!black}\itshape % italic and dark green comments
+}
+
 %==============================================================================
 %                               BEGIN DOCUMENT
 %==============================================================================
 \begin{document}
+
+
+
 
 \input{content}
 

@@ -87,15 +87,21 @@
     Usually, however, engineers use existing modeling and solution software.
     One of those, which is open source and accessible through Python scripts, is PandaPower \cite{thurner2018pandapower}. 
 
-    \alert{TODO add python code to model network in PP explicitely here.}
-
     \href{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}{\underline{Link to the PandaPower model}} 
     
+\end{frame}
+
+\begin{frame}[fragile, allowframebreaks]
+    \frametitle{Creation of the power flow model with PandaPower}
+    \begin{center}
+        \lstinputlisting{pandapower_net.py}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Result of the tiny example using pandapower}
     
     \begin{center}
+     {\scriptsize    
     \begin{tabular}{|l|r|r|r|r|}
         \hline
         & \textbf{vm\_pu} & \textbf{va\_degree} & \textbf{p\_mw} & \textbf{q\_mvar} \\
@@ -107,6 +113,7 @@
         2 & 0.98 & -8.79 & 500.00 & 100.00 \\
         \hline
     \end{tabular}
+     }
 \end{center}
 
     Are there losses?
