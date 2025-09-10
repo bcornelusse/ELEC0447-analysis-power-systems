@@ -17,7 +17,7 @@ Instructors:
 
 | Date | Lecture | Topics |
 | --- | --- | --- |
-|	 September 18 	|	1	|	 [Course organization and introduction](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_intro.md) ([pdf file](pdf/lecture1_intro.pdf)) 	|
+|	 September 18 	|	1	|	 [Course organization and introduction](Lectures/Introduction/main.pdf)	|
 |	              	|	  |	 [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))	|
 |	              	|	  |	 [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) 	|
 |	 September 25  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	|

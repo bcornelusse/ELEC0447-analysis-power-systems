@@ -285,37 +285,41 @@ Large-scale failures (blackouts) have tremendous societal consequences
 \end{frame}
 
 
-\section{Energy outlook for Belgium}
-
 \begin{frame}
 {Electrical energy balance over the year 2018 in Belgium}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/energy_balance_BE_2018.png}
+\includegraphics[width=0.6\linewidth]{images/energy_balance_BE_2018.png}
 \end{figure}
 \end{frame}
 
-\begin{frame}
-{Network losses}
-\begin{figure}
-\centering
-\includegraphics[width=0.9\linewidth]{images/network_losses_world.png}
-\end{figure}
-Transporting and distributing electrical energy is an industrial process with a relatively high efficiency
+\begin{frame}{Network losses}
+
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{figure}
+      \centering
+      \includegraphics[width=0.6\linewidth]{images/network_losses_world.png}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      Transporting and distributing electrical energy is an industrial process with a relatively high efficiency
+    \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
 {Consumption outlook}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/consumption_be.png}
+\includegraphics[width=0.6\linewidth]{images/consumption_be.png}
 \end{figure}
 \end{frame}
 
 \begin{frame}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/consumption_be_zoom.png}
+\includegraphics[width=0.6\linewidth]{images/consumption_be_zoom.png}
 \end{figure}
 \end{frame}
 
@@ -323,28 +327,24 @@ Transporting and distributing electrical energy is an industrial process with a 
 {Peak load on some grids}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/peaks_BE.png}
+\includegraphics[width=0.6\linewidth]{images/peaks_BE.png}
 \end{figure}
 \end{frame}
 
-\begin{frame}
-{Energy outlook for Belgium}
-\end{frame}
 
-\begin{frame}
-{Sources of electrical energy in Belgium in 2018}
+\section{Energy outlook for Belgium}
+
+\begin{frame}{Sources of electrical energy in Belgium in 2018}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/sources_BE.png}
+\includegraphics[width=0.6\linewidth]{images/sources_BE.png}
 \end{figure}
-\vfill
-\textbf{Exercise: let's update this table together.}
-\vfill
-\footnotesize{source : ENTSOE}
+
+\textbf{Exercise: let's update this table together.} \footnotesize{source : ENTSOE}
+
 \end{frame}
 
-\begin{frame}
-{Comments}
+\begin{frame}[allowframebreaks]{Comments}
 \begin{itemize}
 \item “Nuclear generation capacity” involves all units, even those temporarily shut down for technical reasons, or waiting for the decision to extend their lifetime
 \item Gas power plants includes small CHP (Combined Heat Power) units
@@ -364,21 +364,17 @@ Transporting and distributing electrical energy is an industrial process with a 
 \end{center}
 \end{frame}
 
-\begin{frame}
-{Comments: capacity factor}
+\begin{frame}{Comments: capacity factor}
 \begin{itemize}
-\item Capacity Factor:
-
-%TODO generation capacity (MW)×365×24(h)
-% energy produced in 1 year (MWh) 
+\item Capacity Factor: 
+$$CF = \frac{\text{generation capacity (MW)} \times 365 \times 24(h)}{\text{energy produced in 1 year (MWh)}} $$
 
 \item usually close to 90 \% for nuclear, but some Belgian units have high unavailability
 \item note the low value for solar energy!
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-{Some trends in Belgium}
+\begin{frame}[allowframebreaks]{Some trends in Belgium TO BE UPDATED} 
 \begin{itemize}
 \item Early retirement of gas power plants not enough competitive on electricity market, too expensive to maintain
 \begin{itemize}
@@ -397,10 +393,6 @@ Transporting and distributing electrical energy is an industrial process with a 
 \item NIMBY attitude : Not In My BackYard
 \end{itemize}
 \end{itemize}
-\end{frame}
-
-\begin{frame}
-{Some trends in Belgium (...)}
 \begin{itemize}
 \item off-shore wind farms have a higher capacity factor than on-shore ones: wind is more steady in the sea
 \item Belgian off-shore wind farms in 2018 :
@@ -424,16 +416,15 @@ Transporting and distributing electrical energy is an industrial process with a 
 {From large centralized to small dispersed power plants}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/danemark_RES.png}
+\includegraphics[width=0.6\linewidth]{images/danemark_RES.png}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-{Wind generation potential}
-\url{https://globalwindatlas.info/}
+{Wind generation potential}\url{https://globalwindatlas.info/}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/wind_gen_DE.png}
+\includegraphics[width=0.6\linewidth]{images/wind_gen_DE.png}
 \caption*{Hour of the year 2013}
 \end{figure}
 \end{frame}
@@ -442,16 +433,14 @@ Transporting and distributing electrical energy is an industrial process with a 
 %\url{https://re.jrc.ec.europa.eu/pvg_download/map_index_c.html#!}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/PV_gen_DE.png}
+\includegraphics[width=0.6\linewidth]{images/PV_gen_DE.png}
 \caption*{Hour of the year 2013}
 \end{figure}
 \end{frame}
 
 \section{The power balance problem}
 
-
-\begin{frame}
-{The power balance issue}
+\begin{frame}[allowframebreaks]{The power balance issue}
 \begin{figure}
 \centering
 \includegraphics[width=0.8\linewidth]{images/power_balance.png}
@@ -460,21 +449,17 @@ Conservation of Energy over an infinitesimal time dt:
 
 $$dE_{gen} = dE_{cons} + dE_{lost} + dE_{net}$$Introducing the corresponding powers at time $t$:$$p_{gen}(t).dt = p_{cons}(t).dt + p_{lost}(t).dt + p_{net}(t).dt$$Hence$$p_{gen}(t) = p_{cons}(t) + p_{lost}(t) + p_{net}(t)$$
 
-\end{frame}
 
-\begin{frame}
-$p_cons(t)$: The consumers decide how much power they want to consume !
+$p_{cons}(t)$: The consumers decide how much power they want to consume !
 \begin{itemize}
 \item this demand fluctuates at any time
 \end{itemize}
-$p_lost(t)$: Losses mainly due to Joule effects → depend on currents in components
+$p_{lost}(t)$: Losses mainly due to Joule effects → depend on currents in components
 \begin{itemize}
 \item kept as small as possible, not really controllable
 \end{itemize}
-\end{frame}
 
-\begin{frame}
-$p_net(t)$: Network elements which store electrical energy : inductors and capacitors
+$p_{net}(t)$: Network elements which store electrical energy : inductors and capacitors
 \begin{itemize}
 \item In sinusoidal steady state, the power in an inductor (or a capacitor) reverts every quarter of a period, and is zero on the average
 \begin{itemize}
@@ -485,15 +470,14 @@ $p_net(t)$: Network elements which store electrical energy : inductors and capac
 \begin{itemize}
 \item mechanical: e.g. potential energy of water in the upper reservoir of a pumping station, flywheels, etc.
 \item chemical: batteries, but amounts of stored energy are still very small !! Really?
-\item \href{https://en.wikipedia.org/wiki/Hornsdale_Power_Reserve}{Hornsdale Power Reserve}
-\item \href{https://www.energy-storage.news/blogs/sponsored-ngks-nas-grid-scale-batteries-in-depth}{NGK's batteries}
+\item \href{https://en.wikipedia.org/wiki/Hornsdale_Power_Reserve}{\underline{Hornsdale Power Reserve}}
+\item \href{https://www.energy-storage.news/blogs/sponsored-ngks-nas-grid-scale-batteries-in-depth}{\underline{NGK's batteries}}
 \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-{Conclusion}
-The variations of load power have to be compensated by the generators but the conversion (primary energy → electrical energy) is not instantaneous
+\begin{frame}[allowframebreaks]{Conclusion}
+The variations of load power have to be compensated by the generators but the conversion (primary energy → electrical energy) is not instantaneous, and must be regulated.
 \begin{itemize}
 \item example: changing the flow of steam or water in a turbine takes a few seconds
 \end{itemize}
@@ -580,7 +564,7 @@ for electricity
 \column{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/EU_net_flows.png}
+\includegraphics[width=0.6\linewidth]{images/EU_net_flows.png}
 \caption*{Energy flows in 2018 (in GWh)}
 \end{figure}
 \end{columns}
@@ -590,7 +574,7 @@ for electricity
 {The synchronous grids of Europe}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/EU_TSOs.png}
+\includegraphics[width=0.6\linewidth]{images/EU_TSOs.png}
 \end{figure}
 \vfill
 \footnotesize{Source: ENTSOE}
@@ -602,25 +586,23 @@ Paths taken by a production increment of 100 MW in Belgium
 covered by a load increase of 100 MW in Italy (variation of losses neglected):
 \begin{figure}
 \centering
-\includegraphics[width=0.5\linewidth]{images/EU_path_flows.png}
+\includegraphics[width=0.4\linewidth]{images/EU_path_flows.png}
 \end{figure}
 \end{frame}
 
 \begin{frame}
 {The come-back of Direct Current}
-Advances in power electronics → rectifiers and inverters able to carry larger currents through higher voltages → transmission applications made possible
+Advances in power electronics $\rightarrow$ rectifiers and inverters able to carry larger currents through higher voltages $\rightarrow$ transmission applications made possible
 \end{frame}
 
-\begin{frame}
-{Transmission over longer distances through overhead lines}
+\begin{frame}{Transmission over longer distances through overhead lines}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{images/DC_line.png}
+\includegraphics[width=0.6\linewidth]{images/DC_line.png}
 \end{figure}
 \end{frame}
 
-\begin{frame}
-{Transmission through submarine cables}
+\begin{frame}{Transmission through submarine cables}
 \begin{itemize}
 \item DC more attractive than AC for distances above >= 50 km : owing to capacitive effects of AC cables
 \item Existing links in Europe : see \href{https://www.elia.be/fr/donnees-de-reseau/transport/flux-physiques-sur-le-reseau-haute-tension-belge}{a previous slide}
@@ -632,7 +614,7 @@ Connection of off-shore wind parks (source: ENTSOE, AC and DC connections of off
 \column{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/DC_cable.png}
+\includegraphics[width=0.6\linewidth]{images/DC_cable.png}
 \end{figure}
 \end{columns}
 \end{frame}
@@ -657,7 +639,7 @@ Connection of off-shore wind parks (source: ENTSOE, AC and DC connections of off
 \column{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{images/different_frequencies.png}
+\includegraphics[width=0.6\linewidth]{images/different_frequencies.png}
 \end{figure}
 \end{columns}
 \end{frame}
