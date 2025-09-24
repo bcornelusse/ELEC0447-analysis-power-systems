@@ -4,9 +4,9 @@
 
 %--------------------------------------
 % Table of contents
-\begin{frame}{Overview}
+\begin{frame}[allowframebreaks]{Overview}
   \setbeamertemplate{section in toc}[sections numbered]
-  \tableofcontents[hideallsubsections]
+  \tableofcontents%[hideallsubsections]
 \end{frame}
 
 
@@ -32,22 +32,25 @@
 \section{Three-phase systems (reminder)}
 % Three-phase system slide
 \begin{frame}{Three-phase system }
+Here is an example of a simplified three-phase system with one generator, a transmission line, and a load.
 \begin{columns}
-    \begin{column}{0.7\textwidth}
+    \begin{column}{0.55\textwidth}
     \begin{figure}
         \centering
-        \includegraphics[width=0.99\textwidth]{images/three-phase-system.png}
+        \includegraphics[width=\textwidth]{images/three-phase-system.png}
         \caption{Generation -> transmission -> load}
     \end{figure}
     \end{column}
-    \begin{column}{0.3\textwidth}
-    Here the load is connected as a \textit{star}. A neutral point is present. The neutral conductor is not necessarily implemented.
+    \begin{column}{0.35\textwidth}
+    Here the load is connected as a \textit{star}. A neutral point is present. 
+    
+    The neutral conductor is not necessarily implemented, depending on the voltage level and the unbalanced nature of the network.
     \end{column}
 \end{columns}
 \end{frame}
 
 % Voltage sources slide
-\begin{frame}{By design the voltage sources are shifted by 120°}
+\begin{frame}{By design the voltage sources are shifted by 120° and of the same magnitude}
     \begin{columns}
     \begin{column}{0.4\textwidth}
         \begin{align*}
@@ -55,6 +58,9 @@
         \bar{V}_{gb} &= V e^{j(\phi_u - 2 \pi / 3)} = \bar{V}_{ga} e^{-j 2 \pi / 3} \\
         \bar{V}_{gc} &= V e^{j(\phi_u - 4 \pi / 3)} = \bar{V}_{ga} e^{-j 4 \pi / 3}
         \end{align*}
+
+    {\scriptsize In this course, we will always assume that the voltage sources generate a \textbf{positive sequence}, unless explicitly stated.}
+
     \end{column}
     \begin{column}{0.6\textwidth}
         \begin{figure}
@@ -71,7 +77,7 @@
 
     \begin{columns}
     \begin{column}{0.5\textwidth}
-        These voltages represent the \textbf{phase voltages}. If we now look at the \textbf{line to line voltages}:
+        These voltages represent the \textbf{phase voltages} (between a phase and the ground). If we now look at the \textbf{line to line voltages}:
         $$
         \bar{U}_{ab} = \bar{V}_{ga} - \bar{V}_{gb} = \sqrt{3} \bar{V}_{ga} e^{j\pi / 6}
         $$
@@ -109,92 +115,6 @@
     \end{itemize}
 \end{frame}
 
-% Exercise slide
-\section{Neutral break exercise}
-\begin{frame}{Neutral break: problem statement}
-    Consider a 3-phase Y-connected resistive circuit with unbalanced resistors in the phases. In normal operation there is a neutral wire. Then the neutral breaks.
-    \begin{itemize}
-        \item Compute in both cases the voltages across the resistors, the currents and the consumed powers.
-        \item What can you observe?
-    \end{itemize}
-    \textbf{Remark}: In the next slides, the phasor notation is omitted, but all voltages and currents should be understood as phasors.
-\end{frame}
-
-% Case 1: Neutral Connected slide
-\begin{frame}{Case 1: Neutral Connected}
-    \textbf{Assumptions:}
-    \begin{itemize}
-        \item 3-phase balanced voltage supply: $V_{ab} = V_{bc} = V_{ca} = V_L$ (line-to-line voltage)
-        \item Phase voltages (line-to-neutral) are given by $V_{an} = V_{bn} = V_{cn} = \frac{V_L}{\sqrt{3}}$, and the angle between them is $120^\circ$.
-        \item Unbalanced resistances: $R_a$, $R_b$, $R_c$ (different resistances in each phase).
-    \end{itemize}
-\end{frame}
-\begin{frame}{Voltages and currents}
-    \textbf{Voltages:} In normal operation, with the neutral connected, each resistor has its corresponding phase voltage across it:
-    $$V_{R_a} = V_{an}, \quad V_{R_b} = V_{bn}, \quad V_{R_c} = V_{cn}$$
-    \textbf{Currents:} The current in each phase is given by Ohm's law:
-    $$I_a = \frac{V_{an}}{R_a}, \quad I_b = \frac{V_{bn}}{R_b}, \quad I_c = \frac{V_{cn}}{R_c}$$
-    The neutral current, $I_n$, is the sum of the phase currents:
-    $$I_n = I_a + I_b + I_c$$
-    Due to the unbalanced resistances, $I_n$ will not be zero.
-\end{frame}
-
-% Powers slide
-\begin{frame}{Powers}
-    The power consumed in each phase is:
-    $$P_a = V_{an} I_a = \frac{V_{an}^2}{R_a}, \quad P_b = \frac{V_{bn}^2}{R_b}, \quad P_c = \frac{V_{cn}^2}{R_c}$$
-    Total power consumed:
-    $$P_{\text{total}} = P_a + P_b + P_c$$
-\end{frame}
-
-% Case 2: Neutral Broken slide
-\begin{frame}{Case 2: Neutral Broken}
-    When the neutral breaks, the three resistors form a system without a direct connection to the neutral point. The current through each resistor still needs to sum to zero because the current has no return path through the neutral. This changes the voltage distribution across the resistors.
-\end{frame}
-
-% Voltages: slide
-\begin{frame}{Voltages and currents}
-    Here, $ V_{nN'} $ is an unknown voltage offset at the floating point $ N' $ (the shifted neutral). Using KCL, you solve for this voltage by ensuring the sum of the currents at $ N' $ is zero:
-    $$
-    \frac{V_{aN'}}{R_a} + \frac{V_{bN'}}{R_b} + \frac{V_{cN'}}{R_c} = 0
-    $$
-    Solving this system gives you the new voltages across the resistors.
-
-    \begin{itemize}
-        \item The currents in each phase are then given by:
-        $$
-        I_a = \frac{V_{aN'}}{R_a}, \quad I_b = \frac{V_{bN'}}{R_b}, \quad I_c = \frac{V_{cN'}}{R_c}
-        $$
-        \item Since the neutral is broken, the sum of these currents must equal zero:
-        $$
-        I_a + I_b + I_c = 0
-        $$
-    \end{itemize}
-\end{frame}
-
-% Powers: slide
-\begin{frame}{Powers}
-    \begin{itemize}
-        \item The power consumed in each phase is:
-        $$
-        P_a = V_{aN'} I_a = \frac{(V_{aN'})^2}{R_a}, \quad P_b = \frac{(V_{bN'})^2}{R_b}, \quad P_c = \frac{(V_{cN'})^2}{R_c}
-        $$
-        \item Total power consumed:
-        $$
-        P_{\text{total}} = P_a + P_b + P_c
-        $$
-    \end{itemize}
-\end{frame}
-
-% Observations: slide
-\begin{frame}{Observations}
-    \begin{itemize}
-        \item When the neutral is connected, the voltages across the resistors are straightforwardly determined by the phase-to-neutral voltages.
-        \item When the neutral is broken, the voltage distribution becomes more complex, and the voltages across the resistors are no longer the same as the phase-to-neutral voltages. The total current in the system remains zero, and the power distribution can also change depending on the values of the resistors.
-    \end{itemize}
-    \href{https://colab.research.google.com/drive/1pXH21c8g9Hv3h94pb81OtuFVQfauG63T?usp=sharing}{A numerical example here.}
-\end{frame}
-
 % Useful formulas slide
 \begin{frame}{Useful formulas: from star to delta connection (and back)}
     \begin{figure}
@@ -219,6 +139,139 @@
     \end{columns}
     What happens in a balanced system?
 \end{frame}
+
+% Exercise slide
+\section{Neutral break exercise}
+\begin{frame}[allowframebreaks]{Neutral break: problem statement}
+    Consider a 3-phase Y-connected resistive circuit with unbalanced resistors in the phases. In normal operation there is a neutral wire. Then the neutral breaks (opens).
+    \begin{itemize}
+        \item Compute in both cases the voltages across the resistors, the currents and the consumed powers.
+        \item What can you observe?
+    \end{itemize}
+    \textbf{Assumptions:}
+    \begin{itemize}
+        \item 3-phase balanced voltage supply: $U_{ab} = U_{bc} = U_{ca} = U_L$ (line-to-line voltage)
+        \item Phase voltages (line-to-neutral) are given by $V_{an} = V_{bn} = V_{cn} = \frac{U_L}{\sqrt{3}}$, and the angle between them is $120^\circ$ (direct sequence).
+        \item Unbalanced resistances: $R_a$, $R_b$, $R_c$ (different resistances in each phase).
+    \end{itemize}
+
+    \begin{block}{Make a schematic of the two cases (neutral present or absent)}
+        \vspace{3cm}
+    \end{block}
+\end{frame}
+
+% Case 1: Neutral Connected slide
+\begin{frame}{Case 1: Neutral Connected}
+    \textbf{Voltages:} In normal operation, with the neutral connected, each resistor has its corresponding phase voltage across it:
+    $$\bar{V}_{R_a} = \bar{V}_{an}, \quad \bar{V}_{R_b} = \bar{V}_{bn}, \quad \bar{V}_{R_c} = \bar{V}_{cn}$$
+    \textbf{Currents:} The current in each phase is given by Ohm's law:
+    $$\bar{I}_a = \frac{\bar{V}_{an}}{R_a}, \quad \bar{I}_b = \frac{\bar{V}_{bn}}{R_b}, \quad \bar{I}_c = \frac{\bar{V}_{cn}}{R_c}$$
+    The neutral current, $\bar{I}_n$, is the sum of the phase currents:
+    $$\bar{I}_n = \bar{I}_a + \bar{I}_b + \bar{I}_c$$
+    Due to the unbalanced resistances, $\bar{I}_n$ will not be zero.
+\end{frame}
+
+% Powers slide
+\begin{frame}{Powers}
+    The power consumed in each phase is:
+    $$P_a = V_{an} I_a = \frac{V_{an}^2}{R_a}, \quad P_b = \frac{V_{bn}^2}{R_b}, \quad P_c = \frac{V_{cn}^2}{R_c}$$
+    Total power consumed:
+    $$P_{\text{total}} = P_a + P_b + P_c$$
+\end{frame}
+
+% Case 2: Neutral Broken slide
+\begin{frame}{Case 2: Neutral Broken}
+    When the neutral breaks, the three resistors form a system without a direct connection to the neutral point. The current through each resistor still needs to sum to zero because the current has no return path through the neutral. This changes the voltage distribution across the resistors.
+\end{frame}
+
+% Voltages: slide
+\begin{frame}[allowframebreaks]{Voltages and currents}
+    Here, $\bar{V}_{N'} $ is an unknown voltage offset at the floating point $N'$ (the shifted neutral). 
+    
+    Since the currents in each phase are given by:
+    $$
+    \bar{I}_a = \frac{\bar{V}_{aN'}}{R_a}, \quad \bar{I}_b = \frac{\bar{V}_{bN'}}{R_b}, \quad \bar{I}_c = \frac{\bar{V}_{cN'}}{R_c}
+    $$
+    and, if the neutral is broken, the sum of these currents must equal zero:
+    $$
+    \bar{I}_a + \bar{I}_b + \bar{I}_c = 0,
+    $$
+    then 
+    \begin{equation}
+    \frac{\bar{V}_{aN'}}{R_a} + \frac{\bar{V}_{bN'}}{R_b} + \frac{\bar{V}_{cN'}}{R_c} = 0 \label{eq:neutral_break_KCL}    
+    \end{equation}
+    that we can now decompose into
+    $$
+    \frac{\bar{V}_{an}-\bar{V}_{nN'}}{R_a} + \frac{\bar{V}_{bn}-\bar{V}_{nN'}}{R_b} + \frac{\bar{V}_{cn}-\bar{V}_{nN'}}{R_c} = 0 \label{eq:neutral_break_KCL}    
+    $$
+    which finaly yields
+    $$
+    \bar{V}_{nN'} \left(\frac{1}{R_a}+\frac{1}{R_b}+\frac{1}{R_c}\right) =     \frac{\bar{V}_{an}}{R_a} + \frac{\bar{V}_{bn}}{R_b} + \frac{\bar{V}_{cn}}{R_c} 
+    $$
+
+\end{frame}
+
+% Powers: slide
+\begin{frame}{Powers}
+    \begin{itemize}
+        \item The power consumed in each phase is:
+        $$
+        P_a = V_{aN'} I_a = \frac{(V_{aN'})^2}{R_a}, \quad P_b = \frac{(V_{bN'})^2}{R_b}, \quad P_c = \frac{(V_{cN'})^2}{R_c}
+        $$
+        \item Total power consumed:
+        $$
+        P_{\text{total}} = P_a + P_b + P_c
+        $$
+    \end{itemize}
+\end{frame}
+
+% Observations: slide
+\begin{frame}[allowframebreaks]{Numerical example}
+
+
+
+With $R_a= 5\Omega$, $R_b= 10\Omega$, $R_c= 20\Omega$ in a 400 V system
+    (\href{https://colab.research.google.com/drive/1pXH21c8g9Hv3h94pb81OtuFVQfauG63T?usp=sharing}{\textcolor{blue}{\underline{Link to the Python notebook}}}): 
+
+\begin{center}
+    \small
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Parameter} & \multicolumn{1}{c|}{\textbf{Case 1: Neutral Connected}} & \multicolumn{1}{c|}{\textbf{Case 2: Neutral Broken}} \\
+\hline
+\textbf{Total Power (W)} & 18515.00 & 15870.00 \\
+\textbf{Phase A Power (W)} & 10580.00 & 4534.29 \\
+\textbf{Phase B Power (W)} & 5290.00 & 6801.43 \\
+\textbf{Phase C Power (W)} & 2645.00 & 4534.29 \\
+\hline
+\textbf{Phase A Current (A)} & 46.00 & 30.11 \\
+\textbf{Phase B Current (A)} & 23.00 & 26.08 \\
+\textbf{Phase C Current (A)} & 11.50 & 15.06 \\
+\hline
+\textbf{Phase A Voltage (V)} & 230.00 & \alert{150.57} \\
+\textbf{Phase B Voltage (V)} & 230.00 & \textcolor{red}{\bf 260.80} \\
+\textbf{Phase C Voltage (V)} & 230.00 & \textcolor{red}{\bf 301.14} \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+\end{frame}
+
+\begin{frame}{Observations}
+    
+    When the neutral is connected, the currents and powers are straightforwardly determined.
+
+    When the neutral is broken, 
+    \begin{itemize}
+        \item the voltage distribution becomes more complex, and the voltages across the resistors are no longer the same as the phase-to-neutral voltages
+        \item Some large overvoltages (equipment might not function as expected) and undervoltages (equipment might be damaged) can appear
+        \item the total power consumed changes
+    \end{itemize}
+\end{frame}
+
+
 
 % Per-phase analysis slide
 \section{Per-phase analysis}
@@ -270,9 +323,17 @@ since $\bar{I}_{a} + \bar{I}_{b} + \bar{I}_{c} = 0$
         \item The \textbf{reactive} power acts on the \textbf{voltage magnitude} (look at what happens for $\delta=0$)
     \end{itemize}
 
-    See \href{https://colab.research.google.com/drive/1wrJYI082Y6qE6TyaT5a7eWO1lB0CCWiu?usp=sharing}{\underline{a demo}}.
 \end{frame}
 
+
+\begin{frame}{Illustration \href{https://colab.research.google.com/drive/1wrJYI082Y6qE6TyaT5a7eWO1lB0CCWiu?usp=sharing}{\textcolor{blue}{\underline{(link to Python notebook)}}}
+}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/P_transfer.png}
+\end{center}
+    
+
+\end{frame}
 
 % Per-unit normalization slide
 \section{Per-unit normalization}
@@ -321,3 +382,195 @@ since $\bar{I}_{a} + \bar{I}_{b} + \bar{I}_{c} = 0$
     In a single phase equivalent representation, the power values in per unit can be multiplied by $S_b$ to get the total three-phase power.
 \end{frame}
   
+\end{document}
+\section{Common coordinate transformations}
+
+\begin{frame}{Motivation}
+    As a power system engineer, you will frequently encounter a few coordinate transformations.
+
+    They serve different goals:
+    \begin{itemize}
+        \item Analyse \textbf{unbalanced faults} and design \textbf{protection relays}
+        \item Simplify the analysis and design of \textbf{controllers}, such as proportional-integral-derivative (PID) controllers in generators or motors.
+    \end{itemize}
+
+\end{frame}
+
+\subsection{Symmetrical components}
+
+\begin{frame}[allowframebreaks]{The symmetrical components}
+
+The symmetrical components transformation is also called the Fortescue transformation, named after Charles LeGeyt Fortescue (1876–1936).
+
+It is useful for analysing unbalanced three-phases systems, such as systems where loads are unbalances, or when unbalanced faults occur:
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/faults.pdf}
+\end{center}
+
+
+Consider a set of three-phase \textbf{unbalanced} voltages $\bar{V}_{ga}, \bar{V}_{gb}, \bar{V}_{gc}$ (it applies equally to currents). 
+Let's focus on $\bar{V}_{ga}$. 
+The symmetrical component transformations states that it is possible to decompose $\bar{V}_{ga}$ into
+$$\bar{V}_{ga} = \bar{V}_{g0} + \bar{V}_{g1} + \bar{V}_{g2} $$
+where 
+\begin{itemize}
+    \item $\bar{V}_{g1}$ is a \textbf{direct (or positive)} sequence phasor
+    \item $\bar{V}_{g2}$ is an \textbf{inverse (or negative) sequence} phasor
+    \item $\bar{V}_{g0}$ is a \textbf{zero sequence} phasor
+\end{itemize}
+
+Let $a = e^{j\frac{2\pi}{3}} = 1\angle 120^{\circ}$.
+Since, in the case of balanced voltages, we have $\bar{V}_{gb} = a^2 \bar{V}_{ga}$ and $\bar{V}_{gc} = a \bar{V}_{ga}$, 
+we can write for the case of unbalanced voltages 
+$$\bar{V}_{gb} = \bar{V}_{g0} + a^2 \bar{V}_{g1} + a \bar{V}_{g2}$$
+and 
+$$\bar{V}_{gc} = \bar{V}_{g0} + a \bar{V}_{g1} + a^2 \bar{V}_{g2}$$
+This transformation be summarized in matrix form to 
+\begin{align}
+\left[\begin{array}{l}\bar{V}_{ga} \\ \bar{V}_{gb} \\ \bar{V}_{gc}\end{array}\right]
+    & =\left[
+    \begin{array}{ccc}1 & 1 & 1 \\ 
+    1 & a^2 & a \\ 
+    1 & a & a^2
+    \end{array}\right]
+    \left[\begin{array}{l}\bar{V}_{g0} \\ \bar{V}_{g1} \\ \bar{V}_{g2}\end{array}\right] \\
+    & = \mathbf{T} \left[\begin{array}{l}\bar{V}_{g0} \\ \bar{V}_{g1} \\ \bar{V}_{g2}\end{array}\right]
+\end{align}
+
+The inverse transformation is 
+\begin{align}
+\left[\begin{array}{l}\bar{V}_{g0} \\ \bar{V}_{g1} \\ \bar{V}_{g2}\end{array}\right]
+    & = \frac{1}{3}\left[
+    \begin{array}{ccc}1 & 1 & 1 \\ 
+    1 & a & a^2 \\ 
+    1 & a^2 & a
+    \end{array}\right]
+     \left[\begin{array}{l}\bar{V}_{ga} \\ \bar{V}_{gb} \\ \bar{V}_{gc}\end{array}\right] \\
+    & = \mathbf{T}^{-1} \left[\begin{array}{l}\bar{V}_{ga} \\ \bar{V}_{gb} \\ \bar{V}_{gc}\end{array}\right]
+\end{align}
+\end{frame}
+
+
+\begin{frame}{Illustration}
+
+See Python code (collab) TODO    
+
+\end{frame}
+
+\begin{frame}{Exercise}
+
+Compute symmetrical components in one specific case of $$\left[\begin{array}{l}\bar{V}_{g0} \\ \bar{V}_{g1} \\ \bar{V}_{g2}\end{array}\right]$$ ?
+Is it useful ? 
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Usage of symmetrical components}
+
+In a \textbf{balanced} system, 
+\begin{itemize}
+    \item \alert{positive-sequence} currents flowing create \textbf{only} \alert{positive-sequence} voltage drops 
+    \item \alert{negative-sequence} currents flowing create \textbf{only} \alert{negative-sequence} drops 
+    \item \alert{zero-sequence} currents flowing create \textbf{only} \alert{zero-sequence} voltage drops 
+\end{itemize}
+
+It is not the case for an unbalanced system!  For instance, positive-sequence currents flowing \textbf{can} create positive-, negative-, and zero-sequence voltage drops. 
+    
+Why is it useful then? 
+
+\begin{itemize}
+    \item We can also apply the \textbf{symmectrical component transformation to network components}: loads, transmission lines, transformers, machines. 
+    \item This yelds positive-, negative-, and zero-sequence networks
+    \item These networks can be combined at the location of fault, and as a function of the fault type (we will not detail this)
+    \item From the resulting network, we can compute the symmetrical components voltages and currents. 
+    \item We can apply the inverse transform to get back the current and voltage phasors in the $abc$ frame.
+    \item We can also \textbf{design protections} based on the value of the symmetrical components values! For instance, zero-sequence current is a direct indicator of a ground fault, and its detection is a standard practice for overcurrent ground fault protection.
+\end{itemize}
+\end{frame}
+
+\subsection{The $dq0$ Transformation}
+% Frame 1: The dq0 Transform
+\begin{frame}{The $dq0$ Transformation}
+
+The $dq0$ transformaion converts three-phase ($abc$) quantities into a new $dq0$ frame.
+The goal is to simplify analysis and control of AC machines and converters
+
+\textbf{Why is it useful?}
+\begin{itemize}
+    \item It transforms time-varying sinusoidal quantities into constant DC quantities in a rotating reference frame.
+    \item This removes the time-varying coefficients from the differential equations describing the system, making them much easier to solve.
+    \item Ideal for real-time control, as it eliminates the need for complex trigonometric calculations.
+\end{itemize}
+\end{frame}
+
+% Frame 2: The Clarke Transform
+\begin{frame}[allowframebreaks]{The Clarke Transform ($\alpha\beta0$)}
+
+The Clarke transform is the first step in the $dq0$ transform:
+\begin{itemize}
+    \item It converts a three-phase system ($a,b,c$) into a two-phase orthogonal stationary system ($\alpha, \beta$), and a zero-sequence component ($0$).
+    \item The $\alpha$-axis is aligned with the $a$-phase axis.
+\end{itemize}
+
+The Clarke transform matrix is:
+    $$
+    T_{abc \to \alpha\beta0} = \begin{bmatrix}
+    \frac{2}{3} & -\frac{1}{3} & -\frac{1}{3} \\
+    0 & \frac{\sqrt{3}}{3} & -\frac{\sqrt{3}}{3} \\
+    \frac{1}{3} & \frac{1}{3} & \frac{1}{3}
+    \end{bmatrix}
+    $$
+
+The transformed quantities are:
+    $$
+    \begin{bmatrix}
+    V_\alpha \\ V_\beta \\ V_0
+    \end{bmatrix} = T_{abc \to \alpha\beta0} \begin{bmatrix}
+    V_a \\ V_b \\ V_c
+    \end{bmatrix}
+    $$
+\end{frame}
+
+% Frame 3: The Park Transform
+\begin{frame}[allowframebreaks]{The Park Transform ($dq$)}
+
+The second step in the $dq0$ transform is the Park Transform, named after Robert H. Park (1902 – 1994): 
+\begin{itemize}
+    \item It converts the stationary $\alpha\beta$ quantities from the Clarke transform into a rotating $dq$ reference frame.
+    \item This frame rotates at the same speed as the synchronous machine's rotor or the fundamental frequency of the system.
+\end{itemize}
+
+The Park transform matrix is:
+    $$
+    T_{\alpha\beta \to dq} = \begin{bmatrix}
+    \cos(\theta) & \sin(\theta) \\
+    -\sin(\theta) & \cos(\theta)
+    \end{bmatrix}
+    $$
+The transformed quantities are:
+    $$
+    \begin{bmatrix}
+    V_d \\ V_q
+    \end{bmatrix} = T_{\alpha\beta \to dq} \begin{bmatrix}
+    V_\alpha \\ V_\beta
+    \end{bmatrix}
+    $$
+Note: $\theta$ is the angle of the rotating frame with respect to the stationary $\alpha$-axis.
+\end{frame}
+
+% Frame 4: Summary and Flow
+\begin{frame}{Summary of the $dq0$ Transform}
+
+\textbf{Complete Transformation Flow:}
+\begin{enumerate}
+    \item \textbf{Clarke Transform:} Transform $V_{abc}$ to $V_{\alpha\beta0}$. This is a simple change of basis from a three-phase to a stationary two-phase system.
+    \item \textbf{Park Transform:} Transform $V_{\alpha\beta}$ to $V_{dq}$. This is a rotation of the reference frame, which locks onto the synchronous machine's rotor position or the phase of the system.
+\end{enumerate}
+
+\textbf{Result:}
+\begin{itemize}
+    \item The sinusoidal three-phase quantities are converted to constant DC quantities in the $dq$ frame.
+    \item This simplifies the machine equations, enabling linear and decoupled control.
+\end{itemize}
+\end{frame}
