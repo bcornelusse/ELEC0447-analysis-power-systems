@@ -20,14 +20,14 @@ Instructors:
 |	 September 18 	|	1	|	 [Course organization and introduction](Lectures/Introduction/main.pdf)	|
 |	              	|	  |	 [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))	|
 |	              	|	  |	 [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) 	|
-|	 September 25  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	|
-|	 	             |	 	|	 [The transmission line](Lectures/TransmissionLine/main.pdf) |
+|	 September 25  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	| 
 |	              	|	  |	 [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) 	|
-|	 October  2   	|	3	|		[Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf)	|
-|	 	             |	 	|  [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) 	|
+|	 October  2   	|	3	|	 [The transmission line](Lectures/TransmissionLine/main.pdf) |
+|	 	             |	 	|	 [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf)	|
 |           	   	|	 	|	 [Project 1: Single-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2024.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2024_network.xlsx)|
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
-|	 October 9   	 |	4	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
+|	 October 9   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture4.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture4.pdf)) 	|
+|	 	             |	 	| [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
 |	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
 |	 October 16   	|	5	|	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
 |	                |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
