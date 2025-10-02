@@ -66,22 +66,79 @@
     \end{itemize}
     \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}{Typical cross section of a high voltage overhead conductor}
     
+\begin{columns}
+
+    \begin{column}{0.56\textwidth}
+        Skin depth (detph at which decay of current density is $1/e$ of surface density):\\[\baselineskip]
+        \begin{tabular}{l r r}
+        Material & Frequency [Hz] & depth [mm]\\
+        \hline
+        Copper & 50 & 9.4 \\
+        Copper & 60 & 8.6 \\
+        Aluminum & 50 & 12.0 \\
+        Aluminum & 60 & 10.9\\
+    \end{tabular}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/conductor-300x300.jpg}
+    \end{column}
+    
+\end{columns}
+
+
+
 
 \end{frame}
 
 \begin{frame}{Approximate Overhead Transmission Line Parameters}
 For bundled conductors at 60 Hz.
+
+\begin{columns}
+    \begin{column}{0.55\textwidth}
 \begin{table}
-\begin{tabular}{llll}
-\hline Nominal Voltage & $\boldsymbol{R}(\boldsymbol{\Omega} / \mathbf{k m})$ & $\omega L(\boldsymbol{\Omega} / \mathbf{k m})$ & $\omega \boldsymbol{C}(\boldsymbol{\mu} \boldsymbol{\mho} / \mathbf{k m})$ \\
-\hline 230 kV & 0.06 & 0.5 & 3.4 \\
+\begin{tabular}{rrrr}
+\hline Nominal  & $\boldsymbol{R}$ & $\omega L$& $\omega \boldsymbol{C}$ \\
+Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $ (\boldsymbol{\mu} \boldsymbol{\mho} / \mathbf{k m})$ \\
+\hline 230 kV & 0.06 & 0.50 & 3.4 \\
 345 kV & 0.04 & 0.38 & 4.6 \\
 500 kV & 0.03 & 0.33 & 5.3 \\
 765 kV & 0.01 & 0.34 & 5.0 \\
 \hline
 \end{tabular}
 \end{table}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/bundled_conductors.jpeg}
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Approximate underground cable parameters}
+For conductors at 60 Hz.
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+\begin{table}
+\begin{tabular}{rrrr}
+\hline Nominal  & $\boldsymbol{R}$ & $\omega L$& $\omega \boldsymbol{C}$ \\
+Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $ (\boldsymbol{\mu} \boldsymbol{\mho} / \mathbf{k m})$ \\
+\hline 
+110 kV	& 0.05	& 0.030	&  95 \\
+220 kV	& 0.04	& 0.025	& 115\\
+330 kV	& 0.03	& 0.020	& 130\\
+400 kV	& 0.02	& 0.018	& 150\\
+\hline
+\end{tabular}
+\end{table}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+    \includegraphics[width=\textwidth]{images/Cable-Electrico-Subterraneo.jpeg}
+    \end{column}
+\end{columns}
 \end{frame}
 
 \section{Distributed model}
