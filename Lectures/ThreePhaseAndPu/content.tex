@@ -352,6 +352,27 @@ since $\bar{I}_{a} + \bar{I}_{b} + \bar{I}_{c} = 0$
     In an electric network, a single base power is sufficient for the whole system, but for a system with transformers, one base voltage per voltage level is preferable.
 \end{frame}
 
+\begin{frame}{Working in per unit in 5 steps}
+\begin{enumerate}
+    \item Chose 3\footnote{When there are transformers, one base voltage per voltage level is preferrable} "fundamental" base values:
+    \begin{itemize}
+        \item $V_B$ for the voltage $[\mathrm{kV}]$
+        \item $S_B$ for the power [MVA]
+        \item $t_B$ for the time $[\mathrm{s}]$, or $\omega_B$ for the angular frequency $[\mathrm{rad} / \mathrm{s}]$
+    \end{itemize}
+    \item Derive other needed base values from physical laws, e.g.
+    \begin{itemize}
+        \item the base current: $I_B=S_B / V_B$ [A]
+        \item the base impedance: $Z_B=V_B^2 / S_B[\Omega]$
+    \end{itemize}
+    \item Normalize input data: divide parameters by their base value
+    \item Make your computations
+    \item (If necessary) Apply the inverse transformation
+\end{enumerate}
+
+Data in per unit is by definition dimensionless; pay attention to base value units w.r.t. to physical value units!
+\end{frame}
+
 % Example slide
 \begin{frame}[allowframebreaks]{Example}
     It is \textbf{known} that the internal reactance of a synchronous machine lies typically in the range $[1.5, 2.5] \text{ pu}$ (on the machine base)! 
