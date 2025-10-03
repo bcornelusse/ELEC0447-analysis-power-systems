@@ -183,10 +183,10 @@
     where $\mathbf{P}$ and $\mathbf{Q}$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product.
     
     If we develop this relation for a node $k$, we have:
-    \begin{align*}
-        P_k &= G_{kk} V_k^2  + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) = p_k(\mathbf{\bar{V}}) \\
-        Q_k &= -B_{kk} V_k^2 + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km}) = q_k(\mathbf{\bar{V}})
-    \end{align*}
+    \begin{align}
+        P_k &= G_{kk} V_k^2  + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) = p_k(\mathbf{\bar{V}}) \label{eq:pf_P}\\
+        Q_k &= -B_{kk} V_k^2 + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km}) = q_k(\mathbf{\bar{V}}) \label{eq:pf_Q}
+    \end{align}
    
     with
     \begin{itemize}
@@ -238,6 +238,7 @@
     The most widespread method to solve this system is the \textit{Newton-Raphson method}.
 \end{frame}
 
+
 \begin{frame}[allowframebreaks]{Newton-Raphson example in 1D}
     \begin{itemize}
         \item Let's assume we want to solve $c-f(x) = 0$ with $f$ a non-linear function.
@@ -253,14 +254,16 @@
     \begin{column}{0.55\textwidth}
     For $c=4$ and $f(x) = x^3$:
     \begin{center}
-        \includegraphics[width=0.8\linewidth]{images/NR-1D.png}
+        \includegraphics[width=\linewidth]{images/NR-1D.png}
     \end{center}
     \end{column}
     \begin{column}{0.45\textwidth}
     The \textit{convergence is quadratic} if we start with x(0) "close” to the solution.
+
+    \href{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}{\underline{Link to Python implementation}} 
     \end{column}
     \end{columns}
-    \href{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}{\underline{Link to Newton-Raphson 1D example in Python}} 
+    
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Newton-Raphson for the power flow problem}
@@ -276,18 +279,56 @@
         \item $\mathbf{J}(\mathbf{\bar{V}})$ is the jacobian of $\mathbf{f}$, of size $(2 n_{PQ} + n_{PV}) \times (2 n_{PQ} + n_{PV})$
     \end{itemize}
 
-        \textbf{add NR code example applied to a tiny case (former homework)}
-
 \end{frame}
 
 \begin{frame}{Remarks}
     \begin{itemize}
         \item In practice, instead of computing the inverse of the Jacobian, we solve the system
-        $$\mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}}_x = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)})$$
+        \begin{equation}
+        \mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}}_x = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}) \label{eq:NR_step}
+        \end{equation}
         to get the update step
         \item The Jacobian is often sparse, since a bus is connected to a few neighbors; it is very important to take into account the sparsity properties in practical implementations
         \item The Jacobian is not necessarily updated at every iteration, especially close to convergence
     \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Illustration}
+Let's reconsider the 3-bus example we already modeled with PandaPower.
+
+We will 
+\begin{enumerate}
+  \item Compute the line impedances of the system $Z_{1,2}, Z_{1,3}, Z_{2,3}$ where $Z_{i, j}$ is the impedance of the line between bus-$i$ and bus-$j$.
+  \item Calculate the base impedance $Z_{B}$ and compute the per-unit line impedances.
+  \item Compose the per-unit admittance matrix of the system $\mathbf{Y}_{p u} = \mathbf{G}_{p u} + j\mathbf{B}_{p u}$.
+  \item Initialize the unknown voltages of the Newton-Raphson procedure:
+  \begin{itemize}
+    \item there are two unknowns at the PQ bus ($V_{3}, \theta_{3}$) and one unknown at the PV bus ( $\theta_{2}$ ).
+    \item initialize the unknown magnitudes at 1 pu and unknown phases at 0 rad (first arbitrary estimation).
+  \end{itemize}
+  \item Perform one iteration in the Newton-Raphson procedure.
+  \begin{itemize}
+    \item Use the active and reactive power equations \eqref{eq:pf_P} and \eqref{eq:pf_Q} at the nodes where active and reactive power are known, i.e. estimate $p_2\left(\bar{V}^{(k)}\right), p_3\left(\bar{V}^{(k)}\right)$ and $q_3\left(\bar{V}^{(k)}\right)$, for $k=0$
+    \item Compute the \textbf{error} of the initial step: subtract estimates from known values.
+    \item Compute the Jacobian matrix $\mathbf{J}$ of the system and evaluate it at $\overline{\mathbf{V}}^{(0)}$.
+    \item Find the \textbf{update step} $\Delta \overline{\mathbf{V}}$ by solving \eqref{eq:NR_step}.
+    \item Update the estimated voltages magnitudes and phases with the \textbf{update step}
+  \end{itemize}
+  \item Repeat the process until the \textbf{error} is low enough.
+\end{enumerate}
+\begin{block}{Exercise}
+    \begin{itemize}
+    \item Write down the expression of $p_{2}\left(\bar{V}^{(k)}\right)$
+    \item What are the dimensions of the Jacobian?
+    \item Write down the expression of 3 elements of the Jacobian.
+    \item Understand and run the \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_Newton_Raphson.ipynb}{\underline{Python notebook}} 
+    \textbf{WARNING: indices start at 0 in Python, so bus 1 is at index 0, etc.}
+    \item Compare the results to the PandaPower model.
+\end{itemize}
+
+\end{block}
+
+
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Fast decoupled power flow}
@@ -322,8 +363,17 @@
     $$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
     
     This is usefull for fast simulations, or when including a power flow model in an optimization problem, e.g. \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{day-ahead market coupling}.
+\end{frame}
 
-    \textbf{TODO add example, apply DC power flow to previous case with three buses}
+\begin{frame}{Illustration of DC power flow}
+    \begin{block}{Application to the 3-bus case}
+        \begin{itemize}
+            \item Show how to obtain the relaxation of the DC power flow
+            \item Apply the DC approximation to the 3 bus case
+            \item Understand the code and analyze the results: \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_DC.ipynb}{\underline{Python notebook}}    
+        \end{itemize}
+    \end{block}
+    
 \end{frame}
 
 
