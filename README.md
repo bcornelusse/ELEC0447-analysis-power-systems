@@ -26,20 +26,22 @@ Instructors:
 |	 	             |	 	|	 [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf)	|
 |           	   	|	 	|	 [Project 1: Two-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025_network.xlsx)|
 |	 October 9   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) 	|
-|	 	             |	 	| [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		|
+|	              	|	  |	Q&A Project 1 |
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
+|	 October 16   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		| |
 |	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
-|	 October 16   	|	5	|	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
+|	 October 23   	|	6 |	Presentation of the Energy Challenge related project: designing the distribution network of your virtual campus |
+|	              	|	  |	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
+|	              	|	  |	Q&A Project 1 |
 |	                |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
-|	 October 23   	|	- |	Q&A Project 1 |
 |	 October 30   	|	- |  No lecture - Autumn break |
-|	November 6    	|	6	|	 Project 1 presentations by students.  	|
-|	 November 13 	 |	7	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
+|	November 6    	|	7	|	 Project 1 presentations by students.  	|
+|	 November 13 	 |	8	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
-|	 November 20  	|	8	|	 [Voltage regulation](Lectures/voltage_stability/main.pdf) 	|
+|	 November 20  	|	9	|	 [Voltage regulation](Lectures/voltage_stability/main.pdf) 	|
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
-|	 November 27  	|	9	|	 [Transient stability](Lectures/transient/main.pdf)  |
-|	 December 4  	  |	10	|	 Q&A session Pandapower project 2.	|
+|	 November 27  	|	10	|	 [Transient stability](Lectures/transient/main.pdf)  |
+|	 December 4  	  |	11	|	 Q&A session Pandapower project 2.	|
 |	              	|	    |	 (Seminar by Elia ??)	|
 |	 December 11  	|	12	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
 |	 December 18  	|	13	|	 Oral presentation of PandaPower project results by students. 	|
