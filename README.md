@@ -42,7 +42,6 @@ Instructors:
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
 |	 November 27  	|	10	|	 [Transient stability](Lectures/transient/main.pdf)  |
 |	 December 4  	  |	11	|	 Q&A session Pandapower project 2.	|
-|	              	|	    |	 (Seminar by Elia ??)	|
 |	 December 11  	|	12	|	 Visit of Elia's national dispatch center (organizational details on ecampus) 	|
 |	 December 18  	|	13	|	 Oral presentation of PandaPower project results by students. 	|
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
