@@ -184,14 +184,14 @@
     
     If we develop this relation for a node $k$, we have:
     \begin{align}
-        P_k &= G_{kk} V_k^2  + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) = p_k(\mathbf{\bar{V}}) \label{eq:pf_P}\\
-        Q_k &= -B_{kk} V_k^2 + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km}) = q_k(\mathbf{\bar{V}}) \label{eq:pf_Q}
+        P_k &= g_{kk} V_k^2  + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(g_{km} \cos\theta_{km} + b_{km} \sin\theta_{km}) = p_k(\mathbf{\bar{V}}) \label{eq:pf_P}\\
+        Q_k &= -b_{kk} V_k^2 + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(g_{km} \sin\theta_{km} - b_{km} \cos\theta_{km}) = q_k(\mathbf{\bar{V}}) \label{eq:pf_Q}
     \end{align}
    
     with
     \begin{itemize}
-        \item $Y_{km} = G_{km} + j B_{km}$
-        \item $Y_{kk} = G_{kk} + j B_{kk}$ is the sum of the admittances from bus $k$ to ground
+        \item $y_{km} = g_{km} + j b_{km}$
+        \item $y_{kk} = g_{kk} + j b_{kk}$ 
         \item $\theta_{km} = \theta_{k} - \theta_{m}$ the phase difference between voltages at nodes $k$ and $m$
     \end{itemize}
 \end{frame}
