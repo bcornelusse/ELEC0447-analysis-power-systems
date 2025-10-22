@@ -28,14 +28,7 @@
 
 
 
-\section{Overview of HVDC applications}
-
-\begin{frame}[fragile]
-\frametitle{Overview of HVDC applications}
-\begin{center}
-\textbf{Introduction of former course "ELEC0445 - HVDC grids".}
-\end{center}
-\end{frame}
+\section[Overview of HVDC applications \\ \small{Introduction of former course "ELEC0445 - HVDC grids"}]{Overview of HVDC applications}
 
 \begin{frame}
 \frametitle{Principle of HVDC links}
@@ -61,7 +54,7 @@
         \item first generators producing Direct Current (DC) - Gramme, Edison
         \item first generators producing Alternating Current (AC) - Ferranti, Tesla
     \end{itemize}
-    \item Have a look at the video ``War of the currents'' at \href{https://www.youtube.com/watch?v=dIfIRj0Crc8}{YouTube}.
+    \item Have a look at the video ``War of the currents'' at \href{https://www.youtube.com/watch?v=dIfIRj0Crc8}{\underline{YouTube}}.
     \item The AC system won:
     \begin{itemize}
         \item possibility to increase and lower the voltage thanks to the transformer $\Rightarrow$ transmission of higher powers possible
@@ -84,19 +77,21 @@
     \item Up to the mid ‘60s, due to its higher cost, HVDC was favoured only where AC met operational difficulties, e.g. sea crossing.
 \end{itemize}
 
-
+\begin{columns}
+    \column{0.7\textwidth}
 \begin{itemize}
     \item \textbf{late ‘60s}: advent of high power \textbf{thyristor}-based valve converters
     \item \textbf{1975}: 1st long-distance HVDC transmission using thyristor valve converters: Cahora Bassa in Mozambique: \SI{1920}{MW} -- \SI{533}{kV} -- \SI{1420}{km}, with overhead line
-\end{itemize}
-\begin{center}
-    \includegraphics[width=0.2\linewidth]{images/Cahora_Bassa.png}
-\end{center}
-\begin{itemize}
     \item thyristor ratings have grown up to $V=\SI{9}{kV}$ and $I=\SI{4}{kA}$ (per thyristor)
     \item \textbf{late ‘90s}: high power \textbf{transistor}-based components become available: IGBT, MOSFET
     \item development of \textbf{Voltage Source Converters}. Among other advantages, they allow controlling both the active and the reactive powers at the AC terminals of an HVDC link.
 \end{itemize}
+    \column{0.25\textwidth}
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{images/Cahora_Bassa.png}
+    \end{center}
+\end{columns}
 \end{frame}
 
 
@@ -425,14 +420,8 @@ Power is reversed by reversing the current.
 
 
 
-\section{Components of an LCC HVDC link}
+\section[Components of an LCC HVDC link \\ \small{Extract of chapter 1 of former course "ELEC0445 - HVDC grids"}]{Components of an LCC HVDC link}
 
-\begin{frame}[fragile]
-\frametitle{Components of an LCC HVDC link}
-\begin{center}
-\textbf{Extract of chapter 1 of former course "ELEC0445 - HVDC grids".}
-\end{center}
-\end{frame}
 
 \begin{frame}
 \frametitle{A typical LCC HVDC system}
@@ -442,94 +431,112 @@ Power is reversed by reversing the current.
 \end{frame}
 
 \begin{frame}{Converters}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{images/typical-HVDC1.png}
-\end{center}
-\begin{itemize}
-    \item one converter at each terminal: the sending power end acts as a rectifier, the receiving power end as an inverter
+
+\begin{columns}
+    \column{0.6\textwidth}    
+    \begin{center}
+        \includegraphics[trim=0.5cm 0cm 0.5cm 0cm, clip, width=\linewidth]{images/typical-HVDC1.png}
+    \end{center}
+    \column{0.4\textwidth} 
     \begin{itemize}
-        \item each converter includes one or several thyristor \textbf{bridges}
-        \item each bridge is made up of \textbf{6} thyristor {valves}
-        \item each thyristor valve contains \textbf{hundreds of individual thyristors}
+        \item one converter at each terminal: the sending power end acts as a rectifier, the receiving power end as an inverter
+        \begin{itemize}
+            \item each converter includes one or several thyristor \textbf{bridges}
+            \item each bridge is made up of \textbf{6} thyristor {valves}
+            \item each thyristor valve contains \textbf{hundreds of individual thyristors}
+        \end{itemize}
     \end{itemize}
-\end{itemize}
+\end{columns}
 \end{frame}
 
 
 
 \begin{frame}{Converter transformers}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{images/typical-HVDC2.png}
-\end{center}
-\begin{itemize}
-    \item most generally equipped with load tap changers. The transformer ratios are adjusted to optimize the HVDC link operation
-    \item designed to operate with high harmonic currents
+\begin{columns}
+    \column{0.6\textwidth}    
+    \begin{center}
+        \includegraphics[trim=0.5cm 0cm 0.5cm 0cm, clip, width=\linewidth]{images/typical-HVDC2.png}
+    \end{center}
+    \column{0.4\textwidth} 
     \begin{itemize}
-        \item generally more expensive than typical transmission transformers of the same rating
+        \item most generally equipped with load tap changers. The transformer ratios are adjusted to optimize the HVDC link operation
+        \item designed to operate with high harmonic currents
+        \begin{itemize}
+            \item generally more expensive than typical transmission transformers of the same rating
+        \end{itemize}
     \end{itemize}
-\end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Smoothing reactors on the DC side}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{images/typical-HVDC3.png}
-\end{center}
-\begin{itemize}
-    \item aimed at limiting the DC current variations
+\begin{columns}
+    \column{0.6\textwidth}    
+    \begin{center}
+        \includegraphics[trim=0.5cm 0cm 0.5cm 0cm, clip, width=\linewidth]{images/typical-HVDC3.png}
+    \end{center}
+    \column{0.4\textwidth} 
     \begin{itemize}
-        \item designed considering response to DC faults and commutation failures
-        \item typical values of inductance: \SI{0.1}{H} to \SI{0.5}{H}
-        \item air-core, natural air cooling type
+        \item aimed at limiting the DC current variations
+        \begin{itemize}
+            \item designed considering response to DC faults and commutation failures
+            \item typical values of inductance: \SI{0.1}{H} to \SI{0.5}{H}
+            \item air-core, natural air cooling type
+        \end{itemize}
     \end{itemize}
-\end{itemize}
+\end{columns}
 \end{frame}
 
 
 \begin{frame}{Harmonic filters}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{images/typical-HVDC4.png}
-\end{center}
-\begin{itemize}
-    \item aimed at filtering the harmonics generated by the AC/DC conversion
+\begin{columns}
+    \column{0.6\textwidth}    
+    \begin{center}
+        \includegraphics[trim=0cm 0cm 0.5cm 0cm, clip, width=\linewidth]{images/typical-HVDC4.png}
+    \end{center}
+\column{0.4\textwidth} 
     \begin{itemize}
-        \item most important harmonics to eliminate: 11th, 13th, 23rd and 25th (for converters with two bridges)
-        \item some HVDC systems are also equipped with filters on the DC side
+        \item aimed at filtering the harmonics generated by the AC/DC conversion
+        \begin{itemize}
+            \item most important harmonics to eliminate: 11th, 13th, 23rd and 25th (for converters with two bridges)
+            \item some HVDC systems are also equipped with filters on the DC side
+        \end{itemize}
     \end{itemize}
-\end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Reactive power compensation}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{images/typical-HVDC5.png}
+\begin{columns}
+    \column{0.6\textwidth}    
+    \begin{center}
+        \includegraphics[trim=0.5cm 0cm 0.5cm 0cm, clip, width=\linewidth]{images/typical-HVDC5.png}
 \end{center}
+\column{0.4\textwidth} 
 \begin{itemize}
     \item the converters consume reactive power (around 60\% of power rating)
     \item that reactive power varies with the active power level
     \item a large part of the reactive compensation comes from the filter banks
     \item the remaining part is supplied by switchable capacitor banks
 \end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Control and communication systems}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{images/typical-HVDC6.png}
+\begin{columns}
+    \column{0.6\textwidth}    
+    \begin{center}
+        \includegraphics[trim=0.5cm 0cm 0.5cm 0cm, clip, width=\linewidth]{images/typical-HVDC6.png}
 \end{center}
+\column{0.4\textwidth} 
 \begin{itemize}
     \item each terminal has a control system with multiple hierarchical layers: control of resp. the DC current, the DC voltage, the thyristors, etc.
     \item a dedicated communication link is needed between both terminals to optimize system operation
 \end{itemize}
+\end{columns}
 \end{frame}
 
 
 
-\section{Thyristor valves}
-
-\begin{frame}[fragile]
-\frametitle{Thyristor valves}
-\begin{center}
-\textbf{A summary of chapter 2 of former course "ELEC0445 - HVDC grids".}
-\end{center}
-\end{frame}
+\section[Thyristor valves \\  \small{A summary of chapter 2 of former course "ELEC0445 - HVDC grids"}]{Thyristor valves}
 
 \begin{frame}[allowframebreaks]{The thyristor}
 \begin{itemize}
@@ -692,14 +699,7 @@ Thyristor modules (i.e. thyristor + snubber circuit + voltage balancing circuits
 
 
 
-\section{Operation of the LCC line}
-
-\begin{frame}[fragile]
-\frametitle{Operation of the LCC line}
-\begin{center}
-\textbf{A summary of chapter 3 of former course "ELEC0445 - High Voltage Direct Current grids".}
-\end{center}
-\end{frame}
+\section[Operation of the LCC line\\ \small{A summary of chapter 3 of former course "ELEC0445 - High Voltage Direct Current grids"}] {Operation of the LCC line}
 
 \begin{frame}
 \frametitle{Diode based rectifier}
@@ -849,7 +849,7 @@ Since $V_{d} = V_{d0} \cos \alpha$, $V_d$ may take values from $V_{d0}$ down to 
 \end{itemize}
 \begin{block}{Power factor}
 Without accounting for commutation delays, it can be shown that
-$$\cos \phi = \cos \alpha$$    (See \cite{padiyar1990hvdc}, page 49, conservesion of power, AC to DC.)
+$$\cos \phi = \cos \alpha$$    (See \cite{padiyar1990hvdc}, page 49, conservation of power, AC to DC.)
 \end{block}
 \end{frame}
 

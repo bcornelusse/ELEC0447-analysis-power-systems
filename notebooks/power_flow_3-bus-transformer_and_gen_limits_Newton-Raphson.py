@@ -357,5 +357,5 @@ class PowerFlowNR():
 if __name__=='__main__':
     pfcalculator = PowerFlowNR()
     # check if everything is ok by playing with the value of tap_pos and q_lim    
-    student_res_bus = pfcalculator.solve(tap_pos=-4,q_lim=500)
+    student_res_bus = pfcalculator.solve(tap_pos=-6,q_lim=10000)
     print(student_res_bus)
