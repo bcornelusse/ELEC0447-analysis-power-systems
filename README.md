@@ -42,7 +42,7 @@ Instructors:
 |	 November 27  	|	10	|	**PRE-RECORDED SESSION, available soon on ecampus** |
 |                 |   | [Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) 	|
 |                 |   | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) 	|
-|	              	|	  |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
+|	              	|	  |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
 |	 December 4   	|	11	|	 [Transient stability](Lectures/transient/main.pdf) **PRE-RECORDED SESSION, available soon on ecampus** |
 |	 December 11  	|	12	|	 Visit of Elia's national dispatch center (organizational details via ecampus) 	|
 |	 December 18  	|	13	|	 Q&A if needed, please make a request. 	|
