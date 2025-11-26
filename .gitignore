@@ -13,3 +13,8 @@
 *.blg
 *.log
 *.fls
+Lectures/frequency_control/main.synctex.gz
+*.log
+*.fls
+Lectures/frequency_control/main.log
+Lectures/frequency_control/main.fls

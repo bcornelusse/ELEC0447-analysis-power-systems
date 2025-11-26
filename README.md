@@ -34,11 +34,12 @@ Instructors:
 |	              	|	  |	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
 |	              	|	  |	Q&A Project 1 |
 |	                |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
-|	 October 30   	|	- |  No lecture - Autumn break |
-|	November 6    	|	7	|	 Project 1 presentations by students.  	|
-|	 November 13 	 |	8	|	 [Frequency control](Lectures/frequency_control/main.pdf)  	|
-|	              	|	  |	 Project 2 statement: Transmission network analysis with PandaPower.	|
-|	 November 20  	|	9	|	 [Voltage regulation](Lectures/voltage_stability/main.pdf) 	|
+|	 October 30   	|	- | No lecture - Autumn break |
+|	November 6    	|	7	|	Project 1 presentations by students.  	|
+|	 November 13 	  |	8	|	[Frequency control](Lectures/frequency_control/main.pdf)  	|
+|	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower.	|
+|	 November 20  	|	9	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) 	|
+|                 |   |.[Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) 	|
 |	              	|	  |	 [Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) & Q&A session Pandapower project	|
 |	 November 27  	|	10	|	 [Transient stability](Lectures/transient/main.pdf)  |
 |	 December 4  	  |	11	|	 Q&A session Pandapower project 2.	|
