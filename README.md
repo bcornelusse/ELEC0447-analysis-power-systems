@@ -37,7 +37,7 @@ Instructors:
 |	 October 30   	|	- | No lecture - Autumn break |
 |	November 6    	|	7	|	Project 1 presentations by students.  	|
 |	 November 13 	  |	8	|	[Frequency control](Lectures/frequency_control/main.pdf)  	|
-|	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower.	|
+|	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower (see on ecampus).	|
 |	 November 20  	|	9	|	Frequency control, end	|
 |	 November 27  	|	10	|	**PRE-RECORDED SESSION, available soon on ecampus** |
 |                 |   | [Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) 	|
