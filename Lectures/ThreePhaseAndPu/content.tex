@@ -298,41 +298,98 @@ since $\bar{I}_{a} + \bar{I}_{b} + \bar{I}_{c} = 0$
 
 \section{Power transfer between AC systems}
 % Power transfer between AC systems slide
-\begin{frame}[allowframebreaks]{Power transfer between AC systems}
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            Consider the following simple system. We have $\bar{I} = \frac{\bar{V}_s-\bar{V}_r}{jX}$
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width=\textwidth]{images/power-transfer_AC.png}
-            \end{figure}
-        \end{column}
-    \end{columns}
-    Let $\delta$ be the angle between $\bar{V}_r$ and $\bar{V}_s$, then
-    $$
-    \begin{aligned}
-    S_r &= \bar{V}_r\bar{I}^* = V_r \left(\frac{V_s \angle -\delta - V_r}{-jX}\right) \\
-         &= \frac{V_s V_r \sin \delta }{X} +j \frac{V_s V_r \cos \delta - V^2_r}{X}
-    \end{aligned}
-    $$
-    \textbf{Let's remember two things:}
-    \begin{itemize}
-        \item The \textbf{active} power is highly sensitive to \textbf{$\delta$}
-        \item The \textbf{reactive} power acts on the \textbf{voltage magnitude} (look at what happens for $\delta=0$)
-    \end{itemize}
+%\begin{frame}[allowframebreaks]{Power transfer between AC systems}
+%    \begin{columns}
+%        \begin{column}{0.5\textwidth}
+%            Consider the following simple system. We have $\bar{I} = \frac{\bar{V}_s-\bar{V}_r}{jX}$
+%        \end{column}
+%        \begin{column}{0.5\textwidth}
+%            \begin{figure}
+%                \centering
+%                \includegraphics[width=\textwidth]{images/power-transfer_AC.png}
+%            \end{figure}
+%        \end{column}
+%    \end{columns}
+%    Let $\delta$ be the angle between $\bar{V}_r$ and $\bar{V}_s$, then
+%    $$
+%    \begin{aligned}
+%    S_r &= \bar{V}_r\bar{I}^* = V_r \left(\frac{V_s \angle -\delta - V_r}{-jX}\right) \\
+%         &= \frac{V_s V_r \sin \delta }{X} +j \frac{V_s V_r \cos \delta - V^2_r}{X}
+%    \end{aligned}
+%    $$
+%
+%\end{frame}
+%
 
+\begin{frame}[allowframebreaks]{Power transfer between AC systems}
+Consider a simple radial system.
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/RadialSystem.png}
+\end{center}
+
+Assuming no transmission-line losses:
+$$S_S = P_S + jQ_S = V_S e^{j \delta_S} \left(\frac{V_S e^{-j \delta_S} - V_R e^{-j \delta_R}}{X}\right) e^{j\frac{\pi}{2}}$$
+$$S_R = P_R + jQ_R = V_R e^{j \delta_R} \left(\frac{V_S e^{-j \delta_S} - V_R e^{-j \delta_R}}{X}\right) e^{j\frac{\pi}{2}}$$
+
+
+If we define $\delta = \delta_S-\delta_R$, we have:
+$$P_R = P_S = \frac{V_S V_R}{X_L}\sin \delta$$
+$$Q_{R} = \frac{V_S V_R \cos \delta}{X_L} - \frac{V^2_R}{X_L}$$
+$$Q_{S} = \frac{V_S^2}{X_L} - \frac{V_S V_R \cos \delta}{X_L}$$
+
+\begin{block}{Question}
+     What is the sign of $Q_S$ if $V_S>V_R$. What about $Q_R$?
+\end{block}
 \end{frame}
 
+\begin{frame}[allowframebreaks]{Impact of power flows on voltages}
+From the expression of $Q_{R}$, dividing both sides by $\frac{V_R^2}{X_L}$, we get:
+$$\frac{V_R}{V_S} = \cos \delta \left(\frac{1}{1+\frac{Q_R}{V^2_R/X_L}}\right)$$
+Assuming $P_S>>0$ and $V_R \approx V_S \approx 1$, it leads to $\delta >> 0 \rightarrow \cos \delta << 1$.
+\begin{block}{Question}
+What would be the sign of $Q_R$ to keep $\frac{V_R}{V_S}\approx 1$ as you increase $P_S$?
+\end{block}
+
+Consider the following radial system, and the associated phasor diagram for which we consider $V_R = 1 e^{j0}, V_S = 1 e^{j\delta}$.
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/RadialSystem2.png}
+\end{center}
+Considering Kirchhoff's Laws, one has:
+$$\bar{V}_S = \bar{V}_R + j X_L \bar{I} \Rightarrow \bar{I} = \frac{e^{j \delta}-1}{j X_L} = \frac{2 \sin(\delta/2)}{X_L} e^{j(\delta/2)}$$
+As $\bar{I}$ is leading $\bar{V}_R$, $Q_R = |\bar{V}_R| |\bar{I}| \sin(-\delta/2)$ is negative. $Q_S$ is positive and one can write:
+$$Q_S = -Q_R$$
+\textbf{The larger $\delta \rightarrow P_{s \rightarrow r}$, the larger $Q_R$ and $Q_S$ to maintain $V_R = V_S = 1$}
+
+\begin{block}{Question}
+Where does the reactive power go?
+\end{block}
+
+\begin{itemize}
+    \item Total reactive power loss:
+    $$Q_S-(-Q_S) = 2 Q_S$$
+    \item Line current:
+    $$\bar{I} = \frac{2 \sin(\delta/2)}{X_L} e^{j(\delta/2)}$$
+    \item Reactive power consumed by the line:
+    $$X_L |\bar{I}|^2 = \frac{4}{X_L} \sin(\delta/2)^2 = 2 Q_S$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key points}
+\begin{itemize}
+    \item For HV systems, we usually assume:
+    $P_{s \rightarrow r} \propto (\delta_s - \delta_r)$
+    \item And $Q_{s \rightarrow r} \propto (V_s-V_r)$
+    \item Lines are mostly inductive so they consume reactive power.
+    \item Therefore, voltage control is done locally to avoid transferring reactive power over long distances. We will come back to this point in the "voltage stability" lecture.
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Illustration \href{https://colab.research.google.com/drive/1wrJYI082Y6qE6TyaT5a7eWO1lB0CCWiu?usp=sharing}{\textcolor{blue}{\underline{(link to Python notebook)}}}
 }
 \begin{center}
     \includegraphics[width=\textwidth]{images/P_transfer.png}
 \end{center}
-    
-
 \end{frame}
 
 % Per-unit normalization slide
