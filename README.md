@@ -39,9 +39,8 @@ Instructors:
 |	 November 13 	  |	8	|	[Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower (see on ecampus).	|
 |	 November 20  	|	9	|	Frequency control, end	|
-|	 November 27  	|	10	|	**PRE-RECORDED SESSION, available soon on ecampus** |
-|                 |   | [Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) 	|
-|                 |   | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) 	|
+|	 November 27  	|	10	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) 	|
+|                 |   | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
 |	              	|	  |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
 |	 December 4   	|	11	|	 [Transient stability](Lectures/transient/main.pdf) **PRE-RECORDED SESSION, available soon on ecampus** |
 |	 December 11  	|	12	|	 Visit of Elia's national dispatch center (organizational details via ecampus) 	|
