@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Solution to Problem: Voltage Instability in Power Systems}
+\author{Based on ELEC0447 - TP6}
+\date{November 27, 2025}
+
+\begin{document}
+\maketitle
+
+
+\section{Derivation of the Relationship between Load Active Power $P$ and Bus 2 Voltage magnitude $V$}
+
+The complex power $S$ consumed by the load at Bus 2 is given by:
+$$S = P + jQ = \overline{V} \overline{I}^*$$
+The current flowing from Bus 1 to Bus 2 is $I = \frac{\overline{E} - \overline{V}}{jX}$.
+Thus, the complex power $S$ at Bus 2 is:
+$$S = \overline{V} \left( \frac{\overline{E} - \overline{V}}{jX} \right)^*$$
+Substituting the phasor expressions $\overline{E} = E$ and $\overline{V} = V\angle\delta$:
+$$S = (V\angle\delta) \left( \frac{E - V\angle\delta}{jX} \right)^*$$
+Using the property $\left(\frac{1}{j}\right)^* = (-j)^* = j$:
+$$S = V\angle\delta \left( -j \frac{E - V\angle\delta}{X} \right)^* = V\angle\delta \left( j \frac{E - V\angle(-\delta)}{X} \right)$$
+$$S = \frac{V}{X} \angle\delta \left( j E - j V(\cos\delta - j\sin\delta) \right)$$
+$$S = \frac{V}{X} \angle\delta \left( j E - j V\cos\delta - V\sin\delta \right)$$
+$$S = \frac{V}{X} (\cos\delta + j\sin\delta) \left( -V\sin\delta + j(E - V\cos\delta) \right)$$
+
+By expanding $S=P+jQ$ and separating the real and imaginary components:
+\subsection*{Active Power $P$}
+$$P = \text{Re}(S) = \frac{V}{X} \left[ \cos\delta (-V\sin\delta) + \sin\delta (E - V\cos\delta) \right]$$
+$$P = \frac{V}{X} \left[ -V\cos\delta\sin\delta + E\sin\delta - V\sin\delta\cos\delta \right]$$
+\begin{equation}
+    P = \frac{EV}{X} \sin\delta
+    \label{eq:P}
+\end{equation}
+
+\subsection*{Reactive Power $Q$}
+$$Q = \text{Im}(S) = \frac{V}{X} \left[ \cos\delta (E - V\cos\delta) - \sin\delta (-V\sin\delta) \right]$$
+$$Q = \frac{V}{X} \left[ E\cos\delta - V\cos^2\delta + V\sin^2\delta \right]$$
+\begin{equation}
+    Q = \frac{V}{X} (E\cos\delta - V)
+    \label{eq:Q}
+\end{equation}
+
+\subsection*{Eliminating $\delta$}
+We solve equations \ref{eq:P} and \ref{eq:Q} for $\sin\delta$ and $\cos\delta$:
+$$\sin\delta = \frac{PX}{EV}$$
+$$\cos\delta = \frac{QX + V^2}{EV}$$
+Using the identity $\sin^2\delta + \cos^2\delta = 1$:
+$$\left( \frac{PX}{EV} \right)^2 + \left( \frac{QX + V^2}{EV} \right)^2 = 1$$
+Multiplying by $(EV)^2$:
+$$P^2 X^2 + (Q X + V^2)^2 = E^2 V^2$$
+Expanding the second term:
+$$P^2 X^2 + Q^2 X^2 + 2 Q X V^2 + V^4 = E^2 V^2$$
+Rearranging into a quadratic equation in $V^2$:
+$$V^4 + (2 Q X - E^2) V^2 + (P^2 X^2 + Q^2 X^2) = 0$$
+Solving for $V^2$ using the quadratic formula:
+$$V^2 = \frac{-(2QX - E^2) \pm \sqrt{(2QX - E^2)^2 - 4(P^2 X^2 + Q^2 X^2)}}{2}$$
+$$V^2 = \frac{E^2 - 2QX \pm \sqrt{4Q^2X^2 - 4E^2QX + E^4 - 4P^2 X^2 - 4Q^2 X^2}}{2}$$
+$$V^2 = \frac{E^2}{2} - QX \pm \sqrt{\frac{E^4}{4} - E^2QX - P^2 X^2}$$
+Finally, taking the square root to find $V$:
+$$V = \sqrt{\frac{E^2}{2} - QX \pm \sqrt{\frac{E^4}{4} - E^2QX - P^2 X^2}}$$
+If the load power factor angle is $\phi$, where $Q=P \tan\phi$, the relationship is:
+$$V = \sqrt{\frac{E^{2}}{2} - XQ \pm \sqrt{\frac{E^{4}}{4} - X^{2}P^{2} - E^{2}XQ}}$$
+
+
+\section{Maximum Transmissible Power $P_{\text{max}}$}
+The maximum power transmissible occurs at the point of voltage instability, where the two solutions for $V^2$ merge, meaning the discriminant ($\Delta$) of the quadratic equation for $V^2$ is zero:
+$$\Delta = \frac{E^4}{4} - E^2QX - P^2 X^2 = 0$$
+Substitute $Q = P \tan\phi$:
+$$\frac{E^4}{4} - E^2 X (P_{\text{max}} \tan\phi) - P_{\text{max}}^2 X^2 = 0$$
+Multiplying by $-4$:
+$$4 P_{\text{max}}^2 X^2 + 4 E^2 X (\tan\phi) P_{\text{max}} - E^4 = 0$$
+Dividing by $4X^2$:
+$$P_{\text{max}}^2 + \left( \frac{E^2 \tan\phi}{X} \right) P_{\text{max}} - \left( \frac{E^4}{4X^2} \right) = 0$$
+Using the quadratic formula for $P_{\text{max}}$ and selecting the positive root:
+$$P_{\text{max}} = \frac{-\left(\frac{E^2 \tan\phi}{X}\right) + \sqrt{\left(\frac{E^2 \tan\phi}{X}\right)^2 - 4(1)\left(-\frac{E^4}{4X^2}\right)}}{2}$$
+$$P_{\text{max}} = \frac{1}{2} \left[ -\frac{E^2 \tan\phi}{X} + \sqrt{\frac{E^4 \tan^2\phi}{X^2} + \frac{E^4}{X^2}} \right]$$
+$$P_{\text{max}} = \frac{E^2}{2X} \left[ -\tan\phi + \sqrt{\tan^2\phi + 1} \right]$$
+Using $\tan^2\phi + 1 = \sec^2\phi = 1/\cos^2\phi$:
+$$P_{\text{max}} = \frac{E^2}{2X} \left[ -\tan\phi + \frac{1}{\cos\phi} \right]$$
+Substituting $\tan\phi = \sin\phi/\cos\phi$:
+$$P_{\text{max}} = \frac{E^2}{2X} \left[ \frac{1}{\cos\phi} - \frac{\sin\phi}{\cos\phi} \right]$$
+\begin{equation}
+    P_{\text{max}} = \frac{E^{2}}{2X}\left(\frac{1 - \sin\phi}{\cos\phi}\right)
+\end{equation}
+
+\subsection*{Important Parameters}
+The important parameters for increasing the transmissible power $P_{\text{max}}$ are:
+\begin{enumerate}
+    \item \textbf{Bus 1 Voltage ($E$):} $P_{\text{max}}$ is proportional to the square of the sending-end voltage ($E^2$).
+    \item \textbf{Line Reactance ($X$):} $P_{\text{max}}$ is inversely proportional to the line reactance ($1/X$).
+    \item \textbf{Load Power Factor ($\cos\phi$):} The maximum power is dependent on the load's power factor angle $\phi$. A more capacitive load (negative $\phi$) allows for a higher $P_{\text{max}}$ compared to an inductive load (positive $\phi$).
+\end{enumerate}
+
+\end{document}
