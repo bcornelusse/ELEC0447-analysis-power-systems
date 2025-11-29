@@ -145,7 +145,7 @@ For the system to be stable, the system has to stabilize at $\delta = \delta_2$ 
 
 \section{The Equal Area Criterion}
 \begin{frame} [allowframebreaks]{The swing equation (reminder)}
-Let us define the following quantities; $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has:
+Let us define the following quantities; $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has (we omit the damping torque for now, we will discuss its impact later.):
 $$J_m\frac{d^2\delta_m}{dt^2} = T_m-T_e$$
 Multiplying both sides by $\omega_m$ (the rotor speed), one has:
 $$\omega_m J_m \frac{d^2\delta_m}{dt^2} = P_m-P_e$$
@@ -191,9 +191,15 @@ Finally, we make the reasonable assumption that $\omega_m \approx \omega_{syn,m}
 
 \begin{frame}[allowframebreaks]{What is a criterion for transient stability?}
 
-From the swing equation (\ref{eq:swing})
+\begin{block}{Criterion}
+Assume $\delta_0$ is an equilibrium point and an incident occurs. For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy becomes 0, and thus:
+$$\int_{\delta_0}^{\delta_m} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$    
+\end{block}
+
+\textbf{Demonstration:}
+The swing equation established in (\ref{eq:swing}) is
 $$\left(\frac{2H}{\omega_{syn}}\right) \frac{d^2\delta}{dt^2} = P_{m,pu} - P_{e,pu}$$
-Rearrange the terms and multiply both sides by $d\delta/dt$:
+Let's rearrange the terms and multiply both sides by $d\delta/dt$:
 $$2\frac{d\delta}{dt}\frac{d^2\delta}{dt^2} = \frac{\omega_{syn}}{H}\left(P_{m,pu}-P_{e,pu}\right)\frac{d\delta}{dt}$$
 Applying change of variables $\delta = \theta$, and integrating both sides between $\delta_0$ and an arbitrary angle $\delta$:
 $$\int_{\delta_0}^{\delta} \left(2\frac{d\theta}{dt}\frac{d^2\theta}{dt^2}\right) dt = \frac{\omega_{syn}}{H}\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right)d\theta$$
@@ -218,18 +224,17 @@ Evaluating the expression at the upper and lower limits:
 $$ = \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta} - \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta_0} $$
 
 
-Assume $\delta_0$ being an equilibrium point, \emph{i.e.} $d\delta/dt|_{\delta = \delta_0} = 0$, we have:
+Since $\delta_0$ is an equilibrium point, \emph{i.e.} $d\delta/dt|_{\delta = \delta_0} = 0$, we have:
 $$\left(\frac{d\delta}{dt}\right)^2 = \frac{\omega_{syn}}{H}\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta$$
 
 
 The left term $\left(\frac{d\delta}{dt}\right)^2 = \Delta\omega^2$ represents the kinetic energy of the machine at an arbitrary angle $\delta^*$ 
 (with respect to the synchronous speed $\omega_{syn}$) $\rightarrow$ rotational kinetic energy: $\frac{1}{2} J \omega^2$ with $J$ the moment-of-inertia and $\omega$ the angular speed.
 As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerates. 
+\begin{flushright}
+    $\qed$
+\end{flushright}
 
-\begin{block}{Criterion}
-For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy becomes 0, and thus:
-$$\int_{\delta_0}^{\delta_m} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$    
-\end{block}
 
 \end{frame}
 
@@ -252,7 +257,7 @@ $$\int_{\delta_0}^{\delta_m} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$
 For a stable system, we highlighted that $\int_{\delta_0}^{\delta} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$.
 
 For our short-circuit example, we can decompose the condition into:
-$$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\mathcolor{red}{P_{e,fault,pu}}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\mathcolor{green}{\delta_{cl}}}^{\delta_{m}} \left(\mathcolor{blue}{P_{e,post-fault,pu}}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
+$$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\mathcolor{blue}{P_{e,fault,pu}}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\mathcolor{green}{\delta_{cl}}}^{\delta_{m}} \left(\mathcolor{red}{P_{e,post-fault,pu}}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
 \begin{columns}
     \begin{column}{0.55\textwidth}
         \begin{itemize}
@@ -296,7 +301,7 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
         \end{center}
     \end{column}
     \begin{column}{0.5\textwidth}
-        However, in a \textbf{real system}, the \textbf{damping} would cause the machine to settle down at an angle $\delta_1$ (new equilibrium point).
+        However, in a \textbf{real system}, the \textbf{damping} would cause the machine to settle down at an angle $\delta_1$ (new equilibrium point). \\
         \vspace{\baselineskip}
         {\scriptsize
         Reminder: Synchronous machines have \emph{damper windings}. 
