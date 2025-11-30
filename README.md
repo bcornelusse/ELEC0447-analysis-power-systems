@@ -42,7 +42,7 @@ Instructors:
 |	 November 27  	|	10	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) 	|
 |                 |   | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
 |	              	|	  |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
-|	 December 4   	|	11	|	 [Transient stability](Lectures/transient/main.pdf) **PRE-RECORDED SESSION, available soon on ecampus** |
+|	 December 4   	|	11	|	 [Transient stability](Lectures/transient/main.pdf) (videos on ecampus) |
 |	 December 11  	|	12	|	 Visit of Elia's national dispatch center (organizational details via ecampus) 	|
 |	 December 18  	|	13	|	 Q&A if needed, please make a request. 	|
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
