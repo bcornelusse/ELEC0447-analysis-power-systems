@@ -13,7 +13,7 @@ Instructors:
  - Bertrand Cornélusse
  - Geoffrey Bailly
 
-# Lectures (2025-2026) - tentative schedule, subject to change.
+# Lectures (2025-2026).
 
 | Date | Lecture | Topics |
 | --- | --- | --- |
