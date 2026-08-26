@@ -11,40 +11,40 @@ Prerequisites:
 
 Instructors: 
  - Bertrand Cornélusse
- - Geoffrey Bailly
+ - Francesco Moglia
 
-# Lectures (2025-2026).
+# Lectures (2026-2027).
 
 | Date | Lecture | Topics |
 | --- | --- | --- |
-|	 September 18 	|	1	|	 [Course organization and introduction](Lectures/Introduction/main.pdf)	|
+|	 September 17 	|	1	|	 [Course organization and introduction](Lectures/Introduction/main.pdf)	|
 |	              	|	  |	 [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))	|
 |	              	|	  |	 [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) 	|
-|	 September 25  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	| 
+|	 September 24  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	| 
 |	              	|	  |	 [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) 	|
-|	 October  2   	|	3	|	 [The transmission line](Lectures/TransmissionLine/main.pdf) |
+|	 October  1   	|	3	|	 [The transmission line](Lectures/TransmissionLine/main.pdf) |
 |	 	             |	 	|	 [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf)	|
 |           	   	|	 	|	 [Project 1: Two-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025_network.xlsx)|
-|	 October 9   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) 	|
+|	 October 8   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) 	|
 |	              	|	  |	Q&A Project 1 |
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
-|	 October 16   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		| |
+|	 October 15   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		| |
 |	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
-|	 October 23   	|	6 |	Presentation of the Energy Challenge related project: designing the distribution network of your virtual campus |
+|	 October 22   	|	- | ??? |
+|	 October 29   	|	- | No lecture - Autumn break |
+|	 November 5   	|	6 |	Presentation of the Energy Challenge related project: designing the distribution network of your virtual campus |
 |	              	|	  |	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
 |	              	|	  |	Q&A Project 1 |
-|	                |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
-|	 October 30   	|	- | No lecture - Autumn break |
-|	November 6    	|	7	|	Project 1 presentations by students.  	|
-|	 November 13 	  |	8	|	[Frequency control](Lectures/frequency_control/main.pdf)  	|
+|	               |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
+|	November 12    |	7	|	Project 1 presentations by students.  	|
+|	 November 19 	 |	8	|	[Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower (see on ecampus).	|
-|	 November 20  	|	9	|	Frequency control, end	|
-|	 November 27  	|	10	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) 	|
-|                 |   | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
-|	              	|	  |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
-|	 December 4   	|	11	|	 [Transient stability](Lectures/transient/main.pdf) (videos on ecampus) |
-|	 December 11  	|	12	|	 Visit of Elia's national dispatch center (organizational details via ecampus) 	|
-|	 December 18  	|	13	|	 Q&A if needed, please make a request. 	|
+|	 November 26  	|	9	|	Frequency control, end	|
+|	 December 3  	 |	10	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) 	|
+|                |    | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
+|	              	|	   |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
+|	 December 10   |	11	|	 [Transient stability](Lectures/transient/main.pdf) (videos on ecampus) |
+|	 December 17  	|	12	|	 (TBC) Visit of Elia's national dispatch center (organizational details via ecampus) 	|
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
 
 
