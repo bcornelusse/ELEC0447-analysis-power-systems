@@ -82,7 +82,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Magnetic fields, etc.}
+\begin{frame}[allowframebreaks]{Magnetic fields, etc.}
   Magnetic fields play a central role in modeling the behavior of power system equipment (lines, transformers, generators, etc.).
   \vspace{0.2cm}
 
@@ -103,7 +103,7 @@
 %==============================================================================
 \section{Sinusoidal steady-state analysis}
 
-\begin{frame}{Sinusoidal signals and phasor representation}
+\begin{frame}[allowframebreaks]{Sinusoidal signals and phasor representation}
   Unless otherwise specified, we will always work with sinusoidal signals and in steady state:
   $$y(t) = \sqrt{2} Y \cos(\omega t + \phi_y)$$
   \begin{itemize}
@@ -137,7 +137,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Impedance}
+\begin{frame}[allowframebreaks]{Impedance}
   Let $u(t)$ and $i(t)$ be the voltage and current across a one-port, respectively, in sinusoidal steady state and with the motor convention:
   \begin{itemize}
     \item For a resistor: $u(t) = R i(t) \implies \bar{U} = R \bar{I}$
@@ -145,27 +145,32 @@
     \item For a capacitor: $i(t) = C \frac{du(t)}{dt} \implies \bar{I} = j\omega C \bar{U} \implies \bar{U} = -j \frac{1}{\omega C} \bar{I}$
   \end{itemize}
   \vspace{0.2cm}
-  The \textbf{impedance} $Z$, a complex quantity, generalizes Ohm's law:
-  $$Z = R + jX \quad [\Omega], \qquad \bar{U} = Z \bar{I}$$
-  \begin{itemize}
-    \item Resistor: $Z = R$ ($X = 0$)
-    \item Inductor: $Z = jX = j\omega L$ ($X = \omega L > 0$)
-    \item Capacitor: $Z = jX = -j\frac{1}{\omega C}$ ($X = -\frac{1}{\omega C} < 0$)
-  \end{itemize}
-\end{frame}
+  
+  \begin{block}{The impedance}
+    
+    The \textbf{impedance} $Z$, a complex quantity, generalizes Ohm's law:
+    $$Z = R + jX \quad [\Omega], \qquad \bar{U} = Z \bar{I}$$
+    \begin{itemize}
+      \item Resistor: $Z = R$ ($X = 0$)
+      \item Inductor: $Z = jX = j\omega L$ ($X = \omega L > 0$)
+      \item Capacitor: $Z = jX = -j\frac{1}{\omega C}$ ($X = -\frac{1}{\omega C} < 0$)
+    \end{itemize}
+  \end{block}
+  \end{frame}
 
-\begin{frame}{Impedance, admittance, etc.}
-  The imaginary part of the impedance, $X$, is called \textbf{reactance}:
+
+\begin{frame}[allowframebreaks]{Impedance, admittance, etc.}
+  The imaginary part of the impedance, $X$, is called \alert{reactance}:
   \begin{itemize}
     \item $X > 0$: inductive reactance
     \item $X < 0$: capacitive reactance
   \end{itemize}
   \vspace{0.2cm}
-  The \textbf{admittance} $Y$ is the inverse of the impedance, expressed in Siemens [S]:
+  The \alert{admittance} $Y$ is the inverse of the impedance, expressed in Siemens [S]:
   $$Y = \frac{1}{Z} = G + jB$$
   \begin{itemize}
-    \item $G$ is the \textbf{conductance}
-    \item $B$ is the \textbf{susceptance}
+    \item $G$ is the \alert{conductance}
+    \item $B$ is the \alert{susceptance}
   \end{itemize}
   \vspace{0.2cm}
   Explicitly:
@@ -224,7 +229,7 @@
         \textbf{Capacitive circuit ($X < 0$)}
       \end{center}
       \begin{itemize}
-        \item Current $\bar{I}$ is \alert{leading} ahead of voltage $\bar{U}$
+        \item Current $\bar{I}$ is \alert{leading} ahead of  $\bar{U}$
         \item $\phi_u < \phi_i \implies \phi = \phi_u - \phi_i < 0$
         \item Supplies reactive power ($Q < 0$ in motor conv.)
       \end{itemize}
@@ -232,7 +237,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{The notions of power}
+\begin{frame}[allowframebreaks]{The notions of power}
   The \textbf{complex power} is defined as:
   $$S = \bar{U}\bar{I}^*$$
   Let $\phi = \phi_u - \phi_i$, then:
