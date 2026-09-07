@@ -1,0 +1,49 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usefonttheme{professionalfonts}
+
+% Document metadata
+\subtitle{ELEC0447 - Analysis of electric power and energy systems}
+\title{Synchronous generators}
+\author[BC]{Bertrand Cornélusse}
+\institute{University of Liège}
+\date{\today}
+
+% Image for the title page (use include graphics option to properly size/place it)
+\titlegraphic{\includegraphics[height=\paperheight]{banner.jpg}}
+\usetheme[titlestyle=style1]{trigon}
+
+% Define logos to use (comment if no logo)
+\biglogo{uliege_faculte_sciencesappliquees_logo_rvb_pos.pdf} % Used on titlepage only
+\smalllogo{} % Used on top right corner of regular frames
+
+% Packages
+\usepackage{appendixnumberbeamer}
+\pdfstringdefDisableCommands{%
+\def\translate#1{#1}%
+}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{trigon}}\xspace}
+\usepackage[scale=2]{ccicons}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{colortbl}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{calc}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\definecolor{myRed}{RGB}{209,34,57}
+
+\begin{document}
+
+\input{content}
+
+\end{document}

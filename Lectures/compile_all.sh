@@ -153,6 +153,8 @@ else
         # Map aliases
         if [ "$req" = "lecture1_SSSA" ] || [ "$req" = "sssa" ] || [ "$req" = "lecture1" ]; then
             req="SSSA"
+        elif [ "$req" = "lecture5" ] || [ "$req" = "syncgen" ] || [ "$req" = "synchronous_generator" ]; then
+            req="SynchronousGenerator"
         fi
         if [ -d "$SCRIPT_DIR/$req" ]; then
             main_file="$(get_main_file "$SCRIPT_DIR/$req")"

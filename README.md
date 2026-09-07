@@ -28,7 +28,7 @@ Instructors:
 |	 October 8   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) 	|
 |	              	|	  |	Q&A Project 1 |
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
-|	 October 15   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture5.md) ([pdf](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/lecture5.pdf))		| |
+|	 October 15   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf)	|
 |	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
 |	 October 22   	|	- | ??? |
 |	 October 29   	|	- | No lecture - Autumn break |
@@ -65,43 +65,3 @@ cd Lectures
 # Compile and clean auxiliary files (.aux, .log, .toc, etc.)
 ./compile_all.sh -c
 ```
-
-# talk-template
-
-This a fork of the talk template https://github.com/glouppe/talk-template from Gilles Louppe, that uses [remark](https://github.com/gnab/remark) for rendering slides from markdown, [KaTeX](https://github.com/Khan/KaTeX) for typesetting TeX equations, and some customised CSS.
-
-## Instructions for editing
-
-- Clone this repository and move in this repository
-- Start an HTTP server to serve the slides:
-```
-python -m http.server 8001
-```
-- Edit `lectureX.md` for making your slides.
-- Use [decktape](https://github.com/astefanutti/decktape) for exporting slides to PDF:
-
-  - download and install *node.js* (a recent version)
-  - install decktape: 
-
-    npm install -g decktape
-
- 
-  - ensure an http server is running, e.g. on localhost at port 8001, from the directory where the sources are
-
-    python -m http.server 8001 
-
-  - run decktape: 
-
-    decktape http://0.0.0.0:8001/?p=lecture7.md pdf/lecture7.pdf
-
-## Markup language
-
-Slides are written in Markdown. See the remark [documentation](https://github.com/gnab/remark/wiki/Markdown) for further details regarding the supported features.
-
-This template also comes with grid-like positioning CSS classes (see `assets/grid.css`) and other custom CSS classes (see `assets/style.css`)
-
-## Integration with GitHub pages
-
-Slides can be readily integrated with [GitHub pages](https://pages.github.com/) by hosting the files in a GitHub repositery and enabling Pages in the Settings tab.
-
-See e.g. [https://glouppe.github.io/talk-template](https://glouppe.github.io/talk-template). 
