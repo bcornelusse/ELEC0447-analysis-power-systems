@@ -44,7 +44,7 @@
 \end{itemize}
 \item Project 2:
 \begin{itemize}
-\item Analyze a system using power flow analyzes (power flow solver provided)
+\item Analyze a system using power flow analyses (power flow solver provided)
 \item Oral presentation
 \end{itemize}
 \item Oral exam in January
@@ -69,7 +69,7 @@ Main reference book:
 \end{itemize}
 Other references:
 \begin{itemize}
-\item Course notes of ELEC0014 by Pr. Thierry Van Cutsem. (In french)
+\item Course notes of ELEC0014 by Pr. Thierry Van Cutsem. (In French)
 \item Weedy, Birron Mathew, et al. Electric power systems. John Wiley \& Sons, 2012.
 \end{itemize}
 \end{frame}
@@ -235,13 +235,13 @@ Large-scale failures (blackouts) have tremendous societal consequences
 \centering
 \includegraphics[width=0.5\linewidth]{images/blackout_italy.png}
 \end{figure}
-\item Deficit of 6.7 GW imported in Italian system $\rightarrow$ frequency to collapse in Italy
+\item Deficit of 6.7 GW imported in Italian system $\rightarrow$ frequency collapsed in Italy
 \item 340 power plants shut down, 55 million people disconnected initially - 27 GW lost (blackout occurred during night)
 \item Estimated cost of disruption $\approx$ 139 million US \$
 \item Restoration time: 15 hours
 \end{itemize}
 \vfill
-\footnotesize{Source : Union for the Co-ordination of Transmission of Electricity (UCTE) which is now part of ENTSOe}
+\footnotesize{Source : Union for the Co-ordination of Transmission of Electricity (UCTE) which is now part of ENTSO-E}
 \end{frame}
 
 \begin{frame}{Structure of electric network (case of Belgium)}
@@ -268,7 +268,7 @@ Large-scale failures (blackouts) have tremendous societal consequences
 \end{figure}
 \end{frame}
 
-\begin{frame}{Flows on the belgian grid}
+\begin{frame}{Flows on the Belgian grid}
 \begin{figure}
 \centering
 \includegraphics[width=0.4\linewidth]{images/20220914_ELIA_flows.png}
@@ -347,12 +347,12 @@ Large-scale failures (blackouts) have tremendous societal consequences
 \begin{frame}[allowframebreaks]{Comments}
 \begin{itemize}
 \item “Nuclear generation capacity” involves all units, even those temporarily shut down for technical reasons, or waiting for the decision to extend their lifetime
-\item Gas power plants includes small CHP (Combined Heat Power) units
+\item Gas power plants include small CHP (Combined Heat Power) units
 \item Same for biomass plants
 \item Purposes of pumping storage :
 \begin{itemize}
 \item pumping : convert electrical energy into mechanical (potential) energy when demand is low compared to available generation (e.g. during night)
-\item turbining : reverse operation when demand is high (e.g. at day peak) $rightarrow$ “peak shaving” and “valley filling” of daily load curve
+\item turbining : reverse operation when demand is high (e.g. at day peak) $\rightarrow$ “peak shaving” and “valley filling” of daily load curve
 \item efficiency of whole cycle $\approx$ 85 \%
 \item usually profitable since cost of electricity higher when demand is high
 \item fast reserve : a hydro unit can be started (resp. pumping stopped) quickly to replace a generation unit that is taken out of service
@@ -376,7 +376,7 @@ $$CF = \frac{\text{energy produced in 1 year (MWh)}}{\text{generation capacity (
 
 \begin{frame}[allowframebreaks]{Some trends in Belgium TO BE UPDATED} 
 \begin{itemize}
-\item Early retirement of gas power plants not enough competitive on electricity market, too expensive to maintain
+\item Early retirement of gas power plants not competitive enough on electricity market, too expensive to maintain
 \begin{itemize}
 \item political decision to keep a “strategic reserve” !
 \item \href{https://edfluminus.edf.com/edf/la-centrale-electrique-d-angleur}{Angleur}
@@ -398,9 +398,7 @@ $$CF = \frac{\text{energy produced in 1 year (MWh)}}{\text{generation capacity (
 \item Belgian off-shore wind farms in 2018 :
 \begin{itemize}
 \item 5 wind parks with an installed capacity of 1186 MW have produced 3,408 TWh
-\item Capacity Factor = (3,408×10 
-6
- )/(1186×365×24) = 32 \%
+\item $\text{Capacity Factor} = (3.408 \times 10^6) / (1186 \times 365 \times 24) = 32\%$
 \end{itemize}
 \item still a great potential for new off-shore wind farms :
 \begin{itemize}
@@ -484,7 +482,7 @@ The variations of load power have to be compensated by the generators but the co
 Hence, an “energy buffer” is needed to quickly compensate power imbalances
 \begin{itemize}
 \item this is provided by the rotating masses of synchronous generators
-\item a deficit (resp. excess) of generation wrt load results in a decrease (resp. increase) of speed of rotation speeds (and hence, frequency)
+\item a deficit (resp. excess) of generation wrt load results in a decrease (resp. increase) of rotation speed (and hence, frequency)
 \item in a synchronous generator and its turbine, kinetic energy $\approx$ nominal power of the generator produced during 2 to 5 seconds
 \item controlling the power balance in a power system without rotating machines (only power electronic interfaces) would be a challenge (still at research level) !
 \end{itemize}
@@ -501,9 +499,7 @@ Impossibility to transmit large powers with direct current:
 \item power=voltage×current
 \begin{itemize}
 \item if the voltage cannot be increased, the current must be
-\item but power lost=resistance×current 
-2
-  → big waste of energy
+\item but $\text{power lost} = \text{resistance} \times \text{current}^2 \rightarrow$ big waste of energy
 \item and large sections of conductors required → expensive and heavy
 \end{itemize}
 \item Hard to interrupt a large DC current (no zero crossing), for instance after a short-circuit
@@ -529,7 +525,7 @@ Larger nominal voltages have been used progressively
 {Motivations for large interconnections}
 \begin{itemize}
 \item Mutual support between partners to face the loss of generation units
-\item Each partner would have to set up a larger “reserve” if it would operate isolated
+\item Each partner would have to set up a larger “reserve” if it were to operate isolated
 \item Larger diversity of energy sources available within the interconnection
 \item Allows exploiting complementarity of nuclear, hydro and wind power plants
 \item Allows partners to sell/buy energy, to create a large electricity market.
@@ -556,7 +552,7 @@ Larger nominal voltages have been used progressively
 {European networks}
 \begin{columns}
 \column{0.5\textwidth}
-ENTSOe :
+ENTSO-E :
 European Network of Transmission System Operators
 for electricity
 \par\medskip
@@ -604,7 +600,7 @@ Advances in power electronics $\rightarrow$ rectifiers and inverters able to car
 
 \begin{frame}{Transmission through submarine cables}
 \begin{itemize}
-\item DC more attractive than AC for distances above >= 50 km : owing to capacitive effects of AC cables
+\item DC more attractive than AC for distances $\ge$ 50 km : owing to capacitive effects of AC cables
 \item Existing links in Europe : see \href{https://www.elia.be/fr/donnees-de-reseau/transport/flux-physiques-sur-le-reseau-haute-tension-belge}{a previous slide}
 \item Projects involving Belgium: Nemo with England, Alegro with Germany : see \href{https://www.elia.be/fr/donnees-de-reseau/transport/flux-physiques-sur-le-reseau-haute-tension-belge}{a previous slide}
 \end{itemize}
@@ -629,7 +625,7 @@ Connection of off-shore wind parks (source: ENTSOE, AC and DC connections of off
 \item connection of 50 and 60 Hz systems in Japan
 \item connection of Brazil at 60 Hz with Argentina at 50 Hz
 \end{itemize}
-\item two networks that have the same nominal frequency but cannot be merged into a single C network, e.g. for stability reasons
+\item two networks that have the same nominal frequency but cannot be merged into a single AC network, e.g. for stability reasons
 \begin{itemize}
 \item UCTE and Russian (IPS/UPS) system
 \item Eastern - Western interconnections in North-America

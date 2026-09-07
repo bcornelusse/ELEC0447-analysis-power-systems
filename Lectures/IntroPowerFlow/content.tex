@@ -275,7 +275,7 @@
     \begin{itemize}
         \item $\mathbf{F}^0$ gathers the measured active powers at buses in $\mathcal{N}_{PQ} \cup \mathcal{N}_{PV}$ and reactive powers at buses $\mathcal{N}_{PQ}$
         \item $\mathbf{f}(\mathbf{\bar{V}})$ gathers the active and power flow equations at the corresponding buses
-        \item $\mathbf{\bar{V}}_x$ is the subvector of $\mathbf{\bar{V}}$ that gathers the unknwon voltage magnitudes and angles at the the corresponding buses
+        \item $\mathbf{\bar{V}}_x$ is the subvector of $\mathbf{\bar{V}}$ that gathers the unknown voltage magnitudes and angles at the corresponding buses
         \item $\mathbf{J}(\mathbf{\bar{V}})$ is the jacobian of $\mathbf{f}$, of size $(2 n_{PQ} + n_{PV}) \times (2 n_{PQ} + n_{PV})$
     \end{itemize}
 
@@ -338,13 +338,13 @@ We will
         \item reactive power flow is mostly a function of voltage magnitudes
     \end{itemize}
     
-    If we apply these ideas stricly, we can subdivide the problem in two much simpler subproblems:
+    If we apply these ideas strictly, we can subdivide the problem in two much simpler subproblems:
     \begin{itemize}
         \item one problem for angles, based on the active power measurements and the sub-Jacobian containing the partial derivatives of the active power flow equations w.r.t. angles
         \item one problem for magnitudes, based on the reactive power measurements and the sub-Jacobian containing the partial derivatives of the reactive power flow equations w.r.t. magnitudes
     \end{itemize}
     
-    This procedure, through the sub-Jacobian that are computed, also provide information useful for \textit{sensitivity analysis}.
+    This procedure, through the sub-Jacobians that are computed, also provides information useful for \textit{sensitivity analysis}.
 \end{frame}
 
 \begin{frame}[allowframebreaks]{DC power flow}
@@ -362,7 +362,7 @@ We will
     In matrix form, with $\mathbf{Y}$ the admittance matrix defined before:
     $$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
     
-    This is usefull for fast simulations, or when including a power flow model in an optimization problem, e.g. \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{day-ahead market coupling}.
+    This is useful for fast simulations, or when including a power flow model in an optimization problem, e.g. \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{day-ahead market coupling}.
 \end{frame}
 
 \begin{frame}{Illustration of DC power flow}

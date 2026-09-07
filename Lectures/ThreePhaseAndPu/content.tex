@@ -202,9 +202,9 @@ Here is an example of a simplified three-phase system with one generator, a tran
     \end{equation}
     that we can now decompose into
     $$
-    \frac{\bar{V}_{an}-\bar{V}_{nN'}}{R_a} + \frac{\bar{V}_{bn}-\bar{V}_{nN'}}{R_b} + \frac{\bar{V}_{cn}-\bar{V}_{nN'}}{R_c} = 0 \label{eq:neutral_break_KCL}    
+    \frac{\bar{V}_{an}-\bar{V}_{nN'}}{R_a} + \frac{\bar{V}_{bn}-\bar{V}_{nN'}}{R_b} + \frac{\bar{V}_{cn}-\bar{V}_{nN'}}{R_c} = 0    
     $$
-    which finaly yields
+    which finally yields
     $$
     \bar{V}_{nN'} \left(\frac{1}{R_a}+\frac{1}{R_b}+\frac{1}{R_c}\right) =     \frac{\bar{V}_{an}}{R_a} + \frac{\bar{V}_{bn}}{R_b} + \frac{\bar{V}_{cn}}{R_c} 
     $$
@@ -411,7 +411,7 @@ Where does the reactive power go?
 
 \begin{frame}{Working in per unit in 5 steps}
 \begin{enumerate}
-    \item Chose 3\footnote{When there are transformers, one base voltage per voltage level is preferrable} "fundamental" base values:
+    \item Choose 3\footnote{When there are transformers, one base voltage per voltage level is preferable} "fundamental" base values:
     \begin{itemize}
         \item $V_B$ for the voltage $[\mathrm{kV}]$
         \item $S_B$ for the power [MVA]
@@ -427,7 +427,7 @@ Where does the reactive power go?
     \item (If necessary) Apply the inverse transformation
 \end{enumerate}
 
-Data in per unit is by definition dimensionless; pay attention to base value units w.r.t. to physical value units!
+Data in per unit is by definition dimensionless; pay attention to base value units w.r.t. physical value units!
 \end{frame}
 
 % Example slide
@@ -532,7 +532,7 @@ The inverse transformation is
 
 \begin{frame}{Illustration}
 
-See Python code (collab) TODO    
+See Python code (Colab) TODO    
 
 \end{frame}
 
@@ -558,12 +558,12 @@ It is not the case for an unbalanced system!  For instance, positive-sequence cu
 Why is it useful then? 
 
 \begin{itemize}
-    \item We can also apply the \textbf{symmectrical component transformation to network components}: loads, transmission lines, transformers, machines. 
-    \item This yelds positive-, negative-, and zero-sequence networks
+    \item We can also apply the \textbf{symmetrical component transformation to network components}: loads, transmission lines, transformers, machines. 
+    \item This yields positive-, negative-, and zero-sequence networks
     \item These networks can be combined at the location of fault, and as a function of the fault type (we will not detail this)
     \item From the resulting network, we can compute the symmetrical components voltages and currents. 
     \item We can apply the inverse transform to get back the current and voltage phasors in the $abc$ frame.
-    \item We can also \textbf{design protections} based on the value of the symmetrical components values! For instance, zero-sequence current is a direct indicator of a ground fault, and its detection is a standard practice for overcurrent ground fault protection.
+    \item We can also \textbf{design protections} based on the value of the symmetrical component values! For instance, zero-sequence current is a direct indicator of a ground fault, and its detection is a standard practice for overcurrent ground fault protection.
 \end{itemize}
 \end{frame}
 
@@ -571,8 +571,8 @@ Why is it useful then?
 % Frame 1: The dq0 Transform
 \begin{frame}{The $dq0$ Transformation}
 
-The $dq0$ transformaion converts three-phase ($abc$) quantities into a new $dq0$ frame.
-The goal is to simplify analysis and control of AC machines and converters
+The $dq0$ transformation converts three-phase ($abc$) quantities into a new $dq0$ frame.
+The goal is to simplify analysis and control of AC machines and converters.
 
 \textbf{Why is it useful?}
 \begin{itemize}

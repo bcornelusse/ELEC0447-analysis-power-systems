@@ -17,7 +17,7 @@
 \begin{frame}{This lecture expands on}
     \begin{itemize}
       \item Lecture notes of Pr. Thierry Van Cutsem
-      \item Chapter 12 from the Ned Mohan's book (summarized by Pr. Louis Wehenkel).
+      \item Chapter 12 from Ned Mohan's book (summarized by Pr. Louis Wehenkel).
       \item Mohan, Ned. Electric power systems: a first course. John Wiley \& Sons, 2012.
     \end{itemize}
 \end{frame}
@@ -26,7 +26,7 @@
 \section{Why do we need to control power systems?}
 
 % Why and how to control voltage and frequency?
-\begin{frame}{Why to control power systems?}
+\begin{frame}{Why control power systems?}
   \begin{itemize}
       \item Technical requirements: power system devices are designed so as to operate within well-defined "tolerance regions" 
       \begin{itemize}
@@ -104,7 +104,7 @@
     \begin{block}{Focus of the lecture}
       In this lecture we will focus on the frequency control, and we will see how it is related to the power balance in the system.
     \end{block}
-    Later, we will adress voltage control and also introduce other problems related to transient stability.
+    Later, we will address voltage control and also introduce other problems related to transient stability.
 \end{frame}
 
 \section{The link between frequency and power balance}
@@ -298,7 +298,7 @@ In the Swing equation, we have considered that $J = \sum_i J_i$.
     \begin{itemize}
       \item The rotation speed is scaled and compared to the nominal electrical speed to yield a speed error signal
       \item $z^o$ sets the desired power production setpoint of the generator, if the frequency were at nominal value
-      \item In the feedback branch, $z$ is compared to $z^o$ and scaled by the droop coefficient $\sigma$ to yeald a second error signal
+      \item In the feedback branch, $z$ is compared to $z^o$ and scaled by the droop coefficient $\sigma$ to yield a second error signal
       \item The error signals are then fed to the servomotor to adjust $z$        
     \end{itemize}
 \end{frame}
@@ -706,13 +706,13 @@ We define the Area Control Error (ACE) as the difference between the power excha
 \end{frame}
 
 \begin{frame}{Generator power correction}
-  It is the ouput of a Proportional-Integral controller:
+  It is the output of a Proportional-Integral controller:
     \begin{itemize}
         \item in area 1: ${\color{red} \Delta P_1^o} = -K_{p1} ACE_1 - K_{i1} \int ACE_1 dt$, \quad $K_{i1},K_{p1} > 0$ 
         \item in area 2: ${\color{red} \Delta P_2^o} = -K_{p2} ACE_2 - K_{i2} \int ACE_2 dt$, \quad $K_{i2},K_{p2} > 0$ 
     \end{itemize}
     
-    The corrections is then distributed over the generators participating in secondary frequency control:
+    The correction is then distributed over the generators participating in secondary frequency control:
     \begin{itemize}
         \item for the i-th generator of area 1: $P_i^o + {\color{orange}\rho_i} {\color{red} \Delta P_1^o}$ with $\sum_{i} {\color{orange}\rho_i} = 1$ 
         \item for the j-th generator of area 2: $P_j^o + {\color{orange}\rho_j} {\color{red} \Delta P_2^o}$ with $\sum_{j} {\color{orange}\rho_j} = 1$ 
@@ -828,7 +828,7 @@ We define the Area Control Error (ACE) as the difference between the power excha
 
 \begin{frame}{Control resources}
 
-    Which of these control resources are the main levers for freqency stability?
+    Which of these control resources are the main levers for frequency stability?
       \begin{itemize}
           \item Adjust synchronous generators' field current
           \item \alert{Adjust synchronous generators' mechanical power}

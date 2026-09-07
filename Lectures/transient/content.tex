@@ -30,11 +30,11 @@
         \label{fig:OMIB}
     \end{figure}
 \begin{itemize}
-    \item Consider a generator bus connected through a transformer to a infinite bus system ($\bar{V}_B = V_B$ is an ideal voltage source).
+    \item Consider a generator bus connected through a transformer to an infinite bus system ($\bar{V}_B = V_B$ is an ideal voltage source).
     \item The mechanical power delivered through the shaft is $P_m$.
     \item The electrical power delivered to the grid is denoted $P_e$.
     \item In steady-state, the synchronous machine is modelled as a constant voltage source $E' e^{j\delta}$ behind its transient reactance $X'_d$.
-    \item Finally, $X_{tr}$ is the leackage reactance of the transformer.
+    \item Finally, $X_{tr}$ is the leakage reactance of the transformer.
 \end{itemize}
 \end{frame}
 
@@ -145,7 +145,7 @@ For the system to be stable, the system has to stabilize at $\delta = \delta_2$ 
 
 \section{The Equal Area Criterion}
 \begin{frame} [allowframebreaks]{The swing equation (reminder)}
-Let us define the following quantities; $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has (we omit the damping torque for now, we will discuss its impact later.):
+Let us define the following quantities: $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has (we omit the damping torque for now, we will discuss its impact later.):
 $$J_m\frac{d^2\delta_m}{dt^2} = T_m-T_e$$
 Multiplying both sides by $\omega_m$ (the rotor speed), one has:
 $$\omega_m J_m \frac{d^2\delta_m}{dt^2} = P_m-P_e$$
@@ -164,7 +164,7 @@ It takes a value in a range of
 \end{block}
 
 
-One can write the swing equation by substituing $J_m$ by $H_{gen}$:
+One can write the swing equation by substituting $J_m$ with $H_{gen}$:
 $$\left(\frac{\omega_m}{\omega_{syn,m}^2}\right)2 H_{gen} \frac{d^2\delta_m}{dt^2} = P_{m,gen,pu} - P_{e,gen,pu}$$
 where $P_m$ and $P_e$ are in per-unit of the generator MVA base. One can also write the equation in the system base $S_{system}$:
 $$\left(\frac{\omega_m}{\omega_{syn,m}^2}\right)2 H \frac{d^2\delta_m}{dt^2} = P_{m,pu} - P_{e,pu}$$
@@ -627,7 +627,7 @@ If yes, then the states are determined secure $\rightarrow$ the system trajector
 \end{itemize}
 \end{frame}
 
-\begin{frame}{There are mainly types of DSA analysis}
+\begin{frame}{Main types of DSA analysis}
 \textbf{1. Off-line analysis}
 \begin{itemize}
     \item They are subjected to forecast errors $\rightarrow$ system security cannot be taken for granted.

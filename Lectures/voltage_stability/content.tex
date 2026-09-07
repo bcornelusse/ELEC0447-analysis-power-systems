@@ -97,12 +97,12 @@ Let us simulate this system for different values of $P_0$ (the dynamics will als
     \item This (simple) regulator of the load does not know about the maximum power transferable through the source and the connecting lines. 
     \begin{itemize}
         \item This depends on the network characteristics. 
-        \item It thus does not know wether it operates in a stable or unstable region.
+        \item It thus does not know whether it operates in a stable or unstable region.
     \end{itemize}
     \item Even if the case is stable from a voltage perspective, 
     \begin{itemize}
         \item the voltage may be low and thus the current high, potentially leading to thermal overloads,
-        \item an incicent on the network (e.g. a line tripping) may reduce the maximum power transferable below the target power $P_0$, leading to voltage instability and collapse.
+        \item an incident on the network (e.g. a line tripping) may reduce the maximum power transferable below the target power $P_0$, leading to voltage instability and collapse.
     \end{itemize} 
 \end{itemize}
 
@@ -114,7 +114,7 @@ We will see now how this concept applies to AC power systems, and what is the im
 \section{The nose curve in an AC system}
 
 \begin{frame}[allowframebreaks]{Consider the following simple 2-bus AC system}
-In an AC system, the resistance is negligible compared to the reactance: $R_L \ll X_L$ (Pay attention that here the index $L$ refers to the line parameteres).
+In an AC system, the resistance is negligible compared to the reactance: $R_L \ll X_L$ (Pay attention that here the index $L$ refers to the line parameters).
 \begin{center}
 \includegraphics[width=0.9\textwidth]{images/RadialSystem.png}
 \end{center}
@@ -129,14 +129,14 @@ $$Q_{S} = \frac{V_S^2}{X_L} - \frac{V_S V_R \cos \delta}{X_L}$$
     We \alert{will first consider a load with unity power factor}, i.e. $Q_R = 0$.
     Hence, $$\frac{V_S V_R \cos \delta}{X_L} - \frac{V^2_R}{X_L} = 0 \Rightarrow V_S \cos \delta = V_R.$$
 
-Substituing this result in the expression of $P_R$ gives:
+Substituting this result in the expression of $P_R$ gives:
 $$P_R = \frac{V_S^2}{X_L}\sin \delta \cos \delta = \frac{V_S^2}{2 X_L}\sin (2\delta)$$
 
 We can determine the maximum transmissible power by setting the partial derivative to 0:
 $$\frac{\partial P_R}{\partial \delta}(\delta^{max}) = \frac{V_S^2}{X_L}\cos (2\delta^{max}) = 0 \Rightarrow \delta^{max} = \frac{\pi}{4}$$
 
 
-Replacing $\delta$ by $\delta^*$ in the equation of $P_R$, we have:
+Replacing $\delta$ by $\delta^{max}$ in the equation of $P_R$, we have:
 $$P_{R}^{max} = \frac{V_S^2}{2 X_L}$$
 and
 $$V_R \approx 0.7 V_S$$
@@ -238,7 +238,7 @@ On-load tap changers (OLTCs) change the turn ratio of the transformers feeding t
 The load characteristic seen from the primary side is $P_G = G\left(\frac{V}{r}\right)^2$, with $P_G$ the power consumed by the conductance $G$.
 
 Now, imagine one wants to keep $V_2 = V_2^o$, if $V \searrow \Rightarrow r \searrow$. Indirectly, by decreasing $r$, the OLTC tries to restore the load (since it increases $V_2$ and $P_G = G V_2^2 = G\left(\frac{V}{r}\right)^2$).
-Two different scenarii:
+Two different scenarios:
 \begin{itemize}
     \item 1) $\frac{V}{r}$ converges towards $V_2^o$, the load is restored.
     \item 2) $\frac{V}{r}$ never converges towards $V_2^o$ and $V$ collapses.
@@ -260,7 +260,7 @@ Two scenarios can happen:
 \begin{column}{0.45\textwidth}
 \includegraphics[width=0.8\textwidth]{images/PVcurveunstable.png}\\
 2) $P_G$ is never recovered, and the voltage collapses.
-This is a typical case of \textbf{Long-term Voltage Stability}.
+This is a typical case of \textbf{Long-term Voltage Instability}.
 
 \end{column}
 \end{columns}
@@ -280,7 +280,7 @@ This is a typical case of \textbf{Long-term Voltage Stability}.
     \begin{column}{0.4\textwidth}
         \begin{itemize}
             \item $T_L$ is the mechanical torque.
-            \item $C$ curves correspond to different electromechanical torques depending on the slip $s$, which is related to synchronous $w_s$ and actual rotation speed $wr$ by $s=\frac{\omega_s - \omega_r}{\omega_s}$.
+            \item $C$ curves correspond to different electromechanical torques depending on the slip $s$, which is related to synchronous speed $\omega_s$ and actual rotation speed $\omega_r$ by $s=\frac{\omega_s - \omega_r}{\omega_s}$.
             \item The initial curve is $C_0^-$ and the machine operates on operating point $S_0$. 
         \end{itemize}
     \end{column}
@@ -314,7 +314,7 @@ This is a typical case of \textbf{Long-term Voltage Stability}.
     \item e.g. the new curve becomes $C_2$, 
     \item the motor speed is reduced until it completely stops (since there is no intersection between $C_2$ and $T_L$).
     \item The induction motor acts as a large inductance, drawing reactive power.
-    \item This is considered as a \textbf{Short-term Voltage Instability} as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions).
+    \item This is considered a \textbf{Short-term Voltage Instability} as this phenomenon is much quicker than what we have with OLTCs (it takes several seconds to change tap positions).
     \item OLTCs are not able to restore the voltage.
 \end{itemize}
 \end{column}
@@ -342,7 +342,7 @@ To mitigate voltage problems, one solution is to reinforce the network by adding
 
 \begin{frame}[allowframebreaks]{Voltage regulation (reminder)}
 The second solution is to use the reactive power reserve already available.
-In transmission system, we have synchronous machines. They can provide or consume reactive power.
+In transmission systems, we have synchronous machines. They can provide or consume reactive power.
 \begin{center}
 \includegraphics[width=0.8\textwidth]{images/SG_EMF.png}
 \end{center}
@@ -368,7 +368,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 % Primary, secondary and tertiary voltage control
 \begin{frame}[allowframebreaks]{Primary, secondary and tertiary voltage control}
     \begin{itemize}
-        \item When a disturbance occurs, or subsequently to following the change in load (cf. 'duck curve'), the \textit{primary} voltage control loops maintain suitable voltage levels close to the large power plants equipped with AVRs.
+        \item When a disturbance occurs, or following a change in load (cf. 'duck curve'), the \textit{primary} voltage control loops maintain suitable voltage levels close to the large power plants equipped with AVRs.
         \begin{itemize}
             \item However, voltages at other buses may move out of tolerance intervals (in either direction), and reactive power reserves may not be shared in an even way among generators.
         \end{itemize}
@@ -390,7 +390,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 \begin{frame}[allowframebreaks]{Reverse power flows in distribution systems}
 \begin{itemize}
     \item Distribution networks are radial networks (they are built as meshed networks, but operated radially)
-    \item Before the venue of distributed energy resources (\emph{PV panels, batteries,...}), the power was flowing from the substation node, down to the end of the feeders.
+    \item Before the advent of distributed energy resources (\emph{PV panels, batteries,...}), the power was flowing from the substation node, down to the end of the feeders.
     \item Increasing penetration of DERs led to reverse power flows.
 \end{itemize}
 \begin{center}
@@ -410,7 +410,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 
 \begin{frame}{Reverse power flows in distribution systems}
 \begin{itemize}
-    \item In distribution systems, the $X/R < 1$. Active power flows have actually a greater influence on voltage magnitudes than reactive power flows.
+    \item In distribution systems, $X/R < 1$. Active power flows have actually a greater influence on voltage magnitudes than reactive power flows.
     \item One way to mitigate overvoltages in distribution networks with high penetration of solar inverters is to do active power curtailment and reactive power compensation.
 \end{itemize}
 \begin{center}
@@ -436,7 +436,7 @@ The voltage setpoints $V_0$ are dispatched by the TSO to ensure a safe and relia
 \begin{frame}{What did we learn?}
 \begin{itemize}
     \item There is a maximum transmissible power through a line.
-    \item Different voltage instabilities, caused by slow acting devices like OLTC (Long-term instabilities), or by faster dynamics like stalling of induction motors (Short-term instabilities).
+    \item Different voltage instabilities, caused by slow-acting devices like OLTCs (long-term instabilities), or by faster dynamics like stalling of induction motors (short-term instabilities).
     \item To prevent voltage instabilities, one can reinforce the grid by adding new lines or new devices, or enforce voltage regulation (local voltage control tracking voltage setpoints given by the system operator).
     \item The increasing penetration of RES creates overvoltage problems in distribution networks and challenges for balancing the system.
 \end{itemize}

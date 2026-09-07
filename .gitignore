@@ -18,3 +18,7 @@ Lectures/frequency_control/main.synctex.gz
 *.fls
 Lectures/frequency_control/main.log
 Lectures/frequency_control/main.fls
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
