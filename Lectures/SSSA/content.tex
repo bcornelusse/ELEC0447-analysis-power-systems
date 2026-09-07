@@ -1,0 +1,323 @@
+%--------------------------------------
+% Create title frame
+\titleframe
+
+%--------------------------------------
+% Table of contents
+\begin{frame}{Overview}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+%--------------------------------------
+% What will we learn slide
+\begin{frame}{What will we learn today?}
+  Mostly from Chapter 2 of Ned Mohan's book:
+  \begin{center}
+    Mohan, Ned. \textit{Electric power systems: a first course}. John Wiley \& Sons, 2012.
+  \end{center}
+
+  \begin{itemize}
+    \item Recap of conventions
+    \item Sinusoidal steady-state analysis
+  \end{itemize}
+  \vspace{0.3cm}
+  You will be able to do exercises 2.1, 2.2, 2.4, 2.5, 2.9, 2.11, 2.12, 2.14, 2.16, 2.17, 2.18, 2.19 and 2.20 from Ned Mohan's book.
+\end{frame}
+
+%==============================================================================
+% SECTION 1: Basics and conventions
+%==============================================================================
+\section{Basics and conventions}
+
+\begin{frame}{Power and energy}
+  \begin{itemize}
+    \item Power measures the rate of use of energy.
+    \item It is expressed in Watt [W]: $1\text{ W} = 1\text{ Joule/second}$.
+    \item In an electric system, the instantaneous power is:
+      $$p(t) = u(t) \times i(t)$$
+      \begin{itemize}
+        \item $u(t)$ is the voltage in volt [V] (line integral of electric field between two points).
+        \item $i(t)$ is the current in amperes [A].
+        \item $t$ is time.
+      \end{itemize}
+    \item To measure energy in power systems, we use units ranging from a kWh (a microgrid) to a TWh (a country).
+    \item Devices have power ratings ranging from W to GW (although we generally speak in VA for ratings).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Power in perspective: The cyclist vs. the toaster}
+  \begin{center}
+    Can an Olympic cyclist generate enough electrical power to toast a single slice of bread?
+    \vspace{0.4cm}
+
+    \begin{tcolorbox}[colback=blue!5,colframe=blue!75,title=The Cyclist vs. The Toaster]
+      \centering
+      \textbf{Robert Förstemann vs. 700W Toaster}\\
+      \vspace{0.2cm}
+      Watch video: \url{https://www.youtube.com/watch?v=S4O5voOCqAQ}
+    \end{tcolorbox}
+
+    \vspace{0.3cm}
+    \small It takes an Olympic sprint cyclist generating nearly 700 W of mechanical power at maximum exertion for over a minute just to toast one single slice of bread!
+  \end{center}
+\end{frame}
+
+\begin{frame}{Motor convention (or standard reference)}
+  When using the \alert{motor convention} to direct $u$ w.r.t. $i$, $p(t)$ represents the power \textbf{consumed} by a device (here a resistor):
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+      \begin{center}
+        \includegraphics[width=0.7\textwidth]{images/motor_conv.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.65\textwidth}
+      \begin{itemize}
+        \item The power consumed can be $< 0$, $= 0$, or $> 0$ depending on the device.
+        \item E.g., for a passive resistor we always have $p(t) \ge 0$.
+        \item The \textbf{opposite} convention is the \textbf{generator convention} ($p(t)$ is the power produced).
+        \item We will sometimes use a mix of both conventions, based on intuition, so that in general we have few negative numbers: \alert{pay attention to the orientations!}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Magnetic fields, etc.}
+  Magnetic fields play a central role in modeling the behavior of power system equipment (lines, transformers, generators, etc.).
+  \vspace{0.2cm}
+
+  As this course will not focus on detailed internal device physics, but rather on a \textit{system of devices}, magnetic effects will often be highly abstracted (e.g., as an inductance, or a turns ratio).
+  \vspace{0.2cm}
+
+  Let's recall that:
+  \begin{itemize}
+    \item A magnetic field is due to charges in motion or magnetized materials.
+    \item It is measured in $\text{A/m}$ (for magnetic field strength $H$) or in Tesla [T] (for magnetic flux density $B = \mu H$, with $\mu_0$ in vacuum/air).
+    \item The magnetic flux ($\phi$ in Weber [Wb]) measures the magnetic field crossing a surface.
+    \item A time-varying magnetic flux induces a voltage (Faraday-Lenz Law: $e(t) = -\frac{d\phi}{dt}$), which is the fundamental principle behind transformers and generators.
+  \end{itemize}
+\end{frame}
+
+%==============================================================================
+% SECTION 2: Sinusoidal steady-state analysis
+%==============================================================================
+\section{Sinusoidal steady-state analysis}
+
+\begin{frame}{Sinusoidal signals and phasor representation}
+  Unless otherwise specified, we will always work with sinusoidal signals and in steady state:
+  $$y(t) = \sqrt{2} Y \cos(\omega t + \phi_y)$$
+  \begin{itemize}
+    \item $Y$ is the \textbf{rms} value of the signal.
+    \item $\phi_y$ is its \textbf{phase angle}.
+    \item $\omega = 2\pi f$ is its \textbf{angular frequency} in rad/s ($f$ is the frequency in Hz).
+  \end{itemize}
+  \vspace{0.2cm}
+  At a specific frequency $f = \frac{\omega}{2\pi}$, the signal can be represented as a \textbf{phasor}:
+  $$\bar{Y} = Y \angle \phi_y = Y e^{j \phi_y}$$
+  Phasors allow working in the frequency domain, converting differential equations into algebraic operations:
+  $$\mathcal{R}e\left\{ \sqrt{2} \bar{Y} e^{j\omega t} \right\} = y(t)$$
+\end{frame}
+
+\begin{frame}{Phasor concept}
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+      \begin{center}
+        \includegraphics[height=0.65\textheight,keepaspectratio]{images/Unfasor.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.65\textwidth}
+      \begin{itemize}
+        \item A phasor represents a sinusoidal waveform rotating counter-clockwise at angular speed $\omega$.
+        \item Its projection on the real axis corresponds to the instantaneous value $y(t)$:
+          $$y(t) = \mathcal{R}e\{\sqrt{2} Y e^{j(\omega t + \phi_y)}\}$$
+        \item Factoring out $e^{j\omega t}$ allows us to perform additions, subtractions, and circuit laws purely using complex algebra.
+        \item Reference: \url{https://en.wikipedia.org/wiki/Phasor}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Impedance}
+  Let $u(t)$ and $i(t)$ be the voltage and current across a one-port, respectively, in sinusoidal steady state and with the motor convention:
+  \begin{itemize}
+    \item For a resistor: $u(t) = R i(t) \implies \bar{U} = R \bar{I}$
+    \item For an inductor: $u(t) = L \frac{di(t)}{dt} \implies \bar{U} = j\omega L \bar{I}$
+    \item For a capacitor: $i(t) = C \frac{du(t)}{dt} \implies \bar{I} = j\omega C \bar{U} \implies \bar{U} = -j \frac{1}{\omega C} \bar{I}$
+  \end{itemize}
+  \vspace{0.2cm}
+  The \textbf{impedance} $Z$, a complex quantity, generalizes Ohm's law:
+  $$Z = R + jX \quad [\Omega], \qquad \bar{U} = Z \bar{I}$$
+  \begin{itemize}
+    \item Resistor: $Z = R$ ($X = 0$)
+    \item Inductor: $Z = jX = j\omega L$ ($X = \omega L > 0$)
+    \item Capacitor: $Z = jX = -j\frac{1}{\omega C}$ ($X = -\frac{1}{\omega C} < 0$)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Impedance, admittance, etc.}
+  The imaginary part of the impedance, $X$, is called \textbf{reactance}:
+  \begin{itemize}
+    \item $X > 0$: inductive reactance
+    \item $X < 0$: capacitive reactance
+  \end{itemize}
+  \vspace{0.2cm}
+  The \textbf{admittance} $Y$ is the inverse of the impedance, expressed in Siemens [S]:
+  $$Y = \frac{1}{Z} = G + jB$$
+  \begin{itemize}
+    \item $G$ is the \textbf{conductance}
+    \item $B$ is the \textbf{susceptance}
+  \end{itemize}
+  \vspace{0.2cm}
+  Explicitly:
+  $$Y = \frac{1}{R + jX} = \frac{R - jX}{R^2 + X^2} \implies G = \frac{R}{R^2 + X^2}, \quad B = \frac{-X}{R^2 + X^2}$$
+\end{frame}
+
+\begin{frame}{Complex calculus}
+  For an impedance $Z = R + jX$:
+  $$|Z| = \sqrt{R^2 + X^2}, \qquad \angle Z = \arctan \left(\frac{X}{R}\right)$$
+  $$Z = \frac{\bar{U}}{\bar{I}} = \frac{U \angle \phi_u}{I \angle \phi_i} = \frac{U}{I} \angle (\phi_u - \phi_i)$$
+  \vspace{0.3cm}
+  \begin{tcolorbox}[colback=blue!5,colframe=blue!75,title=Animation]
+    \centering
+    AC Circuit \& Phasor Analysis Animation:\\
+    \url{https://www.youtube.com/watch?v=zO7RZZW0wSQ}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Phasor diagrams}
+  Plotting the phasors in the complex plane provides immediate geometric insight:
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+        \includegraphics[width=0.85\textwidth]{images/phasor_diagram.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \item One phasor (often the bus voltage $\bar{U} = U \angle 0^\circ$) is chosen as the reference along the positive real axis.
+        \item The current phasor $\bar{I} = I \angle \phi_i$ is placed at angle $\phi_i$.
+        \item The phase difference is $\phi = \phi_u - \phi_i$.
+        \item Angles are measured counter-clockwise (positive).
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Inductive or capacitive? Which is which?}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{center}
+        \includegraphics[height=0.38\textheight,keepaspectratio]{images/phasor_diagram_L.png}\\
+        \vspace{0.1cm}
+        \textbf{Inductive circuit ($X > 0$)}
+      \end{center}
+      \begin{itemize}
+        \item Current $\bar{I}$ is \alert{lagging} behind voltage $\bar{U}$
+        \item $\phi_u > \phi_i \implies \phi = \phi_u - \phi_i > 0$
+        \item Consumes reactive power ($Q > 0$)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{center}
+        \includegraphics[height=0.38\textheight,keepaspectratio]{images/phasor_diagram_C.png}\\
+        \vspace{0.1cm}
+        \textbf{Capacitive circuit ($X < 0$)}
+      \end{center}
+      \begin{itemize}
+        \item Current $\bar{I}$ is \alert{leading} ahead of voltage $\bar{U}$
+        \item $\phi_u < \phi_i \implies \phi = \phi_u - \phi_i < 0$
+        \item Supplies reactive power ($Q < 0$ in motor conv.)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{The notions of power}
+  The \textbf{complex power} is defined as:
+  $$S = \bar{U}\bar{I}^*$$
+  Let $\phi = \phi_u - \phi_i$, then:
+  $$S = (U e^{j\phi_u})(I e^{-j\phi_i}) = UI e^{j\phi} = P + jQ$$
+  \begin{itemize}
+    \item $P = UI \cos\phi$ is the \textbf{active power}, measured in Watt [W].
+    \item $Q = UI \sin\phi$ is the \textbf{reactive power}, measured in volt-ampere reactive [var].
+    \item $\cos\phi$ is the \textbf{power factor} (pf).
+    \item The \textbf{apparent power} is $|S| = UI = \sqrt{P^2 + Q^2}$, measured in volt-ampere [VA].
+  \end{itemize}
+  \vspace{0.2cm}
+  \alert{Reactive power is, in general, undesirable}: it increases the current magnitude $I = |S|/U$ for a given active power $P$, resulting in higher line losses ($R I^2$) and larger voltage drops.
+\end{frame}
+
+\begin{frame}{Useful formulas: leading and lagging circuits}
+  $$P = R I^2 = \frac{U_R^2}{R}, \qquad Q = X I^2 = \frac{U_X^2}{X}$$
+  $$\tan \phi = \frac{Q}{P}, \qquad \cos \phi = \frac{P}{|S|}$$
+  \begin{block}{Leading vs. Lagging}
+    The value of the power factor $\cos\phi \in [0, 1]$ alone does not indicate the sign of $\phi$:
+    \begin{itemize}
+      \item In an \textbf{inductive} system, $u(t)$ precedes $i(t)$, $i(t)$ is \textbf{lagging}, thus $Q > 0$ (motor convention).
+      \item In a \textbf{capacitive} system, the opposite holds: $i(t)$ is \textbf{leading}, thus $Q < 0$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Power factor compensation}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{center}
+        \includegraphics[height=0.45\textheight,keepaspectratio]{images/pf_compensation_1.png}
+      \end{center}
+      \small
+      Uncompensated load draws active power $P$ and reactive power $Q_L > 0$. Total line current: $I_1 = \frac{\sqrt{P^2 + Q_L^2}}{U}$.
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{center}
+        \includegraphics[height=0.45\textheight,keepaspectratio]{images/pf_compensation_2.png}
+      \end{center}
+      \small
+      Connecting a parallel capacitor provides $Q_C = -\omega C U^2 < 0$. Total reactive power is canceled: $Q_{net} \approx 0$. Total current drops to $I_2 \approx \frac{P}{U} < I_1$!
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Power factor compensation: Example}
+  \begin{block}{Problem statement}
+    A $120\text{ V}$ (rms) voltage source at $60\text{ Hz}$ feeds an R-L load:
+    $$S_{load} = 1858.4 + j 1031.4\text{ VA}$$
+  \end{block}
+  \begin{itemize}
+    \item Active power: $P = 1858.4\text{ W}$
+    \item Reactive power: $Q = 1031.4\text{ var}$ (inductive, lagging)
+    \item Apparent power: $|S| = \sqrt{P^2 + Q^2} = 2125\text{ VA}$
+    \item Initial power factor: $\cos\phi = \frac{P}{|S|} = \frac{1858.4}{2125} \approx 0.875\text{ lagging}$
+    \item Initial line current: $I = \frac{|S|}{U} = \frac{2125}{120} \approx 17.7\text{ A}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Power factor compensation: Example (cont'd)}
+  \textbf{Goal:} Compensate to unity power factor ($\cos\phi_{new} = 1.0$, $Q_{new} = 0$).
+  \vspace{0.2cm}
+
+  The parallel capacitor must supply reactive power equal and opposite to $Q_{load}$:
+  $$Q_C = -Q_{load} = -1031.4\text{ var} = -\omega C U^2$$
+  Solving for $C$:
+  $$C = \frac{Q_{load}}{\omega U^2} = \frac{1031.4}{2\pi \times 60 \times 120^2} \approx 189.9\ \mu\text{F}$$
+  \vspace{0.2cm}
+  \textbf{Result on line current:}
+  $$I_{new} = \frac{P}{U} = \frac{1858.4}{120} \approx 15.49\text{ A}$$
+  This represents a \alert{$12.5\%$ reduction in line current} with zero change in delivered active power $P$!
+\end{frame}
+
+\begin{frame}{Summary}
+  \begin{itemize}
+    \item \textbf{Conventions}: Motor convention defines consumed power $p(t) = u(t) i(t)$; generator convention defines produced power.
+    \item \textbf{Phasors}: Represent sinusoidal quantities $y(t) = \sqrt{2}Y\cos(\omega t + \phi_y)$ as algebraic complex numbers $\bar{Y} = Y e^{j\phi_y}$.
+    \item \textbf{Impedance \& Admittance}: $Z = R + jX$ and $Y = G + jB = 1/Z$.
+    \item \textbf{Complex Power}: $S = \bar{U}\bar{I}^* = P + jQ = |S|e^{j\phi}$.
+      \begin{itemize}
+        \item $P = UI\cos\phi$ (active power, in Watt [W])
+        \item $Q = UI\sin\phi$ (reactive power, in var [var])
+        \item $|S| = UI$ (apparent power, in Volt-Ampere [VA])
+      \end{itemize}
+    \item \textbf{Power Factor}: $\cos\phi = P/|S|$; lagging for inductive loads, leading for capacitive loads.
+    \item \textbf{Power Factor Correction}: Shunt capacitors supply reactive power locally, reducing current flows, thermal losses, and voltage drops across the network.
+  \end{itemize}
+\end{frame}

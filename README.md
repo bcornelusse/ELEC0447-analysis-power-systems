@@ -18,7 +18,7 @@ Instructors:
 | Date | Lecture | Topics |
 | --- | --- | --- |
 |	 September 17 	|	1	|	 [Course organization and introduction](Lectures/Introduction/main.pdf)	|
-|	              	|	  |	 [Sinusoïdal steady-state analysis](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/?p=lecture1_SSSA.md) ([pdf file](pdf/lecture1_SSSA.pdf))	|
+|	              	|	  |	 [Sinusoidal steady-state analysis](Lectures/SSSA/main.pdf)	|
 |	              	|	  |	 [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) 	|
 |	 September 24  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	| 
 |	              	|	  |	 [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) 	|
@@ -48,6 +48,23 @@ Instructors:
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
 
 
+
+# Compiling LaTeX Lecture Slides
+
+The Beamer lecture slides located in `Lectures/` can be compiled using the compilation script [`Lectures/compile_all.sh`](Lectures/compile_all.sh):
+
+```bash
+cd Lectures
+
+# Compile all slide decks
+./compile_all.sh
+
+# Or compile specific decks only
+./compile_all.sh SSSA Introduction
+
+# Compile and clean auxiliary files (.aux, .log, .toc, etc.)
+./compile_all.sh -c
+```
 
 # talk-template
 
