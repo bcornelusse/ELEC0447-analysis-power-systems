@@ -30,9 +30,9 @@ Instructors:
 |	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
 |	 October 15   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf)	|
 |	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
-|	 October 22   	|	- | ??? |
+|	 October 22   	|	- | No lecture, the team is at ISGT2026 in Budapest |
 |	 October 29   	|	- | No lecture - Autumn break |
-|	 November 5   	|	6 |	Presentation of the Energy Challenge related project: designing the distribution network of your virtual campus |
+|	 November 5   	|	6 |	 |
 |	              	|	  |	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
 |	              	|	  |	Q&A Project 1 |
 |	               |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
