@@ -24,29 +24,28 @@ Instructors:
 |	              	|	  |	 [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) 	|
 |	 October  1   	|	3	|	 [The transmission line](Lectures/TransmissionLine/main.pdf) |
 |	 	             |	 	|	 [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf)	|
+|	 	             |	 	|	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf) |
 |           	   	|	 	|	 [Project 1: Two-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025_network.xlsx)|
 |	 October 8   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) 	|
-|	              	|	  |	Q&A Project 1 |
-|	              	|	  |	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf)	|
+|	              	|	  |	Q&A Project 1  |
+|	              	|	  |	 [Exercises on transformers](pdf/ELEC0447-TP4.pdf)	|
 |	 October 15   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf)	|
-|	              	|	 	|	[Exercises on transformers](pdf/ELEC0447-TP4.pdf)|
+|	              	|	 	| [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) |
 |	 October 22   	|	- | No lecture, the team is at ISGT2026 in Budapest |
 |	 October 29   	|	- | No lecture - Autumn break |
 |	 November 5   	|	6 |	 |
 |	              	|	  |	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
-|	              	|	  |	Q&A Project 1 |
-|	               |	 	|	[Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) 	|
-|	November 12    |	7	|	Project 1 presentations by students.  	|
-|	 November 19 	 |	8	|	[Frequency control](Lectures/frequency_control/main.pdf)  	|
+|	November 12    |	7	|	Project 1 assesment.  	|
+|	 November 19 	 |	8	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) | 
+|	              	|	  |	[Frequency control](Lectures/frequency_control/main.pdf)  	|
 |	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower (see on ecampus).	|
-|	 November 26  	|	9	|	Frequency control, end	|
-|	 December 3  	 |	10	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) 	|
-|                |    | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
-|	              	|	   |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) |
-|	 December 10   |	11	|	 [Transient stability](Lectures/transient/main.pdf) (videos on ecampus) |
-|	 December 17  	|	12	|	 (TBC) Visit of Elia's national dispatch center (organizational details via ecampus) 	|
+|	 November 26  	|	9	| [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
+|	              	|	   |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) 	|
+|	 December 3  	 |	10	|[Transient stability](Lectures/transient/main.pdf) (videos on ecampus)	|
+|                |    |  |
+|	 December 10   |	11	|	(TBC) Visit of Elia's national dispatch center (organizational details via ecampus)  |
+|	 December 17  	|	12	|	Project 1 assesment.  	|
 |	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
-
 
 
 # Compiling LaTeX Lecture Slides
