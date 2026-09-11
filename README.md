@@ -1,54 +1,60 @@
-# ELEC0447 Analysis of Electric Power and Energy Systems
+# ELEC0447: Analysis of Electric Power and Energy Systems
 
-This is an introductory course on power systems analysis given at the Master's level at ULiège.
+This repository contains the course materials for **ELEC0447 Analysis of Electric Power and Energy Systems**, an introductory Master's-level course taught at the University of Liège (ULiège), Faculty of Applied Sciences.
 
-We will use eCampus for notifications, homework submissions, questions, etc. 
+We use **eCampus** for announcements, discussion, homework submissions, and lecture recordings.
 
-Prerequisites: 
- - Notions of electrical circuits analysis (https://github.com/bcornelusse/livre_circuits_electriques_ELEC0053/)
- - Notions of (complex) calculus
- - Notions of scientific computing (we will use Python)
+## Instructors
 
-Instructors: 
- - Bertrand Cornélusse
- - Francesco Moglia
+- **Bertrand Cornélusse** (Course Responsible)
+- **Francesco Moglia**
 
-# Lectures (2026-2027).
+## Prerequisites
 
-| Date | Lecture | Topics |
-| --- | --- | --- |
-|	 September 17 	|	1	|	 [Course organization and introduction](Lectures/Introduction/main.pdf)	|
-|	              	|	  |	 [Sinusoidal steady-state analysis](Lectures/SSSA/main.pdf)	|
-|	              	|	  |	 [List of exercises on sinusoïdal steady-state analysis](pdf/ELEC0447-TP1.pdf) 	|
-|	 September 24  |	2 |	 [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf)	| 
-|	              	|	  |	 [Exercises on 3-phase systems, per unit normalization](pdf/ELEC0447-TP2.pdf) 	|
-|	 October  1   	|	3	|	 [The transmission line](Lectures/TransmissionLine/main.pdf) |
-|	 	             |	 	|	 [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf)	|
-|	 	             |	 	|	 [Exercises on transmission lines](pdf/ELEC0447-TP3.pdf) |
-|           	   	|	 	|	 [Project 1: Two-feeder distribution network analysis with PandaPower](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025.pdf)	and [Data](https://bcornelusse.github.io/ELEC0447-analysis-power-systems/pdf/ELEC0447_project_1_2025_network.xlsx)|
-|	 October 8   	 |	4	|	 [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) 	|
-|	              	|	  |	Q&A Project 1  |
-|	              	|	  |	 [Exercises on transformers](pdf/ELEC0447-TP4.pdf)	|
-|	 October 15   	|	5	|	 [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf)	|
-|	              	|	 	| [Exercises on synchronous machines](pdf/ELEC0447-TP5.pdf) |
-|	 October 22   	|	- | No lecture, the team is at ISGT2026 in Budapest |
-|	 October 29   	|	- | No lecture - Autumn break |
-|	 November 5   	|	6 |	 |
-|	              	|	  |	[HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
-|	November 12    |	7	|	Project 1 assesment.  	|
-|	 November 19 	 |	8	|	[Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) (video on ecampus) | 
-|	              	|	  |	[Frequency control](Lectures/frequency_control/main.pdf)  	|
-|	              	|	  |	Project 2 statement: Transmission network analysis with PandaPower (see on ecampus).	|
-|	 November 26  	|	9	| [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) (videos on ecampus)	|
-|	              	|	   |	[Exercises on voltage (in)stability](pdf/ELEC0447-TP6.pdf) 	|
-|	 December 3  	 |	10	|[Transient stability](Lectures/transient/main.pdf) (videos on ecampus)	|
-|                |    |  |
-|	 December 10   |	11	|	(TBC) Visit of Elia's national dispatch center (organizational details via ecampus)  |
-|	 December 17  	|	12	|	Project 1 assesment.  	|
-|	 January      	|	  	|	 Oral exam,  [list of questions](pdf/20231212_ELEC0447_exam_questions.pdf) 	|
+- **Electrical circuit analysis**: e.g., [Circuits Électriques (ELEC0053)](https://github.com/bcornelusse/livre_circuits_electriques_ELEC0053/)
+- **Complex calculus and linear algebra**
+- **Scientific computing in Python** (used in exercise sessions and course projects; familiarization with [pandapower](https://www.pandapower.org/) is recommended)
 
+## Course Schedule (2026–2027)
 
-# Compiling LaTeX Lecture Slides
+| Date | Lecture | Topics & Materials |
+|:---|:---:|:---|
+| September 17 | 1 | [Course organization and introduction](Lectures/Introduction/main.pdf) |
+| | | [Sinusoidal steady-state analysis](Lectures/SSSA/main.pdf) |
+| | | [Exercises on sinusoidal steady-state analysis (TP1)](pdf/ELEC0447-TP1.pdf) |
+| September 24 | 2 | [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf) |
+| | | [Exercises on 3-phase systems, per unit normalization (TP2)](pdf/ELEC0447-TP2.pdf) |
+| October 1 | 3 | [The transmission line](Lectures/TransmissionLine/main.pdf) |
+| | | [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf) |
+| | | [Exercises on transmission lines (TP3)](pdf/ELEC0447-TP3.pdf) |
+| | | [Project 1: Two-feeder distribution network analysis with PandaPower](pdf/ELEC0447_project_1_2025.pdf) and [Data](pdf/ELEC0447_project_1_2025_network.xlsx) |
+| October 8 | 4 | [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) |
+| | | [Exercises on transformers (TP4)](pdf/ELEC0447-TP4.pdf) |
+| October 15 | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf) |
+| | | [Exercises on synchronous machines (TP5)](pdf/ELEC0447-TP5.pdf) |
+| | | Q&A: Project 1 |
+| October 22 | — | *No lecture — team is at IEEE PES ISGT Europe 2026 in Budapest* |
+| October 29 | — | *No lecture — Autumn break* |
+| November 5 | 6 | **Project 1 assessment** (presence is mandatory) |
+| November 12 | 7 | [HVDC and its inclusion in the power flow analysis](Lectures/HVDC/main.pdf) |
+| | | Project 2 statement: Transmission network analysis with PandaPower *(see on eCampus)* |
+| November 19 | 8 | [Introduction to stability and control problems](Lectures/intro_stability/intro_stability.pdf) *(video on eCampus)* |
+| | | [Frequency control](Lectures/frequency_control/main.pdf) |
+| November 26 | 9 | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) *(video on eCampus)* |
+| | | [Exercises on voltage (in)stability (TP6)](pdf/ELEC0447-TP6.pdf) |
+| December 3 | 10 | [Transient stability](Lectures/transient/main.pdf) *(video on eCampus)* |
+| December 10 | 11 | (TBC) Visit to Elia's national dispatch center *(organizational details on eCampus)* |
+| December 17 | 12 | **Project 2 assessment** (presence is mandatory) |
+| January | — | Oral exam — [List of theoretical questions](pdf/20231212_ELEC0447_exam_questions.pdf) |
+
+## Repository Structure
+
+- [`Lectures/`](Lectures/): LaTeX Beamer slide decks for all lectures and the compilation script [`compile_all.sh`](Lectures/compile_all.sh).
+- [`pdf/`](pdf/): Exercise problem sets (`TP1` to `TP6`), project descriptions, data sheets, and past exam questions.
+- [`notebooks/`](notebooks/): Python and Jupyter notebooks for tutorials, power flow algorithms (Newton–Raphson, DC power flow), and [pandapower](https://www.pandapower.org/) examples.
+- [`PandapowerProject/`](PandapowerProject/): Assignment material and LaTeX sources for projects.
+
+## Compiling LaTeX Lecture Slides
 
 The Beamer lecture slides located in `Lectures/` can be compiled using the compilation script [`Lectures/compile_all.sh`](Lectures/compile_all.sh):
 
@@ -58,9 +64,12 @@ cd Lectures
 # Compile all slide decks
 ./compile_all.sh
 
-# Or compile specific decks only
-./compile_all.sh SSSA Introduction
+# Or compile specific decks only (supports deck names or aliases like sssa, lecture5, syncgen)
+./compile_all.sh SSSA SynchronousGenerator Introduction
 
 # Compile and clean auxiliary files (.aux, .log, .toc, etc.)
 ./compile_all.sh -c
 ```
+
+The script automatically detects `latexmk` or falls back to `pdflatex`, running the required passes and bibliographies (`bibtex` / `biber`).
+
