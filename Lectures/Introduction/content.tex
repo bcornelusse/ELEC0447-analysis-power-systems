@@ -360,15 +360,62 @@ Large-scale failures (blackouts) have tremendous societal consequences
 \end{figure}
 \end{frame}
 
-\begin{frame}{Length of network by voltage level and type in Belgium}
-\begin{figure}
+\begin{frame}[allowframebreaks]{\Large Grid Structure and Evolution by Voltage Level  (Synergrid data)}
+\framesubtitle{Geographical length (overhead) and electrical length (underground) in km}
 \centering
-\includegraphics[width=0.6\linewidth]{images/stats_cables_and_lines_be.png}
-\end{figure}
-\vfill
-\footnotesize{Source : SYNERGRID, as of December 2008}
+\small
+\resizebox{0.96\textwidth}{!}{%
+\begin{tabular}{ll rrr r}
+\toprule
+\textbf{Voltage level (kV)} & \textbf{Installation} & \textbf{2022 (km)} & \textbf{2023 (km)} & \textbf{2024 (km)} & \textbf{Underground share (2024)} \\
+\midrule
+$\ge 380$ & Overhead / Underground & 940 / 180 & 940 / 180 & 940 / 180 & 16.1\% \\
+$220 \le U < 380$ & Overhead / Underground & 302 / 211 & 302 / 211 & 302 / 211 & 41.1\% \\
+$150 \le U < 220$ & Overhead / Underground & 1,926 / 749 & 1,878 / 776 & 1,874 / 815 & 30.3\% \\
+$70 \le U < 150$  & Overhead / Underground & 2,818 / 331 & 2,800 / 337 & 2,776 / 347 & 11.1\% \\
+$30 \le U < 70$   & Overhead / Underground & 131 / 2,094 & 131 / 2,083 & 131 / 2,111 & 94.2\% \\
+$1 \le U < 30$ (Medium Voltage) & Overhead / Underground & 4,496 / 73,809 & 4,339 / 74,224 & 4,237 / 75,096 & 94.7\% \\
+$< 1$ (Low Voltage, excl. public light.) & Overhead / Underground & 47,078 / 86,737 & 47,010 / 88,924 & 47,008 / 91,370 & 66.0\% \\
+\midrule
+Public Lighting (partial) & Overhead / Underground & 267 / 38,063 & 290 / 38,587 & 335 / 39,215 & 99.2\% \\
+\midrule
+\textbf{Total excl. public lighting} & \textbf{Overhead} & \textbf{57,691} & \textbf{57,690} & \textbf{57,603} & --- \\
+                                     & \textbf{Underground} & \textbf{164,112} & \textbf{205,322} & \textbf{209,345} & \textbf{78.4\%} \\
+\midrule
+\multicolumn{2}{l}{\textbf{Total grid length (excl. public lighting)}} & \textbf{221,802} & \textbf{263,012} & \textbf{266,948} & \textbf{+20.4\% (overall)} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{0.25cm}
+\begin{itemize}
+    \footnotesize
+    \item \textbf{Dominant undergrounding:} underground lines account for \textbf{78.4\%} of the total grid excl. public lighting (reaching nearly \textbf{95\%} in medium voltage).
+    \item \textbf{General trend:} continuous phase-out of overhead lines ($-88$\,km over 2 years) against the expansion of underground cables ($+45,233$\,km, including the 2022--2023 reporting adjustment).
+\end{itemize}
 \end{frame}
 
+\begin{frame}{Structural Indicators: Connections (Synergrid data )}
+\framesubtitle{TSO/DSO interconnection points and end-user growth}
+
+\begin{table}
+\small
+\centering
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Synergrid Indicator} & \textbf{2022} & \textbf{2023} & \textbf{2024} \\
+\midrule
+\textbf{TSO/DSO Interconnections} & 483 & 483 & 482 \\
+\addlinespace
+\textbf{Contracted Connections} & 5,780,808 & 5,832,802 & 5,907,543 \\
+\textit{Annual growth} & --- & \textit{+0.90\%} & \textit{+1.28\%} \\
+\addlinespace
+\textbf{EAN Points} & 6,179,255 & 6,226,696 & 6,281,627 \\
+\textit{Annual growth} & --- & \textit{+0.77\%} & \textit{+0.88\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{frame}
 
 \begin{frame}
 {Electrical energy balance over the year 2018 in Belgium}
@@ -381,31 +428,71 @@ Large-scale failures (blackouts) have tremendous societal consequences
 \begin{frame}{Network losses}
 
 \begin{columns}
-    \begin{column}{0.55\textwidth}
+    \begin{column}{0.68\textwidth}
       \begin{figure}
       \centering
-      \includegraphics[width=\linewidth]{images/network_losses_world.png}
+      \includegraphics[width=\linewidth]{images/network_losses_world_new.png}
+      Source: World Bank data
       \end{figure}
     \end{column}
-    \begin{column}{0.45\textwidth}
-      Transporting and distributing electrical energy is an industrial process with a relatively high efficiency!
+    \begin{column}{0.3\textwidth}
+      {\bf Transporting and distributing electrical energy is an industrial process with a relatively high efficiency!}
+
+      \begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\small Exercise]
+      \small Reestimate the losses in Belgium from the previous slide and compare with the World Bank data.
+      \end{tcolorbox}
     \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}
-{Consumption outlook}
+{\Large Belgian System -- 2025 Electricity Demand (data from ENTSO-E)}
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth]{images/consumption_be.png}
+\includegraphics[trim=0 12cm 0 2.1cm,clip,width=
+ \linewidth]{images/belgian_load_2025.png}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Belgian Electricity Consumption: Seasonal and Weekly Profiles}
+\begin{frame}
+{\Large Belgian System -- 2025 Electricity Demand (data from ENTSO-E)}
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth]{images/consumption_be_zoom.png}
+\includegraphics[trim=0 0cm 0 14.1cm,clip,width=
+ \linewidth]{images/belgian_load_2025.png}
 \end{figure}
+\end{frame}
+
+\begin{frame}{\Large Belgian Electricity System \& Installed capacity evolution}
+    \begin{center}
+        \vspace*{-0.5cm}
+        \includegraphics[trim=0 0 0 1cm,clip,width=0.83\textwidth,keepaspectratio]{images/belgian_capacity_dashboard.png}
+    \end{center}
+\end{frame}
+
+% Slide 1: Global Generation Overview & Renewable Variability
+\begin{frame}{\Large Belgian Electricity Generation (2025)}
+    \begin{center}
+        \includegraphics[trim=0 10cm 0 1cm,clip,width=\textwidth,keepaspectratio]{images/belgian_generation_overview.png}
+    \end{center}
+\end{frame}
+% Slide 1: Global Generation Overview & Renewable Variability
+\begin{frame}{\Large Belgian Electricity Generation (2025)}
+    \begin{center}
+        \includegraphics[trim=0 0 0 13cm,clip,width=\textwidth,keepaspectratio]{images/belgian_generation_overview.png}
+    \end{center}
+\end{frame}
+\begin{frame}{\Large Belgian Electricity Generation --  Renewable Variability (2025)}
+    \begin{center}
+        \includegraphics[trim=0 0 0 1cm,clip,width=0.9\textwidth,keepaspectratio]{images/belgian_generation_variability.png}
+    \end{center}
+\end{frame}
+% Slide 2: 24-Hour Zoom on Archetypal Dispatch Days
+\begin{frame}{\Large Renewable Variability: 24h Archetypal Dispatch Days}
+    \begin{center}
+        \includegraphics[trim=0 0 0 0.7 
+        cm,clip,width=0.9\textwidth,keepaspectratio]{images/belgian_generation_zoom_days.png}
+    \end{center}
 \end{frame}
 
 \begin{frame}
