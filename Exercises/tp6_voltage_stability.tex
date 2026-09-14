@@ -1,0 +1,227 @@
+\section{Practical Session 6: Voltage Instability in Power Systems}
+
+\subsection{Exercises}
+\begin{enumerate}
+    \item \textbf{Derivation of the $P$-$V$ Characteristic of a Transmission Line}\footnote{Exercise from Practical Session 6: Voltage instability in power systems.}
+    
+    Consider the transmission system represented in Figure~\ref{fig:tp6_system}. A load consuming an active power $P$ and a reactive power $Q$ is connected to bus~2. The voltage phasor at bus~2 is:
+    \[
+    \bar{V} = V\angle\delta.
+    \]
+    A synchronous generator is connected to bus~1 and regulates the voltage at that bus to:
+    \[
+    \bar{E} = E\angle 0^\circ.
+    \]
+    The transmission line between bus~1 and bus~2 is assumed to be lossless with series reactance $X$, and the reactive power limits of the generator are not considered.
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            % Generator at bus 1
+            \draw (0,0) to[sV, v_>=$\bar{E}$] (0,2)
+                  -- (1.5,2) coordinate (bus1_top);
+            \draw (0,0) -- (1.5,0) coordinate (bus1_bot);
+
+            % Bus 1 bar
+            \draw[ultra thick] (1.5,-0.5) -- (1.5,2.5);
+            \node[below=0.6cm] at (1.5,0) {$\text{bus } 1$};
+            \node[above] at (1.5,2.5) {$\bar{E} = E\angle 0^\circ$};
+
+            % Line reactance jX
+            \draw (1.5,1.5) to[L, l=$jX$, i=$\bar{I}$] (5.5,1.5) coordinate (bus2_in);
+
+            % Bus 2 bar
+            \draw[ultra thick] (5.5,-0.5) -- (5.5,2.5);
+            \node[below=0.6cm] at (5.5,0) {$\text{bus } 2$};
+            \node[above] at (5.5,2.5) {$\bar{V} = V\angle\delta$};
+
+            % Load at bus 2
+            \draw[->, very thick] (5.5,1.0) -- (6.8,1.0) -- (6.8,-0.2) node[below] {$S = P + jQ$};
+            \draw[dashed, gray] (1.5,0) -- (5.5,0);
+        \end{circuitikz}
+        \caption{Single-line representation of a lossless transmission line feeding a load.}
+        \label{fig:tp6_system}
+    \end{figure}
+
+    Based on these assumptions:
+    \begin{enumerate}
+        \item Derive the mathematical relationship between the active power $P$ consumed by the load and the receiving-end voltage magnitude $V$ at bus~2, for a constant load power factor angle $\phi$ ($Q = P\tan\phi$).
+        \item Derive the mathematical expression of the maximum active power $P_{\text{max}}$ transmissible through the line.
+        \item Identify and discuss the critical parameters to consider in order to transmit more power through the line.
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsection{Solutions}
+
+\subsubsection*{1. Derivation of the Relationship Between Load Active Power $P$ and Voltage Magnitude $V$}
+
+\paragraph{Complex Power Flow Equations:}
+The complex power $S$ consumed by the load at bus~2 is:
+\begin{equation}
+    S = P + jQ = \bar{V} \bar{I}^*
+\end{equation}
+The line current flowing from bus~1 to bus~2 through the reactance $jX$ is:
+\begin{equation}
+    \bar{I} = \frac{\bar{E} - \bar{V}}{jX}
+\end{equation}
+Substituting this current into the complex power expression:
+\begin{align}
+    S &= \bar{V} \left( \frac{\bar{E} - \bar{V}}{jX} \right)^* = (V\angle\delta) \left( \frac{E - V\angle\delta}{jX} \right)^*
+\end{align}
+Using the complex conjugate identity $\left(\frac{1}{j}\right)^* = (-j)^* = j$:
+\begin{align}
+    S &= V\angle\delta \left( -j \frac{E - V\angle\delta}{X} \right)^* = V\angle\delta \left( j \frac{E - V\angle(-\delta)}{X} \right) \nonumber\\
+      &= \frac{V}{X} \angle\delta \left[ j E - j V(\cos\delta - j\sin\delta) \right] \nonumber\\
+      &= \frac{V}{X} \angle\delta \left[ -V\sin\delta + j(E - V\cos\delta) \right] \nonumber\\
+      &= \frac{V}{X} (\cos\delta + j\sin\delta) \left[ -V\sin\delta + j(E - V\cos\delta) \right]
+\end{align}
+
+Expanding the product into real and imaginary parts:
+\paragraph{Active Power $P$:}
+\begin{align}
+    P = \text{Re}\{S\} &= \frac{V}{X} \left[ \cos\delta (-V\sin\delta) + \sin\delta (E - V\cos\delta) \right] \nonumber\\
+                       &= \frac{V}{X} \left[ -V\cos\delta\sin\delta + E\sin\delta - V\sin\delta\cos\delta \right] \nonumber\\
+                       &= \boxed{\frac{EV}{X} \sin(-\delta) = -\frac{EV}{X}\sin\delta} \label{eq:tp6_P}
+\end{align}
+Taking the convention where $\delta < 0$ (load voltage lags the source voltage), let $\theta = -\delta > 0$:
+\begin{equation}
+    P = \frac{EV}{X} \sin\theta
+\end{equation}
+
+\paragraph{Reactive Power $Q$:}
+\begin{align}
+    Q = \text{Im}\{S\} &= \frac{V}{X} \left[ \cos\delta (E - V\cos\delta) - \sin\delta (-V\sin\delta) \right] \nonumber\\
+                       &= \frac{V}{X} \left[ E\cos\delta - V\cos^2\delta + V\sin^2\delta \right] \nonumber\\
+                       &= \boxed{\frac{V}{X} (E\cos\delta - V)} \label{eq:tp6_Q}
+\end{align}
+
+\paragraph{Eliminating the Phase Angle $\delta$:}
+From equations~\eqref{eq:tp6_P} and~\eqref{eq:tp6_Q}:
+\begin{align}
+    \sin\delta &= -\frac{PX}{EV} \label{eq:tp6_sindelta}\\
+    \cos\delta &= \frac{QX + V^2}{EV} \label{eq:tp6_cosdelta}
+\end{align}
+Applying the trigonometric identity $\sin^2\delta + \cos^2\delta = 1$:
+\begin{equation}
+    \left( \frac{PX}{EV} \right)^2 + \left( \frac{QX + V^2}{EV} \right)^2 = 1
+\end{equation}
+Multiplying through by $(EV)^2$:
+\begin{equation}
+    P^2 X^2 + (QX + V^2)^2 = E^2 V^2
+\end{equation}
+Expanding the second term:
+\begin{equation}
+    P^2 X^2 + Q^2 X^2 + 2 Q X V^2 + V^4 = E^2 V^2
+\end{equation}
+Grouping terms into a quadratic polynomial in $V^2$:
+\begin{equation}
+    \boxed{V^4 + (2QX - E^2) V^2 + X^2(P^2 + Q^2) = 0} \label{eq:tp6_biquadratic}
+\end{equation}
+
+\paragraph{Solving for the Voltage Magnitude $V$:}
+Let $y = V^2$. The quadratic equation is $y^2 + (2QX - E^2)y + X^2(P^2 + Q^2) = 0$.
+Applying the quadratic formula:
+\begin{align}
+    y &= \frac{-(2QX - E^2) \pm \sqrt{(2QX - E^2)^2 - 4 X^2 (P^2 + Q^2)}}{2} \nonumber\\
+      &= \frac{E^2 - 2QX \pm \sqrt{4Q^2 X^2 - 4 E^2 Q X + E^4 - 4 P^2 X^2 - 4 Q^2 X^2}}{2} \nonumber\\
+      &= \frac{E^2}{2} - QX \pm \sqrt{\frac{E^4}{4} - E^2 Q X - P^2 X^2}
+\end{align}
+Taking the square root to obtain the voltage magnitude $V = \sqrt{y}$:
+\begin{equation}
+    \boxed{V = \sqrt{\frac{E^2}{2} - QX \pm \sqrt{\frac{E^4}{4} - E^2 Q X - P^2 X^2}}} \label{eq:tp6_V_sol}
+\end{equation}
+For a load operating at a constant power factor $\cos\phi$, the reactive power is proportional to active power:
+\begin{equation}
+    Q = P \tan\phi
+\end{equation}
+where $\phi > 0$ for inductive (lagging) loads and $\phi < 0$ for capacitive (leading) loads.
+Substituting $Q = P\tan\phi$ into~\eqref{eq:tp6_V_sol}:
+\begin{equation}
+    \boxed{V = \sqrt{\frac{E^2}{2} - X(P\tan\phi) \pm \sqrt{\frac{E^4}{4} - E^2 X (P\tan\phi) - X^2 P^2}}}
+\end{equation}
+This equation describes the classical \textbf{$P$-$V$ nose curve} of the transmission line.
+For each valid power $P < P_{\text{max}}$, there are two mathematical voltage solutions:
+\begin{itemize}
+    \item \textbf{Upper branch ($+$ sign):} High voltage, low current, physically stable operating point.
+    \item \textbf{Lower branch ($-$ sign):} Low voltage, high current, unstable operating point.
+\end{itemize}
+
+\subsubsection*{2. Maximum Transmissible Active Power $P_{\text{max}}$}
+The maximum transmissible power $P_{\text{max}}$ occurs at the \textbf{nose} (turning point / saddle-node bifurcation) of the $P$-$V$ curve, where the two voltage solutions merge into a single unique point.
+This condition is reached when the discriminant $\Delta$ under the inner square root vanishes:
+\begin{equation}
+    \Delta = \frac{E^4}{4} - E^2 X (P_{\text{max}}\tan\phi) - X^2 P_{\text{max}}^2 = 0
+\end{equation}
+Rearranging into standard quadratic form for $P_{\text{max}}$:
+\begin{equation}
+    X^2 P_{\text{max}}^2 + (E^2 X \tan\phi) P_{\text{max}} - \frac{E^4}{4} = 0
+\end{equation}
+Dividing by $X^2$:
+\begin{equation}
+    P_{\text{max}}^2 + \left(\frac{E^2 \tan\phi}{X}\right) P_{\text{max}} - \frac{E^4}{4 X^2} = 0
+\end{equation}
+Using the quadratic formula and selecting the positive physical root:
+\begin{align}
+    P_{\text{max}} &= \frac{-\left(\frac{E^2\tan\phi}{X}\right) + \sqrt{\left(\frac{E^2\tan\phi}{X}\right)^2 - 4(1)\left(-\frac{E^4}{4X^2}\right)}}{2} \nonumber\\
+                   &= \frac{1}{2} \left[ -\frac{E^2\tan\phi}{X} + \sqrt{\frac{E^4\tan^2\phi}{X^2} + \frac{E^4}{X^2}} \right] \nonumber\\
+                   &= \frac{E^2}{2X} \left[ -\tan\phi + \sqrt{\tan^2\phi + 1} \right]
+\end{align}
+Using the trigonometric identity $1 + \tan^2\phi = \sec^2\phi = \frac{1}{\cos^2\phi}$:
+\begin{equation}
+    \sqrt{1 + \tan^2\phi} = \frac{1}{\cos\phi}
+\end{equation}
+Substituting $\tan\phi = \frac{\sin\phi}{\cos\phi}$:
+\begin{align}
+    P_{\text{max}} &= \frac{E^2}{2X} \left[ -\frac{\sin\phi}{\cos\phi} + \frac{1}{\cos\phi} \right] \nonumber\\
+                   &= \boxed{\frac{E^2}{2X} \left( \frac{1 - \sin\phi}{\cos\phi} \right)} \label{eq:tp6_Pmax}
+\end{align}
+
+\paragraph{Critical Voltage at the Limit:}
+At $P = P_{\text{max}}$, the inner discriminant is zero, so:
+\begin{equation}
+    V_{\text{crit}} = \sqrt{\frac{E^2}{2} - X Q_{\text{crit}}} = \sqrt{\frac{E^2}{2} - X P_{\text{max}}\tan\phi}
+\end{equation}
+Substituting $P_{\text{max}}$ from~\eqref{eq:tp6_Pmax}:
+\begin{align}
+    V_{\text{crit}}^2 &= \frac{E^2}{2} - X \left[\frac{E^2}{2X}\left(\frac{1 - \sin\phi}{\cos\phi}\right)\right] \frac{\sin\phi}{\cos\phi} \nonumber\\
+                     &= \frac{E^2}{2} \left[ 1 - \frac{\sin\phi - \sin^2\phi}{\cos^2\phi} \right] = \frac{E^2}{2} \left[ \frac{\cos^2\phi - \sin\phi + \sin^2\phi}{\cos^2\phi} \right] \nonumber\\
+                     &= \frac{E^2}{2} \left[ \frac{1 - \sin\phi}{1 - \sin^2\phi} \right] = \frac{E^2}{2(1 + \sin\phi)}
+\end{align}
+\begin{equation}
+    \boxed{V_{\text{crit}} = \frac{E}{\sqrt{2(1 + \sin\phi)}}}
+\end{equation}
+For a purely resistive load ($\phi = 0$):
+\[
+P_{\text{max}} = \frac{E^2}{2X}, \quad V_{\text{crit}} = \frac{E}{\sqrt{2}} \approx 0.707 E
+\]
+
+\subsubsection*{3. Key Parameters Influencing the Maximum Transmissible Power}
+From equation~\eqref{eq:tp6_Pmax}, three primary parameters determine the transmission limit:
+\begin{enumerate}
+    \item \textbf{Sending-End Voltage Magnitude ($E$):}
+    The maximum power increases quadratically with the sending-end voltage:
+    \[
+    P_{\text{max}} \propto E^2
+    \]
+    Operating transmission grids at higher voltage levels (e.g., $400\ \text{kV}$ or $765\ \text{kV}$) drastically increases the capacity of corridors.
+
+    \item \textbf{Line Series Reactance ($X$):}
+    The maximum transmissible power is inversely proportional to the line reactance:
+    \[
+    P_{\text{max}} \propto \frac{1}{X}
+    \]
+    To increase capacity on an existing corridor:
+    \begin{itemize}
+        \item Install \textbf{series capacitor banks} (series compensation) to reduce net line reactance: $X_{\text{eff}} = X_{\text{line}} - X_C$.
+        \item Construct parallel circuits or bundle multiple sub-conductors per phase to decrease line inductance.
+    \end{itemize}
+
+    \item \textbf{Load Power Factor ($\cos\phi$ and Angle $\phi$):}
+    The factor $\frac{1 - \sin\phi}{\cos\phi}$ depends strongly on the power factor:
+    \begin{itemize}
+        \item \textbf{Inductive loads ($\phi > 0$, lagging pf):} $\sin\phi > 0 \implies \frac{1 - \sin\phi}{\cos\phi} < 1$, reducing $P_{\text{max}}$ significantly and worsening voltage drop.
+        \item \textbf{Capacitive loads ($\phi < 0$, leading pf):} $\sin\phi < 0 \implies \frac{1 - \sin\phi}{\cos\phi} > 1$, raising the maximum power limit and supporting voltage.
+    \end{itemize}
+    This underscores why shunt capacitors, STATCOMs, and SVCs are installed near load centers: by providing local reactive power support, they unload the line from transmitting reactive power, effectively increasing the active power transfer capability and preventing voltage collapse.
+\end{enumerate}

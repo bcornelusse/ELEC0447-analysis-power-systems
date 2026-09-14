@@ -1,0 +1,309 @@
+\section{Practical Session 5: Synchronous Generators in Power Systems}
+
+\subsection{Exercises}
+\begin{enumerate}
+    \item \textbf{Per-Phase Equivalent Circuit and Power Limits}\footnote{Exercises 9.5, 9.6, 9.7 and 9.9 of Ned Mohan's book \textit{"Electric power systems, a first course"}.}
+    
+    In the per-phase equivalent circuit of Figure~\ref{fig:tp5_gen}, assume $R_s = 0$ and $X_s = 1.2\ \text{pu}$.
+    The terminal voltage is $\bar{V}_a = 1\angle 0^\circ\ \text{pu}$ and the armature current is $\bar{I}_a = 1\angle -\pi/6\ \text{pu}$.
+    \begin{enumerate}
+        \item Calculate the internal field excitation voltage phasor $\bar{E}_{af}$.
+        \item Show that the three-phase active power produced at the stator is equivalent to the three-phase active power transferred between two voltage sources ($\bar{E}_{af}$ and $\bar{V}_\infty$) where $\bar{V}_\infty = 1\angle 0^\circ\ \text{pu}$ is an ideal voltage source.
+        \item If $E_{af}$ is held constant, calculate the maximum active power this machine can deliver in theory and in practice.
+    \end{enumerate}
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,0) to[sV, v_>=$\bar{E}_{af}$] (0,2.5)
+                  to[L, l=$jX_s$] (2.5,2.5)
+                  to[R, l=$R_s$] (4.5,2.5)
+                  to[short, i=$\bar{I}_a$] (5.5,2.5)
+                  to[open, v^<=$\bar{V}_a$] (5.5,0)
+                  -- (0,0);
+        \end{circuitikz}
+        \caption{Per-phase equivalent circuit of a synchronous generator.}
+        \label{fig:tp5_gen}
+    \end{figure}
+
+    \item \textbf{Reactive Power Control and $E_{af}\sin\delta$ Invariance}
+    
+    In a synchronous generator, assume $R_s = 0$ and $X_s = 1.2\ \text{pu}$. The terminal voltage is $\bar{V}_a = 1\angle 0^\circ\ \text{pu}$.
+    The machine supplies a constant three-phase active power of $P_{3\phi} = 1.0\ \text{pu}$.
+    \begin{enumerate}
+        \item Calculate $\bar{I}_a$ such that the active power remains constant while the three-phase reactive power takes the values:
+        \begin{enumerate}[(a)]
+            \item $Q_{3\phi} = 0\ \text{pu}$
+            \item $Q_{3\phi} = 0.5\ \text{pu}$
+            \item $Q_{3\phi} = -0.5\ \text{pu}$
+        \end{enumerate}
+        \item For each configuration, show that $E_{af}\sin\delta$ remains constant.
+        \item Sketch and explain the phasor diagrams corresponding to overexcited and underexcited operation.
+    \end{enumerate}
+
+    \item \textbf{Subtransient, Transient, and Steady-State Regimes}
+    
+    In a synchronous generator, assume $R_s = 0$. The steady-state, transient, and subtransient reactances are respectively given by:
+    \[
+    X_s = 1.2\ \text{pu},\quad X_s' = 0.33\ \text{pu},\quad X_s'' = 0.23\ \text{pu}.
+    \]
+    The terminal voltage is $\bar{V}_a = 1\angle 0^\circ\ \text{pu}$ and the current is $\bar{I}_a = 1\angle -\pi/6\ \text{pu}$.
+    \begin{enumerate}
+        \item Calculate the internal voltage phasor $\bar{E}_{af}$ in each configuration: steady-state, transient, and subtransient.
+        \item Compare and explain the physical origin of these reactances.
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsection{Solutions}
+
+\subsubsection*{Solution to Exercise 1: Generator Per-Phase Model and Power Limits}
+\paragraph{Data:}
+\begin{itemize}
+    \item Armature resistance: $R_s = 0\ \Omega$
+    \item Synchronous reactance: $X_s = 1.2\ \text{pu}$
+    \item Terminal voltage: $\bar{V}_a = 1\angle 0^\circ\ \text{pu} = 1 + j0\ \text{pu}$
+    \item Stator current: $\bar{I}_a = 1\angle -\pi/6\ \text{pu} = 1\angle -30^\circ\ \text{pu} = \left(\frac{\sqrt{3}}{2} - j\frac{1}{2}\right)\ \text{pu}$
+\end{itemize}
+
+\paragraph{(a) Internal Excitation Voltage $\bar{E}_{af}$:}
+Applying Kirchhoff's voltage law to the stator circuit:
+\begin{align}
+    \bar{E}_{af} &= \bar{V}_a + R_s \bar{I}_a + j X_s \bar{I}_a \nonumber\\
+                 &= 1 + 0 + j 1.2 \left(\frac{\sqrt{3}}{2} - j\frac{1}{2}\right) \nonumber\\
+                 &= 1 + 0.6 + j 1.2 \frac{\sqrt{3}}{2} = 1.6 + j 1.0392\ \text{pu} \nonumber\\
+                 &= \boxed{1.908\ \text{pu} \angle 33.0^\circ \quad (0.576\ \text{rad} \approx 0.58\ \text{rad})}
+\end{align}
+Thus:
+\[
+|E_{af}| = 1.908\ \text{pu},\quad \delta = 33.0^\circ
+\]
+
+\paragraph{(b) Active Power Equivalence:}
+\begin{enumerate}
+    \item Active power transferred between two voltage sources ($\bar{E}_{af} = |E_{af}|\angle \delta$ and $\bar{V}_\infty = |V_a|\angle 0^\circ$):
+    \begin{align}
+        P_{3\phi}^{2VS} &= 3 \times \frac{|E_{af}| |V_a| \sin\delta}{X_s} \nonumber\\
+                        &= 3 \times \frac{1.908 \times 1.0 \times \sin(33.0^\circ)}{1.2} \nonumber\\
+                        &= 3 \times \frac{1.908 \times 0.5446}{1.2} = \mathbf{2.598\ \text{pu} \approx 2.60\ \text{pu}}
+    \end{align}
+    \textit{Note:} As marked in the original notes, the factor $3$ accounts for the total three-phase power across all three phases.
+    
+    \item Three-phase active power produced at the stator:
+    \begin{align}
+        P_{3\phi}^{\text{stator}} &= \text{Re}\{3 \bar{V}_a \bar{I}_a^*\} = 3 |V_a| |I_a| \cos(\angle \bar{V}_a - \angle \bar{I}_a) \nonumber\\
+                                  &= 3 \times 1.0 \times 1.0 \times \cos(0^\circ - (-30^\circ)) \nonumber\\
+                                  &= 3 \cos(30^\circ) = 3 \times \frac{\sqrt{3}}{2} = \mathbf{2.598\ \text{pu} \approx 2.60\ \text{pu}}
+    \end{align}
+\end{enumerate}
+Hence:
+\begin{equation}
+    P_{3\phi}^{2VS} = P_{3\phi}^{\text{stator}} \hfill \blacksquare
+\end{equation}
+
+\paragraph{(c) Maximum Active Power Machine Can Deliver:}
+The power-angle curve is given by:
+\begin{equation}
+    P_{3\phi}(\delta) = 3 \frac{|E_{af}| |V_a|}{X_s} \sin\delta
+\end{equation}
+\begin{itemize}
+    \item \textbf{Theoretical Maximum Power ($\delta = 90^\circ = \pi/2$):}
+    Differentiating with respect to $\delta$:
+    \[
+    \frac{\partial P_{3\phi}}{\partial \delta} = 3 \frac{|E_{af}| |V_a|}{X_s} \cos\delta = 0 \implies \delta = 90^\circ
+    \]
+    \begin{equation}
+        \boxed{P_{\text{max,th}} = 3 \frac{|E_{af}| |V_a|}{X_s} = 3 \times \frac{1.908 \times 1.0}{1.2} = 4.770\ \text{pu}}
+    \end{equation}
+
+    \item \textbf{Practical Operating Limit ($\delta \le 40^\circ$):}
+    In power system operations, a steady-state stability margin is maintained to withstand transient disturbances without losing synchronism. Typical practical limits restrict the rotor angle to $\delta \le 40^\circ$:
+    \begin{equation}
+        \boxed{P_{\text{max,pr}} = 3 \frac{|E_{af}| |V_a| \sin(40^\circ)}{X_s} = 4.770 \times \sin(40^\circ) = 3.066\ \text{pu}}
+    \end{equation}
+\end{itemize}
+
+\subsubsection*{Solution to Exercise 2: Reactive Power Control and $E_{af}\sin\delta$ Invariance}
+\paragraph{Data:}
+\begin{itemize}
+    \item Constant three-phase active power: $P_{3\phi} = 1.0\ \text{pu}$
+    \item Terminal voltage: $\bar{V}_a = 1\angle 0^\circ\ \text{pu}$
+    \item Reactance: $X_s = 1.2\ \text{pu}$, $R_s = 0$
+\end{itemize}
+
+\paragraph{1. Armature Current $\bar{I}_a$ for each $Q_{3\phi}$:}
+The total three-phase complex power is:
+\[
+S_{3\phi} = 3 \bar{V}_a \bar{I}_a^* = P_{3\phi} + j Q_{3\phi} \implies \bar{I}_a = \left( \frac{P_{3\phi} + j Q_{3\phi}}{3 \bar{V}_a} \right)^* = \frac{P_{3\phi} - j Q_{3\phi}}{3 V_a}
+\]
+
+\begin{enumerate}[(a)]
+    \item \textbf{For $Q_{3\phi} = 0\ \text{pu}$ (Unity Power Factor):}
+    \begin{equation}
+        \boxed{\bar{I}_a = \frac{1 - j0}{3} = \frac{1}{3}\ \text{pu} = 0.333\ \text{pu} \angle 0^\circ}
+    \end{equation}
+
+    \item \textbf{For $Q_{3\phi} = +0.5\ \text{pu}$ (Lagging Power Factor):}
+    \begin{equation}
+        \bar{I}_a = \frac{1 - j0.5}{3} = 0.3333 - j 0.1667\ \text{pu}
+    \end{equation}
+    \begin{equation}
+        \boxed{\bar{I}_a = 0.3727\ \text{pu} \angle -26.565^\circ \quad (-0.464\ \text{rad})}
+    \end{equation}
+
+    \item \textbf{For $Q_{3\phi} = -0.5\ \text{pu}$ (Leading Power Factor):}
+    \begin{equation}
+        \bar{I}_a = \frac{1 - (-j0.5)}{3} = 0.3333 + j 0.1667\ \text{pu}
+    \end{equation}
+    \begin{equation}
+        \boxed{\bar{I}_a = 0.3727\ \text{pu} \angle +26.565^\circ \quad (+0.464\ \text{rad})}
+    \end{equation}
+\end{enumerate}
+
+\paragraph{2. Demonstration that $E_{af}\sin\delta = \text{constant}$:}
+From the active power equation:
+\begin{equation}
+    P_{3\phi} = 3 \frac{|E_{af}| |V_a| \sin\delta}{X_s}
+\end{equation}
+Rearranging for $|E_{af}| \sin\delta$:
+\begin{equation}
+    \boxed{|E_{af}| \sin\delta = \frac{P_{3\phi} X_s}{3 |V_a|} = \frac{1.0 \times 1.2}{3 \times 1.0} = 0.4\ \text{pu} = \text{constant}}
+\end{equation}
+Similarly, for the armature current:
+\begin{equation}
+    I_a \cos\phi = \frac{P_{3\phi}}{3 |V_a|} = \frac{1.0}{3 \times 1.0} = \frac{1}{3}\ \text{pu} = \text{constant}
+\end{equation}
+This geometrically means that as $Q$ varies at constant $P$, the tip of the voltage phasor $\bar{E}_{af}$ moves along a horizontal line at vertical height $0.4\ \text{pu}$ above the real axis, and the current phasor $\bar{I}_a$ moves along a vertical line at horizontal distance $1/3\ \text{pu}$.
+
+\paragraph{3. Phasor Diagrams and Operating Modes:}
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\linewidth}{!}{
+    \begin{tikzpicture}[scale=1.4, >=Stealth]
+        % Case (a): Unity
+        \begin{scope}[xshift=0cm]
+            \node[above, font=\bfseries] at (1, 1.8) {Case (a): $Q = 0$ (Unity pf)};
+            \draw[thin, gray!40] (-0.5,-0.5) grid (2.5,1.7);
+            \draw[->, thick] (-0.5,0) -- (2.5,0) node[right] {$\text{Re}$};
+            \draw[->, thick] (0,-0.5) -- (0,1.7) node[above] {$\text{Im}$};
+            
+            % Va
+            \draw[->, very thick, blue] (0,0) -- (1,0) node[below] {$\bar{V}_a$};
+            % Ia
+            \draw[->, very thick, red] (0,0) -- (0.333,0) node[below] {$\bar{I}_a$};
+            % jXs Ia
+            \draw[->, thick, purple] (1,0) -- (1,0.4) node[right] {$j X_s \bar{I}_a$};
+            % Eaf
+            \draw[->, very thick, black] (0,0) -- (1,0.4) node[above left] {$\bar{E}_{af}$};
+            \draw[dashed, gray] (-0.3,0.4) -- (2.3,0.4) node[right] {$E_{af}\sin\delta = 0.4$};
+        \end{scope}
+
+        % Case (b): Overexcited
+        \begin{scope}[xshift=5cm]
+            \node[above, font=\bfseries] at (1, 1.8) {Case (b): $Q > 0$ (Overexcited)};
+            \draw[thin, gray!40] (-0.5,-0.5) grid (2.5,1.7);
+            \draw[->, thick] (-0.5,0) -- (2.5,0) node[right] {$\text{Re}$};
+            \draw[->, thick] (0,-0.5) -- (0,1.7) node[above] {$\text{Im}$};
+            
+            % Va
+            \draw[->, very thick, blue] (0,0) -- (1,0) node[below] {$\bar{V}_a$};
+            % Ia
+            \draw[->, very thick, red] (0,0) -- (0.333,-0.167) node[below] {$\bar{I}_a$};
+            % jXs Ia
+            \draw[->, thick, purple] (1,0) -- (1.2,0.4) node[right] {$j X_s \bar{I}_a$};
+            % Eaf
+            \draw[->, very thick, black] (0,0) -- (1.2,0.4) node[above] {$\bar{E}_{af}$};
+            \draw[dashed, gray] (-0.3,0.4) -- (2.3,0.4);
+            \node[below, red, font=\footnotesize] at (1.2,-0.2) {Lagging current};
+        \end{scope}
+
+        % Case (c): Underexcited
+        \begin{scope}[xshift=10cm]
+            \node[above, font=\bfseries] at (1, 1.8) {Case (c): $Q < 0$ (Underexcited)};
+            \draw[thin, gray!40] (-0.5,-0.5) grid (2.5,1.7);
+            \draw[->, thick] (-0.5,0) -- (2.5,0) node[right] {$\text{Re}$};
+            \draw[->, thick] (0,-0.5) -- (0,1.7) node[above] {$\text{Im}$};
+            
+            % Va
+            \draw[->, very thick, blue] (0,0) -- (1,0) node[below] {$\bar{V}_a$};
+            % Ia
+            \draw[->, very thick, red] (0,0) -- (0.333,0.167) node[above] {$\bar{I}_a$};
+            % jXs Ia
+            \draw[->, thick, purple] (1,0) -- (0.8,0.4) node[above right] {$j X_s \bar{I}_a$};
+            % Eaf
+            \draw[->, very thick, black] (0,0) -- (0.8,0.4) node[above left] {$\bar{E}_{af}$};
+            \draw[dashed, gray] (-0.3,0.4) -- (2.3,0.4);
+            \node[below, red, font=\footnotesize] at (0.8,-0.2) {Leading current};
+        \end{scope}
+    \end{tikzpicture}
+    }
+    \caption{Phasor diagrams of synchronous generator operating at constant active power $P$ under variable excitation.}
+    \label{fig:tp5_phasors}
+\end{figure}
+
+\paragraph{Physical Explanation of Generator Voltage Control:}
+\begin{itemize}
+    \item \textbf{Overexcitation (Case b):}
+    By increasing the rotor field current $I_f$, the internal EMF magnitude $|E_{af}|$ increases. Because $P$ is held constant, $\delta$ must decrease while $\bar{I}_a$ shifts into the lagging quadrant. The generator delivers reactive power to the grid ($Q > 0$), effectively acting as a \textbf{shunt capacitor}.
+    
+    \item \textbf{Underexcitation (Case c):}
+    By decreasing the field current $I_f$, $|E_{af}|$ decreases. The current shifts into the leading quadrant, and the generator absorbs reactive power from the grid ($Q < 0$), acting as a \textbf{shunt inductor}.
+    
+    This capability to continuously adjust reactive power by varying the field current forms the foundation of \textbf{Automatic Voltage Regulation (AVR)} in bulk power transmission networks.
+\end{itemize}
+
+\subsubsection*{Solution to Exercise 3: Subtransient, Transient, and Steady-State Regimes}
+\paragraph{Data:}
+\begin{itemize}
+    \item Armature resistance: $R_s = 0$
+    \item Steady-state synchronous reactance: $X_s = 1.2\ \text{pu}$
+    \item Transient reactance: $X_s' = 0.33\ \text{pu}$
+    \item Subtransient reactance: $X_s'' = 0.23\ \text{pu}$
+    \item Terminal voltage: $\bar{V}_a = 1\angle 0^\circ\ \text{pu}$
+    \item Current: $\bar{I}_a = 1\angle -\pi/6\ \text{pu} = 1\angle -30^\circ\ \text{pu} = (0.866 - j0.5)\ \text{pu}$
+\end{itemize}
+
+\paragraph{1. Internal Voltages in each Regime:}
+Using $\bar{E} = \bar{V}_a + j X \bar{I}_a$:
+\begin{enumerate}[(a)]
+    \item \textbf{Steady-State Voltage $\bar{E}_{af}$:}
+    \begin{align}
+        \bar{E}_{af} &= 1 + j 1.2(0.866 - j0.5) = 1 + 0.6 + j 1.0392 = 1.6 + j 1.0392\ \text{pu} \nonumber\\
+                     &= \boxed{\mathbf{1.908\ \text{pu} \angle 33.0^\circ \quad (0.58\ \text{rad})}}
+    \end{align}
+
+    \item \textbf{Transient Voltage $\bar{E}_{af}'$:}
+    \begin{align}
+        \bar{E}_{af}' &= 1 + j 0.33(0.866 - j0.5) = 1 + 0.165 + j 0.2858 = 1.165 + j 0.2858\ \text{pu} \nonumber\\
+                      &= \boxed{\mathbf{1.200\ \text{pu} \angle 13.78^\circ \quad (0.24\ \text{rad})}}
+    \end{align}
+
+    \item \textbf{Subtransient Voltage $\bar{E}_{af}''$:}
+    \begin{align}
+        \bar{E}_{af}'' &= 1 + j 0.23(0.866 - j0.5) = 1 + 0.115 + j 0.1992 = 1.115 + j 0.1992\ \text{pu} \nonumber\\
+                       &= \boxed{\mathbf{1.133\ \text{pu} \angle 10.13^\circ \quad (0.18\ \text{rad})}}
+    \end{align}
+\end{enumerate}
+
+\paragraph{2. Comparison and Physical Interpretation:}
+\begin{equation}
+    X_s'' < X_s' < X_s \iff 0.23 < 0.33 < 1.20\ \text{pu}
+\end{equation}
+\begin{equation}
+    |E_{af}''| < |E_{af}'| < |E_{af}| \iff 1.13 < 1.20 < 1.91\ \text{pu}
+\end{equation}
+\begin{equation}
+    \delta'' < \delta' < \delta \iff 10.1^\circ < 13.8^\circ < 33.0^\circ
+\end{equation}
+
+\paragraph{Physical Mechanism of the Three Time Frames:}
+\begin{itemize}
+    \item \textbf{Subtransient Period ($t \approx 10 - 20\ \text{ms}$, first few cycles):}
+    When a sudden electrical fault or disturbance occurs, flux linkages in both the \textbf{damper windings} (amortisseur) and the rotor field winding cannot change instantaneously (Lenz's law). Heavy eddy currents are induced in the damper bars, trapping the flux in high-reluctance leakage paths outside the rotor body. Consequently, the equivalent reactance $X_s''$ is minimal, and the initial fault current is very large.
+    
+    \item \textbf{Transient Period ($t \approx 0.1 - 1.0\ \text{s}$):}
+    Due to the high resistance of the damper bars, the subtransient damper currents rapidly decay with time constant $T_d''$. Flux is now prevented from changing only by the main field winding, whose resistance is much smaller. The corresponding effective reactance is $X_s'$, and the internal voltage is $\bar{E}_{af}'$.
+    
+    \item \textbf{Steady-State Period ($t > 1 - 2\ \text{s}$):}
+    After several seconds, all induced transient rotor currents have fully dissipated. The field winding carries only DC excitation current supplied by the exciter, and the effective reactance increases to its full steady-state value $X_s$ (governed by stator leakage plus the full armature reaction mmf).
+\end{itemize}

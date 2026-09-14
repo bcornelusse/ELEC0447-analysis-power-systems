@@ -1,0 +1,337 @@
+\section{Practical Session 4: Transformers in Power Systems}
+
+\subsection{Exercises}
+\begin{enumerate}
+    \item \textbf{Ideal Transformer Circuit}\footnote{Exercises 6.2 and 6.4 from Ned Mohan's book \textit{"Electric power systems, a first course"}.}
+    
+    Assume the transformer in Figure~\ref{fig:tp4_ideal} to be ideal, with a turns ratio $N_1 / N_2 = 3$.
+    Winding 1 is connected to a sinusoidal voltage source in steady state with:
+    \[
+    \bar{V}_1 = 120\ \text{V}\angle 0^\circ \quad \text{at } f = 60\ \text{Hz}.
+    \]
+    The load on winding 2 is a series combination of resistance $R$ and inductive reactance $X$, with impedance:
+    \[
+    Z_L = (5 + j3)\ \Omega.
+    \]
+    Calculate the current $\bar{I}_1$ drawn from the voltage source.
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,0) to[sV, v_>=$\bar{V}_1$] (0,2.5)
+                  to[short, i=$\bar{I}_1$] (1.5,2.5)
+                  to[L, l_=$N_1$, -*] (1.5,0)
+                  -- (0,0);
+            \node[above] at (1.5,2.5) {$\bullet$};
+            
+            % Secondary
+            \draw (3,2.5) to[L, l=$N_2$, *-] (3,0)
+                  -- (5,0);
+            \node[above] at (3,2.5) {$\bullet$};
+            \draw (3,2.5) to[short, i=$\bar{I}_2$] (5,2.5)
+                  to[generic, l=$Z_L$] (5,0);
+                  
+            % Core lines
+            \draw[thick] (2.15,0.2) -- (2.15,2.3);
+            \draw[thick] (2.35,0.2) -- (2.35,2.3);
+            \node at (2.25, 2.6) {$N_1 : N_2$};
+        \end{circuitikz}
+        \caption{Ideal transformer with secondary load.}
+        \label{fig:tp4_ideal}
+    \end{figure}
+
+    \item \textbf{Real Transformer Equivalent Circuit and Per-Unit Formalism}
+    
+    A $2400/240\text{-V}$, $60\text{-Hz}$ single-phase transformer has the following parameters in its equivalent circuit (Figure~\ref{fig:tp4_equivalent}):
+    \begin{itemize}
+        \item High-side (primary) leakage impedance: $Z_{t1} = R_{t1} + jX_{t1} = (1.2 + j2.0)\ \Omega$
+        \item Low-side (secondary) leakage impedance: $Z_{t2} = R_{t2} + jX_{t2} = (0.012 + j0.02)\ \Omega$
+        \item Core loss resistance $R_{fe}$ is neglected ($R_{fe} \to \infty$).
+    \end{itemize}
+    The output voltage at the secondary terminals is held at $V_2 = 240\ \text{V}$ (RMS), supplying a load of impedance magnitude $|Z_L| = 1.5\ \Omega$ at a power factor of $0.9$ (lagging).
+    
+    Calculate the primary input voltage $\bar{V}_1$:
+    \begin{enumerate}[(a)]
+        \item If the magnetizing reactance at the high side is $X_m = 1800\ \Omega$.
+        \item If the magnetizing reactance $X_m$ is neglected ($X_m \to \infty$).
+    \end{enumerate}
+    Solve the problem using two methods:
+    \begin{itemize}
+        \item \textbf{Method 1:} In actual physical units (without the per-unit formalism).
+        \item \textbf{Method 2:} Using the per-unit formalism, considering the $(2400\ \text{V},\ 38400\ \text{VA})$ base on the primary side and the $(240\ \text{V},\ 38400\ \text{VA})$ base on the secondary side.
+    \end{itemize}
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.0]
+            % Primary side
+            \draw (0,0) coordinate (in_bot)
+                  to[open, v^>=$\bar{V}_1$] (0,3) coordinate (in_top)
+                  to[R, l=$R_{t1}$, i=$\bar{I}_1$] (2,3)
+                  to[L, l=$jX_{t1}$] (3.5,3) coordinate (node_m)
+                  -- (4.5,3);
+            % Magnetizing branch
+            \draw (node_m) to[L, l_=$jX_m$, i=$\bar{I}_m$] ++(0,-3) coordinate (node_m_bot);
+            % Ideal transformer primary
+            \draw (4.5,3) to[L, l_=$N_1$, -*] (4.5,0) coordinate (tfo1_bot);
+            \node[above] at (4.5,3) {$\bullet$};
+            \node at (4.0,1.5) {$\bar{E}_1$};
+            
+            % Ideal transformer secondary
+            \draw (6,3) coordinate (tfo2_top) to[L, l=$N_2$, *-] (6,0) coordinate (tfo2_bot);
+            \node[above] at (6,3) {$\bullet$};
+            \node at (6.5,1.5) {$\bar{E}_2$};
+            % Secondary leakage and load
+            \draw (tfo2_top) to[short, i=$\bar{I}_2$] (7,3)
+                  to[R, l=$R_{t2}$] (8.5,3)
+                  to[L, l=$jX_{t2}$] (10,3)
+                  to[generic, l=$Z_L$, v^<=$\bar{V}_2$] (10,0)
+                  -- (tfo2_bot);
+                  
+            % Bottom connection
+            \draw (in_bot) -- (node_m_bot) -- (tfo1_bot);
+            % Core
+            \draw[thick] (5.15,0.5) -- (5.15,2.5);
+            \draw[thick] (5.35,0.5) -- (5.35,2.5);
+            \node at (5.25, 2.8) {$N_1 : N_2$};
+        \end{circuitikz}
+        \caption{Transformer equivalent circuit neglecting core loss resistance $R_{fe}$.}
+        \label{fig:tp4_equivalent}
+    \end{figure}
+\end{enumerate}
+
+\newpage
+\subsection{Solutions}
+
+\subsubsection*{Solution to Exercise 1: Ideal Transformer}
+\paragraph{Data:}
+\begin{itemize}
+    \item Turns ratio: $n = \frac{N_2}{N_1} = \frac{1}{3} \implies \frac{N_1}{N_2} = 3$
+    \item Primary voltage: $\bar{V}_1 = 120\ \text{V}\angle 0^\circ$
+    \item Load impedance: $Z_L = (5 + j3)\ \Omega = 5.831\ \Omega \angle 30.96^\circ$
+\end{itemize}
+
+\paragraph{Solution Scheme:}
+We propagate through the system: $\bar{V}_1 \to \bar{V}_2 \to \bar{I}_2 \to \bar{I}_1$.
+
+\begin{enumerate}
+    \item \textbf{Secondary Voltage $\bar{V}_2$:}
+    For an ideal transformer, the voltage ratio is proportional to the turns ratio:
+    \begin{equation}
+        \bar{V}_2 = \frac{N_2}{N_1} \bar{V}_1 = \frac{1}{3} \times 120\angle 0^\circ = 40\ \text{V}\angle 0^\circ
+    \end{equation}
+
+    \item \textbf{Secondary Current $\bar{I}_2$:}
+    Applying Ohm's law to the secondary load:
+    \begin{equation}
+        \bar{I}_2 = \frac{\bar{V}_2}{Z_L} = \frac{40\angle 0^\circ}{5 + j3} = \frac{40\angle 0^\circ}{5.831\angle 30.96^\circ} = 6.86\ \text{A} \angle -30.96^\circ \approx 6.86\ \text{A} \angle -31^\circ
+    \end{equation}
+
+    \item \textbf{Primary Current $\bar{I}_1$:}
+    The amp-turn balance for an ideal transformer ($N_1 \bar{I}_1 = N_2 \bar{I}_2$) yields:
+    \begin{equation}
+        \boxed{\bar{I}_1 = \frac{N_2}{N_1} \bar{I}_2 = \frac{1}{3} \times (6.86\angle -30.96^\circ) = 2.29\ \text{A} \angle -30.96^\circ \approx 2.29\ \text{A} \angle -31^\circ}
+    \end{equation}
+\end{enumerate}
+
+\paragraph{Alternative Verification by Impedance Reflection:}
+The secondary impedance reflected to the primary is:
+\[
+Z_L' = \left(\frac{N_1}{N_2}\right)^2 Z_L = 3^2 \times (5 + j3) = 45 + j27\ \Omega = 52.48\ \Omega \angle 30.96^\circ
+\]
+The primary current directly obtained from the primary side is:
+\[
+\bar{I}_1 = \frac{\bar{V}_1}{Z_L'} = \frac{120\angle 0^\circ}{52.48\angle 30.96^\circ} = 2.29\ \text{A} \angle -30.96^\circ
+\]
+
+\subsubsection*{Solution to Exercise 2: Real Transformer}
+\paragraph{Data:}
+\begin{itemize}
+    \item Rated voltages: $V_{\text{rated,1}} = 2400\ \text{V}$, $V_{\text{rated,2}} = 240\ \text{V} \implies n = \frac{N_2}{N_1} = \frac{240}{2400} = \frac{1}{10}$
+    \item Primary leakage impedance: $Z_{t1} = 1.2 + j2.0\ \Omega$
+    \item Secondary leakage impedance: $Z_{t2} = 0.012 + j0.02\ \Omega$
+    \item Secondary load: $|Z_L| = 1.5\ \Omega$, $\cos\phi = 0.9$ lagging $\implies \phi = \arccos(0.9) = 25.842^\circ$
+    \item Secondary terminal voltage: $\bar{V}_2 = 240\ \text{V}\angle 0^\circ$
+\end{itemize}
+
+\subsection*{Part 1: Solution Without the Per-Unit Formalism}
+
+\begin{enumerate}
+    \item \textbf{Secondary Current $\bar{I}_2$:}
+    \begin{align}
+        \bar{I}_2 &= \frac{\bar{V}_2}{|Z_L|\angle \phi} = \frac{240\angle 0^\circ}{1.5\angle 25.842^\circ} = 160\ \text{A} \angle -25.842^\circ \nonumber\\
+                  &= 160(\cos 25.842^\circ - j\sin 25.842^\circ) = 144 - j69.742\ \text{A}
+    \end{align}
+
+    \item \textbf{Internal Induced Voltage $\bar{E}_2$:}
+    \begin{align}
+        \bar{E}_2 &= \bar{V}_2 + \bar{I}_2 (R_{t2} + jX_{t2}) \nonumber\\
+                  &= 240 + (144 - j69.742)(0.012 + j0.02) \nonumber\\
+                  &= 240 + (1.728 + j2.88 - j0.8369 + 1.3948) \nonumber\\
+                  &= 243.123 + j2.043\ \text{V} = \mathbf{243.131\ \text{V} \angle 0.4815^\circ}
+    \end{align}
+
+    \item \textbf{Primary Induced Voltage $\bar{E}_1$:}
+    Through the ideal transformer ratio $\frac{N_1}{N_2} = 10$:
+    \begin{equation}
+        \bar{E}_1 = \frac{N_1}{N_2} \bar{E}_2 = 10 \times 243.131\angle 0.4815^\circ = \mathbf{2431.31\ \text{V} \angle 0.4815^\circ} = (2431.23 + j20.43)\ \text{V}
+    \end{equation}
+
+    \item \textbf{Magnetizing Current $\bar{I}_m$:}
+    \begin{itemize}
+        \item \textbf{Case (a) with $X_m = 1800\ \Omega$:}
+        \begin{align}
+            \bar{I}_m &= \frac{\bar{E}_1}{jX_m} = \frac{2431.31\angle 0.4815^\circ}{1800\angle 90^\circ} \nonumber\\
+                      &= \mathbf{1.351\ \text{A} \angle -89.519^\circ} = (0.0113 - j1.3507)\ \text{A}
+        \end{align}
+        \item \textbf{Case (b) with $X_m \to \infty$:}
+        \begin{equation}
+            \bar{I}_m = 0\ \text{A}
+        \end{equation}
+    \end{itemize}
+
+    \item \textbf{Referred Secondary Current $\bar{I}_2'$:}
+    \begin{equation}
+        \bar{I}_2' = \frac{N_2}{N_1} \bar{I}_2 = \frac{160\angle -25.842^\circ}{10} = \mathbf{16\ \text{A} \angle -25.842^\circ} = (14.4 - j6.9742)\ \text{A}
+    \end{equation}
+
+    \item \textbf{Primary Current $\bar{I}_1 = \bar{I}_2' + \bar{I}_m$:}
+    \begin{itemize}
+        \item \textbf{Case (a):}
+        \begin{align}
+            \bar{I}_1 &= (14.4 - j6.9742) + (0.0113 - j1.3507) = 14.4113 - j8.3249\ \text{A} \nonumber\\
+                      &= \mathbf{16.643\ \text{A} \angle -30.013^\circ}
+        \end{align}
+        \item \textbf{Case (b):}
+        \begin{equation}
+            \bar{I}_1 = \bar{I}_2' = \mathbf{16\ \text{A} \angle -25.842^\circ}
+        \end{equation}
+    \end{itemize}
+
+    \item \textbf{Primary Voltage $\bar{V}_1 = \bar{E}_1 + \bar{I}_1 (R_{t1} + jX_{t1})$:}
+    \begin{itemize}
+        \item \textbf{Case (a):}
+        \begin{align}
+            \bar{I}_1 Z_{t1} &= (14.4113 - j8.3249)(1.2 + j2.0) = 33.943 + j18.833\ \text{V} \nonumber\\
+            \bar{V}_1 &= (2431.23 + j20.43) + (33.943 + j18.833) = 2465.17 + j39.263\ \text{V} \nonumber\\
+                      &= \boxed{\mathbf{2465.48\ \text{V} \angle 0.9125^\circ}}
+        \end{align}
+        \item \textbf{Case (b):}
+        \begin{align}
+            \bar{I}_2' Z_{t1} &= (14.4 - j6.9742)(1.2 + j2.0) = 31.228 + j20.431\ \text{V} \nonumber\\
+            \bar{V}_1 &= (2431.23 + j20.43) + (31.228 + j20.431) = 2462.46 + j40.861\ \text{V} \nonumber\\
+                      &= \boxed{\mathbf{2462.80\ \text{V} \angle 0.9507^\circ}}
+        \end{align}
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+\subsection*{Part 2: Solution With the Per-Unit Formalism}
+
+\paragraph{1. Base Quantities:}
+We select:
+\begin{itemize}
+    \item Common apparent power base: $S_{\text{base}} = 38400\ \text{VA}$
+    \item Primary voltage base: $V_{\text{base1}} = 2400\ \text{V}$
+    \item Secondary voltage base: $V_{\text{base2}} = 240\ \text{V}$
+\end{itemize}
+Derived base quantities:
+\begin{align}
+    Z_{\text{base1}} &= \frac{V_{\text{base1}}^2}{S_{\text{base}}} = \frac{2400^2}{38400} = 150\ \Omega, \quad &I_{\text{base1}} &= \frac{S_{\text{base}}}{V_{\text{base1}}} = \frac{38400}{2400} = 16\ \text{A} \\
+    Z_{\text{base2}} &= \frac{V_{\text{base2}}^2}{S_{\text{base}}} = \frac{240^2}{38400} = 1.5\ \Omega, \quad &I_{\text{base2}} &= \frac{S_{\text{base}}}{V_{\text{base2}}} = \frac{38400}{240} = 160\ \text{A}
+\end{align}
+
+\paragraph{2. Parameters in Per-Unit:}
+\begin{align}
+    Z_{t1,pu} &= \frac{R_{t1} + jX_{t1}}{Z_{\text{base1}}} = \frac{1.2 + j2.0}{150} = \mathbf{0.008 + j0.01333\ \text{pu}} \\
+    Z_{t2,pu} &= \frac{R_{t2} + jX_{t2}}{Z_{\text{base2}}} = \frac{0.012 + j0.02}{1.5} = \mathbf{0.008 + j0.01333\ \text{pu}}
+\end{align}
+\textit{Crucial Per-Unit Property:} The per-unit impedances of both windings are identical:
+\[
+Z_{t1,pu} = Z_{t2,pu}
+\]
+The magnetizing reactance in per-unit is:
+\begin{equation}
+    X_{m,pu} = \frac{X_m}{Z_{\text{base1}}} = \frac{1800}{150} = 12\ \text{pu}
+\end{equation}
+The load impedance and terminal voltage in per-unit:
+\begin{align}
+    |Z_{L,pu}| &= \frac{|Z_L|}{Z_{\text{base2}}} = \frac{1.5}{1.5} = 1.0\ \text{pu} \implies Z_{L,pu} = 1\angle 25.842^\circ\ \text{pu} \\
+    \bar{V}_{2,pu} &= \frac{\bar{V}_2}{V_{\text{base2}}} = \frac{240\angle 0^\circ}{240} = 1\angle 0^\circ\ \text{pu}
+\end{align}
+
+\paragraph{3. Secondary Current $\bar{I}_{2,pu}$:}
+\begin{equation}
+    \bar{I}_{2,pu} = \frac{\bar{V}_{2,pu}}{Z_{L,pu}} = \frac{1\angle 0^\circ}{1\angle 25.842^\circ} = \mathbf{1\ \text{pu} \angle -25.842^\circ}
+\end{equation}
+
+\paragraph{4. Induced Voltages $\bar{E}_{2,pu}$ and $\bar{E}_{1,pu}$:}
+\begin{align}
+    \bar{E}_{2,pu} &= \bar{V}_{2,pu} + \bar{I}_{2,pu} Z_{t2,pu} \nonumber\\
+                   &= 1\angle 0^\circ + (1\angle -25.842^\circ)(0.008 + j0.01333) = \mathbf{1.0130\ \text{pu} \angle 0.4815^\circ}
+\end{align}
+Because the per-unit voltage bases are matched to the turns ratio ($V_{\text{base1}}/V_{\text{base2}} = N_1/N_2$), the ideal transformer has a ratio of $1:1$ in per-unit:
+\begin{equation}
+    \bar{E}_{1,pu} = \bar{E}_{2,pu} = \mathbf{1.0130\ \text{pu} \angle 0.4815^\circ}
+\end{equation}
+
+\paragraph{5. Magnetizing Current $\bar{I}_{m,pu}$:}
+\begin{itemize}
+    \item \textbf{Case (a):}
+    \begin{equation}
+        \bar{I}_{m,pu} = \frac{\bar{E}_{1,pu}}{jX_{m,pu}} = \frac{1.0130\angle 0.4815^\circ}{j12} = \mathbf{0.0844\ \text{pu} \angle -89.519^\circ}
+    \end{equation}
+    \item \textbf{Case (b):}
+    \begin{equation}
+        \bar{I}_{m,pu} = 0\ \text{pu}
+    \end{equation}
+\end{itemize}
+
+\paragraph{6. Primary Current $\bar{I}_{1,pu}$:}
+\begin{itemize}
+    \item \textbf{Case (a):}
+    \begin{equation}
+        \bar{I}_{1,pu} = \bar{I}_{2,pu} + \bar{I}_{m,pu} = (1\angle -25.842^\circ) + (0.0844\angle -89.519^\circ) = \mathbf{1.04019\ \text{pu} \angle -30.0135^\circ}
+    \end{equation}
+    \item \textbf{Case (b):}
+    \begin{equation}
+        \bar{I}_{1,pu} = \bar{I}_{2,pu} = \mathbf{1\ \text{pu} \angle -25.842^\circ}
+    \end{equation}
+\end{itemize}
+
+\paragraph{7. Primary Voltage $\bar{V}_{1,pu}$ and Conversion to Volts:}
+\begin{itemize}
+    \item \textbf{Case (a):}
+    \begin{align}
+        \bar{V}_{1,pu} &= \bar{E}_{1,pu} + \bar{I}_{1,pu} Z_{t1,pu} = \mathbf{1.0273\ \text{pu} \angle 0.9125^\circ} \\
+        \bar{V}_1 &= \bar{V}_{1,pu} \times V_{\text{base1}} = 1.0273\angle 0.9125^\circ \times 2400\ \text{V} = \boxed{\mathbf{2465.48\ \text{V} \angle 0.9125^\circ}}
+    \end{align}
+    \item \textbf{Case (b):}
+    When magnetizing reactance is neglected, the entire transformer collapses to a single total series impedance:
+    \begin{equation}
+        Z_{tr,pu} = Z_{t1,pu} + Z_{t2,pu} = 2 Z_{t1,pu} = (0.016 + j0.0267)\ \text{pu}
+    \end{equation}
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,0) to[open, v^>=$\bar{V}_{1,pu}$] (0,2)
+                  to[short, i=$\bar{I}_{1,pu}$] (1.5,2)
+                  to[generic, l=$Z_{tr,pu}$] (4.5,2)
+                  to[short, i=$\bar{I}_{2,pu}$] (6,2)
+                  to[open, v^<=$\bar{V}_{2,pu}$] (6,0)
+                  -- (0,0);
+            \draw[dashed] (3,-0.5) -- (3,2.5);
+            \node[below] at (1.5,-0.5) {Primary side ($V_{\text{base1}}$)};
+            \node[below] at (4.5,-0.5) {Secondary side ($V_{\text{base2}}$)};
+        \end{circuitikz}
+        \caption{Simplified per-unit equivalent circuit of the transformer with $X_m \to \infty$.}
+        \label{fig:tp4_pu_simple}
+    \end{figure}
+    Therefore:
+    \begin{align}
+        \bar{V}_{1,pu} &= \bar{V}_{2,pu} + Z_{tr,pu} \bar{I}_{2,pu} \nonumber\\
+                       &= 1\angle 0^\circ + (0.016 + j0.0267)(1\angle -25.842^\circ) = 1.026 + j0.0170 = \mathbf{1.0262\ \text{pu} \angle 0.9507^\circ} \\
+        \bar{V}_1 &= \bar{V}_{1,pu} \times V_{\text{base1}} = 1.0262\angle 0.9507^\circ \times 2400\ \text{V} = \boxed{\mathbf{2462.80\ \text{V} \angle 0.9507^\circ}}
+    \end{align}
+\end{itemize}
+Both methods yield identical results to 5 significant digits, demonstrating the power and compactness of the per-unit formulation.

@@ -1,0 +1,238 @@
+\section{Practical Session 1: Phasor-Domain Analysis}
+
+\subsection{Exercises}
+\begin{enumerate}
+    \item \textbf{Phasor Representation of Sinusoidal Voltages}\footnote{Exercises 2.1, 2.2, 2.5 and 2.9 from Ned Mohan's book \textit{"Electric power systems, a first course"}.}
+    
+    Express the following voltages as phasors:
+    \begin{enumerate}
+        \item $v_1(t) = \sqrt{2} \times 100 \cos(\omega t - 30^\circ)\ \text{V}$
+        \item $v_2(t) = \sqrt{2} \times 100 \cos(\omega t + 30^\circ)\ \text{V}$
+    \end{enumerate}
+
+    \item \textbf{Series $R$-$L$-$C$ Circuit}
+    
+    The series $R$-$L$-$C$ circuit shown in Figure~\ref{fig:tp1_rlc} is in sinusoidal steady state at a frequency of $f = 60\ \text{Hz}$. The parameters are:
+    \[
+    V = 120\ \text{V},\quad R = 1.5\ \Omega,\quad L = 20\ \text{mH},\quad C = 100\ \mu\text{F}.
+    \]
+    Calculate the current $i(t)$ in this circuit by using phasor-domain analysis.
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,0) to[sV, v_>=$v(t){=}\sqrt{2}V\cos(\omega t)$] (0,3)
+                  to[short, i=$i(t)$] (2,3)
+                  to[L, l=$L$] (3.5,3)
+                  to[R, l=$R$] (3.5,1.5)
+                  to[C, l=$C$] (3.5,0)
+                  -- (0,0);
+        \end{circuitikz}
+        \caption{Series $R$-$L$-$C$ circuit.}
+        \label{fig:tp1_rlc}
+    \end{figure}
+
+    \item \textbf{Series-Parallel $R$-$L$-$C$ Circuit and Reactive Power Conservation}
+    
+    To the circuit of Figure~\ref{fig:tp1_ex4}, if a voltage of $100\angle 0^\circ\ \text{V}$ is applied, calculate the active power $P$, the reactive power $Q$, and the power factor $\cos\phi$. Show that:
+    \[
+    Q = \sum_k I_k^2 X_k
+    \]
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,0) to[sV, v_>=$\bar{V}{=}100\angle 0^\circ\ \text{V}$] (0,2.5)
+                  to[L, l=$j0.1\ \Omega$, i=$\bar{I}_L$] (3,2.5)
+                  -- (4.5,2.5);
+            \draw (3,2.5) to[C, l=$-j5\ \Omega$, i=$\bar{I}_C$] (3,0);
+            \draw (4.5,2.5) to[R, l=$2\ \Omega$, i=$\bar{I}_R$] (4.5,0);
+            \draw (0,0) -- (4.5,0);
+        \end{circuitikz}
+        \caption{Series-parallel circuit for Exercise 3.}
+        \label{fig:tp1_ex4}
+    \end{figure}
+
+    \item \textbf{Power Factor Correction}
+    
+    In the circuit of Figure~\ref{fig:tp1_pfc}, the complex power drawn by the load impedance is:
+    \[
+    S_L = P_L + j Q_L = (1858.4 + j1031.3)\ \text{VA}.
+    \]
+    Calculate the capacitive reactance $X_C$ connected in parallel necessary to make the overall power factor equal to $0.9$ (leading), assuming the applied voltage has an RMS value of $V = 120\ \text{V}$ at $f = 60\ \text{Hz}$. Determine the required capacitance $C$.
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,0) to[sV, v_>=$\bar{V}_1$] (0,3)
+                  to[short, i=$P{=}P_L$] (2.5,3)
+                  -- (4.5,3);
+            \draw (2.5,3) to[C, l=$-j Q_C$, i>^=$Q_C$] (2.5,0);
+            \draw (4.5,3) to[generic, l={$P_L + j Q_L$}, i>^={$P_L + j Q_L$}] (4.5,0);
+            \draw (0,0) -- (4.5,0);
+        \end{circuitikz}
+        \caption{Power factor correction circuit.}
+        \label{fig:tp1_pfc}
+    \end{figure}
+\end{enumerate}
+
+\newpage
+\subsection{Solutions}
+
+\subsubsection*{Solution to Exercise 1: Phasor Representation}
+Using the cosine reference with RMS value as phasor magnitude:
+\begin{align*}
+    v(t) = \sqrt{2} V_{\text{RMS}} \cos(\omega t + \theta) \iff \bar{V} = V_{\text{RMS}} e^{j\theta} = V_{\text{RMS}} \angle \theta
+\end{align*}
+
+\begin{enumerate}[(a)]
+    \item For $v_1(t) = \sqrt{2} \times 100 \cos(\omega t - 30^\circ)\ \text{V}$:
+    \begin{equation}
+        \boxed{\bar{V}_1 = V_{\text{RMS}} e^{j\theta} = \frac{V_m}{\sqrt{2}} e^{-j 30^\circ} = 100\ \text{V} \angle -30^\circ}
+    \end{equation}
+
+    \item For $v_2(t) = \sqrt{2} \times 100 \cos(\omega t + 30^\circ)\ \text{V}$:
+    \begin{equation}
+        \boxed{\bar{V}_2 = V_{\text{RMS}} e^{j\theta} = \frac{V_m}{\sqrt{2}} e^{+j 30^\circ} = 100\ \text{V} \angle +30^\circ}
+    \end{equation}
+\end{enumerate}
+
+\subsubsection*{Solution to Exercise 2: Series $R$-$L$-$C$ Circuit}
+\paragraph{Data:}
+\begin{itemize}
+    \item Voltage: $\bar{V} = 120\ \text{V}\angle 0^\circ$
+    \item Resistance: $R = 1.5\ \Omega$
+    \item Inductance: $L = 20\ \text{mH} = 20 \times 10^{-3}\ \text{H}$
+    \item Capacitance: $C = 100\ \mu\text{F} = 100 \times 10^{-6}\ \text{F}$
+    \item Frequency: $f = 60\ \text{Hz} \implies \omega = 2\pi f = 2\pi \times 60 = 376.99\ \text{rad/s}$
+\end{itemize}
+
+\paragraph{Impedance $Z$:}
+The total impedance of the series circuit is:
+\begin{align}
+    Z &= R + j\omega L + \frac{1}{j\omega C} = R + j\left(\omega L - \frac{1}{\omega C}\right) \nonumber\\
+      &= 1.5 + j\left(376.99 \times 20 \times 10^{-3} - \frac{1}{376.99 \times 100 \times 10^{-6}}\right) \nonumber\\
+      &= 1.5 + j(7.5398 - 26.5258) = 1.5 - j18.986\ \Omega \nonumber\\
+      &= 19.049\ \Omega \angle -85.48^\circ\quad (-1.492\ \text{rad})
+\end{align}
+
+\paragraph{Current Phasor $\bar{I}$:}
+By Ohm's law:
+\begin{equation}
+    \bar{I} = \frac{\bar{V}}{Z} = \frac{120\angle 0^\circ}{19.049\angle -85.48^\circ} = 6.30\ \text{A} \angle +85.48^\circ\quad (+1.492\ \text{rad})
+\end{equation}
+
+\paragraph{Time-Domain Current $i(t)$:}
+Converting back from the RMS phasor to the time domain:
+\begin{equation}
+    \boxed{i(t) = 6.30\sqrt{2} \cos(376.99 t + 1.492)\ \text{A} = 8.91 \cos(376.99 t + 85.5^\circ)\ \text{A}}
+\end{equation}
+
+\subsubsection*{Solution to Exercise 3: Series-Parallel Circuit and Power Conservation}
+\paragraph{Data:}
+\begin{itemize}
+    \item Applied voltage: $\bar{V} = 100\ \text{V} \angle 0^\circ$
+    \item Inductor impedance: $Z_L = j0.1\ \Omega$
+    \item Capacitor impedance: $Z_C = -j5\ \Omega$
+    \item Resistor impedance: $R = 2\ \Omega$
+\end{itemize}
+
+\paragraph{Total Equivalent Impedance $Z$:}
+The capacitor and resistor are connected in parallel:
+\begin{align}
+    Z_p = Z_C \parallel R = \frac{R \cdot Z_C}{R + Z_C} = \frac{2(-j5)}{2 - j5} = \frac{-j10(2 + j5)}{2^2 + (-5)^2} = \frac{50 - j20}{29} = 1.7241 - j0.6897\ \Omega
+\end{align}
+Adding the series inductor:
+\begin{align}
+    Z &= Z_L + Z_p = j0.1 + (1.7241 - j0.6897) = 1.7241 - j0.5897\ \Omega \nonumber\\
+      &= 1.822\ \Omega \angle -18.88^\circ
+\end{align}
+
+\paragraph{Complex Power $S$:}
+\begin{align}
+    S &= \bar{V} \bar{I}^* = \bar{V} \left(\frac{\bar{V}}{Z}\right)^* = \frac{V^2}{Z^*} = \frac{100^2}{1.822\angle +18.88^\circ} \nonumber\\
+      &= 5487.93\ \text{VA} \angle -18.88^\circ
+\end{align}
+Since $S = P + jQ$:
+\begin{align}
+    \boxed{P = \text{Re}\{S\} = 5487.93 \cos(-18.88^\circ) = 5192.54\ \text{W}} \\
+    \boxed{Q = \text{Im}\{S\} = 5487.93 \sin(-18.88^\circ) = -1775.89\ \text{var}}
+\end{align}
+
+\paragraph{Power Factor $\cos\phi$:}
+\begin{equation}
+    \boxed{\cos\phi = \frac{P}{|S|} = \frac{5192.54}{5487.93} = 0.946\quad (\text{leading})}
+\end{equation}
+Because $Q < 0$ (and $\phi < 0$), the circuit is capacitive overall: it produces net reactive power, meaning that the current phasor leads the voltage phasor.
+
+\paragraph{Proof that $Q = \sum_k I_k^2 X_k$:}
+We compute the branch currents:
+\begin{itemize}
+    \item Current through the series inductor:
+    \[
+    \bar{I}_L = \bar{I} = \frac{\bar{V}}{Z} = \frac{100\angle 0^\circ}{1.822\angle -18.88^\circ} = 54.88\ \text{A} \angle +18.88^\circ \implies I_L = 54.88\ \text{A}
+    \]
+    \item Current through the capacitor (using current divider):
+    \begin{align*}
+        \bar{I}_C &= \frac{R}{R + Z_C} \bar{I}_L = \frac{2}{2 - j5} (54.88\angle 18.88^\circ) \\
+                  &= \frac{2}{5.385\angle -68.20^\circ} (54.88\angle 18.88^\circ) = 20.38\ \text{A} \angle +87.08^\circ \implies I_C = 20.38\ \text{A}
+    \end{align*}
+\end{itemize}
+
+Calculating the individual reactive powers:
+\begin{itemize}
+    \item Resistor: $Q_R = 0\ \text{var}$
+    \item Capacitor: $Q_C = X_C I_C^2 = (-5) \times (20.38)^2 = -2077.06\ \text{var}$
+    \item Inductor: $Q_L = X_L I_L^2 = 0.1 \times (54.88)^2 = +301.17\ \text{var}$
+\end{itemize}
+Summing the individual contributions:
+\begin{equation}
+    \sum_k I_k^2 X_k = Q_R + Q_C + Q_L = 0 - 2077.06 + 301.17 = -1775.89\ \text{var} = Q
+\end{equation}
+This confirms that $Q = \sum_k I_k^2 X_k$. \hfill $\blacksquare$
+
+\subsubsection*{Solution to Exercise 4: Power Factor Correction}
+\paragraph{Data:}
+\begin{itemize}
+    \item Load complex power: $S_L = P_L + j Q_L = (1858.4 + j1031.3)\ \text{VA}$
+    \item Applied voltage: $V = 120\ \text{V}$ (RMS)
+    \item Desired overall power factor: $\cos\phi = 0.9$ (leading)
+    \item Grid frequency: $f = 60\ \text{Hz} \implies \omega = 2\pi f = 376.99\ \text{rad/s}$
+\end{itemize}
+
+\paragraph{Determination of Total Reactive Power $Q_{\text{tot}}$:}
+Connecting a pure capacitor in parallel does not alter the active power consumed by the system:
+\[
+P_{\text{tot}} = P_L = 1858.4\ \text{W}
+\]
+The new total complex power is $S = P_{\text{tot}} + j Q_{\text{tot}}$ with $Q_{\text{tot}} = Q_L + Q_C$.
+Using the power factor relationship:
+\begin{align}
+    \cos\phi = \frac{P_{\text{tot}}}{|S|} = \frac{P}{\sqrt{P^2 + Q_{\text{tot}}^2}} \iff Q_{\text{tot}}^2 = P^2 \left( \frac{1}{\cos^2\phi} - 1 \right)
+\end{align}
+Taking the square root:
+\begin{equation}
+    Q_{\text{tot}} = \pm P \sqrt{\frac{1}{\cos^2\phi} - 1} = \pm 1858.4 \sqrt{\frac{1}{0.9^2} - 1} = \pm 900.064\ \text{var}
+\end{equation}
+Because the corrected power factor is required to be \textbf{leading}, the total reactive power must be negative:
+\begin{equation}
+    Q_{\text{tot}} = -900.064\ \text{var}
+\end{equation}
+
+\paragraph{Capacitor Reactive Power $Q_C$:}
+Since $Q_{\text{tot}} = Q_L + Q_C$:
+\begin{equation}
+    Q_C = Q_{\text{tot}} - Q_L = -900.064 - 1031.3 = -1931.364\ \text{var}
+\end{equation}
+
+\paragraph{Capacitive Reactance $X_C$:}
+Across a voltage $V = 120\ \text{V}$, the reactive power is related to the reactance by $Q_C = \frac{V^2}{X_C}$:
+\begin{equation}
+    \boxed{X_C = \frac{V^2}{Q_C} = \frac{120^2}{-1931.364} = -7.456\ \Omega \approx -7.46\ \Omega}
+\end{equation}
+
+\paragraph{Capacitance $C$:}
+Since $X_C = -\frac{1}{\omega C}$:
+\begin{equation}
+    \boxed{C = \frac{1}{\omega |X_C|} = \frac{1}{2\pi \times 60 \times 7.456} = 3.557 \times 10^{-4}\ \text{F} \approx 0.356\ \text{mF} = 356\ \mu\text{F}}
+\end{equation}

@@ -1,0 +1,308 @@
+\section{Practical Session 3: The Transmission Line}
+
+\subsection{Exercises}
+\begin{enumerate}
+    \item \textbf{Surge Impedance Loading (SIL) and Line Losses}\footnote{Exercises 4.3 and 4.10 of Ned Mohan's book \textit{"Electric power systems, a first course"}.}
+    
+    The parameters for a $500\text{-kV}$ transmission system with bundled conductors are as follows:
+    \[
+    Z_c = 258\ \Omega,\quad R = 1.76 \times 10^{-2}\ \Omega/\text{km}.
+    \]
+    \begin{enumerate}
+        \item Demonstrate why the voltage magnitude along a lossless line terminated in its surge impedance $Z_c$ is constant.
+        \item Calculate the Surge Impedance Loading (SIL) of the transmission system.
+        \item Calculate the percentage active power loss in this transmission line if it is $300\ \text{km}$ long and operates loaded at its SIL.
+    \end{enumerate}
+
+    \item \textbf{Distributed-Parameter Line Model and Voltage Profiles}
+    
+    Table~\ref{tab:tp3_params} gives approximate transmission line parameters with bundled conductors at $60\ \text{Hz}$.
+    
+    \begin{table}[htbp]
+        \centering
+        \caption{Approximate transmission line parameters with bundled conductors at $60\ \text{Hz}$.}
+        \label{tab:tp3_params}
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{cccc}
+            \toprule
+            \textbf{Nominal voltage} [$\text{kV}$] & $R$ [$\Omega/\text{km}$] & $\omega L$ [$\Omega/\text{km}$] & $\omega C$ [$\mu\text{S/km}$] \\
+            \midrule
+            $230$ & $0.06$ & $0.50$ & $3.4$ \\
+            $345$ & $0.04$ & $0.38$ & $4.6$ \\
+            $500$ & $0.03$ & $0.33$ & $5.3$ \\
+            $765$ & $0.01$ & $0.34$ & $5.0$ \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    A $200\ \text{km}$ long $345\text{-kV}$ line has the parameters given in Table~\ref{tab:tp3_params}. Neglect the line series resistance ($R = 0$).
+    \begin{enumerate}
+        \item Starting from an infinitesimal section of length $dx$ (Figure~\ref{fig:tp3_distributed}), derive the Telegrapher's wave equations in the time domain, and then convert them into the phasor domain.
+        \item Solve the differential equations in terms of the receiving-end boundary conditions $\bar{V}_R$ and $\bar{I}_R$.
+        \item Calculate the voltage profile along the line if the receiving end is held at $1.0\ \text{pu}$ ($V_R = 345\ \text{kV}$) with $\cos\phi = 1.0$, for:
+        \begin{enumerate}[(a)]
+            \item A load of $1.5 \times \text{SIL}$
+            \item A load of $0.75 \times \text{SIL}$
+        \end{enumerate}
+        Evaluate the voltage magnitude at $x = 100\ \text{km}$ and at the sending end $x = 200\ \text{km}$.
+    \end{enumerate}
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{circuitikz}[american, scale=1.1]
+            \draw (0,2) coordinate (in_top)
+                  -- ++(1.5,0)
+                  to[L, l=$dL{=}L\,dx$, i=$i(x{,}t)$] ++(2.5,0)
+                  -- ++(1.5,0) coordinate (out_top);
+            \draw (1.5,2) to[C, l=$dC/2$] ++(0,-2) coordinate (in_bot);
+            \draw (4.0,2) to[C, l=$dC/2$] ++(0,-2) coordinate (out_bot);
+            \draw (in_bot) -- (out_bot);
+            
+            % Labels
+            \node[above] at (in_top) {$v(x-dx{,}t)$};
+            \node[above] at (out_top) {$v(x+dx{,}t)$};
+            \draw[<->] (1.5,-0.5) -- (4.0,-0.5) node[midway, below] {$dx$};
+        \end{circuitikz}
+        \caption{Infinitesimal section $dx$ of a lossless distributed transmission line.}
+        \label{fig:tp3_distributed}
+    \end{figure}
+\end{enumerate}
+
+\newpage
+\subsection{Solutions}
+
+\subsubsection*{Solution to Exercise 1: Surge Impedance Loading (SIL) and Losses}
+\paragraph{Data:}
+\begin{itemize}
+    \item Rated line-to-line voltage: $V_{LL} = 500\ \text{kV}$
+    \item Surge impedance: $Z_c = 258\ \Omega$
+    \item Resistance per unit length: $R = 1.76 \times 10^{-2}\ \Omega/\text{km}$
+    \item Line length: $l = 300\ \text{km}$
+\end{itemize}
+
+\paragraph{1. Voltage Flatness at SIL Termination:}
+The general expression for the voltage phasor at a distance $x$ from the receiving end on a lossless transmission line is:
+\begin{equation}
+    \bar{V}(x) = \bar{V}_R \cos(\beta x) + j Z_c \bar{I}_R \sin(\beta x) \label{eq:lossless_V_profile}
+\end{equation}
+When the line is terminated by its characteristic impedance $Z_c$ under a resistive load ($\bar{V}_R = V_R \angle 0^\circ$ and $\cos\phi = 1$), the receiving-end current is:
+\begin{equation}
+    \bar{I}_R = \frac{\bar{V}_R}{Z_c}
+\end{equation}
+Substituting this into~\eqref{eq:lossless_V_profile}:
+\begin{equation}
+    \bar{V}(x) = \bar{V}_R \cos(\beta x) + j Z_c \left(\frac{\bar{V}_R}{Z_c}\right) \sin(\beta x) = \bar{V}_R \left( \cos(\beta x) + j\sin(\beta x) \right) = \bar{V}_R e^{j \beta x}
+\end{equation}
+Taking the magnitude:
+\begin{equation}
+    |\bar{V}(x)| = |\bar{V}_R| = \text{constant} \quad \forall x
+\end{equation}
+Thus, the voltage magnitude remains strictly constant along the entire length of the line: only the phase angle advances linearly with $x$ by $\beta x$.
+
+\paragraph{2. Surge Impedance Loading (SIL):}
+By definition, the Surge Impedance Loading is the total three-phase active power delivered into a load equal to the surge impedance $Z_c$ at nominal voltage:
+\begin{equation}
+    \boxed{\text{SIL} = \frac{V_{LL}^2}{Z_c} = \frac{(500 \times 10^3)^2}{258} = 9.6899 \times 10^8\ \text{W} \approx 969\ \text{MW}}
+\end{equation}
+
+\paragraph{3. Percentage Power Loss for $l = 300\ \text{km}$:}
+At rated SIL, the equivalent line current is:
+\begin{equation}
+    I = \frac{\text{SIL}}{V_{LL}} = \frac{968.99 \times 10^6\ \text{W}}{500 \times 10^3\ \text{V}} = 1937.98\ \text{A}
+\end{equation}
+The total resistance of the line is:
+\begin{equation}
+    R_{\text{tot}} = R \cdot l = (1.76 \times 10^{-2}\ \Omega/\text{km}) \times 300\ \text{km} = 5.28\ \Omega
+\end{equation}
+The Joule losses in the line are:
+\begin{equation}
+    P_{\text{loss}} = R_{\text{tot}} I^2 = 5.28 \times (1937.98)^2 = 19.831 \times 10^6\ \text{W} = 19.831\ \text{MW}
+\end{equation}
+The relative percentage loss is:
+\begin{equation}
+    \boxed{\%\ \text{loss} = \frac{P_{\text{loss}}}{\text{SIL}} \times 100 = \frac{19.831\ \text{MW}}{968.99\ \text{MW}} \times 100 = 2.05\%}
+\end{equation}
+
+\subsubsection*{Solution to Exercise 2: Distributed Line Model and Voltage Profile}
+\paragraph{Data for $345\text{-kV}$ Line:}
+\begin{itemize}
+    \item Rated voltage: $V_{LL} = 345\ \text{kV} = 3.45 \times 10^5\ \text{V}$
+    \item Length: $l = 200\ \text{km}$
+    \item Series reactance per unit length: $\omega L = 0.38\ \Omega/\text{km}$
+    \item Shunt susceptance per unit length: $\omega C = 4.6\ \mu\text{S/km} = 4.6 \times 10^{-6}\ \text{S/km}$
+    \item Line resistance: $R = 0$ (lossless line assumption)
+\end{itemize}
+
+\paragraph{Characteristic Parameters:}
+\begin{itemize}
+    \item Surge impedance:
+    \begin{equation}
+        Z_c = \sqrt{\frac{L}{C}} = \sqrt{\frac{\omega L}{\omega C}} = \sqrt{\frac{0.38}{4.6 \times 10^{-6}}} = 287.417\ \Omega
+    \end{equation}
+    \item Phase propagation constant:
+    \begin{equation}
+        \beta = \omega \sqrt{LC} = \sqrt{(\omega L)(\omega C)} = \sqrt{0.38 \times 4.6 \times 10^{-6}} = 1.322 \times 10^{-3}\ \text{rad/km} = 0.001322\ \text{rad/km}
+    \end{equation}
+    \item Surge Impedance Loading:
+    \begin{equation}
+        \text{SIL} = \frac{V_{LL}^2}{Z_c} = \frac{(345 \times 10^3)^2}{287.417} = 4.1412 \times 10^8\ \text{VA} = 414.12\ \text{MVA (MW)}
+    \end{equation}
+\end{itemize}
+
+\paragraph{1. Derivation of Telegrapher's Equations:}
+Consider an infinitesimal line slice of length $dx$ with distributed inductance $L$ and capacitance $C$ per unit length.
+Applying Kirchhoff's Current Law (KCL):
+\begin{align}
+    i(x - dx, t) &= i(x, t) + (C\,dx) \frac{\partial v(x, t)}{\partial t} \nonumber\\
+    \iff \frac{i(x, t) - i(x - dx, t)}{dx} &= - C \frac{\partial v(x, t)}{\partial t}
+\end{align}
+Taking the limit as $dx \to 0$:
+\begin{equation}
+    -\frac{\partial i(x, t)}{\partial x} = C \frac{\partial v(x, t)}{\partial t} \label{eq:kcl_telegraph}
+\end{equation}
+
+Applying Kirchhoff's Voltage Law (KVL):
+\begin{align}
+    v(x, t) &= (L\,dx) \frac{\partial i(x, t)}{\partial t} + v(x + dx, t) \nonumber\\
+    \iff \frac{v(x + dx, t) - v(x, t)}{dx} &= - L \frac{\partial i(x, t)}{\partial t}
+\end{align}
+Taking the limit as $dx \to 0$:
+\begin{equation}
+    -\frac{\partial v(x, t)}{\partial x} = L \frac{\partial i(x, t)}{\partial t} \label{eq:kvl_telegraph}
+\end{equation}
+
+Equations~\eqref{eq:kcl_telegraph} and~\eqref{eq:kvl_telegraph} are the celebrated \textbf{Telegrapher's equations} in the time domain.
+Differentiating~\eqref{eq:kcl_telegraph} with respect to $x$ and~\eqref{eq:kvl_telegraph} with respect to $t$:
+\begin{align}
+    -\frac{\partial^2 i}{\partial x^2} &= C \frac{\partial^2 v}{\partial x \partial t} \\
+    -\frac{\partial^2 v}{\partial t \partial x} &= L \frac{\partial^2 i}{\partial t^2}
+\end{align}
+Substituting:
+\begin{equation}
+    \boxed{\frac{\partial^2 i(x, t)}{\partial x^2} = L C \frac{\partial^2 i(x, t)}{\partial t^2}} \label{eq:wave_i}
+\end{equation}
+Similarly for the voltage:
+\begin{equation}
+    \boxed{\frac{\partial^2 v(x, t)}{\partial x^2} = L C \frac{\partial^2 v(x, t)}{\partial t^2}} \label{eq:wave_v}
+\end{equation}
+
+\paragraph{Phasor Domain Representation:}
+Under sinusoidal steady state, $\frac{\partial}{\partial t} \to j\omega$ and $\frac{\partial^2}{\partial t^2} \to -\omega^2$. Equation~\eqref{eq:wave_i} becomes:
+\begin{equation}
+    \frac{d^2 \bar{I}(x)}{dx^2} + \omega^2 L C \bar{I}(x) = 0 \iff \frac{d^2 \bar{I}(x)}{dx^2} + \beta^2 \bar{I}(x) = 0 \label{eq:phasor_diff_eq}
+\end{equation}
+where $\beta = \omega\sqrt{LC}$. The general solution of this linear second-order differential equation is:
+\begin{equation}
+    \bar{I}(x) = I_1 e^{j \beta x} + I_2 e^{-j \beta x} \label{eq:I_general}
+\end{equation}
+From~\eqref{eq:kcl_telegraph} in the phasor domain:
+\begin{align}
+    -\frac{d\bar{I}(x)}{dx} = j\omega C \bar{V}(x) \implies \bar{V}(x) &= -\frac{1}{j\omega C} \frac{d\bar{I}(x)}{dx} \nonumber\\
+    &= -\frac{1}{j\omega C} \left( j\beta I_1 e^{j\beta x} - j\beta I_2 e^{-j\beta x} \right) \nonumber\\
+    &= -\frac{\beta}{\omega C} \left( I_1 e^{j\beta x} - I_2 e^{-j\beta x} \right)
+\end{align}
+Since $\frac{\beta}{\omega C} = \frac{\omega\sqrt{LC}}{\omega C} = \sqrt{\frac{L}{C}} = Z_c$:
+\begin{equation}
+    \bar{V}(x) = Z_c \left( -I_1 e^{j\beta x} + I_2 e^{-j\beta x} \right) \label{eq:V_general}
+\end{equation}
+
+\paragraph{2. Boundary Conditions at Receiving End ($x = 0$):}
+At the receiving end $x = 0$, let $\bar{V}(0) = \bar{V}_R$ and $\bar{I}(0) = \bar{I}_R$:
+\begin{equation}
+\begin{cases}
+    \bar{V}_R = Z_c (-I_1 + I_2) \\
+    \bar{I}_R = I_1 + I_2
+\end{cases}
+\iff
+\begin{cases}
+    -I_1 + I_2 = \frac{\bar{V}_R}{Z_c} \\
+    I_1 + I_2 = \bar{I}_R
+\end{cases}
+\end{equation}
+Solving for $I_1$ and $I_2$:
+\begin{align}
+    I_1 &= \frac{\bar{I}_R - \bar{V}_R/Z_c}{2} \label{eq:I1_const}\\
+    I_2 &= \frac{\bar{I}_R + \bar{V}_R/Z_c}{2} \label{eq:I2_const}
+\end{align}
+Substituting~\eqref{eq:I1_const} and~\eqref{eq:I2_const} into~\eqref{eq:V_general}:
+\begin{align}
+    \bar{V}(x) &= Z_c \left[ -\left(\frac{\bar{I}_R - \bar{V}_R/Z_c}{2}\right) e^{j\beta x} + \left(\frac{\bar{I}_R + \bar{V}_R/Z_c}{2}\right) e^{-j\beta x} \right] \nonumber\\
+               &= \bar{V}_R \left( \frac{e^{j\beta x} + e^{-j\beta x}}{2} \right) - Z_c \bar{I}_R \left( \frac{e^{j\beta x} - e^{-j\beta x}}{2} \right) \nonumber\\
+               &= \boxed{\bar{V}(x) = \bar{V}_R \cos(\beta x) + j Z_c \bar{I}_R \sin(\beta x)} \label{eq:voltage_profile_final}
+\end{align}
+and similarly:
+\begin{equation}
+    \boxed{\bar{I}(x) = \bar{I}_R \cos(\beta x) + j \frac{\bar{V}_R}{Z_c} \sin(\beta x)}
+\end{equation}
+
+\paragraph{3. Voltage Profiles for Loading Conditions:}
+At the receiving end, the voltage is held at nominal 1 pu:
+\[
+\bar{V}_R = 3.45 \times 10^5\angle 0^\circ\ \text{V}.
+\]
+The load operates at unity power factor ($\cos\phi = 1.0$), so $\bar{I}_R = I_R \angle 0^\circ$.
+\begin{enumerate}[(a)]
+    \item \textbf{Heavy loading ($1.5 \times \text{SIL}$):}
+    \[
+    P_L = 1.5 \times 414.12\ \text{MW} = 621.18\ \text{MW}
+    \]
+    \[
+    \bar{I}_R = \frac{P_L}{V_R} = \frac{621.18 \times 10^6\ \text{W}}{3.45 \times 10^5\ \text{V}} = 1800.518\ \text{A}\angle 0^\circ
+    \]
+    
+    \item \textbf{Light loading ($0.75 \times \text{SIL}$):}
+    \[
+    P_L = 0.75 \times 414.12\ \text{MW} = 312.059\ \text{MW}
+    \]
+    \[
+    \bar{I}_R = \frac{P_L}{V_R} = \frac{312.059 \times 10^6\ \text{W}}{3.45 \times 10^5\ \text{V}} = 900.259\ \text{A}\angle 0^\circ
+    \]
+\end{enumerate}
+
+\paragraph{Numerical Evaluation along the Line (for Case a: $1.5 \times \text{SIL}$):}
+\begin{itemize}
+    \item At $x = 0$ (receiving end):
+    \[
+    \bar{V}(0) = \bar{V}_R = 345.0\ \text{kV}\angle 0^\circ \quad (1.000\ \text{pu})
+    \]
+    
+    \item At $x = 100\ \text{km}$:
+    \[
+    \beta x = (0.001322\ \text{rad/km}) \times 100\ \text{km} = 0.1322\ \text{rad} = 7.574^\circ
+    \]
+    \[
+    \cos(\beta x) = \cos(0.1322\ \text{rad}) = 0.99128,\quad \sin(\beta x) = \sin(0.1322\ \text{rad}) = 0.13182
+    \]
+    Substituting into~\eqref{eq:voltage_profile_final}:
+    \begin{align}
+        \bar{V}(100\ \text{km}) &= (3.45 \times 10^5)(0.99128) + j (287.417 \times 1800.518)(0.13182) \nonumber\\
+                                &= 341.99 \times 10^3 + j 68.22 \times 10^3\ \text{V} \nonumber\\
+                                &= 3.4872 \times 10^5\ \text{V} \angle 11.28^\circ \quad (1.0108\ \text{pu})
+    \end{align}
+    \begin{equation}
+        \boxed{|\bar{V}(100\ \text{km})| \approx 3.49 \times 10^5\ \text{V} = 349\ \text{kV}}
+    \end{equation}
+
+    \item At $x = 200\ \text{km}$ (sending end):
+    \[
+    \beta x = (0.001322\ \text{rad/km}) \times 200\ \text{km} = 0.2644\ \text{rad} = 15.149^\circ
+    \]
+    \[
+    \cos(\beta x) = 0.96525,\quad \sin(\beta x) = 0.26133
+    \]
+    \begin{align}
+        \bar{V}(200\ \text{km}) &= (3.45 \times 10^5)(0.96525) + j (287.417 \times 1800.518)(0.26133) \nonumber\\
+                                &= 333.01 \times 10^3 + j 135.24 \times 10^3\ \text{V} \nonumber\\
+                                &= 3.5944 \times 10^5\ \text{V} \angle 22.10^\circ \quad (1.0419\ \text{pu})
+    \end{align}
+    \begin{equation}
+        \boxed{|\bar{V}(200\ \text{km})| = 359.44\ \text{kV} = 1.042\ \text{pu}}
+    \end{equation}
+\end{itemize}
+
+\paragraph{Physical Interpretation of Voltage Profiles:}
+\begin{itemize}
+    \item When loaded above SIL ($P > \text{SIL}$): The line's series inductive reactive power consumption exceeds the reactive power generated by its shunt capacitance. The sending-end voltage must be higher than the receiving-end voltage ($V_S > V_R$) to supply this deficit.
+    \item When loaded below SIL ($P < \text{SIL}$): The capacitive reactive power generated by the line exceeds the inductive absorption. Consequently, voltage rises along the line towards the receiving end (the \textbf{Ferranti effect}), meaning $V_R > V_S$ if not properly regulated with shunt reactors.
+    \item At exact SIL ($P = \text{SIL}$): Shunt capacitive generation exactly balances series inductive consumption ($Q_{\text{gen}} = Q_{\text{cons}}$). The voltage magnitude profile is perfectly flat along the line.
+\end{itemize}

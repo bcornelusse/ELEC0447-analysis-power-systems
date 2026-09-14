@@ -1,0 +1,82 @@
+\documentclass[11pt,a4paper]{article}
+
+% Typography and encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Page geometry
+\usepackage[margin=2.2cm]{geometry}
+
+% Mathematics
+\usepackage{amsmath, amssymb, amsfonts, mathtools}
+
+% Lists and tables
+\usepackage[shortlabels]{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+
+% Units and graphics
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage[american]{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
+
+% Colors and hyperlinks
+\usepackage{xcolor}
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=blue!70!black,
+    urlcolor=blue!70!black,
+    pdfauthor={Bertrand Cornélusse, Geoffrey},
+    pdftitle={ELEC0447 - Analysis of Electrical Power and Energy Systems: Exercise Manual}
+]{hyperref}
+
+% Document Header
+\title{
+    \textbf{ELEC0447 -- Analysis of Electrical Power and Energy Systems} \\
+    \vspace{0.4em}
+    \Large Practical Sessions (TP 1 to 6) -- Exercise Manual \\
+    \large Problem Statements and Step-by-Step Solutions
+}
+\author{
+    \textbf{Prof. Bertrand Cornélusse} \\
+    \textit{Based on exercise formulations and solution notes by Geoffrey and the teaching team} \\
+    Department of Electrical Engineering and Computer Science (Montefiore Institute) \\
+    University of Liège
+}
+\date{Academic Year 2026--2027}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document gathers the complete problem statements and rigorous, step-by-step solutions to the practical exercise sessions (TP 1 through TP 6) for the course \textbf{ELEC0447: Analysis of Electrical Power and Energy Systems}. It covers: phasor-domain circuit analysis and power factor correction (TP 1); three-phase circuits, power transfer between AC systems, radial voltage profiles, and the per-unit system (TP 2); transmission line Surge Impedance Loading (SIL), Joule losses, and distributed Telegrapher's wave equations (TP 3); ideal and non-ideal transformer modeling with and without per-unit formalism (TP 4); synchronous generator steady-state/transient reactances, power-angle characteristics, and excitation control (TP 5); and voltage instability, analytical derivation of the $P$-$V$ nose curve, maximum transmissible active power $P_{\text{max}}$, critical voltage, and reactive power compensation effects (TP 6).
+\end{abstract}
+
+\vspace{1.5em}
+\tableofcontents
+\newpage
+
+% Include practical sessions
+\input{tp1_phasor_analysis.tex}
+\newpage
+
+\input{tp2_three_phase_and_power_transfer.tex}
+\newpage
+
+\input{tp3_transmission_lines.tex}
+\newpage
+
+\input{tp4_transformers.tex}
+\newpage
+
+\input{tp5_synchronous_generators.tex}
+\newpage
+
+\input{tp6_voltage_stability.tex}
+
+\end{document}
