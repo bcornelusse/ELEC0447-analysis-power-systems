@@ -1,0 +1,56 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usefonttheme{professionalfonts}
+
+% Document metadata
+\subtitle{ELEC0447 - Analysis of electric power and energy systems}
+\title{\Large{Usual Transforms in Power Systems}}
+\author[BC]{Bertrand Cornélusse}
+\institute{University of Liège}
+\date{\today}
+
+% Image for the title page
+\titlegraphic{\includegraphics[height=\paperheight]{banner.jpg}}
+\usetheme[titlestyle=style1]{trigon}
+
+% Define logos to use
+\biglogo{uliege_faculte_sciencesappliquees_logo_rvb_pos.pdf}
+\smalllogo{}
+
+% Packages
+\usepackage{appendixnumberbeamer}
+\pdfstringdefDisableCommands{% Fix hyperref translate warning with \appendix
+\def\translate#1{#1}%
+}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{blox}
+\usepackage{calc}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{xcolor}
+
+% Color definitions
+\definecolor{belgianblue}{RGB}{20, 60, 110}
+\definecolor{headerbg}{RGB}{230, 238, 248}
+\definecolor{lightgraybg}{RGB}{246, 248, 251}
+\definecolor{myRed}{RGB}{209,34,57}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\st}{\mathrm{s.t.}}
+
+%==============================================================================
+%                               BEGIN DOCUMENT
+%==============================================================================
+\begin{document}
+
+\input{content}
+
+\end{document}

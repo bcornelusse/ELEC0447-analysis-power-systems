@@ -1,0 +1,982 @@
+% ==============================================================================
+% Title Page
+% ==============================================================================
+\titleframe
+
+\begin{frame}{Lecture Outline}
+    \tableofcontents
+\end{frame}
+
+% ==============================================================================
+% SECTION 1: MOTIVATION FOR TRANSFORMS
+% ==============================================================================
+\section{Motivation: Why Transform in Power Systems?}
+
+\begin{frame}[allowframebreaks]{The Physical Reality of Power Systems}
+    Power systems are composed of three-phase physical networks:
+    \begin{itemize}
+        \item Generators with rotating magnetic fields.
+        \item Transmission lines with mutual magnetic and capacitive coupling between phases.
+        \item Transformers with coupled iron cores and diverse winding connections.
+        \item Loads that can be single-phase, unbalanced, non-linear, or dynamic.
+    \end{itemize}
+
+    \begin{alertblock}{The 4 Fundamental Mathematical Challenges}
+        \begin{enumerate}
+            \item \textbf{Electromagnetic Phase Coupling:} Off-diagonal elements in $\mathbf{Z}_{abc}$ and $\mathbf{Y}_{abc}$ prevent independent per-phase analysis.
+            \item \textbf{Time Variance:} Sinusoidal AC steady states require tracking time-varying quantities; in rotating machines, inductances depend on rotor position $\theta(t)$.
+            \item \textbf{Asymmetries and Faults:} Short-circuits (single line-to-ground, line-to-line) destroy phase symmetry.
+            \item \textbf{High Dimensionality:} Thousands of interior buses with zero power injection burden dynamic simulations.
+        \end{enumerate}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{What Transformations Accomplish: Machines \& Inverters}
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{From AC to DC: Park Transform ($dq0$)}
+                \begin{itemize}
+                    \item "Freezes" rotating vectors onto a synchronous reference frame.
+                    \item AC quantities become constant DC quantities in steady state.
+                    \item Enables standard linear PI control for grid converters and machines.
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{From 3D to 2D: Clarke Transform ($\alpha\beta0$)}
+                \begin{itemize}
+                    \item Projects $abc$ into orthogonal stationary axes.
+                    \item Foundation of space vector modulation (SVPWM) and instantaneous power theory ($p\text{-}q$).
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{What Transformations Accomplish: Asymmetries \& Networks}
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Decoupling Asymmetries: Fortescue ($012$)}
+                \begin{itemize}
+                    \item Decomposes unbalanced 3-phase systems into 3 decoupled balanced sets.
+                    \item Diagonalizes symmetric cyclic impedance matrices.
+                    \item Essential for unsymmetrical fault analysis and protective relaying.
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Dimensional Reduction: Kron Reduction}
+                \begin{itemize}
+                    \item Eliminates passive zero-injection load buses.
+                    \item Schur complement preserves exact multiport terminal behavior for stability studies.
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[shrink=10]{Taxonomy of Power System Transforms}
+    \begin{table}
+        \centering
+        \scriptsize
+        \begin{tabularx}{\textwidth}{l p{2.2cm} p{2.5cm} X}
+            \toprule
+            \textbf{Transformation} & \textbf{Domain} & \textbf{Primary Operation} & \textbf{Key Power System Use Case} \\
+            \midrule
+            \textbf{Fortescue} & Phasor / Freq. & Change of complex basis & Unbalanced faults, sequence networks, protection relays (46, 50N/51N) \\
+            \addlinespace
+            \textbf{Clarke} & Time / Instantaneous & 3-phase to 2-axis stationary ($\alpha\beta0$) & Space Vector PWM, instantaneous power theory ($p\text{-}q$), fast unbalance detection \\
+            \addlinespace
+            \textbf{Park} & Time / Instantaneous & 2-axis rotation to synchronous frame ($dq0$) & Machine modeling, vector control of grid converters (VSC/HVDC), SRF-PLL \\
+            \addlinespace
+            \textbf{Kron Reduction} & Admittance Network & Multiport matrix elimination (Schur complement) & Transient stability dynamic simulation, Ward equivalents, bus reduction \\
+            \addlinespace
+            \textbf{Full-Cycle DFT} & Discrete Time to Phasor & Discrete harmonic filtering & Digital distance protection, PMU synchrophasors (IEEE C37.118) \\
+            \bottomrule
+        \end{tabularx}
+        \caption{Landscape of common power system transformations.}
+    \end{table}
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 2: SYMMETRICAL COMPONENTS (FORTESCUE)
+% ==============================================================================
+\section{Direct, Inverse, and Zero Sequence Decomposition}
+
+\begin{frame}[allowframebreaks]{The Symmetrical Components (Fortescue, 1918)}
+    Charles LeGeyt Fortescue published in 1918:
+    \begin{quote}
+        \large
+        \textit{"Method of Symmetrical Co-ordinates Applied to the Solution of Polyphase Networks"}
+    \end{quote}
+
+    \textbf{Fundamental Theorem:} Any set of $N$ unbalanced phasors can be decomposed into $N$ symmetrical (balanced) sets of phasors of different phase sequences.
+ \newpage 
+    For a 3-phase system ($N=3$), any unbalanced voltages $\bar{V}_a, \bar{V}_b, \bar{V}_c$ or currents $\bar{I}_a, \bar{I}_b, \bar{I}_c$ are uniquely decomposed into:
+    \begin{enumerate}
+        \item \textbf{Positive (Direct) Sequence ($1$ or $+$):} Three phasors of equal magnitude, displaced by $120^\circ$, with sequence $a \to b \to c$.
+        \item \textbf{Negative (Inverse) Sequence ($2$ or $-$):} Three phasors of equal magnitude, displaced by $120^\circ$, with reversed sequence $a \to c \to b$.
+        \item \textbf{Zero Sequence ($0$):} Three identical phasors of equal magnitude and identical phase angle.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{The Complex Operator $a$}
+    The complex phase-shift operator $a$ rotates a phasor by $120^\circ$ counter-clockwise:
+    \begin{equation}
+        a = e^{j\frac{2\pi}{3}} = -\frac{1}{2} + j\frac{\sqrt{3}}{2} = 1\angle 120^\circ
+    \end{equation}
+
+    \begin{columns}
+        \begin{column}{0.55\textwidth}
+            \textbf{Key Algebraic Properties:}
+            \begin{itemize}
+                \item $a^2 = e^{j\frac{4\pi}{3}} = -\frac{1}{2} - j\frac{\sqrt{3}}{2} = 1\angle -120^\circ$
+                \item $a^3 = 1, \quad a^4 = a$
+                \item $1 + a + a^2 = 0$
+                \item $1 - a = \sqrt{3} e^{-j 30^\circ}$
+                \item $1 - a^2 = \sqrt{3} e^{j 30^\circ}$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \begin{center}
+                \begin{tikzpicture}[scale=0.95]
+                    \draw[->, thick, gray!60] (-1.4,0) -- (1.4,0) node[right] {\tiny $\text{Re}$};
+                    \draw[->, thick, gray!60] (0,-1.4) -- (0,1.4) node[above] {\tiny $\text{Im}$};
+                    \draw[dashed, gray!50] (0,0) circle (1);
+                    \draw[->, very thick, belgianblue] (0,0) -- (1,0) node[below right] {\scriptsize $1$};
+                    \draw[->, very thick, myRed] (0,0) -- (-0.5, 0.866) node[above left] {\scriptsize $a$};
+                    \draw[->, very thick, orange!80!black] (0,0) -- (-0.5, -0.866) node[below left] {\scriptsize $a^2$};
+                \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Mathematical Definition: Synthesis and Analysis}
+    Expressing phase phasors from sequence components (\textbf{Synthesis}):
+    \begin{align}
+        \bar{V}_a &= \bar{V}_0 + \bar{V}_1 + \bar{V}_2 \\
+        \bar{V}_b &= \bar{V}_0 + a^2 \bar{V}_1 + a \bar{V}_2 \\
+        \bar{V}_c &= \bar{V}_0 + a \bar{V}_1 + a^2 \bar{V}_2
+    \end{align}
+
+    In matrix form:
+    \begin{equation}
+        \underbrace{\begin{bmatrix} \bar{V}_a \\ \bar{V}_b \\ \bar{V}_c \end{bmatrix}}_{\mathbf{V}_{abc}}
+        =
+        \underbrace{\begin{bmatrix}
+            1 & 1 & 1 \\
+            1 & a^2 & a \\
+            1 & a & a^2
+        \end{bmatrix}}_{\mathbf{T}}
+        \underbrace{\begin{bmatrix} \bar{V}_0 \\ \bar{V}_1 \\ \bar{V}_2 \end{bmatrix}}_{\mathbf{V}_{012}}
+    \end{equation}
+
+    Inverting matrix $\mathbf{T}$ yields the \textbf{Analysis} transformation:
+    \begin{equation}
+        \mathbf{V}_{012} = \mathbf{T}^{-1} \mathbf{V}_{abc}
+        =
+        \frac{1}{3}
+        \begin{bmatrix}
+            1 & 1 & 1 \\
+            1 & a & a^2 \\
+            1 & a^2 & a
+        \end{bmatrix}
+        \begin{bmatrix} \bar{V}_a \\ \bar{V}_b \\ \bar{V}_c \end{bmatrix}
+    \end{equation}
+
+    Explicitly:
+    \begin{align}
+        \bar{V}_0 &= \frac{1}{3}(\bar{V}_a + \bar{V}_b + \bar{V}_c) \quad \text{\bf (Average phasor / ground unbalance)} \\
+        \bar{V}_1 &= \frac{1}{3}(\bar{V}_a + a \bar{V}_b + a^2 \bar{V}_c) \quad \text{\bf (Direct / Positive component)} \\
+        \bar{V}_2 &= \frac{1}{3}(\bar{V}_a + a^2 \bar{V}_b + a \bar{V}_c) \quad \text{\bf (Inverse / Negative component)}
+    \end{align}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Physical Meaning of the Three Sequences}
+    \begin{block}{Positive (Direct) Sequence $\bar{V}_1, \bar{I}_1$}
+        \begin{itemize}
+            \item Normal operating condition of the grid.
+            \item Generates a stator magnetic field rotating \textbf{forward} at synchronous speed $\omega$.
+            \item Delivers useful electromagnetic torque in motors and generators.
+        \end{itemize}
+    \end{block}
+
+    \begin{alertblock}{Negative (Inverse) Sequence $\bar{V}_2, \bar{I}_2$}
+        \begin{itemize}
+            \item Caused by load unbalance, single-phase faults, or untransposed lines.
+            \item Generates a magnetic field rotating in the \textbf{reverse direction} ($-\omega$).
+            \item Relative velocity with respect to the rotor is $2\omega$ (100 Hz / 120 Hz).
+            \item Induces dangerous double-frequency eddy currents in rotor surface and damper windings $\to$ \alert{\textbf{severe thermal overheating}} and pulsating torque.
+        \end{itemize}
+    \end{alertblock}
+
+    \begin{block}{Zero Sequence $\bar{V}_0, \bar{I}_0$}
+        \begin{itemize}
+            \item All 3 phase currents $I_0$ oscillate completely in phase.
+            \item Neutral / earth current: $I_n = I_a + I_b + I_c = 3 I_0$.
+            \item \textbf{Can only circulate if a neutral connection or ground return path exists!}
+            \item Generates a pulsating, non-rotating magnetic field in the airgap.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Decoupling of Symmetrical Networks}
+    Consider a fully balanced three-phase line or equipment with self impedance $Z_s$ and mutual impedance $Z_m$:
+    \begin{equation}
+        \mathbf{Z}_{abc} = \begin{bmatrix}
+            Z_s & Z_m & Z_m \\
+            Z_m & Z_s & Z_m \\
+            Z_m & Z_m & Z_s
+        \end{bmatrix}
+    \end{equation}
+    In phase coordinates, phase $a$ voltage drop depends on currents in phases $b$ and $c$!
+
+    Applying the Fortescue transformation $\mathbf{Z}_{012} = \mathbf{T}^{-1} \mathbf{Z}_{abc} \mathbf{T}$:
+    \begin{equation}
+        \mathbf{Z}_{012} = \begin{bmatrix}
+            Z_0 & 0 & 0 \\
+            0 & Z_1 & 0 \\
+            0 & 0 & Z_2
+        \end{bmatrix}
+    \end{equation}
+    where:
+    \begin{align}
+        Z_1 &= Z_s - Z_m \quad \text{\bf (Positive-sequence impedance)} \\
+        Z_2 &= Z_s - Z_m = Z_1 \quad \text{\bf (Negative-sequence impedance)} \\
+        Z_0 &= Z_s + 2 Z_m \quad \text{\bf (Zero-sequence impedance)}
+    \end{align}
+
+    \begin{alertblock}{The Magic of Symmetrical Components}
+        In any cyclically symmetric equipment, \textbf{positive, negative, and zero sequence networks are completely decoupled!}
+        \begin{itemize}
+            \item Positive-sequence currents produce \textbf{only} positive-sequence voltage drops.
+            \item Negative-sequence currents produce \textbf{only} negative-sequence voltage drops.
+            \item Zero-sequence currents produce \textbf{only} zero-sequence voltage drops.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Sequence Impedances of Power System Equipment}
+    \textbf{1. Transmission Lines:}
+    \begin{itemize}
+        \item Transposed lines are static: $Z_1 = Z_2$.
+        \item Zero sequence requires current return through the earth and ground wires.
+        \item Because earth has finite conductivity and the return loop is large (Carson's formula):
+        \begin{equation}
+            Z_0 \approx 2 \text{ to } 3.5 \times Z_1
+        \end{equation}
+    \end{itemize}
+
+    \textbf{2. Synchronous Machines:}
+    \begin{itemize}
+        \item Stator is rotating relative to fields: $Z_1 \neq Z_2 \neq Z_0$!
+        \item $Z_1$: dynamic reactance ($X_d''$, $X_d'$, $X_d$ depending on time horizon).
+        \item $Z_2$: determined by damper windings seeing a $2\omega$ backward field ($X_2 \approx \frac{X_d'' + X_q''}{2}$).
+        \item $Z_0$: very small leakage reactance ($X_0 < X_2 < X_1$).
+    \end{itemize}
+
+    \textbf{3. Transformers:}
+    \begin{itemize}
+        \item $Z_1 = Z_2 = Z_{sc}$ (short-circuit impedance).
+        \item $Z_0$ depends heavily on the core type and \alert{\textbf{winding connections}}!
+        \begin{itemize}
+            \item Delta ($\Delta$) winding: circulates zero sequence internally, but blocks it from reaching the external network!
+            \item Ungrounded Wye (Y): infinite zero-sequence impedance (open circuit).
+            \item Grounded Wye ($\text{Y}_n$): allows zero-sequence flow to ground.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Example 1: Numerical Decomposition of a Voltage Sag}
+    Suppose phase $a$ suffers a voltage sag due to a remote fault, while phases $b$ and $c$ remain unaffected:
+    \begin{equation}
+        \bar{V}_a = 115 \angle 0^\circ \text{ V}, \quad \bar{V}_b = 230 \angle -120^\circ \text{ V}, \quad \bar{V}_c = 230 \angle 120^\circ \text{ V}
+    \end{equation}
+
+    Let us calculate the symmetrical components using $\mathbf{V}_{012} = \mathbf{T}^{-1} \mathbf{V}_{abc}$:
+    \begin{align}
+        \bar{V}_0 &= \frac{1}{3}(115 + 230 e^{-j 120^\circ} + 230 e^{j 120^\circ}) = \frac{115 - 230}{3} = \mathbf{-38.33 \angle 0^\circ \text{ V}} \\
+        \bar{V}_1 &= \frac{1}{3}(115 + 230 e^{0^\circ} + 230 e^{0^\circ}) = \frac{115 + 460}{3} = \mathbf{191.67 \angle 0^\circ \text{ V}} \\
+        \bar{V}_2 &= \frac{1}{3}(115 + 230 e^{j 120^\circ} + 230 e^{-j 120^\circ}) = \frac{115 - 230}{3} = \mathbf{-38.33 \angle 0^\circ \text{ V}}
+    \end{align}
+
+    \textbf{Interpretation:}
+    \begin{itemize}
+        \item The positive sequence dropped from $230\text{ V}$ to $191.67\text{ V}$.
+        \item A negative-sequence voltage of $38.33\text{ V}$ (20\% unbalance) appeared.
+        \item A zero-sequence voltage of $38.33\text{ V}$ appeared, which can be measured across the neutral point!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Example 2: Unsymmetrical Fault Analysis}
+    Symmetrical components allow solving unsymmetrical faults by connecting the three decoupled sequence networks at the fault point!
+
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Single Line-to-Ground (SLG)}
+                Phase $a$ to ground with fault impedance $Z_f$:
+                \begin{equation}
+                    I_b = 0, \quad I_c = 0, \quad V_a = Z_f I_a
+                \end{equation}
+                Transforming to sequence currents:
+                \begin{equation}
+                    I_0 = I_1 = I_2 = \frac{1}{3} I_a
+                \end{equation}
+                $\implies$ \alert{\textbf{Networks in SERIES!}}
+                \begin{equation}
+                    I_1 = \frac{E_a}{Z_1 + Z_2 + Z_0 + 3 Z_f}
+                \end{equation}
+            \end{block}
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Line-to-Line (L-L) Fault}
+                Phases $b$ and $c$ shorted together:
+                \begin{equation}
+                    I_a = 0, \quad I_b = -I_c, \quad V_b = V_c
+                \end{equation}
+                Transforming to sequence currents:
+                \begin{equation}
+                    I_0 = 0, \quad I_1 = -I_2
+                \end{equation}
+                $\implies$ \alert{\textbf{Networks in PARALLEL!}}
+                Zero sequence is disconnected.
+                \begin{equation}
+                    I_1 = \frac{E_a}{Z_1 + Z_2 + Z_f}
+                \end{equation}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Example 3: Protective Relaying Applications}
+    Symmetrical components are directly used to configure numerical protection relays:
+    \vfill
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Negative-Sequence Overcurrent (46)}
+                \begin{itemize}
+                    \item Monitors magnitude of $|I_2|$.
+                    \item Protects generators against rotor overheating caused by unbalances.
+                    \item Tripping characteristic:
+                    \begin{equation}
+                        I_2^2 t \le K
+                    \end{equation}
+                    where $K$ is the generator thermal capability constant.
+                \end{itemize}
+            \end{block}
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Ground Overcurrent (50N / 51N)}
+                \begin{itemize}
+                    \item Monitors residual current $3 I_0 = I_a + I_b + I_c$.
+                    \item In balanced conditions, $3 I_0 \approx 0$.
+                    \item Any ground fault immediately injects large $I_0$.
+                    \item Detects high-impedance earth faults that standard overcurrent (50/51) misses completely.
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 3: CLARKE TRANSFORM
+% ==============================================================================
+\section{\texorpdfstring{The Clarke Transform ($\alpha\beta0$ Frame)}{The Clarke Transform (alpha-beta-0 Frame)}}
+
+\begin{frame}[allowframebreaks]{\texorpdfstring{The Clarke Transform (Edith Clarke, 1938)}{The Clarke Transform (Edith Clarke, 1938)}}
+    Edith Clarke introduced the $\alpha\beta0$ transformation to simplify the calculation of unsymmetrical three-phase circuits.
+
+    \textbf{Core Concept:}
+    \begin{itemize}
+        \item In a balanced three-phase system, $v_a(t) + v_b(t) + v_c(t) = 0$.
+        \item Thus, three variables are redundant: there are only \textbf{2 degrees of freedom}!
+        \item The Clarke transform converts the 3 stationary physical axes ($a, b, c$, separated by $120^\circ$) into 2 orthogonal stationary axes ($\alpha, \beta$, separated by $90^\circ$), plus a zero-sequence axis ($0$).
+    \end{itemize}
+
+    \begin{center}
+        \begin{tikzpicture}[scale=1.1]
+            \draw[->, thick, gray!60] (-1.8,0) -- (2.3,0) node[right] {\scriptsize $\alpha$ (aligned with $a$)};
+            \draw[->, thick, gray!60] (0,-1.3) -- (0,1.8) node[above] {\scriptsize $\beta$ ($+90^\circ$)};
+            \draw[->, very thick, belgianblue] (0,0) -- (1.8,0) node[below] {\scriptsize \bf Phase $a$};
+            \draw[->, very thick, orange!80!black] (0,0) -- (-0.9, 1.56) node[above left] {\scriptsize \bf Phase $b$ ($+120^\circ$)};
+            \draw[->, very thick, myRed] (0,0) -- (-0.9, -1.56) node[below left] {\scriptsize \bf Phase $c$ ($-120^\circ$)};
+            \draw[->, very thick, purple] (0,0) -- (1.4, 0.9) node[above right] {\scriptsize $\vec{v}_{\alpha\beta}(t)$};
+            \draw[dashed, purple] (1.4, 0.9) -- (1.4, 0) node[below] {\tiny $v_\alpha$};
+            \draw[dashed, purple] (1.4, 0.9) -- (0, 0.9) node[left] {\tiny $v_\beta$};
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Mathematical Formulations: Amplitude vs Power Invariant}
+    \begin{block}{Amplitude-Invariant Clarke Transform (Standard in Control)}
+        Preserves the peak amplitude of phase quantities ($\hat{V}_\alpha = \hat{V}_a$ in balanced conditions):
+        \begin{equation}
+            \begin{bmatrix} v_\alpha \\ v_\beta \\ v_0 \end{bmatrix}
+            =
+            \frac{2}{3}
+            \begin{bmatrix}
+                1 & -\frac{1}{2} & -\frac{1}{2} \\
+                0 & \frac{\sqrt{3}}{2} & -\frac{\sqrt{3}}{2} \\
+                \frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+            \end{bmatrix}
+            \begin{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix}
+        \end{equation}
+
+        \textbf{Inverse Transform:}
+        \begin{equation}
+            \begin{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix}
+            =
+            \begin{bmatrix}
+                1 & 0 & 1 \\
+                -\frac{1}{2} & \frac{\sqrt{3}}{2} & 1 \\
+                -\frac{1}{2} & -\frac{\sqrt{3}}{2} & 1
+            \end{bmatrix}
+            \begin{bmatrix} v_\alpha \\ v_\beta \\ v_0 \end{bmatrix}
+        \end{equation}
+    \end{block}
+
+    \begin{block}{Power-Invariant Clarke Transform (Concordia Transform)}
+        Uses an orthonormal matrix ($\mathbf{C}^{-1} = \mathbf{C}^T$) to preserve instantaneous power $p(t) = v_a i_a + v_b i_b + v_c i_c = v_\alpha i_\alpha + v_\beta i_\beta + v_0 i_0$:
+        \begin{equation}
+            \mathbf{C}_{\text{power}}
+            =
+            \sqrt{\frac{2}{3}}
+            \begin{bmatrix}
+                1 & -\frac{1}{2} & -\frac{1}{2} \\
+                0 & \frac{\sqrt{3}}{2} & -\frac{\sqrt{3}}{2} \\
+                \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+            \end{bmatrix}
+        \end{equation}
+    \end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{The Space Vector Trajectory}
+    The complex space vector in the stationary plane is:
+    \begin{equation}
+        \vec{v}_{\alpha\beta}(t) = v_\alpha(t) + j v_\beta(t)
+    \end{equation}
+
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Balanced Conditions}
+                \begin{itemize}
+                    \item $v_a(t) = \hat{V} \cos(\omega t)$
+                    \item $v_\alpha(t) = \hat{V} \cos(\omega t)$
+                    \item $v_\beta(t) = \hat{V} \sin(\omega t)$
+                    \item $v_0(t) = 0$
+                \end{itemize}
+                $\implies$ Traces a \alert{\textbf{perfect circle of radius $\hat{V}$}} rotating at angular speed $\omega$.
+            \end{block}
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+            \begin{alertblock}{Unbalanced Conditions}
+                \begin{itemize}
+                    \item Forward circle + backward circle:
+                    \begin{equation*}
+                        \vec{v}(t) = \hat{V}_1 e^{j(\omega t + \phi_1)} + \hat{V}_2 e^{-j(\omega t - \phi_2)}
+                    \end{equation*}
+                \end{itemize}
+                $\implies$ Traces an \alert{\textbf{ellipse}} on the $\alpha\beta$ plane. The ellipticity directly measures voltage unbalance!
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Practical Example: Space Vector PWM (SVPWM)}
+    In voltage-source converters (wind, solar, battery inverters, HVDC-VSC):
+    \begin{itemize}
+        \item A 2-level inverter has 8 switching states ($S_a, S_b, S_c \in \{0, 1\}$).
+        \item In the Clarke $\alpha\beta$ plane, the 8 states map to \textbf{6 active voltage vectors} forming a regular hexagon + 2 zero vectors at the origin!
+    \end{itemize}
+
+    \begin{center}
+        \begin{tikzpicture}[scale=0.95]
+            \foreach \angle / \vecname in {0/$V_1(100)$, 60/$V_2(110)$, 120/$V_3(010)$, 180/$V_4(011)$, 240/$V_5(001)$, 300/$V_6(101)$} {
+                \draw[->, thick, belgianblue] (0,0) -- (\angle:1.8) node[anchor=\angle+180] {\tiny \vecname};
+            }
+            \draw[dashed, gray] (0:1.8) -- (60:1.8) -- (120:1.8) -- (180:1.8) -- (240:1.8) -- (300:1.8) -- cycle;
+            \draw[fill=myRed] (0,0) circle (0.05) node[below right] {\tiny $V_0, V_7$};
+            \node at (30:1.0) {\tiny \bf Sector I};
+            \node at (90:1.0) {\tiny \bf Sector II};
+            \draw[->, very thick, purple] (0,0) -- (40:1.4) node[above] {\tiny $\vec{V}_{\text{ref}}$};
+        \end{tikzpicture}
+    \end{center}
+    \textbf{Result:} Generating the target reference voltage $\vec{V}_{\text{ref}}$ simply requires duty-cycle calculation between adjacent sector boundary vectors.
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 4: PARK TRANSFORM
+% ==============================================================================
+\section{\texorpdfstring{The Park Transform ($dq0$ Frame) and Grid Synchronization}{The Park Transform (dq0 Frame) and Grid Synchronization}}
+
+\begin{frame}[allowframebreaks]{The Park Transform (Robert H. Park, 1929)}
+    In 1929, Robert H. Park published a landmark paper in power engineering:
+    \begin{quote}
+        \textit{"Two-reaction theory of synchronous machines"}
+    \end{quote}
+
+    \textbf{The Fundamental Machine Problem:}
+    \begin{itemize}
+        \item In a salient-pole synchronous generator, the air-gap magnetic permeance varies with rotor angle $\theta(t)$.
+        \item Stator self and mutual inductances $L_{aa}(\theta), L_{ab}(\theta)$ are \textbf{periodic functions of rotor position}:
+        \begin{equation}
+            L_{aa}(\theta) = L_s + L_m \cos(2\theta)
+        \end{equation}
+        \item This makes machine differential equations time-varying, coupled, and non-linear!
+    \end{itemize}
+
+    \textbf{Park's Brilliant Solution:}
+    Attach the reference frame to the \textbf{rotating rotor} (rotating at speed $\omega = \frac{d\theta}{dt}$).
+    In this rotating $dq$ frame, the rotor appears stationary $\implies$ \alert{\textbf{all inductances become constant!}}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Mathematical Definition: Stationary to Rotating Frame}
+    The Park transform rotates the stationary $\alpha\beta$ axes by angle $\theta(t)$:
+    \begin{equation}
+        \begin{bmatrix} v_d \\ v_q \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \cos\theta & \sin\theta \\
+            -\sin\theta & \cos\theta
+        \end{bmatrix}
+        \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
+    \end{equation}
+
+    \textbf{Inverse Park Transform:}
+    \begin{equation}
+        \begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \cos\theta & -\sin\theta \\
+            \sin\theta & \cos\theta
+        \end{bmatrix}
+        \begin{bmatrix} v_d \\ v_q \end{bmatrix}
+    \end{equation}
+
+    \begin{center}
+        \begin{tikzpicture}[scale=1.1]
+            \draw[->, thick, gray!60] (-0.5,0) -- (2.3,0) node[right] {\scriptsize $\alpha$};
+            \draw[->, thick, gray!60] (0,-0.5) -- (0,2.0) node[above] {\scriptsize $\beta$};
+            \draw[dashed, gray] (0,0) -- (30:2.3);
+            \draw[->, thick, belgianblue] (0,0) -- (30:2.0) node[above right] {\scriptsize $d$ (direct)};
+            \draw[->, thick, orange!80!black] (0,0) -- (120:2.0) node[above left] {\scriptsize $q$ (quadrature, $+90^\circ$)};
+            \draw[->] (0.8,0) arc (0:30:0.8) node[midway, right] {\scriptsize $\theta(t)$};
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Direct $abc \to dq0$ Formulation}
+    Combining the Clarke and Park matrices yields the direct $abc \to dq0$ transformation:
+    \begin{equation}
+        \begin{bmatrix} v_d \\ v_q \\ v_0 \end{bmatrix}
+        =
+        \frac{2}{3}
+        \begin{bmatrix}
+            \cos\theta & \cos(\theta - \frac{2\pi}{3}) & \cos(\theta + \frac{2\pi}{3}) \\
+            -\sin\theta & -\sin(\theta - \frac{2\pi}{3}) & -\sin(\theta + \frac{2\pi}{3}) \\
+            \frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+        \end{bmatrix}
+        \begin{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix}
+    \end{equation}
+    where $\theta(t) = \int \omega(t) dt$.
+\end{frame}
+
+\begin{frame}{The Ultimate Magic: AC Becomes DC}
+    For balanced three-phase sinusoids with phase angle $\phi$:
+    \begin{align}
+        v_a(t) &= \hat{V} \cos(\omega t + \phi) \\
+        v_b(t) &= \hat{V} \cos(\omega t + \phi - 2\pi/3) \\
+        v_c(t) &= \hat{V} \cos(\omega t + \phi + 2\pi/3)
+    \end{align}
+    Setting the rotating frame angle to $\theta(t) = \omega t$:
+    \begin{alertblock}{Steady-State DC Quantities}
+        \begin{equation}
+            \mathbf{v_d = \hat{V} \cos\phi = \text{constant}}, \qquad \mathbf{v_q = \hat{V} \sin\phi = \text{constant}}, \qquad \mathbf{v_0 = 0}
+        \end{equation}
+    \end{alertblock}
+    Sinusoids at $50\text{ Hz}$ or $60\text{ Hz}$ appear as completely flat DC levels to the controller!
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Control Advantage: Decoupled Vector Control}
+    In grid-connected inverters (solar, wind, battery, HVDC):
+    \begin{itemize}
+        \item Instantaneous active power $P$ and reactive power $Q$ in the $dq$ frame (amplitude-invariant):
+        \begin{equation}
+            P = \frac{3}{2}(v_d i_d + v_q i_q), \qquad Q = \frac{3}{2}(v_q i_d - v_d i_q)
+        \end{equation}
+        \item If we align the $d$-axis with the grid voltage vector such that $v_d = \hat{V}$ and $v_q = 0$:
+        \begin{equation}
+            \mathbf{P = \frac{3}{2} v_d i_d \propto i_d}, \qquad \mathbf{Q = -\frac{3}{2} v_d i_q \propto -i_q}
+        \end{equation}
+    \end{itemize}
+
+    \begin{alertblock}{Total Decoupling}
+        \begin{itemize}
+            \item $i_d$ independently controls Active Power $P$ (or DC-link voltage).
+            \item $i_q$ independently controls Reactive Power $Q$ (or grid AC voltage).
+            \item Because $i_d, i_q$ are DC quantities in steady state, simple \textbf{Proportional-Integral (PI) controllers} achieve zero steady-state tracking error without phase lag!
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Behavior Under Grid Unbalance: The $2\omega$ Ripple}
+    What happens if the grid voltages are unbalanced?
+    Recall that unbalanced voltages contain both positive ($\bar{V}_1$) and negative ($\bar{V}_2$) sequences:
+    \begin{align}
+        \vec{v}_{\alpha\beta}(t) &= \hat{V}_1 e^{j(\omega t + \phi_1)} + \hat{V}_2 e^{-j(\omega t - \phi_2)}
+    \end{align}
+
+    Rotating with the forward angle $\theta = \omega t$:
+    \begin{equation}
+        v_{dq}(t) = \vec{v}_{\alpha\beta}(t) e^{-j\omega t} = \underbrace{\hat{V}_1 e^{j\phi_1}}_{\text{\bf DC component}} + \underbrace{\hat{V}_2 e^{-j(2\omega t - \phi_2)}}_{\text{\bf Double-frequency AC ripple at } \mathbf{2\omega}}
+    \end{equation}
+
+    \begin{alertblock}{Key Diagnostic Insight}
+        \begin{itemize}
+            \item Positive sequence appears as a pure \textbf{DC level} in the $dq$ frame.
+            \item Negative sequence appears as a \textbf{100 Hz (or 120 Hz) sinusoidal oscillation} in $v_d$ and $v_q$!
+            \item Dual-frame controllers (DDSRF-PLL) separate sequences to ride through asymmetric faults.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Grid Synchronization: The SRF-PLL}
+    To execute the Park transform, we must track the exact grid voltage angle $\theta(t)$ in real time.
+    This is achieved by the \textbf{Synchronous Reference Frame Phase-Locked Loop (SRF-PLL)}:
+
+    \begin{center}
+        \begin{tikzpicture}[scale=0.9]
+            \node[draw, rectangle, fill=headerbg, minimum height=0.8cm, text width=1.3cm, align=center] (park) at (0,0) {\tiny Park};
+            \node[draw, circle, fill=white, inner sep=1pt] (sum) at (2.0,0) {\tiny $-$};
+            \node[draw, rectangle, fill=headerbg, minimum height=0.8cm, text width=1.4cm, align=center] (pi) at (3.8,0) {\tiny PI Controller\\$k_p + \frac{k_i}{s}$};
+            \node[draw, circle, fill=white, inner sep=1pt] (sumw) at (5.7,0) {\tiny $+$};
+            \node[draw, rectangle, fill=headerbg, minimum height=0.8cm, text width=1.3cm, align=center] (int) at (7.3,0) {\tiny Integrator\\$\frac{1}{s}$};
+
+            \draw[->, thick] (-1.4,0.15) -- (park.170) node[midway, above] {\tiny $v_\alpha$};
+            \draw[->, thick] (-1.4,-0.15) -- (park.190) node[midway, below] {\tiny $v_\beta$};
+            \draw[->, thick] (park.east) -- (sum.west) node[midway, above] {\tiny $v_q$};
+            \draw[->, thick] (2.0, -0.6) -- (sum.south) node[left] {\tiny $v_q^* = 0$};
+            \draw[->, thick] (sum.east) -- (pi.west);
+            \draw[->, thick] (pi.east) -- (sumw.west) node[midway, above] {\tiny $\Delta\omega$};
+            \draw[->, thick] (5.7, 0.6) -- (sumw.north) node[above] {\tiny $\omega_0$};
+            \draw[->, thick] (sumw.east) -- (int.west) node[midway, above] {\tiny $\omega$};
+            \draw[->, thick] (int.east) -- (8.4,0) node[right] {\tiny $\theta(t)$};
+            \draw[->, thick] (8.0,0) -- (8.0,-0.9) -- (0,-0.9) -- (park.south);
+        \end{tikzpicture}
+    \end{center}
+
+    \textbf{Operating Principle:} If the estimated angle $\theta$ matches the grid angle, $v_q = 0$. The PI controller adjusts estimated frequency $\omega$ until error $v_q \to 0$.
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 5: BRIDGES BETWEEN TRANSFORMS
+% ==============================================================================
+\section{Bridges and Connections Between Transforms}
+
+\begin{frame}[shrink=10]{Comparing Fortescue, Clarke, and Park}
+    \begin{table}
+        \centering
+        \scriptsize
+        \begin{tabularx}{\textwidth}{l p{2.8cm} p{3.0cm} X}
+            \toprule
+            \textbf{Feature} & \textbf{Fortescue ($012$)} & \textbf{Clarke ($\alpha\beta0$)} & \textbf{Park ($dq0$)} \\
+            \midrule
+            \textbf{Domain} & Complex Phasor (Frequency) & Instantaneous Time & Instantaneous Time \\
+            \addlinespace
+            \textbf{Coordinates} & Complex scalars $\bar{V}_0, \bar{V}_1, \bar{V}_2$ & Stationary orthogonal $(\alpha, \beta, 0)$ & Synchronous rotating $(d, q, 0)$ \\
+            \addlinespace
+            \textbf{Balanced Steady State} & $\bar{V}_1 = V_{\text{rms}} \angle \phi$, $\bar{V}_2 = 0, \bar{V}_0 = 0$ & Rotating circle of radius $\hat{V}$ at $\omega$ & Constant DC values ($V_d, V_q = \text{const}$) \\
+            \addlinespace
+            \textbf{Unbalanced Steady State} & Non-zero $\bar{V}_2$ and $\bar{V}_0$ (constant phasors) & Ellipse on $\alpha\beta$ plane & DC value + $2\omega$ AC ripple in $d$ and $q$ \\
+            \addlinespace
+            \textbf{Primary Strengths} & Frequency-domain fault calculation, symmetrical networks, protection & Space Vector PWM, instant power calculation, converter modeling & Linear PI control, machine flux/torque decoupling, PLL synchronization \\
+            \bottomrule
+        \end{tabularx}
+        \caption{Unified comparison of coordinate transformations.}
+    \end{table}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Mapping Between Domains}
+    Under fundamental frequency operation, exact mappings link these three representations:
+
+    \begin{block}{Clarke $\longleftrightarrow$ Fortescue}
+        The complex space vector relates directly to positive and negative sequence phasors:
+        \begin{equation}
+            \vec{v}_{\alpha\beta}(t) = \sqrt{2}\left(\bar{V}_1 e^{j\omega t} + \bar{V}_2^* e^{-j\omega t}\right)
+        \end{equation}
+        \begin{itemize}
+            \item Forward rotating part $\to \bar{V}_1$
+            \item Backward rotating part $\to \bar{V}_2$
+            \item Homopolar part $v_0(t) = \sqrt{2} \operatorname{Re}\{\bar{V}_0 e^{j\omega t}\}$
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{Park $\longleftrightarrow$ Fortescue}
+        Demodulating in the rotating frame with $\theta = \omega t$:
+        \begin{equation}
+            v_d(t) + j v_q(t) = \vec{v}_{\alpha\beta}(t) e^{-j\omega t} = \sqrt{2} \bar{V}_1 + \sqrt{2} \bar{V}_2^* e^{-j 2\omega t}
+        \end{equation}
+        \begin{itemize}
+            \item Mean (DC) value gives \textbf{positive sequence}!
+            \item Amplitude of $2\omega$ ripple gives \textbf{negative sequence}!
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 6: KRON REDUCTION
+% ==============================================================================
+\section{Kron Reduction (Network Admittance Reduction)}
+
+\begin{frame}[allowframebreaks]{Kron Reduction: Motivation}
+    In power system dynamic studies and transient stability simulations:
+    \begin{itemize}
+        \item Bulk power grids contain tens of thousands of transmission and distribution buses.
+        \item However, dynamic states (differential equations) reside almost exclusively in \textbf{synchronous machines} and \textbf{converter-interfaced generation}.
+        \item Most intermediate transmission and substation buses have \alert{\textbf{zero current injection}} ($I_{\text{bus}} = 0$).
+        \item Passive loads can often be converted to equivalent constant impedances $Y_L = \frac{P_L - j Q_L}{|V|^2}$ at nominal voltage.
+    \end{itemize}
+
+    \textbf{The Question Gabriel Kron Answered (1939):}
+    Can we algebraically eliminate all non-generator / passive buses while preserving the \alert{\textbf{exact multiport electrical relationships}} between generator internal voltages?
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Mathematical Derivation: The Schur Complement}
+    Partition the nodal admittance equations $\mathbf{I} = \mathbf{Y}_{\text{bus}} \mathbf{V}$ into:
+    \begin{itemize}
+        \item Subset $1$ (or $G$): \textbf{Kept buses} (e.g., generator internal EMF nodes).
+        \item Subset $2$ (or $L$): \textbf{Eliminated buses} (zero-injection nodes, $\mathbf{I}_2 = \mathbf{0}$).
+    \end{itemize}
+
+    \begin{equation}
+        \begin{bmatrix} \mathbf{I}_1 \\ \mathbf{0} \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \mathbf{Y}_{11} & \mathbf{Y}_{12} \\
+            \mathbf{Y}_{21} & \mathbf{Y}_{22}
+        \end{bmatrix}
+        \begin{bmatrix} \mathbf{V}_1 \\ \mathbf{V}_2 \end{bmatrix}
+    \end{equation}
+
+    From the second block row:
+    \begin{equation}
+        \mathbf{0} = \mathbf{Y}_{21} \mathbf{V}_1 + \mathbf{Y}_{22} \mathbf{V}_2
+    \end{equation}
+    Assuming $\mathbf{Y}_{22}$ is invertible (requires at least one shunt path to ground in the eliminated network):
+    \begin{equation}
+        \mathbf{V}_2 = -\mathbf{Y}_{22}^{-1} \mathbf{Y}_{21} \mathbf{V}_1
+    \end{equation}
+
+    Substituting $\mathbf{V}_2$ into the first block row:
+    \begin{equation}
+        \mathbf{I}_1 = \mathbf{Y}_{11} \mathbf{V}_1 + \mathbf{Y}_{12} \left(-\mathbf{Y}_{22}^{-1} \mathbf{Y}_{21} \mathbf{V}_1\right)
+    \end{equation}
+    Factoring out $\mathbf{V}_1$:
+    \begin{equation}
+        \mathbf{I}_1 = \underbrace{\left(\mathbf{Y}_{11} - \mathbf{Y}_{12} \mathbf{Y}_{22}^{-1} \mathbf{Y}_{21}\right)}_{\mathbf{Y}_{\text{Kron}}} \mathbf{V}_1
+    \end{equation}
+
+    \begin{tcolorbox}[colback=blue!5,colframe=belgianblue,title=Kron Reduced Admittance Matrix]
+        \begin{equation}
+            \mathbf{Y}_{\text{Kron}} = \mathbf{Y}_{11} - \mathbf{Y}_{12} \mathbf{Y}_{22}^{-1} \mathbf{Y}_{21}
+        \end{equation}
+        This is mathematically the \textbf{Schur complement} of block $\mathbf{Y}_{22}$ in $\mathbf{Y}_{\text{bus}}$.
+    \end{tcolorbox}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Properties and Applications of Kron Reduction}
+    \textbf{1. Exact Multiport Equivalence:}
+    \begin{itemize}
+        \item The terminal behavior seen from the kept buses is \textbf{100\% mathematically exact}.
+        \item No dynamic or steady-state approximation is made (given linear load impedances).
+    \end{itemize}
+
+    \textbf{2. Graph-Theoretic Effect: Fill-In:}
+    \begin{itemize}
+        \item While original power grid admittance matrices are extremely \textbf{sparse} ($>99\%$ zeros), Kron reduction creates equivalent direct transfer admittances between all buses connected through the eliminated network.
+        \item $\mathbf{Y}_{\text{Kron}}$ becomes a \alert{\textbf{dense}} matrix!
+        \item This corresponds to generalized Star-Delta ($\text{Y}\text{-}\Delta$) transformations.
+    \end{itemize}
+
+    \textbf{3. Classical Transient Stability Simulation:}
+    \begin{itemize}
+        \item In electromechanical stability (the swing equation):
+        \begin{equation}
+            M_i \frac{d^2\delta_i}{dt^2} = P_{m,i} - P_{e,i}
+        \end{equation}
+        \item Electrical power output of generator $i$ can be written in closed-form:
+        \begin{equation}
+            P_{e,i} = E_i^2 G_{ii} + \sum_{j \neq i} E_i E_j \left(G_{ij} \cos(\delta_i - \delta_j) + B_{ij} \sin(\delta_i - \delta_j)\right)
+        \end{equation}
+        where $Y_{ij} = G_{ij} + j B_{ij}$ are the elements of the \textbf{Kron-reduced admittance matrix}!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Example: 3-Bus System Reduced to 2 Generator Buses}
+    Consider two generators (Buses 1 and 2) feeding a common load (Bus 3) with line impedances $z_{13} = j 0.1$, $z_{23} = j 0.2$, and a load admittance $y_{\text{load}} = 2 - j 1$ at Bus 3:
+    \begin{center}
+        \begin{tikzpicture}[scale=1.0]
+            \node[draw, circle, fill=headerbg] (G1) at (0,0) {\scriptsize Gen 1};
+            \node[draw, circle, fill=headerbg] (G2) at (4,0) {\scriptsize Gen 2};
+            \node[draw, rectangle, fill=lightgraybg] (B3) at (2, -1.3) {\scriptsize Bus 3 (Load)};
+            
+            \draw[thick] (G1) -- (B3) node[midway, below left] {\tiny $z_{13} = j0.1$};
+            \draw[thick] (G2) -- (B3) node[midway, below right] {\tiny $z_{23} = j0.2$};
+            \draw[->, thick] (B3) -- (2, -2.0) node[below] {\tiny $y_{\text{load}} = 2 - j1$};
+        \end{tikzpicture}
+    \end{center}
+
+    Admittances:
+    $y_{13} = \frac{1}{j 0.1} = -j 10$, $y_{23} = \frac{1}{j 0.2} = -j 5$.
+    The $3 \times 3$ admittance matrix is:
+    \begin{equation}
+        \mathbf{Y}_{\text{bus}} = \begin{bmatrix}
+            -j 10 & 0 & j 10 \\
+            0 & -j 5 & j 5 \\
+            j 10 & j 5 & (2 - j 16)
+        \end{bmatrix}
+    \end{equation}
+
+    Eliminating Bus 3:
+    $Y_{11} = \begin{bmatrix} -j10 & 0 \\ 0 & -j5 \end{bmatrix}$,
+    $Y_{12} = \begin{bmatrix} j10 \\ j5 \end{bmatrix}$,
+    $Y_{21} = \begin{bmatrix} j10 & j5 \end{bmatrix}$,
+    $Y_{22} = [2 - j16]$.
+
+    \begin{align}
+        \mathbf{Y}_{\text{Kron}} &= Y_{11} - Y_{12} Y_{22}^{-1} Y_{21} \\
+        &= \begin{bmatrix} -j10 & 0 \\ 0 & -j5 \end{bmatrix} - \frac{1}{2 - j16} \begin{bmatrix} -100 & -50 \\ -50 & -25 \end{bmatrix} \\
+        &= \mathbf{\begin{bmatrix} 0.769 - j 3.846 & 0.385 + j 3.077 \\ 0.385 + j 3.077 & 0.192 - j 3.462 \end{bmatrix}}
+    \end{align}
+    \textbf{Insight:} Gen 1 and Gen 2 are now directly coupled by the transfer admittance $Y_{12}^{\text{Kron}} = 0.385 + j 3.077$. Bus 3 has been completely absorbed!
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 7: DISCRETE FOURIER TRANSFORM
+% ==============================================================================
+\section{Discrete Fourier Transform (DFT) for Phasor Estimation}
+
+\begin{frame}[allowframebreaks]{The Phasor Estimation Problem}
+    In the real world:
+    \begin{itemize}
+        \item Physical voltage and current waveforms are continuous analog signals $x(t)$.
+        \item Digital relays, disturbance fault recorders (DFRs), and Phasor Measurement Units (PMUs) sample the waveforms using Analog-to-Digital Converters (ADCs) at sampling frequency $f_s = N \cdot f_0$ (e.g., $N=64$ samples per cycle).
+        \item Power system analysis algorithms (symmetrical components, distance protection, power flow, state estimation) require \alert{\textbf{complex phasors}} $\bar{X} = X_{\text{rms}} e^{j\phi}$.
+    \end{itemize}
+
+    \textbf{How do we transform discrete sampled time values into accurate fundamental frequency phasors?}
+    $\implies$ The \textbf{Full-Cycle Discrete Fourier Transform (DFT)} filter.
+\end{frame}
+
+\begin{frame}[allowframebreaks]{The Full-Cycle DFT Filter Formulation}
+    Let $x[k] = x(k \Delta t)$ be the sequence of sampled values.
+    For a window of $N$ samples over one fundamental cycle:
+    \begin{equation}
+        \bar{X} = \frac{\sqrt{2}}{N} \sum_{k=0}^{N-1} x[k] e^{-j \frac{2\pi k}{N}}
+        = \frac{\sqrt{2}}{N} \sum_{k=0}^{N-1} x[k] \left[\cos\left(\frac{2\pi k}{N}\right) - j \sin\left(\frac{2\pi k}{N}\right)\right]
+    \end{equation}
+
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Real Part (Cosine Filter)}
+                \begin{equation*}
+                    X_{\text{Re}} = \frac{\sqrt{2}}{N} \sum_{k=0}^{N-1} x[k] \cos\left(\frac{2\pi k}{N}\right)
+                \end{equation*}
+            \end{block}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Imaginary Part (Sine Filter)}
+                \begin{equation*}
+                    X_{\text{Im}} = -\frac{\sqrt{2}}{N} \sum_{k=0}^{N-1} x[k] \sin\left(\frac{2\pi k}{N}\right)
+                \end{equation*}
+            \end{block}
+        \end{column}
+    \end{columns}
+
+    \textbf{Phasor Magnitude and Phase:}
+    \begin{equation}
+        X_{\text{rms}} = \sqrt{X_{\text{Re}}^2 + X_{\text{Im}}^2}, \qquad \phi = \operatorname{atan2}(X_{\text{Im}}, X_{\text{Re}})
+    \end{equation}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Filtering Properties of the Full-Cycle DFT}
+    \begin{block}{Complete Harmonic Rejection}
+        Because $\sum_{k=0}^{N-1} e^{-j \frac{2\pi k m}{N}} = 0$ for any integer $m \neq 0$:
+        \begin{itemize}
+            \item \textbf{DC offset rejection:} A constant DC component evaluates to zero.
+            \item \textbf{Integer harmonics:} 2nd (100 Hz), 3rd (150 Hz), 5th (250 Hz), etc., are \alert{\textbf{completely eliminated}}!
+        \end{itemize}
+    \end{block}
+
+    \begin{alertblock}{Limitations in Practice}
+        \begin{itemize}
+            \item \textbf{Decaying DC transients:} Fault currents contain exponentially decaying DC ($I_{\text{dc}} e^{-t/\tau}$). A standard DFT filter leaks some decaying DC into the estimate $\implies$ requires a Mimic Filter ($1 + \tau \frac{d}{dt}$).
+            \item \textbf{Off-nominal frequency:} If grid frequency drifts to 49.8 Hz, spectral leakage occurs $\implies$ requires frequency tracking / interpolation.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+
+% ==============================================================================
+% SECTION 8: SUMMARY & SYNTHESIS
+% ==============================================================================
+\section{Summary and Conclusions}
+
+\begin{frame}[shrink=12]{Master Summary of Power System Transforms}
+    \begin{table}
+        \centering
+        \tiny
+        \begin{tabularx}{\textwidth}{p{2.3cm} p{2.2cm} p{3.2cm} X}
+            \toprule
+            \textbf{Transform} & \textbf{Coordinates} & \textbf{Mathematical Nature} & \textbf{Key Engineering Benefit} \\
+            \midrule
+            \textbf{Fortescue} (1918) & Phasor ($0, 1, 2$) & Eigenvector decomposition of cyclic matrices & Decoupled positive, negative, and zero sequence networks; fault calculation; unbalance protection (46, 51N). \\
+            \addlinespace
+            \textbf{Clarke} (1938) & Stationary ($\alpha, \beta, 0$) & 3-phase to 2-axis orthogonal projection & Space Vector modulation (SVPWM); instant power $p\text{-}q$; fast fault detection. \\
+            \addlinespace
+            \textbf{Park} (1929) & Synchronous ($d, q, 0$) & Angle-dependent 2D rotation $\mathbf{R}(\theta)$ & Eliminates rotor position from machine equations; converts AC into DC; decoupled $P\text{-}Q$ control; SRF-PLL. \\
+            \addlinespace
+            \textbf{Kron Reduction} (1939) & Admittance matrix $\mathbf{Y}_{\text{bus}}$ & Schur complement: $\mathbf{Y}_{11} - \mathbf{Y}_{12}\mathbf{Y}_{22}^{-1}\mathbf{Y}_{21}$ & Eliminates interior passive nodes; essential for transient stability simulations and dynamic equivalencing. \\
+            \addlinespace
+            \textbf{Full-Cycle DFT} & Sampled time to phasor & Discrete orthogonal trigonometric filter & Extracts RMS and phase angle from ADC samples; rejects DC and harmonics; standard in PMUs and numerical distance relays. \\
+            \bottomrule
+        \end{tabularx}
+        \caption{Master reference table of power system transforms.}
+    \end{table}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Key Takeaways}
+    \begin{enumerate}
+        \item \textbf{Decoupling is the primary motivation:} Real three-phase physical components have mutual electromagnetic couplings. Transforms find the natural eigenspace where equations become independent single-phase systems.
+        \item \textbf{Choosing the right domain:}
+        \begin{itemize}
+            \item For steady-state unbalance and fault currents $\to$ \textbf{Fortescue Symmetrical Components}.
+            \item For instantaneous converter switching and trajectory visualization $\to$ \textbf{Clarke Transform}.
+            \item For closed-loop inverter control and rotating machinery $\to$ \textbf{Park Transform}.
+            \item For network simplification and multi-machine dynamics $\to$ \textbf{Kron Reduction}.
+            \item For real-time measurement and digital relaying $\to$ \textbf{Full-Cycle DFT}.
+        \end{itemize}
+        \item \textbf{Cross-domain connections:}
+        Positive sequence in Fortescue corresponds to a counter-clockwise circle in $\alpha\beta$, which collapses into a stationary DC point in the $dq$ frame! Negative sequence creates a 100 Hz ripple in $dq$.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge Thank You!
+    \vfill
+    \large Questions and Discussion
+    \vfill
+    \small Python companion code and interactive notebook available in:
+    \texttt{Lectures/transforms/transforms.py} and \texttt{transforms.ipynb}
+\end{frame}

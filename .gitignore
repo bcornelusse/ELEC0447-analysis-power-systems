@@ -22,3 +22,9 @@ Lectures/frequency_control/main.fls
 *.fls
 *.log
 *.gz
+Lectures/voltage_stability/.DS_Store
+Lectures/transforms/__pycache__/transforms.cpython-313.pyc
+Lectures/frequency_control/main.synctex.gz
+Lectures/frequency_control/main.log
+Lectures/frequency_control/main.fls
+Lectures/frequency_control/main.fdb_latexmk

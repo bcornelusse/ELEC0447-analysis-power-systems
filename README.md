@@ -49,9 +49,26 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | December 17 | 12 | **Project 2 assessment** (presence is mandatory) |
 | January | — | Oral exam — [List of theoretical questions](pdf/20231212_ELEC0447_exam_questions.pdf) |
 
+### Extra Module: Usual Transforms in Power Systems (Self-Study / Reference)
+
+> **Note for students:** This self-study module covers essential coordinate transformations and network decompositions used across power system analysis, converter control, and protection. It will not be covered during live lectures, but it will be referred to from time to time throughout the course. Students are encouraged to review these materials to build intuition.
+
+- **Lecture Slides**: **[Usual Transforms in Power Systems (PDF)](Lectures/transforms/main.pdf)** (LaTeX sources in [`Lectures/transforms/`](Lectures/transforms/))
+- **Interactive Notebook**: [`Lectures/transforms/transforms.ipynb`](Lectures/transforms/transforms.ipynb)
+- **Python Module**: [`Lectures/transforms/transforms.py`](Lectures/transforms/transforms.py)
+
+#### Topics Covered:
+1. **Motivation**: Overcoming electromagnetic phase coupling, time-varying machine inductances, network asymmetries, and high dimensionalities.
+2. **Fortescue Symmetrical Components ($012$)**: Direct, inverse, and zero sequence decomposition; sequence networks and decoupling; sequence impedances ($Z_1, Z_2, Z_0$); unsymmetrical fault calculation (SLG, L-L); and protection relays (ANSI 46, 50N/51N).
+3. **Clarke Transform ($\alpha\beta0$)**: 3-phase to 2-axis stationary orthogonal frame; amplitude vs. power invariance; space vector circular trajectories under balanced conditions and elliptical trajectories under unbalances; Space Vector PWM (SVPWM).
+4. **Park Transform ($dq0$) & Grid Synchronization**: Transforming AC sinusoids into constant DC steady-state quantities; decoupled active and reactive vector control ($P \propto i_d, Q \propto -i_q$); appearance of the $2\omega$ (100 Hz) unbalance ripple; and Synchronous Reference Frame PLL (SRF-PLL).
+5. **Cross-Domain Bridges**: Explicit mappings connecting Fortescue sequence phasors, Clarke space vector orbits, and Park rotating DC/ripple components.
+6. **Kron Network Reduction**: Mathematical elimination of passive (zero-injection) buses via the Schur complement ($\mathbf{Y}_{\text{Kron}} = \mathbf{Y}_{GG} - \mathbf{Y}_{GL}\mathbf{Y}_{LL}^{-1}\mathbf{Y}_{LG}$) for transient stability simulation and dynamic equivalents.
+7. **Full-Cycle Discrete Fourier Transform (DFT)**: Fundamental frequency phasor extraction from sampled waveforms, with complete integer harmonic and DC offset rejection for digital distance protection and PMUs.
+
 ## Repository Structure
 
-- [`Lectures/`](Lectures/): LaTeX Beamer slide decks for all lectures and the compilation script [`compile_all.sh`](Lectures/compile_all.sh).
+- [`Lectures/`](Lectures/): LaTeX Beamer slide decks for all lectures, the self-study module on transforms ([`Lectures/transforms/`](Lectures/transforms/)), and the compilation script [`compile_all.sh`](Lectures/compile_all.sh).
 - [`Exercises/`](Exercises/): Complete exercise manual containing problem statements and step-by-step solutions for TP1 through TP6, authored in modular LaTeX (`ELEC0447_exercise_manual.tex`, `tp1_phasor_analysis.tex` to `tp6_voltage_stability.tex`) and the compiled document [`ELEC0447_exercise_manual.pdf`](Exercises/ELEC0447_exercise_manual.pdf).
 - [`pdf/`](pdf/): Project descriptions, data sheets, and past exam questions.
 - [`notebooks/`](notebooks/): Python and Jupyter notebooks for tutorials, power flow algorithms (Newton–Raphson, DC power flow), and [pandapower](https://www.pandapower.org/) examples.
