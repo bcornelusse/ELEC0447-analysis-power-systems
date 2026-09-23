@@ -45,7 +45,7 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | November 26 | 9 | [Voltage regulation](Lectures/voltage_stability/voltage_stability.pdf) *(video on eCampus)* |
 | | | [Exercises on voltage (in)stability (TP6)](Exercises/ELEC0447_exercise_manual.pdf#page=31) (Section 6) |
 | December 3 | 10 | [Transient stability](Lectures/transient/main.pdf) *(video on eCampus)* |
-| December 10 | 11 | (TBC) Visit to Elia's national dispatch center *(organizational details on eCampus)* |
+| December 10 | 11 | **Visit to Elia's national dispatch center** (presence is mandatory) |
 | December 17 | 12 | **Project 2 assessment** (presence is mandatory) |
 | January | — | Oral exam — [List of theoretical questions](pdf/20231212_ELEC0447_exam_questions.pdf) |
 
