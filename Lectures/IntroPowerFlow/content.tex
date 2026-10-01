@@ -603,12 +603,9 @@
     \end{table}
 
     \begin{block}{Convergence to 7 decimal places in only 3 iterations!}
-        Final state: $\theta_2 = -2.066^\circ$, $\theta_3 = -8.787^\circ$, $V_3 = 0.9781\text{ pu}$, perfectly matching PandaPower!
-    \end{block}
-
-    \begin{center}
+        \small Final state: $\theta_2 = -2.066^\circ$, $\theta_3 = -8.787^\circ$, $V_3 = 0.9781\text{ pu}$, perfectly matching PandaPower!
         \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_Newton_Raphson.ipynb}{\beamergotobutton{Open 3-Bus Newton-Raphson Python Notebook}}
-    \end{center}
+    \end{block}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Fast Decoupled Power Flow}
@@ -657,10 +654,6 @@
         \mathbf{P} = \mathbf{B}' \boldsymbol{\theta}
     \end{equation}
     where $\mathbf{B}' = \Im(\mathbf{Y}_{\text{bus}})$ (without slack bus row/column).
-    
-    \begin{center}
-        \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{\beamergotobutton{Application Example: European Day-Ahead Market Coupling}}
-    \end{center}
 \end{frame}
 
 \begin{frame}{Application of DC Power Flow}
@@ -809,8 +802,6 @@
         $$P_{Gk} = P_{Gk}^0 + \alpha_k \Delta P_{\text{slack}}$$
         \item Maintain \textbf{one} bus as the \textbf{angle reference}: $\theta_{\text{ref}} = 0^\circ$ (decoupling angle reference from power balancing!)
     \end{itemize}
-    
-    \newpage
     \textbf{Closing the Power Balance System:}
     \begin{itemize}
         \item Add the global active power balance equation to the system:
@@ -832,11 +823,6 @@
         \item \textbf{Generation Capacity Proportional:}
         $$\alpha_k = \frac{P_{Gk}^{\max}}{\sum_j P_{Gj}^{\max}} \quad \text{or} \quad \alpha_k = \frac{P_{Gk}^0}{\sum_j P_{Gj}^0}$$
         Distributes losses proportionally across generators without overloading individual units.
-    \end{enumerate}
-
-    \newpage
-    \begin{enumerate}
-        \setcounter{enumi}{2}
         \item \textbf{Load Proportional (Distributed Load Slack):}
         $$\alpha_k = \frac{P_{Lk}}{\sum_j P_{Lj}}$$
         Allocates losses as incremental demand across consumers (standard in market clearing and loss allocation).
