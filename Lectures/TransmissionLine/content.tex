@@ -58,14 +58,14 @@
 % Transmission line parameters
 \begin{frame}{Transmission line parameters}
 \begin{columns}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.45\textwidth}
     A \textit{chunk} (a tiny piece)  of transmission line can be represented as:
-    \begin{center}
-        \includegraphics[width=\textwidth]{images/TL_1.png}
-    \end{center}
+    \begin{center}\vspace{-0.4em}
+        \input{images/TL_1.tex}
+    \vspace{-0.4em}\end{center}
     with $R$, $L$ and $C$ expressed \textbf{per unit of length}.
     \end{column}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.52\textwidth}
     where
     \begin{itemize}
         \item $R$ represents the series resistance, as small as possible to minimize $RI^2$ (influence of the frequency and skin effect)
@@ -95,6 +95,7 @@
     \begin{column}{0.4\textwidth}
         \centering
         \includegraphics[width=0.8\textwidth]{images/conductor-300x300.jpg}
+        Aluminium Conductor Steel-Reinforced (ACSR)
     \end{column}
     
 \end{columns}
@@ -280,9 +281,9 @@ Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \math
 \section{Surge impedance loading}
 \begin{frame}{Closing the line on the surge impedance $Z_c$}
     If the line is assumed lossless and \textit{we close it with $Z_c$}, assuming $\bar{V}_R = V_R \angle 0$:
-    \begin{center}
-        \includegraphics[width=\textwidth]{images/SIL.png}
-    \end{center}
+    \begin{center}\vspace{-0.4em}
+        \input{images/SIL.tex}
+    \vspace{-0.4em}\end{center}
     then the voltage \textit{magnitude is constant} over the line: $\bar{V}(x) = V_R e^{j\beta x}$, and only the \textit{angle increases with $x$}.
     Similar conclusion for $\bar{I}(x)$.
     \begin{itemize}
@@ -348,7 +349,7 @@ If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the
 \begin{columns}
     \begin{column}{0.55\textwidth}
     \begin{center}
-        \includegraphics[width=\textwidth]{images/pi_1.png}
+        \input{images/pi_1.tex}
     \end{center}
     \end{column}
     \begin{column}{0.45\textwidth}
@@ -408,12 +409,10 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
         \input{images/sag_clearance.tex}
     \end{column}
 \end{columns}
-% Directly usable in Beamer frames
-% Directly usable in Beamer frames
-\begin{table}
-  \centering
-  \footnotesize
-  \begin{tabular}{c l c p{7.5cm}}
+\vspace{0.2em}
+{\centering
+\footnotesize
+\begin{tabular}{c l c p{8.2cm}}
     \toprule
     \textbf{Symbol} & \textbf{Parameter} & \textbf{Unit} & \textbf{Description} \\
     \midrule
@@ -427,8 +426,7 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
     \addlinespace[3pt]
     $\alpha$ & Thermal coeff. & $\mathrm{K}^{-1}$ & Linear expansion coefficient in $\Delta L = \alpha L \Delta T$ ($\approx 15\text{--}23 \times 10^{-6}\,\mathrm{K}^{-1}$ for ACSR/Al) \\
     \bottomrule
-  \end{tabular}
-\end{table}
+\end{tabular}\par}
 \end{frame}
 
 % -----------------------------------------------------------------------------
@@ -436,29 +434,28 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
 % -----------------------------------------------------------------------------
 \begin{frame}{Conductor Heat Balance (IEEE 738 / CIGRE 601)}
 \begin{columns}[c]
-    \begin{column}{0.50\textwidth}
+    \begin{column}{0.61\textwidth}
     \footnotesize
-    In steady-state, conductor temperature $T_c$ satisfies:
-    \vspace{-0.4em}
-    \[
-        \underbrace{q_J + q_s}_{\text{Heat gain}} = \underbrace{q_c + q_r}_{\text{Heat loss}}
-    \]
-    \vspace{-0.7em}
-    \begin{itemize}\setlength{\itemsep}{0pt}
+    In steady-state, heat gain balances heat loss: $q_J + q_s = q_c + q_r$.
+    \vspace{0.2em}
+    \begin{itemize}\setlength{\itemsep}{2pt}\setlength{\parsep}{0pt}\setlength{\parskip}{0pt}
         \item \textbf{Joule heating:} $q_J = R(T_c) \cdot I^2$
         \item \textbf{Solar gain:} $q_s = \alpha_s \cdot S \cdot D$
-        \item \textbf{Convective cooling:} $q_c = h_c(v_w, \phi) \cdot (T_c - T_a)$ \\
-              (\alert{\textbf{wind speed $v_w$ is the dominant cooling factor!}})
-        \item \textbf{Radiative cooling:} $q_r = \pi D \epsilon \sigma_B (T_c^4 - T_a^4)$
+        \item \textbf{Convection (wind):} $q_c = h_c(v_w, \phi)(T_c - T_a)$ (\alert{dominant!})
+        \item \textbf{Radiation:} $q_r = \pi D \epsilon \sigma_B (T_c^4 - T_a^4)$
     \end{itemize}
-    \vspace{0.2em}
-    \textbf{Thermal ampacity limit:}
-    \vspace{-0.5em}
+    \vspace{0.3em}
+    \textbf{Thermal ampacity limit at $T_c = T_{\text{max}}$ (net cooling headroom):}
+    \vspace{-0.4em}
+    {\footnotesize
     \[
-        I_{\text{max}} = \sqrt{\frac{q_c(T_{\text{max}}, T_a, v_w, \phi) + q_r(T_{\text{max}}, T_a) - q_s}{R(T_{\text{max}})}}
-    \]
+    \begin{aligned}
+        R(T_{\text{max}}) \cdot I_{\text{max}}^2 &= \underbrace{q_c + q_r}_{\text{cooling}} - \underbrace{q_s}_{\text{solar gain}} \\[2pt]
+        \implies I_{\text{max}} &= \sqrt{\frac{q_c(T_{\text{max}}) + q_r(T_{\text{max}}) - q_s}{R(T_{\text{max}})}}
+    \end{aligned}
+    \]}
     \end{column}
-    \begin{column}{0.50\textwidth}
+    \begin{column}{0.38\textwidth}
         \centering
         \input{images/heat_balance.tex}
     \end{column}
@@ -466,11 +463,42 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% Frame 3: Static & Seasonal Line Rating
+% Frame 3: Standards & Heat Balance Parameters
+% -----------------------------------------------------------------------------
+\begin{frame}{Standards \& Heat Balance Parameters}
+\footnotesize
+\textbf{Governing International Standards:}
+\begin{itemize}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\parskip}{0pt}
+    \item \textbf{IEEE Std 738} (\textit{IEEE PES}): Standard for calculating current-temperature relationships of bare overhead conductors (predominant in North America and globally).
+    \item \textbf{CIGRE TB 601} (\textit{CIGRE WG B2.43}): Guide for thermal rating calculations of overhead lines (widely used across Europe and by Belgian TSO Elia).
+\end{itemize}
+\vspace{-0.4em}
+Both standards provide the physical formulations used in EMS software for \textbf{SLR} and \textbf{DLR}.
+
+\vspace{-0.1em}
+{\centering
+\scriptsize
+\renewcommand{\arraystretch}{0.92}
+\begin{tabular}{c l c @{\hspace{1.2cm}} c l c}
+\toprule
+\textbf{Symbol} & \textbf{Electrical / Thermal Flux} & \textbf{Unit} & \textbf{Symbol} & \textbf{Environmental / Line Parameter} & \textbf{Unit} \\
+\midrule
+$q_J$ & Joule heat generation ($R I^2$) & $\mathrm{W/m}$ & $T_a$ & Ambient air temperature & $^\circ\mathrm{C}$ \\
+$q_s$ & Solar radiation heat gain & $\mathrm{W/m}$ & $T_{\text{max}}$ & Maximum conductor temperature & $^\circ\mathrm{C}$ \\
+$q_c$ & Convective heat loss (wind) & $\mathrm{W/m}$ & $v_w, \phi$ & Wind speed and incident angle & $\mathrm{m/s}, ^\circ$ \\
+$q_r$ & Radiative heat loss & $\mathrm{W/m}$ & $D$ & Conductor outer diameter & $\mathrm{m}$ \\
+$I, I_{\text{max}}$ & Current / Thermal ampacity & $\mathrm{A}$ & $S$ & Global solar irradiance & $\mathrm{W/m}^2$ \\
+$R(T_c)$ & AC resistance at $T_c$ & $\Omega/\mathrm{m}$ & $\alpha_s, \epsilon$ & Solar absorptivity, emissivity & $-$ \\
+\bottomrule
+\end{tabular}\par}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Frame 4: Static & Seasonal Line Rating
 % -----------------------------------------------------------------------------
 \begin{frame}{Static (SLR) and Seasonal (SeLR) Line Rating}
 \begin{columns}[c]
-    \begin{column}{0.48\textwidth}
+    \begin{column}{0.47\textwidth}
     \footnotesize
     \textbf{Static Line Rating (SLR):}
     \begin{itemize}\setlength{\itemsep}{1.5pt}
@@ -483,17 +511,18 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
         \item Separate Summer/Winter ratings ($+40\%$ base ampacity in winter due to cold ambient air).
     \end{itemize}
     \vspace{0.2em}
-    \textbf{The Opportunity for DLR:}
-    \begin{itemize}\setlength{\itemsep}{1.5pt}
-        \item Atmospheric cooling is much stronger $>95\%$ of time.
-        \item A gentle \alert{\textbf{2 m/s breeze adds +43\% capacity}}, but static limits keep this trapped!
-    \end{itemize}
+
     \end{column}
-    \begin{column}{0.52\textwidth}
+    \begin{column}{0.48\textwidth}
         \centering
         \includegraphics[width=\linewidth]{images/ampacity_vs_wind.pdf}
     \end{column}
 \end{columns}
+    \textbf{The Opportunity for DLR:}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item Atmospheric cooling is much stronger $>95\%$ of time.
+        \item A gentle \alert{{2 m/s breeze adds +43\% capacity}}, but static limits keep this trapped!
+    \end{itemize}
 \end{frame}
 
 % -----------------------------------------------------------------------------
@@ -501,25 +530,24 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
 % -----------------------------------------------------------------------------
 \begin{frame}{Dynamic Line Rating (DLR) \& Wind Power Synergy}
 \begin{columns}[c]
-    \begin{column}{0.48\textwidth}
+    \begin{column}{0.44\textwidth}
     \footnotesize
     \textbf{Dynamic Line Rating (DLR / RTTR):}
     \begin{itemize}\setlength{\itemsep}{1.5pt}
         \item Continuously updates ampacity $I_{\text{DLR}}(t)$ from real-time and forecasted weather/line state.
-        \item \textbf{Wind Synergy:} Strong wind generation coincides with high convective cooling: \alert{\textbf{capacity unlocks when needed most!}}
-    \end{itemize}
-    \vspace{0.2em}
-    \textbf{Operational Value:}
-    \begin{itemize}\setlength{\itemsep}{1.5pt}
-        \item \textbf{Headroom:} Unlocks $+10\text{--}50\%$ capacity on existing lines without new construction.
-        \item \textbf{Safety:} Detects rare calm heatwaves where static ratings overestimate ampacity ($I_{\text{DLR}} < I_{\text{SLR}}$).
-    \end{itemize}
+        \item \textbf{Wind Synergy:} Strong wind generation coincides with high convective cooling: \alert{capacity unlocks when needed most!}
+    \end{itemize}    
     \end{column}
     \begin{column}{0.52\textwidth}
         \centering
         \includegraphics[width=\linewidth]{images/dlr_vs_slr_24h.pdf}
     \end{column}
 \end{columns}
+\textbf{Operational Value:}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item \textbf{Headroom:} Unlocks $+10\text{--}50\%$ capacity on existing lines without new construction.
+        \item \textbf{Safety:} Detects rare calm heatwaves where static ratings overestimate ampacity ($I_{\text{DLR}} < I_{\text{SLR}}$).
+    \end{itemize}
 \end{frame}
 
 % -----------------------------------------------------------------------------
@@ -543,7 +571,7 @@ Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}
         \item SCADA/EMS integration for dynamic congestion relief.
     \end{itemize}
     \end{column}
-    \begin{column}{0.44\textwidth}
+    \begin{column}{0.4\textwidth}
         \begin{block}{Video: DLR in Action}
             \centering
             \vspace{0.3em}

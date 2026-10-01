@@ -1,0 +1,70 @@
+\begin{circuitikz}[american, scale=0.64, transform shape]
+    % =========================================================================
+    % Subfigure (a): Surge Impedance Terminated Line
+    % =========================================================================
+    
+    % Sending end voltage V_S
+    \node at (-0.6, 1.4) {$+$};
+    \node at (-0.6, 0.85) {$\bar{V}_S$};
+    \node at (-0.6, 0.3) {$-$};
+    
+    % Current I_S arrow
+    \draw[->, >=stealth, thick] (-0.6, 2.05) -- (0.4, 2.05) node[above, midway, font=\footnotesize] {$\bar{I}_S$};
+    
+    % Dashed wire from sending end
+    \draw[dashed, semithick] (-0.6, 1.7) -- (0.5, 1.7);
+    \draw[dashed, line width=2.0pt] (-0.6, 0.0) -- (0.5, 0.0);
+    
+    % Bottom reference rail
+    \draw[line width=2.2pt] (0.5, 0.0) -- (6.3, 0.0);
+    
+    % Ladder network: Inductors and Capacitors
+    \draw (0.5, 1.7) to[L] (1.9, 1.7);
+    \draw (1.9, 1.7) to[C] (1.9, 0.0);
+    \node[anchor=west, font=\footnotesize] at (2.05, 0.85) {$-j\frac{1}{\omega C}$};
+    
+    \draw (1.9, 1.7) to[L, l=$j\omega L$] (4.4, 1.7);
+    \draw (4.4, 1.7) to[C] (4.4, 0.0);
+    
+    \draw (4.4, 1.7) to[L] (6.3, 1.7);
+    
+    % Current I_R arrow
+    \draw[->, >=stealth, thick] (5.7, 2.05) -- (6.7, 2.05) node[above, midway, font=\footnotesize] {$\bar{I}_R$};
+    
+    % Termination at Z_c
+    \draw (6.3, 1.7) to[R] (6.3, 0.0);
+    \node[anchor=east, font=\footnotesize] at (6.0, 0.85) {$Z_c$};
+    
+    % Receiving end voltage V_R
+    \node at (6.6, 1.4) {$+$};
+    \node[anchor=west] at (6.7, 0.85) {$\bar{V}_R = V_R \angle 0$};
+    \node at (6.6, 0.3) {$-$};
+    
+    % Subfigure label (a)
+    \node[font=\footnotesize] at (3.4, -0.9) {(a)};
+
+    % =========================================================================
+    % Subfigure (b): Flat Voltage Profile
+    % =========================================================================
+    \begin{scope}[xshift=10.0cm]
+        % Axes
+        \draw[thin] (0.0, 0.0) -- (3.4, 0.0);
+        \draw[thin] (0.0, 0.0) -- (0.0, 1.9);
+        \draw[thin] (3.4, 0.0) -- (3.4, 1.9);
+        
+        % Tick marks & axis labels
+        \node[left, font=\footnotesize] at (0.0, 1.4) {$V_S$};
+        \node[right, font=\footnotesize] at (3.4, 1.4) {$V_R$};
+        
+        % Flat voltage profile line
+        \draw[very thick, tPrim] (0.0, 1.4) -- (3.4, 1.4);
+        
+        % Distance coordinate x arrow (directed from receiver 0 to sender)
+        \draw[<-, >=stealth, thick] (0.5, -0.35) -- (3.4, -0.35);
+        \node[below, font=\footnotesize] at (1.95, -0.35) {$x$};
+        \node[below, font=\footnotesize] at (3.4, -0.35) {$0$};
+        
+        % Subfigure label (b)
+        \node[font=\footnotesize] at (1.7, -0.9) {(b)};
+    \end{scope}
+\end{circuitikz}

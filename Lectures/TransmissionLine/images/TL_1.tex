@@ -1,0 +1,34 @@
+\begin{circuitikz}[american, scale=0.65, transform shape]
+    % Coordinates:
+    % y = 1.8: top line
+    % y = 0.0: neutral return rail
+    
+    % Labels on the left
+    \node[anchor=south west, font=\footnotesize] at (-0.4, 1.85) {Line};
+    \node[anchor=south west, font=\footnotesize] at (-0.4, 0.15) {Neutral (zero impedance)};
+    
+    % --- Top Line ---
+    % Left dashed lead
+    \draw[dashed, semithick] (-0.4, 1.8) -- (0.5, 1.8);
+    
+    % First R-L section
+    \draw (0.5, 1.8) to[R, l=$R$] (1.8, 1.8)
+                     to[L, l=$L$] (3.1, 1.8)
+                     -- (3.6, 1.8);
+    
+    % Shunt capacitor C
+    \draw (3.6, 1.8) to[C, l=$C$] (3.6, 0.0);
+    
+    % Second R-L section (repeating cell continuing into dashed line)
+    \draw (3.6, 1.8) to[R] (4.9, 1.8)
+                     to[L] (6.2, 1.8)
+                     -- (6.7, 1.8);
+                     
+    % Right dashed lead
+    \draw[dashed, semithick] (6.7, 1.8) -- (7.6, 1.8);
+    
+    % --- Bottom Line (Neutral) ---
+    \draw[dashed, line width=2.0pt] (-0.4, 0.0) -- (0.5, 0.0);
+    \draw[line width=2.2pt] (0.5, 0.0) -- (6.7, 0.0);
+    \draw[dashed, line width=2.0pt] (6.7, 0.0) -- (7.6, 0.0);
+\end{circuitikz}

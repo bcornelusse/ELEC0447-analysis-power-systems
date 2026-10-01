@@ -1,0 +1,38 @@
+\begin{circuitikz}[american, scale=0.78, transform shape]
+    % Coordinates:
+    % y = 2.0: top line
+    % y = 0.0: bottom reference line
+    % x = 1.8: left shunt branch
+    % x = 5.0: right shunt branch
+
+    % --- Voltages & Terminals ---
+    % Sending end voltage V_S
+    \node at (0.5, 1.6) {$+$};
+    \node at (0.5, 1.0) {$\bar{V}_S$};
+    \node at (0.5, 0.4) {$-$};
+
+    % Receiving end voltage V_R
+    \node at (6.3, 1.6) {$+$};
+    \node at (6.3, 1.0) {$\bar{V}_R$};
+    \node at (6.3, 0.4) {$-$};
+
+    % --- Current arrows ---
+    \draw[->, >=stealth, thick] (0.2, 2.3) -- (1.3, 2.3) node[above, midway] {$\bar{I}_S$};
+    \draw[->, >=stealth, thick] (5.5, 2.3) -- (6.6, 2.3) node[above, midway] {$\bar{I}_R$};
+
+    % --- Bottom Line ---
+    \draw[semithick] (0.2, 0.0) -- (6.6, 0.0);
+
+    % --- Top Line & Series Impedance ---
+    \draw[semithick] (0.2, 2.0) -- (1.8, 2.0)
+                     to[generic, l=$Z_{\text{series}}$] (5.0, 2.0)
+                     -- (6.6, 2.0);
+
+    % --- Left Shunt Admittance ---
+    \draw[semithick] (1.8, 2.0) to[generic] (1.8, 0.0);
+    \node[anchor=west] at (2.1, 1.0) {$\frac{Y_{\text{shunt}}}{2}$};
+
+    % --- Right Shunt Admittance ---
+    \draw[semithick] (5.0, 2.0) to[generic] (5.0, 0.0);
+    \node[anchor=east] at (4.7, 1.0) {$\frac{Y_{\text{shunt}}}{2}$};
+\end{circuitikz}
