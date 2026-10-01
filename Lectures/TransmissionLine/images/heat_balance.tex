@@ -1,0 +1,56 @@
+\begin{tikzpicture}[scale=0.74, every node/.style={transform shape}]
+    % Ambient conditions tag
+    \node[draw=gray!30, fill=gray!8, rounded corners=3pt, font=\scriptsize, anchor=north west] at (-3.2, 2.3) {Ambient: $T_a$, $v_w$};
+
+    % --- Conductor cross-section ---
+    % Outer boundary (Aluminum strands layer)
+    \draw[thick, fill=cyan!8!gray!25] (0, 0) circle (1.25);
+    
+    % ACSR outer strand circles
+    \foreach \ang in {0, 30, ..., 330} {
+        \draw[thin, fill=gray!35] (\ang:1.00) circle (0.21);
+    }
+    % Inner steel core
+    \draw[thick, fill=gray!65] (0, 0) circle (0.48);
+    \foreach \ang in {0, 60, ..., 300} {
+        \draw[thin, fill=gray!80] (\ang:0.29) circle (0.15);
+    }
+    \draw[thin, fill=gray!90] (0, 0) circle (0.15);
+
+    % Conductor temperature label
+    \node[font=\tiny\bfseries, text=white, fill=gray!90!black, rounded corners=2pt, inner sep=1.2pt] at (0, 0) {$T_c$};
+
+    % --- Heat Sources (Gain) ---
+    % 1. Joule heating inside
+    \node[font=\scriptsize\bfseries, tOrange!95!black, align=center, fill=white, fill opacity=0.92, text opacity=1, rounded corners=2pt, inner sep=1.5pt] 
+        at (0, -1.65) {\textbf{Joule Heating:}\\[-1pt] $q_J = R(T_c) \cdot I^2$};
+    \draw[->, >=Stealth, thick, tOrange!90!black] (0, -1.35) -- (0, -1.1);
+
+    % 2. Solar gain (Top-Right)
+    % Sun icon
+    \fill[yellow!90!orange] (2.1, 1.8) circle (0.28);
+    \foreach \ang in {0, 45, ..., 315} {
+        \draw[thick, yellow!90!orange] (2.1, 1.8) ++(\ang:0.34) -- ++(\ang:0.16);
+    }
+    \draw[->, >=Stealth, thick, yellow!75!black] (1.75, 1.45) -- (0.95, 0.85);
+    \node[font=\scriptsize\bfseries, yellow!70!black, anchor=south west, align=left] at (1.0, 1.1) {Solar Gain:\\[-1pt] $q_s = \alpha_s S D$};
+
+    % --- Heat Losses (Cooling) ---
+    % 3. Convective cooling (Wind from Left)
+    \draw[->, >=Stealth, very thick, tPrim] (-3.1, 0.7) -- (-1.45, 0.7);
+    \draw[->, >=Stealth, very thick, tPrim] (-3.1, 0.0) -- (-1.55, 0.0);
+    \draw[->, >=Stealth, very thick, tPrim] (-3.1, -0.7) -- (-1.45, -0.7);
+    \node[font=\scriptsize\bfseries, tPrim, align=right, anchor=east] at (-1.6, 0.35) {Convective Cooling:\\[-1pt] $q_c(v_w, \phi) \propto (T_c - T_a)$};
+    \node[font=\tiny\bfseries, tPrim] at (-2.6, -0.2) {Wind ($v_w, \phi$)};
+
+    % 4. Radiative cooling (Outwards in all directions)
+    \draw[->, >=Stealth, thick, myRed, dashed] (0.8, -0.8) -- (1.6, -1.25) 
+        node[font=\scriptsize\bfseries, myRed, anchor=north west, align=left] {Radiation:\\[-1pt] $q_r \propto (T_c^4 - T_a^4)$};
+    \draw[->, >=Stealth, thick, myRed, dashed] (-0.7, 1.0) -- (-1.25, 1.6);
+    \draw[->, >=Stealth, thick, myRed, dashed] (0.2, 1.25) -- (0.3, 1.9);
+
+    % --- Bottom balance formula ---
+    \node[draw=gray!50, fill=white, thick, rounded corners=3pt, inner sep=2.5pt, font=\scriptsize] at (0, -2.35) {
+        $\underbrace{q_J + q_s}_{\text{Heat Gain}} \;=\; \underbrace{q_c + q_r}_{\text{Heat Loss}}$
+    };
+\end{tikzpicture}

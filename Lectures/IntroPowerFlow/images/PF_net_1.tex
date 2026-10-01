@@ -1,0 +1,84 @@
+\begin{tikzpicture}[scale=0.85, every node/.style={transform shape}, >=Stealth, line cap=round, line join=round]
+    % Styles
+    \tikzset{
+        busbar/.style={line width=3.2pt, black},
+        transmission/.style={line width=0.9pt, black},
+        element/.style={line width=0.9pt, black}
+    }
+    
+    % Geometry coordinates (origin at center between Bus 1 and Bus 3, at bottom-line level y=0)
+    
+    % --- Bus 1 ---
+    \coordinate (B1_top) at (-4.35, 1.45);
+    \coordinate (B1_bot) at (-4.35, -0.35);
+    \coordinate (B1_conn_top) at (-4.35, 1.10);
+    \coordinate (B1_conn_mid) at (-4.35, 0.55);
+    \coordinate (B1_conn_bot) at (-4.35, 0.0);
+    
+    \draw[busbar] (B1_bot) -- (B1_top);
+    \node[above=2pt, font=\large\bfseries] at (B1_top) {Bus 1};
+    \node[below=4pt, font=\large\itshape] at (B1_bot) {Slack Bus};
+    
+    % --- Bus 3 ---
+    \coordinate (B3_top) at (4.35, 1.45);
+    \coordinate (B3_bot) at (4.35, -0.35);
+    \coordinate (B3_conn_top) at (4.35, 1.10);
+    \coordinate (B3_conn_mid) at (4.35, 0.55);
+    \coordinate (B3_conn_bot) at (4.35, 0.0);
+    
+    \draw[busbar] (B3_bot) -- (B3_top);
+    \node[above=2pt, font=\large\bfseries] at (B3_top) {Bus 3};
+    \node[below=4pt, font=\large\itshape] at (B3_bot) {PQ Bus};
+    
+    % --- Bus 2 ---
+    \coordinate (B2_left) at (-0.65, -1.15);
+    \coordinate (B2_right) at (0.65, -1.15);
+    \coordinate (B2_conn_left) at (-0.35, -1.15);
+    \coordinate (B2_conn_mid) at (0.0, -1.15);
+    \coordinate (B2_conn_right) at (0.35, -1.15);
+    
+    \draw[busbar] (B2_left) -- (B2_right);
+    \node[left=5pt, font=\large\bfseries] at (B2_left) {Bus 2};
+    \node[right=5pt, font=\large\itshape] at (B2_right) {PV Bus};
+    
+    % --- Transmission Lines ---
+    % Line 1-3 (Top line)
+    \draw[transmission] (B1_conn_top) -- (B3_conn_top)
+        node[midway, above=3pt, font=\normalsize] {200 km};
+    
+    % Line 1-2
+    \draw[transmission] (B1_conn_bot) -- (-3.05, 0.0) -- (-0.35, -0.60) -- (B2_conn_left);
+    \node[font=\normalsize] at (-1.35, 0.22) {150 km};
+    
+    % Line 2-3
+    \draw[transmission] (B2_conn_right) -- (0.35, -0.60) -- (3.05, 0.0) -- (B3_conn_bot);
+    \node[font=\normalsize] at (1.35, 0.22) {150 km};
+    
+    % --- Generator at Bus 1 ---
+    \coordinate (G1_center) at (-5.55, 0.55);
+    \draw[element] (B1_conn_mid) -- ($(G1_center) + (0.45, 0)$);
+    \draw[element] (G1_center) circle (0.45);
+    % Sine wave inside G1
+    \draw[element, line width=0.85pt] 
+        ($(G1_center) + (-0.24, 0)$) 
+        .. controls ($(G1_center) + (-0.12, 0.20)$) and ($(G1_center) + (-0.04, 0.20)$) .. (G1_center)
+        .. controls ($(G1_center) + (0.04, -0.20)$) and ($(G1_center) + (0.12, -0.20)$) .. ($(G1_center) + (0.24, 0)$);
+        
+    % --- Generator at Bus 2 ---
+    \coordinate (G2_center) at (0.0, -2.25);
+    \draw[element] (B2_conn_mid) -- ($(G2_center) + (0, 0.45)$);
+    \draw[element] (G2_center) circle (0.45);
+    % Sine wave inside G2
+    \draw[element, line width=0.85pt] 
+        ($(G2_center) + (-0.24, 0)$) 
+        .. controls ($(G2_center) + (-0.12, 0.20)$) and ($(G2_center) + (-0.04, 0.20)$) .. (G2_center)
+        .. controls ($(G2_center) + (0.04, -0.20)$) and ($(G2_center) + (0.12, -0.20)$) .. ($(G2_center) + (0.24, 0)$);
+        
+    % --- Load at Bus 3 ---
+    \coordinate (L3_turn) at ($(B3_conn_mid) + (0.65, 0)$);
+    \coordinate (L3_arrow) at ($(L3_turn) + (0, -0.55)$);
+    \draw[element] (B3_conn_mid) -- (L3_turn);
+    \draw[element, ->, >=Stealth] (L3_turn) -- (L3_arrow);
+    \node[right=3pt, font=\normalsize] at (L3_arrow) {$P + jQ$};
+
+\end{tikzpicture}

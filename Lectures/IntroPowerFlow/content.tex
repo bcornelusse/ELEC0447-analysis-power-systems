@@ -9,371 +9,883 @@
   \tableofcontents[hideallsubsections]
 \end{frame}
 
+%==============================================================================
 \section{Introduction}
+%==============================================================================
 
-\begin{frame}[allowframebreaks]{What is a power flow analysis?}
-    Power flow (or load flow) analysis aims at determining the \textit{electrical state of an electrical power system}, when information about power generated or consumed is available at nodes of the network, and considering that the voltage level is regulated at some buses.
+\begin{frame}{What is a Power Flow Analysis?}
+    \textbf{Power flow (or load flow) analysis} determines the steady-state \textit{electrical operating state} of an AC power system under specified generation, consumption, and voltage control conditions.
     
-    This type of analysis is commonly used by power companies for planning and operation purposes.
-    \begin{itemize}
-        \item If voltage magnitude and angles were measured at all buses,
-        \begin{itemize}
-            \item then it would boil down to solving a set of simple linear equations.
-        \end{itemize}
-        \item In a similar way, mesh or nodal analysis could be used if we had a full model of the system,
-        \begin{itemize}
-            \item even without all voltage measurements.
-        \end{itemize}
-        \item But here the situation is different, because we mainly have access to \textit{power} measurements.
-        \begin{itemize}
-            \item The system is no more linear.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[allowframebreaks]{Power flow problem statement}
-    Determine \textbf{the voltage at every bus}, assuming we have a power system composed of transmission lines connecting the following bus types:
-    \begin{itemize}
-        \item \textit{PQ buses} are typically loads where active and reactive power are measured
-        \begin{itemize}
-            \item it can also be generation where voltage is not regulated (e.g. renewable generation)
-        \end{itemize}
-        \item \textit{PV buses} where the active power and the voltage are specified
-        \begin{itemize}
-            \item these are typically generators
-        \end{itemize}
-        \item one \textit{slack bus} that sets the reference for the voltage magnitudes and angles (it is usually at 1 pu)
-        \begin{itemize}
-            \item P and Q can take any value to reach the power balance in the system.
-        \end{itemize}
-    \end{itemize}
-    
-    Branch currents and losses can be determined from the voltages (magnitudes and phases).
-    
-    Note: as we will see, PV buses must be swithed to PQ buses in case they reach a limit of their capability curve.
-\end{frame}
-
-\begin{frame}[allowframebreaks]{A first tiny example}
-    \begin{center}
-        \includegraphics[width=0.8\linewidth]{images/PF_net_1.png}
-    \end{center}
     \begin{columns}
-        \begin{column}{0.5\linewidth}
-            Buses:
+        \begin{column}{0.5\textwidth}
+            \textbf{The State Variables to Determine:}
             \begin{itemize}
-                \item Bus 1 is the slack, with V = 1 pu
-                \item Bus 2 is a PV bus, with V regulated at 1.05 pu and drawing P= 2 pu
-                \item Bus 3 is a PQ bus, consumes P = 5 pu and Q = 1 pu.
+                \item Voltage magnitude $V_k$ at every bus $k$
+                \item Voltage phase angle $\theta_k$ at every bus $k$
             \end{itemize}
+            \vspace{0.15cm}
+            $$\mathbf{\bar{V}} = \begin{bmatrix} V_1 e^{j\theta_1} & \cdots & V_n e^{j\theta_n} \end{bmatrix}^T$$
         \end{column}
-        \begin{column}{0.5\linewidth}
-            Lines:
+        \begin{column}{0.5\textwidth}
+            \textbf{Derived Quantities (from $\mathbf{\bar{V}}$):}
             \begin{itemize}
-                \item X = 0.376 Ohm/km (at 60 Hz)
-                \item R = 0.037 Ohm/km
-                \item Shunt susceptances are ignored (4.5e-6 S/km)
+                \item Branch currents $\bar{I}_{km}$ and loadings
+                \item Active/reactive flows $P_{km}, Q_{km}$
+                \item Transmission losses $P_{\text{loss}}, Q_{\text{loss}}$
+                \item Generator reactive outputs $Q_{Gk}$
             \end{itemize}
         \end{column}
     \end{columns}
-    Voltage base (3-phase): 345 kV,
-    Power base (3-phase): 100 MVA
+    
+    \vspace{0.25cm}
+    \textbf{The Core Principle:} Once the complex bus voltages $\mathbf{\bar{V}}$ are known, every other physical quantity in the network is directly computed via Ohm's and Kirchhoff's laws.
 \end{frame}
 
+\begin{frame}[allowframebreaks]{Why Isn't This Standard Linear Circuit Analysis?}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Linear Circuit Theory:}
+            \begin{itemize}
+                \item Independent current or voltage sources
+                \item Nodal analysis with linear impedances:
+                $$\mathbf{\bar{I}} = \mathbf{Y}_{\text{bus}} \mathbf{\bar{V}} \implies \mathbf{\bar{V}} = \mathbf{Y}_{\text{bus}}^{-1} \mathbf{\bar{I}}$$
+                \item Solved in a single linear step
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Power System Reality:}
+            \begin{itemize}
+                \item Loads consume constant \textbf{power} ($P_L, Q_L$), largely independent of voltage
+                \item Generators regulate active power $P_G$ and voltage magnitude $V_G$
+                \item Injections: $S_k = \bar{V}_k \bar{I}_k^* = \bar{V}_k (\mathbf{Y}_{\text{bus}}\mathbf{\bar{V}})_k^*$
+            \end{itemize}
+        \end{column}
+    \end{columns}
 
-\begin{frame}{Modeling the system in PandaPower}
+    \newpage
+    \begin{alertblock}{The Non-Linearity Challenge}
+        The relationship between power injections and bus voltages involves quadratic terms ($V_k^2$) and trigonometric functions of angle differences ($\sin(\theta_k - \theta_m), \cos(\theta_k - \theta_m)$).
+        This forms a system of \textbf{non-linear algebraic equations} that must be solved using iterative numerical algorithms!
+    \end{alertblock}
+\end{frame}
 
-    We will see how to describe mathematically the problem and how to solve it in the next sections.
-
-    Usually, however, engineers use existing modeling and solution software.
-    One of those, which is open source and accessible through Python scripts, is PandaPower \cite{thurner2018pandapower}. 
-
-    \href{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}{\underline{Link to the PandaPower model}} 
+\begin{frame}{Why Do We Use Power Flow? (Operations \& Reliability)}
+    Power flow is the foundational simulation workhorse for grid operators and utilities:
     
+    \begin{itemize}
+        \item \textbf{Operational Security \& Real-Time Monitoring}:
+        \begin{itemize}
+            \item Verify that all transmission line and transformer currents stay within thermal limits ($I_{km} \le I_{\max}$) to prevent line sag or cable damage
+            \item Ensure bus voltages remain strictly within regulatory safety bounds ($0.95 \le V_k \le 1.05\text{ pu}$) to prevent equipment tripping
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Contingency Analysis ($N-1$ Security Criterion)}:
+        \begin{itemize}
+            \item Power systems are legally required to withstand the sudden tripping of any single asset (line, transformer, generator) without causing cascading overloads
+            \item TSOs (e.g. Elia, RTE, TenneT) run thousands of automated power flows every hour to screen for $N-1$ vulnerabilities
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Why Do We Use Power Flow? (Planning, Markets \& Stability)}
+    \begin{itemize}
+        \item \textbf{Grid Expansion \& Long-Term Planning}:
+        \begin{itemize}
+            \item Forecast where bottlenecks will appear 5--20 years ahead
+            \item Size and place new transmission lines, subsea cables, transformers, or reactive compensation devices (STATCOM, synchronous condensers)
+        \end{itemize}
+        \vspace{0.15cm}
+        \item \textbf{Renewables Integration \& Electricity Markets}:
+        \begin{itemize}
+            \item Calculate grid hosting capacity for massive offshore wind and utility-scale solar
+            \item Verify the physical feasibility of market clearing schedules and compute Locational Marginal Prices (LMP) and transmission congestion charges
+        \end{itemize}
+        \vspace{0.15cm}
+        \item \textbf{Foundation for Dynamic Stability Studies}:
+        \begin{itemize}
+            \item Power flow provides the initial equilibrium point $(\mathbf{V}_0, \boldsymbol{\theta}_0)$ required to initialize transient stability, small-signal stability, and voltage stability simulations
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Power Flow Problem Statement \& Bus Types}
+    At every bus $k$, four physical quantities describe the state:
+    $$(V_k, \theta_k, P_k, Q_k)$$
+    In power flow analysis, \textbf{two variables are specified} (boundary conditions) and \textbf{two variables are unknown}:
+    
+    \begin{itemize}
+        \item \textbf{PQ Buses (Load buses)}:
+        \begin{itemize}
+            \item Active power $P_k^{\text{spec}}$ and reactive power $Q_k^{\text{spec}}$ are specified (consumed by loads, or injected by non-voltage-regulating renewable generators).
+            \item \textbf{Unknowns to find:} Voltage magnitude $V_k$ and phase angle $\theta_k$.
+        \end{itemize}
+        
+        \item \textbf{PV Buses (Voltage-regulated generator buses)}:
+        \begin{itemize}
+            \item Active power $P_k^{\text{spec}}$ and voltage magnitude $V_k^{\text{spec}}$ are specified (controlled via governor and Automatic Voltage Regulator (AVR)).
+            \item \textbf{Unknowns to find:} Phase angle $\theta_k$ and reactive power $Q_k$.
+            \item \textit{Reactive limits:} If $Q_k$ hits a capability limit ($Q_{\min}$ or $Q_{\max}$), the generator cannot maintain voltage; the bus switches to a \textbf{PQ bus} with $Q_k = Q_{\text{limit}}$.
+        \end{itemize}
+
+        \newpage
+        \item \textbf{One Slack Bus (Swing or Reference bus)}:
+        \begin{itemize}
+            \item Sets the angular reference for the entire system: $\theta_{\text{slack}} = 0^\circ$.
+            \item Voltage magnitude is specified (typically $V_{\text{slack}} = 1.0\text{ pu}$).
+            \item \textbf{Unknowns to find:} Active power $P_{\text{slack}}$ and reactive power $Q_{\text{slack}}$.
+        \end{itemize}
+    \end{itemize}
+    
+    \begin{alertblock}{Why is a Slack Bus strictly necessary?}
+        Transmission losses ($P_{\text{loss}} = \sum R_{km} I_{km}^2$) depend on the branch currents, which are unknown before voltages are found!
+        Therefore, total generation cannot be fixed in advance:
+        $$\sum P_{G} = \sum P_{L} + P_{\text{loss}}(\mathbf{\bar{V}})$$
+        The slack bus generator automatically acts as the buffer that balances the remaining active and reactive power of the grid.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{A First Tiny Example (3-Bus System)}
+    \begin{center}
+        \input{images/PF_net_1.tex}
+    \end{center}
+    
+    \begin{columns}
+        \begin{column}{0.5\linewidth}
+            \textbf{Buses:}
+            \begin{itemize}
+                \item \textbf{Bus 1 (Slack):} $V_1 = 1.00\text{ pu}, \theta_1 = 0^\circ$
+                \item \textbf{Bus 2 (PV):} $V_2 = 1.05\text{ pu}$, generating $P_2 = 2.0\text{ pu}$ ($200\text{ MW}$)
+                \item \textbf{Bus 3 (PQ):} Load consuming $P_3 = 5.0\text{ pu}$ ($500\text{ MW}$) and $Q_3 = 1.0\text{ pu}$ ($100\text{ Mvar}$)
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+            \textbf{Lines (Base: $345\text{ kV}$, $100\text{ MVA}$):}
+            \begin{itemize}
+                \item $X = 0.376\ \Omega/\text{km}$, $R = 0.037\ \Omega/\text{km}$
+                \item Lengths: $L_{12} = 150\text{ km}$, $L_{23} = 150\text{ km}$, $L_{31} = 200\text{ km}$
+                \item Base impedance: $Z_B = 345^2 / 100 = 1190.25\ \Omega$
+                \item Current rating: $I_{\max} = 0.20\text{ kA}$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Modeling the System in PandaPower}
+    We will see how to formulate mathematically the problem and solve it from scratch.
+    
+    Usually, engineers use specialized power system software. One such open-source, Python-based tool is \textbf{PandaPower} \cite{thurner2018pandapower}.
+
+    \begin{center}
+        \vspace{0.4cm}
+        \href{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}{\beamergotobutton{Open PandaPower 3-Bus Model in Google Colab}}
+    \end{center}
 \end{frame}
 
 \begin{frame}[fragile, allowframebreaks]
-    \frametitle{Creation of the power flow model with PandaPower}
-    \begin{center}
-        \lstinputlisting{pandapower_net.py}
-    \end{center}
+    \frametitle{Creation of the Power Flow Model with PandaPower}
+    \lstinputlisting{pandapower_net.py}
 \end{frame}
 
-\begin{frame}{Result of the tiny example using pandapower}
+\begin{frame}{Results of the 3-Bus Example: Bus State}
+    \begin{table}[h]
+        \centering
+        \footnotesize
+        \setlength{\tabcolsep}{6pt}
+        \begin{tabular}{llcccc}
+            \toprule
+            \textbf{Bus} & \textbf{Type} & $\mathbf{V}$ \textbf{[pu]} & $\boldsymbol{\theta}$ \textbf{[$^\circ$]} & $\mathbf{P}$ \textbf{[MW]} & $\mathbf{Q}$ \textbf{[Mvar]} \\
+            \midrule
+            Bus 1 & Slack & 1.000 & 0.00 & \color{blue}\textbf{-308.38} & \color{blue}\textbf{+81.61} \\
+            Bus 2 & PV    & 1.050 & \color{blue}\textbf{-2.07} & -200.00 & \color{blue}\textbf{-266.74} \\
+            Bus 3 & PQ    & \color{blue}\textbf{0.978} & \color{blue}\textbf{-8.79} & +500.00 & +100.00 \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
     
-    \begin{center}
-     {\scriptsize    
-    \begin{tabular}{|l|r|r|r|r|}
-        \hline
-        & \textbf{vm\_pu} & \textbf{va\_degree} & \textbf{p\_mw} & \textbf{q\_mvar} \\
-        \hline
-        0 & 1.00 & 0.00 & -308.38 & 81.61 \\
-        \hline
-        1 & 1.05 & -2.07 & -200.00 & -266.74 \\
-        \hline
-        2 & 0.98 & -8.79 & 500.00 & 100.00 \\
-        \hline
-    \end{tabular}
-     }
-\end{center}
-
-    Are there losses?
-    
-    Results for the lines:
-    {\scriptsize
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-        \hline
-        & \textbf{p\_from\_mw} & \textbf{q\_from\_mvar} & \textbf{p\_to\_mw} & \textbf{q\_to\_mvar} & \textbf{pl\_mw} & \textbf{ql\_mvar} & \textbf{i\_from\_ka} & \textbf{i\_to\_ka} \\
-        \hline
-        0 & 68.99 & -110.87 & -68.20 & 118.95 & 0.80 & 8.08 & 0.22 & 0.22 \\
-        \hline
-        1 & 268.20 & 147.79 & -264.23 & -107.49 & 3.97 & 40.30 & 0.49 & 0.49 \\
-        \hline
-        2 & -235.77 & 7.49 & 239.38 & 29.26 & 3.62 & 36.75 & 0.40 & 0.40 \\
-        \hline
-    \end{tabular}
-    }
+    \vspace{-0.35cm}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \scriptsize
+            \textbf{Legend \& Conventions:}
+            \begin{itemize}
+                \item Standard text: \textbf{Specified input data}
+                \item \color{blue}\textbf{Bold blue text: Computed by power flow}
+                \item Sign convention (PandaPower net flow):
+                \begin{itemize}
+                    \item Negative $(-)$: Net injection (generation)
+                    \item Positive $(+)$: Net withdrawal (load)
+                \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \scriptsize
+            \textbf{Physical Observations:}
+            \begin{itemize}
+                \item Bus 1 generator supplies $308.38\text{ MW}$ to balance total load plus line losses
+                \item Bus 2 generator injects $266.74\text{ Mvar}$ to hold voltage at $1.05\text{ pu}$
+                \item Voltage at load Bus 3 drops to $0.978\text{ pu}$ ($\Delta \theta = -8.79^\circ$)
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
+\begin{frame}{Results of the 3-Bus Example: Line Flows \& Loading}
+    \begin{table}[h]
+        \centering
+        \scriptsize
+        \setlength{\tabcolsep}{4pt}
+        \begin{tabular}{lcccccccc}
+            \toprule
+            \textbf{Line} & \textbf{From $\to$ To} & $\mathbf{P_{\text{from}}}$ & $\mathbf{P_{\text{to}}}$ & $\mathbf{P_{\text{loss}}}$ & $\mathbf{Q_{\text{loss}}}$ & $\mathbf{I}$ & $\mathbf{I_{\max}}$ & \textbf{Loading} \\
+            & & [MW] & [MW] & [MW] & [Mvar] & [kA] & [kA] & [\%] \\
+            \midrule
+            Line 1 & Bus 1 $\to$ Bus 2 & +69.0 & -68.2 & 0.80 & 8.08 & 0.22 & 0.20 & \color{orange!90!black}\textbf{109.8\,\%} \\
+            Line 2 & Bus 2 $\to$ Bus 3 & +268.2 & -264.2 & 3.97 & 40.30 & 0.49 & 0.20 & \color{red}\textbf{245.2\,\%} \\
+            Line 3 & Bus 3 $\to$ Bus 1 & -235.8 & +239.4 & 3.62 & 36.75 & 0.40 & 0.20 & \color{red}\textbf{201.2\,\%} \\
+            \midrule
+            \multicolumn{2}{l}{\textbf{Total Losses}} & & & \textbf{8.39} & \textbf{85.13} & & & \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \vspace{0.1cm}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \scriptsize
+            \textbf{Active Power Balance:}
+            \begin{itemize}
+                \item Total Gen: $P_G = 308.38 + 200.00 = 508.38\text{ MW}$
+                \item Total Load: $P_L = 500.00\text{ MW}$
+                \item \textbf{Losses:} $P_G - P_L = \mathbf{8.38\text{ MW}}$ ($1.65\%$ of load)
+                \item Matches sum of line losses: $8.39\text{ MW}$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \scriptsize
+            \textbf{Engineering Diagnosis:}
+            \begin{itemize}
+                \item Bus voltages are healthy ($0.978 - 1.05\text{ pu}$)
+                \item \alert{\textbf{Lines 2 and 3 are severely overloaded}} ($245\%$ and $201\%$)!
+                \item Protection relays would trip these lines, risking cascading failure without re-dispatch!
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+%==============================================================================
 \section{The power flow equations}
+%==============================================================================
 
-\begin{frame}[allowframebreaks]{The power flow equations}
-    \begin{itemize}
-        \item Let $\mathcal{N}$ be the set of buses of the network
-        \item Some buses are interconnected by transmission lines, given by their $\pi$ models
-        \item Let $\mathcolor[RGB]{00,99,00}{Y_{kG}}$ be the sum of admittances connected between node $k$ and the ground:
-        \begin{itemize}
-            \item the shunt admittances of the lines incident to $k$, and the admittances of the devices connected at node $k$ if any.
-        \end{itemize}
-        \item For two nodes $k$ and $m$, let $Z_{km}$ be the series impedance of the line connecting them and $Y_{km} = Z_{km}^{-1}$ ($Y_{km} = 0$ if there is no line)
-    \end{itemize}
+\begin{frame}[allowframebreaks]{The Nodal Admittance Matrix $\mathbf{Y}_{\text{bus}}$}
+    Consider a power system with bus set $\mathcal{N} = \{1, \dots, n\}$ interconnected by transmission lines modeled by equivalent $\pi$ circuits:
     
-    The current injection at node $k$ is
-    \begin{equation}
-        \mathcolor{blue}{\bar{I}_k} = \mathcolor[RGB]{00,99,00}{Y_{kG}} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus k} {(\bar{V}_k - \bar{V}_m) Y_{km}} \label{eq:bus_inj}
-    \end{equation}
-   
+    \begin{itemize}
+        \item For line connecting buses $k$ and $m$: series impedance $\bar{z}_{km} = r_{km} + j x_{km}$, series admittance $\bar{y}_{km} = 1/\bar{z}_{km}$ (and $\bar{y}_{km} = 0$ if no line exists)
+        \item Line total charging shunt susceptance $b_{km}^{\text{sh}}$, split equally as $j b_{km}^{\text{sh}}/2$ at each terminal
+        \item Shunt element connected at node $k$ (e.g. reactor/capacitor): $Y_{k0} = G_{k0} + j B_{k0}$
+        \item Total shunt admittance between bus $k$ and ground:
+        $$\mathcolor[RGB]{00,99,00}{Y_{kG}} = Y_{k0} + \sum_{m \in \mathcal{N}_k} j \frac{b_{km}^{\text{sh}}}{2}$$
+    \end{itemize}
+
+    \newpage
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.8\textwidth]{images/bus_injection_model.pdf}
-        \caption{Illustration of current injection at bus $k$ as a function of exchanges with neighbor buses ($l$ and $m$) and shunt compensation device. Devices and lines connected to buses $l$ and $m$ are not shown.}
+        \includegraphics[width=0.75\textwidth]{images/bus_injection_model.pdf}
+        \caption{Current injection at bus $k$ as a function of branch flows to neighbors ($l, m$) and shunt elements to ground.}
         \label{fig:bus_injection}
     \end{figure}
 
-    This last equation can be rewritten as
-    $$\mathcolor{blue}{\bar{I}_k} =  \left(\mathcolor[RGB]{00,99,00}{Y_{kG}}+ \sum_{m \in \mathcal{N} \setminus k} Y_{km} \right) \bar{V}_k  - \sum_{m \in \mathcal{N} \setminus k} Y_{km} \bar{V}_m$$
-    
-    which highlights the possibility to write in matrix form
+    By Kirchhoff's Current Law (KCL), the net current injection $\mathcolor{blue}{\bar{I}_k}$ into bus $k$ is:
     \begin{equation}
-        \mathbf{\bar{I}} = \mathbf{Y} \mathbf{\bar{V}} \label{eq:bus_inj_mat}
+        \mathcolor{blue}{\bar{I}_k} = \mathcolor[RGB]{00,99,00}{Y_{kG}} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus \{k\}} \bar{y}_{km} (\bar{V}_k - \bar{V}_m) \label{eq:bus_inj}
     \end{equation}
-    with $\mathbf{\bar{I}}$ and $\mathbf{\bar{V}}$ the vectors of bus current injections and bus voltages, respectively.
-    
+
     \newpage
-    The \textit{admittance matrix} $\mathbf{Y}$ can be determined by inspection:
-    \begin{itemize}
-        \item Element $y_{kk}$ is the sum of the admittances incident to bus $k$
-        \item Element $y_{km}, m \neq k$, is the opposite of the sum of the admittances connecting bus $k$ to bus $m$.
-    \end{itemize}
-
-    However, remember that we have power measurements only (and voltage magnitudes at a few PV buses). So we can derive
+    Factoring out the bus voltages:
     \begin{equation}
-        \mathbf{P} +j \mathbf{Q} = \mathbf{\bar{V}} \circ \mathbf{\bar{I}}^{\star}
-        = \mathbf{\bar{V}} \circ \mathbf{Y}^{\star} \mathbf{\bar{V}}^{\star} \label{eq:pf}
+        \mathcolor{blue}{\bar{I}_k} = \underbrace{\left(\mathcolor[RGB]{00,99,00}{Y_{kG}} + \sum_{m \in \mathcal{N} \setminus \{k\}} \bar{y}_{km} \right)}_{Y_{kk}} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus \{k\}} \underbrace{(-\bar{y}_{km})}_{Y_{km}} \bar{V}_m
     \end{equation}
-    where $\mathbf{P}$ and $\mathbf{Q}$ are the vectors of active and reactive power injections, respectively, and $\circ$ denotes the elementwise product.
     
-    If we develop this relation for a node $k$, we have:
+    In matrix form for all $n$ buses:
+    \begin{equation}
+        \mathbf{\bar{I}} = \mathbf{Y}_{\text{bus}} \mathbf{\bar{V}} \label{eq:bus_inj_mat}
+    \end{equation}
+
+    \textbf{Rules for building $\mathbf{Y}_{\text{bus}}$ by inspection:}
+    \begin{itemize}
+        \item \textbf{Diagonal element $Y_{kk}$:} sum of all admittances connected to bus $k$ (series lines + shunts)
+        \item \textbf{Off-diagonal element $Y_{km}$ ($m \neq k$):} negative of the series admittance connecting bus $k$ and bus $m$ (hence $Y_{km} = Y_{mk}$ for bilateral lines)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Power Flow Equations in Polar Coordinates}
+    In power systems, boundary conditions are given in powers rather than currents.
+    The complex power injection vector is:
+    \begin{equation}
+        \mathbf{S} = \mathbf{P} + j \mathbf{Q} = \mathrm{diag}(\mathbf{\bar{V}}) \mathbf{\bar{I}}^{\star} = \mathbf{\bar{V}} \circ (\mathbf{Y}_{\text{bus}} \mathbf{\bar{V}})^{\star} \label{eq:pf}
+    \end{equation}
+    where $\circ$ denotes the Hadamard (element-wise) product.
+    
+    For a single bus $k$:
+    \begin{equation}
+        S_k = P_k + j Q_k = \bar{V}_k \bar{I}_k^{\star} = \bar{V}_k \sum_{m=1}^n Y_{km}^{\star} \bar{V}_m^{\star}
+    \end{equation}
+
+    \newpage
+    Expressing voltages in polar coordinates and admittance in rectangular coordinates:
+    $$\bar{V}_k = V_k e^{j\theta_k}, \quad \bar{V}_m = V_m e^{j\theta_m}, \quad Y_{km} = G_{km} + j B_{km}$$
+    
+    Then:
+    $$S_k = \sum_{m=1}^n V_k V_m e^{j(\theta_k - \theta_m)} (G_{km} - j B_{km})$$
+    
+    Using Euler's identity $e^{j\theta_{km}} = \cos\theta_{km} + j \sin\theta_{km}$ with phase difference $\theta_{km} = \theta_k - \theta_m$:
     \begin{align}
-        P_k &= g_{kk} V_k^2  + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(g_{km} \cos\theta_{km} + b_{km} \sin\theta_{km}) = p_k(\mathbf{\bar{V}}) \label{eq:pf_P}\\
-        Q_k &= -b_{kk} V_k^2 + V_k \sum_{m \in \mathcal{N} \setminus k} V_m(g_{km} \sin\theta_{km} - b_{km} \cos\theta_{km}) = q_k(\mathbf{\bar{V}}) \label{eq:pf_Q}
+        P_k &= V_k \sum_{m=1}^n V_m (G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) = p_k(\mathbf{V}, \boldsymbol{\theta}) \label{eq:pf_P} \\[0.5em]
+        Q_k &= V_k \sum_{m=1}^n V_m (G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km}) = q_k(\mathbf{V}, \boldsymbol{\theta}) \label{eq:pf_Q}
     \end{align}
-   
-    with
+
+    \newpage
+    Separating the self-term ($m=k$, where $\theta_{kk}=0, \cos 0 = 1, \sin 0 = 0$):
+    \begin{align}
+        P_k &= G_{kk} V_k^2 + V_k \sum_{m \neq k} V_m (G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) \\[0.5em]
+        Q_k &= -B_{kk} V_k^2 + V_k \sum_{m \neq k} V_m (G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km})
+    \end{align}
+    
     \begin{itemize}
-        \item $y_{km} = g_{km} + j b_{km}$
-        \item $y_{kk} = g_{kk} + j b_{kk}$ 
-        \item $\theta_{km} = \theta_{k} - \theta_{m}$ the phase difference between voltages at nodes $k$ and $m$
+        \item $G_{kk} V_k^2$ represents local active power dissipation
+        \item $-B_{kk} V_k^2$ represents local reactive power injected by shunt susceptance
+        \item The summation over $m \neq k$ represents the active/reactive power exchanged with neighboring buses
     \end{itemize}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Number of equations and unknowns}
-    If there are $n$ buses in total, among which $n_{PQ}$ PQ buses, $n_{PV}$ PV buses and one slack bus, hence
-    $$ n = n_{PQ} + n_{PV} + 1,$$
-    then
+\begin{frame}[allowframebreaks]{Number of Equations and Unknowns}
+    In an $n$-bus power system with $n_{PQ}$ PQ buses, $n_{PV}$ PV buses, and 1 slack bus ($n = n_{PQ} + n_{PV} + 1$):
+    
+    \begin{table}[h]
+        \centering
+        \small
+        \begin{tabular}{lcccc}
+            \toprule
+            \textbf{Bus Type} & \textbf{Count} & \textbf{Specified Knowns} & \textbf{Iterative Unknowns} & \textbf{Equations Used} \\
+            \midrule
+            PQ Bus    & $n_{PQ}$ & $P_k^{\text{spec}}, Q_k^{\text{spec}}$ & $V_k, \theta_k$ & $P_k - p_k = 0, \ Q_k - q_k = 0$ \\
+            PV Bus    & $n_{PV}$ & $P_k^{\text{spec}}, V_k^{\text{spec}}$ & $\theta_k$      & $P_k - p_k = 0$ \\
+            Slack Bus & 1        & $V_s^{\text{spec}}, \theta_s^{\text{spec}} = 0$ & none (in NR)    & none (in NR) \\
+            \midrule
+            \textbf{Total} & $n$ & $2n$ knowns & $\mathbf{2n_{PQ} + n_{PV}}$ & $\mathbf{2n_{PQ} + n_{PV}}$ equations \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \newpage
+    \textbf{Post-processing quantities (computed after convergence):}
     \begin{itemize}
-        \item $\mathbf{P}$ is known for $n_{PQ} + n_{PV}$ buses (all but the slack)
-        \item Elements of $\mathbf{Q}$ are known for the $n_{PQ}$ PQ buses
-        \item Voltage magnitude is known at PV buses and at the slack bus
-        \item Voltage angle is known at the slack bus.
+        \item Slack bus power injections: $P_{\text{slack}} = p_{\text{slack}}(\mathbf{V}, \boldsymbol{\theta})$ and $Q_{\text{slack}} = q_{\text{slack}}(\mathbf{V}, \boldsymbol{\theta})$
+        \item Generator reactive power at PV buses: $Q_k = q_k(\mathbf{V}, \boldsymbol{\theta})$ for $k \in \mathcal{N}_{PV}$
+        \item Branch currents, active/reactive line flows, and system losses
     \end{itemize}
-    
-    \vspace{1cm}
-    
-    In total, there are $2n$ equations for $2n$ unknowns:
-    \begin{itemize}
-        \item $n-1$ voltage angles, 
-        \item $n_{PQ}$ voltage magnitudes, 
-        \item $n_{PV} + 1$ reactive powers, 
-        \item 1 active power.
-    \end{itemize} 
 \end{frame}
 
+%==============================================================================
 \section{Power flow solution method}
+%==============================================================================
 
-\begin{frame}
-    \frametitle{Power flow solution method}
-    Let
-    \begin{itemize}
-        \item $\mathbf{P}^0$ be the active powers specified at the $\mathcal{N}_{PQ} \cup \mathcal{N}_{PV}$ buses
-        \item $\mathbf{Q}^0$ be the reactive powers specified at the $\mathcal{N}_{PQ}$ buses.
-    \end{itemize}
-    
-    To find $\mathbf{\bar{V}}$, we must solve
+\begin{frame}{Power Flow Solution via Newton-Raphson}
+    Let the specified active and reactive powers be $P_k^0$ and $Q_k^0$.
+    We define the \textbf{power mismatch functions}:
     \begin{align*}
-        P_k^0 - p_k(\mathbf{\bar{V}}) &= 0, \ \forall k \in \mathcal{N}_{PQ} \cup \mathcal{N}_{PV} \\
-        Q_k^0 - q_k(\mathbf{\bar{V}}) &= 0, \ \forall k \in \mathcal{N}_{PQ}
+        \Delta P_k(\mathbf{V}, \boldsymbol{\theta}) &= P_k^0 - p_k(\mathbf{V}, \boldsymbol{\theta}) = 0, \quad \forall k \in \mathcal{N}_{PQ} \cup \mathcal{N}_{PV} \\
+        \Delta Q_k(\mathbf{V}, \boldsymbol{\theta}) &= Q_k^0 - q_k(\mathbf{V}, \boldsymbol{\theta}) = 0, \quad \forall k \in \mathcal{N}_{PQ}
     \end{align*}
-    which is a set of $2 n_{PQ} + n_{PV}$ non-linear equations.
     
-    The most widespread method to solve this system is the \textit{Newton-Raphson method}.
+    This forms a set of $2 n_{PQ} + n_{PV}$ non-linear algebraic equations in $2 n_{PQ} + n_{PV}$ unknown state variables:
+    $$\mathbf{x} = \begin{bmatrix} \boldsymbol{\theta}_{PQ, PV} \\ \mathbf{V}_{PQ} \end{bmatrix}, \qquad \mathbf{F}(\mathbf{x}) = \begin{bmatrix} \Delta \mathbf{P}(\mathbf{x}) \\ \Delta \mathbf{Q}(\mathbf{x}) \end{bmatrix} = \mathbf{0}$$
+    
+    The standard method to solve this non-linear system is the \textbf{Newton-Raphson method}.
 \end{frame}
 
-
-\begin{frame}[allowframebreaks]{Newton-Raphson example in 1D}
+\begin{frame}{Newton-Raphson Method in 1D: Principles}
+    Suppose we want to find $x$ such that the mismatch $g(x) = c - f(x) = 0$.
+    
     \begin{itemize}
-        \item Let's assume we want to solve $c-f(x) = 0$ with $f$ a non-linear function.
-        \item We start with a first guess for $x$, $x^{(0)}$, at iteration $i=0$
-        \item Then, while $|c-f(x^{(i)})| > \epsilon$:
-        \begin{itemize}
-            \item $x^{(i+1)} = x^{(i)} + \frac{c-f(x^{(i)})}{f'(x^{(i)})}$
-            \item $i \leftarrow i + 1$
-        \end{itemize}
+        \item Start with an initial guess $x^{(0)}$ at iteration $i=0$
+        \item First-order Taylor approximation around $x^{(i)}$:
+        $$g(x^{(i)} + \Delta x) \approx g(x^{(i)}) + g'(x^{(i)}) \Delta x = 0$$
+        \item Solve for the update step: $\Delta x = -\dfrac{g(x^{(i)})}{g'(x^{(i)})} = \dfrac{c - f(x^{(i)})}{f'(x^{(i)})}$
+        \item Update iterate: $x^{(i+1)} = x^{(i)} + \Delta x$ and repeat until $|g(x^{(i)})| \le \epsilon$
     \end{itemize}
+    
+    \vspace{0.15cm}
+    \alert{\textbf{Quadratic Convergence:}} If $x^{(0)}$ is near the root, $|x^{(i+1)} - x^*| \le K |x^{(i)} - x^*|^2$.
+    The number of accurate decimal digits roughly doubles at each iteration!
+\end{frame}
+
+\begin{frame}{Newton-Raphson 1D: Step-by-Step Convergence}
+
     
     \begin{columns}
-    \begin{column}{0.55\textwidth}
-    For $c=4$ and $f(x) = x^3$:
-    \begin{center}
-        \includegraphics[width=\linewidth]{images/NR-1D.png}
-    \end{center}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-    The \textit{convergence is quadratic} if we start with x(0) "close” to the solution.
+        \begin{column}{0.48\textwidth}
+            \footnotesize
+            \textbf{Example: Solve $g(x) = 4 - x^3 = 0$}
+            \vspace{-0.15cm}
+            $$\Delta x^{(i)} = \frac{4 - (x^{(i)})^3}{3 (x^{(i)})^2}, \quad x^{(i+1)} = x^{(i)} + \Delta x^{(i)}$$
+            
+            \vspace{-0.1cm}
+            \scriptsize
+            \begin{tabular}{ccccc}
+                \toprule
+                $i$ & $x^{(i)}$ & $g(x^{(i)})$ & $\Delta x^{(i)}$ & $|x^{(i)}-x^*|$ \\
+                \midrule
+                \alt<1>{\color{red}\bfseries 0 & \color{red}\bfseries 3.5000 & \color{red}\bfseries -38.88 & \color{red}\bfseries -1.058 & \color{red}\bfseries 1.913}{0 & 3.5000 & -38.88 & -1.058 & 1.913} \\
+                \alt<2>{\color{orange!90!black}\bfseries 1 & \color{orange!90!black}\bfseries 2.4422 & \color{orange!90!black}\bfseries -10.57 & \color{orange!90!black}\bfseries -0.590 & \color{orange!90!black}\bfseries 0.855}{1 & 2.4422 & -10.57 & -0.590 & 0.855} \\
+                \alt<3>{\color{purple}\bfseries 2 & \color{purple}\bfseries 1.8517 & \color{purple}\bfseries -2.35 & \color{purple}\bfseries -0.228 & \color{purple}\bfseries 0.264}{2 & 1.8517 & -2.35 & -0.228 & 0.264} \\
+                \alt<4>{\color{green!60!black}\bfseries 3 & \color{green!60!black}\bfseries 1.6233 & \color{green!60!black}\bfseries -0.27 & \color{green!60!black}\bfseries -0.035 & \color{green!60!black}\bfseries 0.036}{3 & 1.6233 & -0.27 & -0.035 & 0.036} \\
+                \bottomrule
+            \end{tabular}
 
-    \href{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}{\underline{Link to Python implementation}} 
-    \end{column}
+            \vspace{0.25cm}
+            \href{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}{\beamergotobutton{Python Colab Implementation}}
+            \quad
+            \href{interactive_nr_visualizer.html}{\beamergotobutton{Interactive Web Visualizer}}
+        \end{column} \hfill
+        \begin{column}{0.48\textwidth}
+            \centering
+            \begin{tikzpicture}[xscale=1.25, yscale=0.07]
+                % Axes
+                \draw[->, >=stealth, thick] (0.8,0) -- (4.0,0) node[right] {\footnotesize $x$};
+                \draw[->, >=stealth, thick] (1.0,-42) -- (1.0,8) node[above, blue] {\footnotesize $g(x) = 4 - x^3$};
+                \draw[dashed, gray!60] (0.8,0) -- (4.0,0);
+                
+                % Function curve
+                \draw[domain=1.0:3.8, smooth, variable=\x, blue, very thick] plot ({\x}, {4 - \x*\x*\x});
+                %\node[blue, right] at (1.1, 5) {\footnotesize $g(x) = 4 - x^3 = 0$};
+                \node[green!60!black, below] at (1.587, 0) {\tiny $x^* \approx 1.587$};
+                \fill[green!60!black] (1.587, 0) circle (1.5pt);
+
+                % Step 0
+                \only<1->{
+                    \draw[dotted, thick, red] (3.5, 0) -- (3.5, -38.875);
+                    \fill[red] (3.5, -38.875) circle (1.5pt);
+                    \fill[red] (3.5, 0) circle (1.5pt) node[above, red] {\scriptsize $x^{(0)}=3.5$};
+                }
+                
+                % Step 1
+                \only<2->{
+                    \draw[thick, orange!90!black, -{Stealth[length=2mm]}] (3.5, -38.875) -- (2.442, 0);
+                    \draw[dotted, thick, red] (2.442, 0) -- (2.442, -10.566);
+                    \fill[red] (2.442, -10.566) circle (1.5pt);
+                    \fill[orange!90!black] (2.442, 0) circle (1.5pt) node[above] {\scriptsize $x^{(1)}$};
+                }
+
+                % Step 2
+                \only<3->{
+                    \draw[thick, purple, -{Stealth[length=2mm]}] (2.442, -10.566) -- (1.852, 0);
+                    \draw[dotted, thick, red] (1.852, 0) -- (1.852, -2.349);
+                    \fill[red] (1.852, -2.349) circle (1.5pt);
+                    \fill[purple] (1.852, 0) circle (1.5pt) node[above] {\scriptsize $x^{(2)}$};
+                }
+
+                % Step 3
+                \only<4->{
+                    \draw[thick, green!60!black, -{Stealth[length=2mm]}] (1.852, -2.349) -- (1.623, 0);
+                    \fill[green!60!black] (1.623, 0) circle (1.5pt) node[above left] {\scriptsize $x^{(3)}$};
+                }
+            \end{tikzpicture}
+        \end{column}
     \end{columns}
-    
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Newton-Raphson for the power flow problem}
-    We apply exactly the same idea to our problem, except that we are in dimension $2 n_{PQ} + n_{PV}$.
+\begin{frame}[allowframebreaks]{Newton-Raphson for Power Flow}
+    We apply the same principle in dimension $M = 2 n_{PQ} + n_{PV}$.
+    At iteration $(i)$, the linearized mismatch system is:
+    \begin{equation}
+        \mathbf{J}(\mathbf{x}^{(i)}) \Delta \mathbf{x}^{(i)} = \mathbf{F}(\mathbf{x}^{(i)})
+    \end{equation}
     
-    Hence we must compute partial derivatives to compute the update steps:
-    $$\mathbf{\bar{V}}^{(i+1)}_x = \mathbf{\bar{V}}^{(i)}_x + \underbrace{\left[\mathbf{J}(\mathbf{\bar{V}}^{(i)})\right]^{-1} (\mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}))}_{\Delta \mathbf{\bar{V}}_x}$$
-    where
+    where the \textbf{Jacobian matrix} $\mathbf{J}$ contains the partial derivatives:
+    \begin{equation}
+        \begin{bmatrix}
+            \mathbf{J}_{P\theta} & \mathbf{J}_{PV} \\[0.6em]
+            \mathbf{J}_{Q\theta} & \mathbf{J}_{QV}
+        \end{bmatrix}^{(i)}
+        \begin{bmatrix}
+            \Delta \boldsymbol{\theta} \\[0.6em]
+            \Delta \mathbf{V}
+        \end{bmatrix}^{(i)}
+        =
+        \begin{bmatrix}
+            \mathbf{P}^0 - \mathbf{p}(\mathbf{V}^{(i)}, \boldsymbol{\theta}^{(i)}) \\[0.6em]
+            \mathbf{Q}^0 - q(\mathbf{V}^{(i)}, \boldsymbol{\theta}^{(i)})
+        \end{bmatrix}
+    \end{equation}
+
+    \newpage
+    The four sub-matrices of the Jacobian are:
     \begin{itemize}
-        \item $\mathbf{F}^0$ gathers the measured active powers at buses in $\mathcal{N}_{PQ} \cup \mathcal{N}_{PV}$ and reactive powers at buses $\mathcal{N}_{PQ}$
-        \item $\mathbf{f}(\mathbf{\bar{V}})$ gathers the active and power flow equations at the corresponding buses
-        \item $\mathbf{\bar{V}}_x$ is the subvector of $\mathbf{\bar{V}}$ that gathers the unknown voltage magnitudes and angles at the corresponding buses
-        \item $\mathbf{J}(\mathbf{\bar{V}})$ is the jacobian of $\mathbf{f}$, of size $(2 n_{PQ} + n_{PV}) \times (2 n_{PQ} + n_{PV})$
+        \item $\mathbf{J}_{P\theta} = \dfrac{\partial \mathbf{P}}{\partial \boldsymbol{\theta}}$ of size $(n_{PQ} + n_{PV}) \times (n_{PQ} + n_{PV})$
+        \item $\mathbf{J}_{PV} = \dfrac{\partial \mathbf{P}}{\partial \mathbf{V}}$ of size $(n_{PQ} + n_{PV}) \times n_{PQ}$
+        \item $\mathbf{J}_{Q\theta} = \dfrac{\partial \mathbf{Q}}{\partial \boldsymbol{\theta}}$ of size $n_{PQ} \times (n_{PQ} + n_{PV})$
+        \item $\mathbf{J}_{QV} = \dfrac{\partial \mathbf{Q}}{\partial \mathbf{V}}$ of size $n_{PQ} \times n_{PQ}$
     \end{itemize}
 
+    \vspace{0.2cm}
+    Once $\Delta \boldsymbol{\theta}$ and $\Delta \mathbf{V}$ are calculated by solving the linear system:
+    $$\boldsymbol{\theta}^{(i+1)} = \boldsymbol{\theta}^{(i)} + \Delta \boldsymbol{\theta}, \qquad \mathbf{V}^{(i+1)} = \mathbf{V}^{(i)} + \Delta \mathbf{V}$$
 \end{frame}
 
-\begin{frame}{Remarks}
+\begin{frame}{Remarks on Practical Implementation}
     \begin{itemize}
-        \item In practice, instead of computing the inverse of the Jacobian, we solve the system
-        \begin{equation}
-        \mathbf{J}(\mathbf{\bar{V}}^{(i)}) \Delta \mathbf{\bar{V}}_x = \mathbf{F}^0-\mathbf{f}(\mathbf{\bar{V}}^{(i)}) \label{eq:NR_step}
-        \end{equation}
-        to get the update step
-        \item The Jacobian is often sparse, since a bus is connected to a few neighbors; it is very important to take into account the sparsity properties in practical implementations
-        \item The Jacobian is not necessarily updated at every iteration, especially close to convergence
+        \item \textbf{Avoid Inversion}: We never compute the matrix inverse $\mathbf{J}^{-1}$; instead, we solve the linear system $\mathbf{J} \Delta \mathbf{x} = \Delta \mathbf{F}$ via LU factorization and forward/backward substitution
+        \item \textbf{Sparsity Exploitation}: In real power systems, each bus is typically connected to only 2--5 neighboring lines. The Jacobian is extremely sparse (often $>99\%$ zeros). Using sparse matrix algorithms reduces computational cost from $\mathcal{O}(n^3)$ to nearly $\mathcal{O}(n^{1.2})$!
+        \item \textbf{Flat Start}: Without prior knowledge, iterations are initialized at a \textit{flat start}:
+        $$V_k^{(0)} = 1.0\text{ pu}, \quad \theta_k^{(0)} = 0^\circ \quad \forall k$$
+        \item \textbf{Jacobian Reuse}: In modified Newton methods, the Jacobian can be held constant across multiple iterations close to convergence to save computation
     \end{itemize}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Illustration}
-Let's reconsider the 3-bus example we already modeled with PandaPower.
-
-We will 
-\begin{enumerate}
-  \item Compute the line impedances of the system $Z_{1,2}, Z_{1,3}, Z_{2,3}$ where $Z_{i, j}$ is the impedance of the line between bus-$i$ and bus-$j$.
-  \item Calculate the base impedance $Z_{B}$ and compute the per-unit line impedances.
-  \item Compose the per-unit admittance matrix of the system $\mathbf{Y}_{p u} = \mathbf{G}_{p u} + j\mathbf{B}_{p u}$.
-  \item Initialize the unknown voltages of the Newton-Raphson procedure:
-  \begin{itemize}
-    \item there are two unknowns at the PQ bus ($V_{3}, \theta_{3}$) and one unknown at the PV bus ( $\theta_{2}$ ).
-    \item initialize the unknown magnitudes at 1 pu and unknown phases at 0 rad (first arbitrary estimation).
-  \end{itemize}
-  \item Perform one iteration in the Newton-Raphson procedure.
-  \begin{itemize}
-    \item Use the active and reactive power equations \eqref{eq:pf_P} and \eqref{eq:pf_Q} at the nodes where active and reactive power are known, i.e. estimate $p_2\left(\bar{V}^{(k)}\right), p_3\left(\bar{V}^{(k)}\right)$ and $q_3\left(\bar{V}^{(k)}\right)$, for $k=0$
-    \item Compute the \textbf{error} of the initial step: subtract estimates from known values.
-    \item Compute the Jacobian matrix $\mathbf{J}$ of the system and evaluate it at $\overline{\mathbf{V}}^{(0)}$.
-    \item Find the \textbf{update step} $\Delta \overline{\mathbf{V}}$ by solving \eqref{eq:NR_step}.
-    \item Update the estimated voltages magnitudes and phases with the \textbf{update step}
-  \end{itemize}
-  \item Repeat the process until the \textbf{error} is low enough.
-\end{enumerate}
-\begin{block}{Exercise}
+\begin{frame}[allowframebreaks]{Illustration on the 3-Bus Example}
+    Let us apply the Newton-Raphson algorithm step-by-step to our 3-bus network:
     \begin{itemize}
-    \item Write down the expression of $p_{2}\left(\bar{V}^{(k)}\right)$
-    \item What are the dimensions of the Jacobian?
-    \item Write down the expression of 3 elements of the Jacobian.
-    \item Understand and run the \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_Newton_Raphson.ipynb}{\underline{Python notebook}} 
-    \textbf{WARNING: indices start at 0 in Python, so bus 1 is at index 0, etc.}
-    \item Compare the results to the PandaPower model.
-\end{itemize}
-
-\end{block}
-
-
-\end{frame}
-
-\begin{frame}[allowframebreaks]{Fast decoupled power flow}
-    Remember that
-    \begin{itemize}
-        \item active power flow is mostly a function of voltage angles
-        \item reactive power flow is mostly a function of voltage magnitudes
+        \item Bus 1 is Slack ($V_1 = 1.0\text{ pu}, \theta_1 = 0^\circ$)
+        \item Bus 2 is PV ($V_2 = 1.05\text{ pu}, P_2 = -2.0\text{ pu}$) $\to$ unknown: $\theta_2$
+        \item Bus 3 is PQ ($P_3 = 5.0\text{ pu}, Q_3 = 1.0\text{ pu}$) $\to$ unknowns: $\theta_3, V_3$
     \end{itemize}
     
-    If we apply these ideas strictly, we can subdivide the problem in two much simpler subproblems:
-    \begin{itemize}
-        \item one problem for angles, based on the active power measurements and the sub-Jacobian containing the partial derivatives of the active power flow equations w.r.t. angles
-        \item one problem for magnitudes, based on the reactive power measurements and the sub-Jacobian containing the partial derivatives of the reactive power flow equations w.r.t. magnitudes
-    \end{itemize}
+    The unknown vector has dimension 3:
+    $$\mathbf{x} = \begin{bmatrix} \theta_2 & \theta_3 & V_3 \end{bmatrix}^T$$
     
-    This procedure, through the sub-Jacobians that are computed, also provides information useful for \textit{sensitivity analysis}.
+    \newpage
+    \textbf{Step 0: Flat Start Initialization}
+    $$\mathbf{x}^{(0)} = \begin{bmatrix} \theta_2^{(0)} & \theta_3^{(0)} & V_3^{(0)} \end{bmatrix}^T = \begin{bmatrix} 0\text{ rad} & 0\text{ rad} & 1.0\text{ pu} \end{bmatrix}^T$$
+    
+    \textbf{Step 1: Initial Power Mismatches}
+    Evaluating $p_2, p_3, q_3$ at $\mathbf{x}^{(0)}$:
+    $$\begin{bmatrix}
+        \Delta P_2 \\ \Delta P_3 \\ \Delta Q_3
+    \end{bmatrix}^{(0)} = 
+    \begin{bmatrix}
+        P_2^0 - p_2(\mathbf{x}^{(0)}) \\
+        P_3^0 - p_3(\mathbf{x}^{(0)}) \\
+        Q_3^0 - q_3(\mathbf{x}^{(0)})
+    \end{bmatrix} =
+    \begin{bmatrix}
+        -1.784 \\ +4.897 \\ -0.045
+    \end{bmatrix}\text{ pu}$$
+    
+    \newpage
+    \textbf{Step 2: Linear System Solution}
+    Compute the $3 \times 3$ Jacobian at $\mathbf{x}^{(0)}$ and solve:
+    $$\begin{bmatrix}
+        \dfrac{\partial p_2}{\partial \theta_2} & \dfrac{\partial p_2}{\partial \theta_3} & \dfrac{\partial p_2}{\partial V_3} \\[0.5em]
+        \dfrac{\partial p_3}{\partial \theta_2} & \dfrac{\partial p_3}{\partial \theta_3} & \dfrac{\partial p_3}{\partial V_3} \\[0.5em]
+        \dfrac{\partial q_3}{\partial \theta_2} & \dfrac{\partial q_3}{\partial \theta_3} & \dfrac{\partial q_3}{\partial V_3}
+    \end{bmatrix}^{(0)}
+    \begin{bmatrix}
+        \Delta \theta_2 \\ \Delta \theta_3 \\ \Delta V_3
+    \end{bmatrix}^{(0)}
+    =
+    \begin{bmatrix}
+        \Delta P_2 \\ \Delta P_3 \\ \Delta Q_3
+    \end{bmatrix}^{(0)}$$
+    
+    Update: $\mathbf{x}^{(1)} = \mathbf{x}^{(0)} + \Delta \mathbf{x}^{(0)}$.
+
+    \newpage
+    \textbf{Convergence History of the 3-Bus System:}
+    \begin{table}[h]
+        \centering
+        \small
+        \begin{tabular}{ccccc}
+            \toprule
+            \textbf{Iter} $i$ & $|\Delta P_2|$ [pu] & $|\Delta P_3|$ [pu] & $|\Delta Q_3|$ [pu] & \textbf{Max Error} \\
+            \midrule
+            0 & 1.7840 & 4.8972 & 0.0451 & $4.8972$ \\
+            1 & 0.0206 & 0.1046 & 0.3125 & $0.3125$ \\
+            2 & 0.0005 & 0.0015 & 0.0033 & $0.0033$ \\
+            3 & $1.0 \times 10^{-7}$ & $2.4 \times 10^{-7}$ & $4.1 \times 10^{-7}$ & $\mathbf{4.1 \times 10^{-7}}$ \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \begin{block}{Convergence to 7 decimal places in only 3 iterations!}
+        Final state: $\theta_2 = -2.066^\circ$, $\theta_3 = -8.787^\circ$, $V_3 = 0.9781\text{ pu}$, perfectly matching PandaPower!
+    \end{block}
+
+    \begin{center}
+        \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_Newton_Raphson.ipynb}{\beamergotobutton{Open 3-Bus Newton-Raphson Python Notebook}}
+    \end{center}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{DC power flow}
-    "Direct Current" power flow is a further simplification:
+\begin{frame}[allowframebreaks]{Fast Decoupled Power Flow}
+    In high-voltage transmission networks, physical characteristics offer natural decoupling:
     \begin{itemize}
-        \item it is assumed that the impact of the reactance of lines is much bigger than the impact of their resistance, and shunt conductances are neglected
-        \item voltage magnitudes are assumed equal to $1 pu$
-        \item angle differences are small
-        \item active power losses are neglected, reactive power flows as well
+        \item Lines have high $X/R$ ratios ($X \gg R$), so active power flow is predominantly coupled to voltage angles:
+        $$P \sim \frac{V_k V_m}{X} \sin(\theta_k - \theta_m) \quad \implies \quad \frac{\partial P}{\partial \theta} \gg \frac{\partial P}{\partial V}$$
+        \item Reactive power flow is predominantly coupled to voltage magnitudes:
+        $$Q \sim \frac{V_k^2 - V_k V_m \cos\theta_{km}}{X} \quad \implies \quad \frac{\partial Q}{\partial V} \gg \frac{\partial Q}{\partial \theta}$$
     \end{itemize}
     
-    $$P_k =  \sum_{m \in \mathcal{N} \setminus k} B_{km} \theta_{km}$$
-    for every bus but the slack bus, which sets the angle difference, and collects the algebraic sum of all other injected powers.
+    \newpage
+    Setting the cross-coupling sub-matrices to zero ($\mathbf{J}_{PV} \approx \mathbf{0}$, $\mathbf{J}_{Q\theta} \approx \mathbf{0}$) splits the problem into two smaller, decoupled sub-systems:
+    \begin{align}
+        \mathbf{J}_{P\theta} \Delta \boldsymbol{\theta} &= \Delta \mathbf{P} \\
+        \mathbf{J}_{QV} \Delta \mathbf{V} &= \Delta \mathbf{Q}
+    \end{align}
     
-    In matrix form, with $\mathbf{Y}$ the admittance matrix defined before:
-    $$\mathbf{P} =  \Im(\mathbf{Y}) \mathbf{\theta}$$
-    
-    This is useful for fast simulations, or when including a power flow model in an optimization problem, e.g. \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{day-ahead market coupling}.
+    \begin{itemize}
+        \item Faster iteration speed (two smaller linear systems instead of one large system)
+        \item The sub-Jacobians can be approximated by constant matrices and inverted/factorized only once
+        \item Sub-Jacobians also provide direct sensitivity information useful for operational planning
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Illustration of DC power flow}
-    \begin{block}{Application to the 3-bus case}
+\begin{frame}[allowframebreaks]{DC Power Flow (Linear Approximation)}
+    The \textbf{"Direct Current" (DC) power flow} is a linear approximation of the AC power flow, widely used in wholesale market clearing, unit commitment, and long-term transmission planning:
+    
+    \textbf{Underlying Assumptions:}
+    \begin{enumerate}
+        \item \textbf{Lossless Lines:} $R \ll X$, resistances are neglected ($R = 0$)
+        \item \textbf{Flat Voltages:} $V_k \approx 1.0\text{ pu}$ for all buses
+        \item \textbf{Small Phase Differences:} $\theta_{km} \ll 1\text{ rad} \implies \sin\theta_{km} \approx \theta_{km}$, $\cos\theta_{km} \approx 1$
+        \item Reactive power flows are neglected; shunt admittances are ignored
+    \end{enumerate}
+    
+    \newpage
+    Under these assumptions, the branch flow from bus $k$ to bus $m$ simplifies to:
+    $$P_{km} = \frac{V_k V_m}{X_{km}} \sin(\theta_k - \theta_m) \approx \frac{\theta_k - \theta_m}{X_{km}} = B_{km} (\theta_k - \theta_m)$$
+    
+    And the bus power injection equation becomes strictly \textbf{linear}:
+    $$P_k = \sum_{m \in \mathcal{N}_k} B_{km} (\theta_k - \theta_m)$$
+    
+    In matrix form:
+    \begin{equation}
+        \mathbf{P} = \mathbf{B}' \boldsymbol{\theta}
+    \end{equation}
+    where $\mathbf{B}' = \Im(\mathbf{Y}_{\text{bus}})$ (without slack bus row/column).
+    
+    \begin{center}
+        \href{https://bcornelusse.github.io/material/CoursEM20170331.pdf}{\beamergotobutton{Application Example: European Day-Ahead Market Coupling}}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Application of DC Power Flow}
+    \begin{block}{Application to the 3-Bus Case}
         \begin{itemize}
-            \item Show how to obtain the relaxation of the DC power flow
-            \item Apply the DC approximation to the 3 bus case
-            \item Understand the code and analyze the results: \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_DC.ipynb}{\underline{Python notebook}}    
+            \item Compare AC power flow versus DC linear approximation
+            \item Quantify the impact of neglecting losses and voltage variations
+            \item Understand the code and analyze the results:
+        \end{itemize}
+        \vspace{0.3cm}
+        \begin{center}
+            \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_DC.ipynb}{\beamergotobutton{Open 3-Bus DC Power Flow Python Notebook}}
+        \end{center}
+    \end{block}
+\end{frame}
+
+%==============================================================================
+\section{Slack Bus Selection and Distributed Slack \\ (Advanced section)}
+%==============================================================================
+
+\begin{frame}{The Dual Role of the Slack Bus}
+    In classical AC power flow, the \textbf{slack (or swing) bus} fulfills two distinct roles:
+    
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{1. Mathematical: Angle Datum}
+                \footnotesize
+                \begin{itemize}
+                    \item In AC grids, power flows depend strictly on \textbf{phase differences} $\theta_k - \theta_m$.
+                    \item Shifting all angles by $\Delta \theta$ leaves physical flows unchanged.
+                    \item One bus must anchor the coordinate frame:
+                    \begin{center}
+                        $\mathbf{\theta_{\text{ref}} = 0^\circ}$
+                    \end{center}
+                    removing the singularity of the Jacobian.
+                \end{itemize}
+            \end{block}
+        \end{column}
+        
+        \begin{column}{0.48\textwidth}
+            \begin{block}{2. Physical: Power Balancing}
+                \footnotesize
+                \begin{itemize}
+                    \item Active power conservation requires:
+                    \begin{center}
+                        $\sum P_{Gk} = \sum P_{Lk} + P_{\text{loss}}(\mathbf{V}, \boldsymbol{\theta})$
+                    \end{center}
+                    \item Total transmission losses $P_{\text{loss}}$ depend on the unknown voltages $\mathbf{V}$.
+                    \item $P_{\text{slack}}$ must remain a free variable to absorb the net loss mismatch.
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{How to Choose the Slack Bus in Single-Slack Studies}
+    When configuring a classical single-slack study, how should the engineer select the slack bus?
+    
+    \begin{itemize}
+        \item \textbf{1. Large Generating Capacity and Headroom}:
+        \begin{itemize}
+            \item Connect to a major, flexible generating plant (e.g., large hydro or combined-cycle gas turbine).
+            \item Must have ample active and reactive spinning reserves:
+            $$P_{G,\min} \ll P_{G,\text{slack}} \ll P_{G,\max}, \qquad Q_{G,\min} \ll Q_{G,\text{slack}} \ll Q_{G,\max}$$
+            to absorb unexpected loss variations without breaching machine capability limits.
+        \end{itemize}
+        \vspace{0.15cm}
+        \item \textbf{2. Voltage Regulation Capability}:
+        \begin{itemize}
+            \item Strong Automatic Voltage Regulator (AVR) and high reactive capability ($Q$) to maintain terminal voltage $V_{\text{slack}} = V^0$.
+        \end{itemize}
+    \end{itemize}
+
+    \newpage
+    \begin{itemize}
+        \item \textbf{3. Electrical Centrality and Grid Strength}:
+        \begin{itemize}
+            \item High short-circuit capacity (low Thévenin impedance, electrically "stiff" bus).
+            \item Centrally located in terms of electrical distance (impedance) to major load centers.
+            \item High nodal degree: interconnected with multiple strong, high-capacity transmission lines.
+        \end{itemize}
+        \vspace{0.15cm}
+        \item \textbf{4. Grid Interconnection / Tie-Line Substation}:
+        \begin{itemize}
+            \item In regional transmission or distribution utility models, the boundary substation connecting to the external transmission grid is selected as the slack ("infinite bus").
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Pitfalls of a Poor Slack Bus Choice}
+    Designating a single, arbitrary slack bus can create serious modeling distortions:
+    
+    \begin{alertblock}{1. Artificial Congestion and False Overloads}
+        \begin{itemize}
+            \item If a small or peripheral generator is chosen as slack, it is forced to supply the loss balance for the \textit{entire} grid.
+            \item All loss-compensating energy must travel across local transmission paths, triggering \textbf{spurious overload alarms} on adjacent lines that do not exist in reality!
+        \end{itemize}
+    \end{alertblock}
+
+    \newpage
+    \begin{alertblock}{2. Sensitivity and Market Distortions}
+        \begin{itemize}
+            \item Sensitivities such as Power Transfer Distribution Factors (PTDF) and Locational Marginal Prices (LMP) depend directly on the slack reference (These notions are defined in the Energy Markets course)
+            \item An arbitrary slack choice skews market signals and transmission loss allocation.
+        \end{itemize}
+    \end{alertblock}
+    
+    \vspace{0.15cm}
+    \begin{block}{3. Generator Limit Violations \& Solver Divergence}
+        If the single slack generator hits its $P_{\max}$ or $Q_{\max}$ limits, the solver must dynamically switch the slack bus, frequently causing limit-cycling or non-convergence in Newton-Raphson.
+    \end{block}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Why Single Slack Fails in Real Practice}
+    \textbf{The Physical Reality of Power Systems:}
+    \begin{itemize}
+        \item In actual real-time operations, \textbf{no single power plant} absorbs the entire system mismatch or covers all grid losses!
+    \end{itemize}
+    
+    \vspace{0.15cm}
+    \textbf{1. Primary Frequency Control (Governor Droop, $t < 10\text{ s}$):}
+    \begin{itemize}
+        \item (We will come back to that in the lectrue on frequency stability)
+        \item Any power imbalance creates an instantaneous frequency deviation $\Delta f = f - f_0$.
+        \item All synchronized generators equipped with speed governors respond \textbf{simultaneously} according to their droop characteristic $R_k$:
+        $$\Delta P_{Gk} = -\frac{1}{R_k} \Delta f$$
+        \item The deficit or surplus is automatically shared across \textbf{all} online generators!
+    \end{itemize}
+
+    \newpage
+    \textbf{2. Secondary Frequency Control / AGC ($t \sim 30\text{ s} - 15\text{ min}$):}
+    \begin{itemize}
+        \item (We will come back to that in the lectrue on frequency stability)
+        \item Automatic Generation Control (AGC) restores frequency and tie-line schedules by dispatching regulation reserves across designated generators according to participation factors $\alpha_k$.
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \begin{alertblock}{The $N-1$ Contingency Paradox}
+        \begin{itemize}
+            \item Suppose a 1000~MW nuclear unit trips unexpectedly.
+            \item In a \textbf{single-slack} power flow, the solver forces the single slack bus to pick up all 1000~MW. The resulting simulated line flows and voltages around that bus are completely unphysical!
+            \item In \textbf{reality}, the 1000~MW deficit is shared among hundreds of generators across the entire synchronous interconnection (e.g. continental Europe).
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{The Distributed Slack Formulation}
+    To mirror physical reality, modern tools use a \textbf{Distributed Slack (or Distributed Balancing)} model:
+    
+    \begin{itemize}
+        \item Assign \textbf{participation factors} $\alpha_k \ge 0$ to a set of participating generators $\mathcal{G}_{\text{slack}}$:
+        $$\sum_{k \in \mathcal{G}_{\text{slack}}} \alpha_k = 1$$
+        \item Introduce a global scalar balancing variable: $\Delta P_{\text{slack}}$
+        \item Active power generation at each participating bus $k$ becomes:
+        $$P_{Gk} = P_{Gk}^0 + \alpha_k \Delta P_{\text{slack}}$$
+        \item Maintain \textbf{one} bus as the \textbf{angle reference}: $\theta_{\text{ref}} = 0^\circ$ (decoupling angle reference from power balancing!)
+    \end{itemize}
+    
+    \newpage
+    \textbf{Closing the Power Balance System:}
+    \begin{itemize}
+        \item Add the global active power balance equation to the system:
+        $$\sum_{k=1}^n P_k(\mathbf{V}, \boldsymbol{\theta}) = \sum_{k \in \mathcal{G}} P_{Gk} - \sum_{k \in \mathcal{L}} P_{Lk} - P_{\text{loss}}(\mathbf{V}, \boldsymbol{\theta}) = 0$$
+        \item Total unknowns: $M = (2n_{PQ} + n_{PV}) + 1$ (the standard unknowns plus $\Delta P_{\text{slack}}$)
+        \item Total equations: $M = (2n_{PQ} + n_{PV}) + 1$
+        \item The augmented Jacobian remains square and is solved directly via Newton-Raphson!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Choosing Participation Factors $\alpha_k$}
+    Depending on the engineering application, participation factors $\alpha_k$ are chosen as:
+    
+    \begin{enumerate}
+        \item \textbf{Governor Droop Based (Primary Frequency Response):}
+        $$\alpha_k = \frac{P_{Gk}^{\max} / R_k}{\sum_{j} P_{Gj}^{\max} / R_j}$$
+        Faithfully reproduces post-contingency steady-state flows for $N-1$ security analysis.
+        \vspace{0.15cm}
+        \item \textbf{Generation Capacity Proportional:}
+        $$\alpha_k = \frac{P_{Gk}^{\max}}{\sum_j P_{Gj}^{\max}} \quad \text{or} \quad \alpha_k = \frac{P_{Gk}^0}{\sum_j P_{Gj}^0}$$
+        Distributes losses proportionally across generators without overloading individual units.
+    \end{enumerate}
+
+    \newpage
+    \begin{enumerate}
+        \setcounter{enumi}{2}
+        \item \textbf{Load Proportional (Distributed Load Slack):}
+        $$\alpha_k = \frac{P_{Lk}}{\sum_j P_{Lj}}$$
+        Allocates losses as incremental demand across consumers (standard in market clearing and loss allocation).
+        \vspace{0.2cm}
+        \item \textbf{Economic Merit-Order Participation:}
+        $$\alpha_k \propto \frac{1}{\text{Marginal Cost}_k}$$
+        Distributes loss compensation according to optimal redispatch / tertiary reserves.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Distributed Slack in Industry Practice}
+    \begin{block}{Key Engineering Takeaway}
+        \textbf{Decouple the angle reference from loss balancing}:
+        \begin{itemize}
+            \item \textbf{Angle reference} ($\theta_{\text{ref}} = 0^\circ$) is a \textit{mathematical necessity} to anchor the coordinate frame.
+            \item \textbf{Distributed slack} ($\alpha_k$) is a \textit{physical necessity} to reflect real frequency response and prevent localized flow distortion.
         \end{itemize}
     \end{block}
     
+    \newpage
+    \textbf{Industrial Implementation:}
+    \begin{itemize}
+        \item Supported natively in power systems software:
+        \begin{itemize}
+            \item \textbf{PandaPower}: \texttt{pp.runpp(net, distributed\_slack=True)}
+            \item \textbf{MATPOWER}: User-defined generator participation in OPF/PF
+            \item \textbf{PSS/E \& PowerFactory}: Inertial/governor dispatch modes for $N-1$ contingency screening
+        \end{itemize}
+        \vspace{0.15cm}
+        \item \textbf{Electricity Market Clearing}:
+        \begin{itemize}
+            \item In wholesale electricity markets (e.g. European Day-Ahead Flow-Based Market Coupling, US ISOs), distributed slack ensures that PTDFs and LMPs are neutral and do not favor an arbitrary bus.
+        \end{itemize}
+    \end{itemize}
 \end{frame}
+
 
 

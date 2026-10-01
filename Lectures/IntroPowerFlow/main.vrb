@@ -1,4 +1,2 @@
-\frametitle{Creation of the power flow model with PandaPower}
-    \begin{center}
-        \lstinputlisting{pandapower_net.py}
-    \end{center}
+\frametitle{Creation of the Power Flow Model with PandaPower}
+    \lstinputlisting{pandapower_net.py}

@@ -1,0 +1,56 @@
+\begin{tikzpicture}[scale=0.74, every node/.style={transform shape}]
+    % Ground level
+    \fill[gray!12] (-0.5, 0) rectangle (7.5, -0.4);
+    \draw[thick, gray!60] (-0.5, 0) -- (7.5, 0);
+    \node[anchor=north east, font=\tiny, text=gray!60] at (7.4, -0.05) {Ground level};
+
+    % Left Tower
+    \draw[thick, gray!70!black] (0.5, 0) -- (0.5, 3.4);
+    \draw[thick, gray!70!black] (0.2, 0) -- (0.5, 3.4) -- (0.8, 0);
+    \draw[thick, gray!70!black] (0.3, 1.7) -- (0.7, 1.7);
+    \draw[thick, gray!70!black] (0.36, 0.85) -- (0.64, 0.85);
+    \draw[thick, gray!70!black] (0.05, 3.1) -- (0.95, 3.1);
+    \draw[thick, gray!70!black] (0.5, 3.1) -- (0.5, 2.75);
+    \fill[gray!70!black] (0.5, 2.75) circle (2pt);
+
+    % Right Tower
+    \draw[thick, gray!70!black] (6.5, 0) -- (6.5, 3.4);
+    \draw[thick, gray!70!black] (6.2, 0) -- (6.5, 3.4) -- (6.8, 0);
+    \draw[thick, gray!70!black] (6.3, 1.7) -- (6.7, 1.7);
+    \draw[thick, gray!70!black] (6.36, 0.85) -- (6.64, 0.85);
+    \draw[thick, gray!70!black] (6.05, 3.1) -- (6.95, 3.1);
+    \draw[thick, gray!70!black] (6.5, 3.1) -- (6.5, 2.75);
+    \fill[gray!70!black] (6.5, 2.75) circle (2pt);
+
+    % Span length L dimension
+    \draw[<->, >=Stealth, gray!60] (0.5, -0.22) -- (6.5, -0.22);
+    \node[font=\tiny, text=gray!70, fill=white, inner sep=1pt] at (3.5, -0.22) {Span length $L$};
+
+    % Normal/Cold Conductor curve (y = 2.75 - 0.70 + 0.70 * ((x - 3.5)/3.0)^2)
+    % at x=0.5 -> y=2.75, at x=3.5 -> y=2.05
+    \draw[very thick, tPrim] plot[domain=0.5:6.5, samples=40] (\x, {2.05 + 0.70*((\x - 3.5)/3.0)^2});
+    \node[font=\scriptsize\bfseries, tPrim, anchor=south] at (3.5, 2.12) {Normal sag ($T_{\text{amb}}$, rated load)};
+
+    % Overheated Conductor curve (y = 1.30 + 1.45 * ((x - 3.5)/3.0)^2)
+    % at x=0.5 -> y=2.75, at x=3.5 -> y=1.30
+    \draw[very thick, myRed, dashed] plot[domain=0.5:6.5, samples=40] (\x, {1.30 + 1.45*((\x - 3.5)/3.0)^2});
+    \node[font=\tiny\bfseries, myRed, anchor=north] at (2.0, 1.50) {Thermal sag ($T_c > T_{\text{max}}$)};
+
+    % Thermal elongation delta s dimension arrow at x = 5.0
+    \draw[<->, >=Stealth, thick, myRed] (5.0, {2.05 + 0.70*((5.0 - 3.5)/3.0)^2}) -- (5.0, {1.30 + 1.45*((5.0 - 3.5)/3.0)^2});
+    \node[font=\tiny\bfseries, myRed, anchor=west] at (5.05, 1.9) {$\Delta s_{\text{thermal}}$};
+
+    % Statutory clearance line
+    \draw[dashdotted, thick, tOrange!90!black] (0.9, 1.05) -- (5.8, 1.05);
+    \node[font=\tiny\bfseries, tOrange!90!black, anchor=north west] at (1.0, 1.00) {Clearance limit $h_{\text{clear}}$};
+
+    % Obstacle: Tree near mid-span (x = 3.5)
+    \draw[thick, brown!80!black] (3.5, 0) -- (3.5, 0.45);
+    \fill[green!50!black, opacity=0.85] (3.5, 0.70) circle (0.32);
+    \fill[green!60!black, opacity=0.85] (3.35, 0.58) circle (0.22);
+    \fill[green!60!black, opacity=0.85] (3.65, 0.58) circle (0.22);
+
+    % Flashover spark & warning
+    \draw[very thick, myRed, decorate, decoration={zigzag, segment length=3, amplitude=1.8}] (3.5, 1.30) -- (3.5, 1.02);
+    \node[font=\tiny\bfseries, myRed, fill=white, inner sep=1.5pt, rounded corners=2pt, draw=myRed, line width=0.6pt] at (3.5, 1.58) {Flashover Risk!};
+\end{tikzpicture}

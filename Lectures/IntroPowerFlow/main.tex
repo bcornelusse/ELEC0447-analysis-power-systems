@@ -46,10 +46,12 @@
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{listings}
+\usepackage{upquote}
+\usepackage[scale=0.88]{sourcecodepro}
 \usepackage{tikz}
 \usepackage{blox}
 \usepackage{calc}
-%\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, calc}
 
 
 
@@ -64,18 +66,33 @@
 \newcommand{\st}{\mathrm{s.t.}}
 \definecolor{myRed}{RGB}{209,34,57} 
 
+% Modern syntax highlighting palette (GitHub / VS Code style)
+\definecolor{codeKw}{RGB}{0, 92, 197}         % Deep royal blue for keywords
+\definecolor{codeStr}{RGB}{163, 21, 21}       % Warm crimson for strings
+\definecolor{codeComment}{RGB}{106, 115, 125} % Muted slate gray for comments
+\definecolor{codeBg}{RGB}{248, 249, 250}      % Soft background card
+\definecolor{codeBorder}{RGB}{222, 226, 230}  % Subtle border
+\definecolor{codeLineNum}{RGB}{175, 180, 185} % Muted line numbers
 
 \lstset{
     language=Python,
-    basicstyle=\ttfamily\scriptsize, % use a monospaced font at a smaller size
-    numbers=left, % add line numbers on the left
-    numberstyle=\tiny\color{gray}, % style for the line numbers
-    frame=single, % put a frame around the code block
-    showstringspaces=false, % don't show special characters for spaces in strings
-    tabsize=4, % set tab size
-    keywordstyle=\color{blue}\bfseries, % bold and blue keywords
-    stringstyle=\color{red}, % red strings
-    commentstyle=\color{green!60!black}\itshape % italic and dark green comments
+    basicstyle=\linespread{1.05}\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny\color{codeLineNum},
+    numbersep=8pt,
+    frame=single,
+    rulecolor=\color{codeBorder},
+    backgroundcolor=\color{codeBg},
+    showstringspaces=false,
+    tabsize=4,
+    keywordstyle=\color{codeKw}\bfseries,
+    stringstyle=\color{codeStr},
+    commentstyle=\color{codeComment}\itshape,
+    columns=flexible,
+    keepspaces=true,
+    breaklines=true,
+    xleftmargin=12pt,
+    xrightmargin=4pt
 }
 
 %==============================================================================

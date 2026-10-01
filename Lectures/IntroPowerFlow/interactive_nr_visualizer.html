@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newton-Raphson Interactive Visualizer | ELEC0447</title>
+  <style>
+    :root {
+      --primary: #00843B;
+      --primary-light: #e8f5e9;
+      --secondary: #1a73e8;
+      --accent: #F07F3C;
+      --danger: #d93025;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #00843B, #005a28);
+      color: white;
+      padding: 24px 30px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Canvas area */
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      pointer-events: none;
+    }
+
+    /* Controls */
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input[type="range"], input[type="number"] {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fdfdfd;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,132,59,0.15);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slider-val {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 50px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #006e31;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-accent:hover {
+      background: #df6f2d;
+    }
+
+    /* Math Formula Display */
+    .formula-box {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 12px 14px;
+      border-radius: 4px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      color: #004d22;
+    }
+
+    /* Convergence Stats */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat-card .val {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-card .lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Table */
+    .table-container {
+      max-height: 260px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: right;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 8px 10px;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid #f1f5f9;
+      font-variant-numeric: tabular-nums;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafbfc;
+    }
+
+    tr.active-step {
+      background-color: #e0f2fe;
+      font-weight: 600;
+    }
+
+    /* Quadratic rate indicator */
+    .rate-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    .rate-quad {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div>
+      <h1>Newton-Raphson Interactive Visualizer</h1>
+      <p>ELEC0447: Analysis of Electric Power and Energy Systems &bull; University of Liège</p>
+    </div>
+    <div class="badge">Interactive Simulation</div>
+  </header>
+
+  <div class="grid">
+    <!-- Left Column: Canvas and Graphs -->
+    <div>
+      <div class="card">
+        <h2>
+          <span>Geometric Progression of Tangents</span>
+          <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted); margin-left: auto;">
+            Step <span id="current-step-label">0</span> of <span id="total-steps-label">0</span>
+          </span>
+        </h2>
+        
+        <div class="canvas-container" id="canvas-wrapper">
+          <canvas id="plotCanvas"></canvas>
+          <div class="canvas-hint">Click & drag on plot to set initial guess x₀</div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background: #1a73e8;"></div> Function g(x) = c - f(x)</div>
+          <div class="legend-item"><div class="legend-dot" style="background: #ea4335;"></div> Current Point (x^{(i)}, g(x^{(i)}))</div>
+          <div class="legend-item"><div class="legend-dot" style="background: #f59e0b;"></div> Tangent Line</div>
+          <div class="legend-item"><div class="legend-dot" style="background: #10b981;"></div> Root x*</div>
+        </div>
+      </div>
+
+      <!-- Convergence Log Plot & Notes -->
+      <div class="card">
+        <h2>Quadratic Convergence Behavior</h2>
+        <div class="formula-box" id="formula-desc">
+          Solving: g(x) = 4 - x³ = 0 &implies; x* = 4^(1/3) &approx; 1.587401<br>
+          Newton Step: &Delta;x = (c - f(x)) / f'(x) = (4 - x³) / (3x²)
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Notice how the error squares at each iteration near the root: 
+          if the error is 10⁻¹, the next error is ~10⁻², then ~10⁻⁴, then ~10⁻⁸. 
+          This is the fundamental reason why power flow solvers converge in only 3 to 5 iterations!
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Controls & Table -->
+    <div>
+      <div class="card">
+        <h2>Simulation Settings</h2>
+        
+        <div class="control-group">
+          <label>Problem Model</label>
+          <select id="model-select">
+            <option value="lecture1d" selected>Lecture 1D: g(x) = 4 - x³ = 0</option>
+            <option value="powerflow2bus">Power Flow (2-Bus Angle): P(θ) - P₀ = 0</option>
+            <option value="sqrt2">Square Root: x² - 2 = 0</option>
+            <option value="trig">Non-Linear Mismatch: sin(x) - 0.5 = 0</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Initial Guess (x₀)</label>
+          <div class="slider-row">
+            <input type="range" id="x0-slider" min="0.5" max="4.0" step="0.05" value="3.5">
+            <span class="slider-val" id="x0-val">3.50</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Convergence Tolerance (&epsilon;)</label>
+          <select id="tol-select">
+            <option value="1e-3">10⁻³ (Draft)</option>
+            <option value="1e-5" selected>10⁻⁵ (Standard Power Flow)</option>
+            <option value="1e-8">10⁻⁸ (High Precision)</option>
+          </select>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn-secondary" id="btn-prev" title="Step Back">&larr; Back</button>
+          <button class="btn-primary" id="btn-next" title="Next Iteration">Step &rarr;</button>
+          <button class="btn-accent" id="btn-play">Auto Play</button>
+          <button class="btn-secondary" id="btn-reset" title="Reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Iteration Diagnostics</h2>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="val" id="stat-iters">0</div>
+            <div class="lbl">Iterations</div>
+          </div>
+          <div class="stat-card">
+            <div class="val" id="stat-error">0.00e0</div>
+            <div class="lbl">Mismatch |g(x)|</div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>i</th>
+                <th>x⁽ⁱ⁾</th>
+                <th>g(x⁽ⁱ⁾)</th>
+                <th>&Delta;x⁽ⁱ⁾</th>
+                <th>Error</th>
+              </tr>
+            </thead>
+            <tbody id="iter-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Problem models
+  const MODELS = {
+    lecture1d: {
+      name: "Lecture 1D: g(x) = 4 - x³ = 0",
+      c: 4,
+      f: (x) => Math.pow(x, 3),
+      df: (x) => 3 * Math.pow(x, 2),
+      g: (x) => 4 - Math.pow(x, 3),
+      dg: (x) => -3 * Math.pow(x, 2),
+      root: Math.cbrt(4),
+      xMin: 0.5,
+      xMax: 4.2,
+      yMin: -45,
+      yMax: 10,
+      defaultX0: 3.5,
+      xLabel: "x",
+      yLabel: "g(x) = c - f(x)",
+      desc: "Solving: g(x) = 4 - x³ = 0 &implies; x* = 4^(1/3) &approx; 1.587401<br>Newton Step: &Delta;x = (c - f(x)) / f'(x) = (4 - x³) / (3x²)"
+    },
+    powerflow2bus: {
+      name: "Power Flow (2-Bus Angle): P(θ) - P₀ = 0",
+      // P = (V1*V2/X)*sin(theta) = 5*sin(theta), P0 = 2.5 pu -> sin(theta) = 0.5 -> theta* = pi/6 = 0.5236 rad (30 deg)
+      c: 2.5,
+      f: (x) => 5.0 * Math.sin(x),
+      df: (x) => 5.0 * Math.cos(x),
+      g: (x) => 2.5 - 5.0 * Math.sin(x),
+      dg: (x) => -5.0 * Math.cos(x),
+      root: Math.PI / 6,
+      xMin: -0.5,
+      xMax: 1.4,
+      yMin: -3.0,
+      yMax: 3.0,
+      defaultX0: 1.1,
+      xLabel: "Voltage Angle θ (rad)",
+      yLabel: "Power Mismatch ΔP (pu)",
+      desc: "Active power transfer: P(θ) = (V₁V₂/X) sin(θ) = 5.0 sin(θ)<br>Specified Power: P₀ = 2.5 pu &implies; Root θ* = 30° (0.5236 rad)<br>Newton update: Δθ = (P₀ - P(θ)) / (∂P/∂θ)"
+    },
+    sqrt2: {
+      name: "Square Root: x² - 2 = 0",
+      c: 2,
+      f: (x) => x * x,
+      df: (x) => 2 * x,
+      g: (x) => 2 - x * x,
+      dg: (x) => -2 * x,
+      root: Math.SQRT2,
+      xMin: 0.2,
+      xMax: 3.5,
+      yMin: -12,
+      yMax: 3,
+      defaultX0: 3.0,
+      xLabel: "x",
+      yLabel: "g(x) = 2 - x²",
+      desc: "Solving: g(x) = 2 - x² = 0 &implies; x* = √2 &approx; 1.414214<br>Babylonian / Newton step: x_{k+1} = 0.5 * (x_k + 2/x_k)"
+    },
+    trig: {
+      name: "Non-Linear Mismatch: sin(x) - 0.5 = 0",
+      c: 0.5,
+      f: (x) => Math.sin(x),
+      df: (x) => Math.cos(x),
+      g: (x) => 0.5 - Math.sin(x),
+      dg: (x) => -Math.cos(x),
+      root: Math.PI / 6,
+      xMin: -1.0,
+      xMax: 3.0,
+      yMin: -1.8,
+      yMax: 1.8,
+      defaultX0: 2.2,
+      xLabel: "x",
+      yLabel: "g(x) = 0.5 - sin(x)",
+      desc: "Solving: g(x) = 0.5 - sin(x) = 0<br>Notice that starting far from the root can jump across peaks or find alternative roots!"
+    }
+  };
+
+  // State
+  let currentModelKey = 'lecture1d';
+  let x0 = 3.5;
+  let tolerance = 1e-5;
+  let iterations = [];
+  let currentStep = 0;
+  let isPlaying = false;
+  let playInterval = null;
+
+  // DOM Elements
+  const canvas = document.getElementById('plotCanvas');
+  const ctx = canvas.getContext('2d');
+  const canvasWrapper = document.getElementById('canvas-wrapper');
+  const modelSelect = document.getElementById('model-select');
+  const x0Slider = document.getElementById('x0-slider');
+  const x0Val = document.getElementById('x0-val');
+  const tolSelect = document.getElementById('tol-select');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const btnPlay = document.getElementById('btn-play');
+  const btnReset = document.getElementById('btn-reset');
+  const formulaDesc = document.getElementById('formula-desc');
+  const statIters = document.getElementById('stat-iters');
+  const statError = document.getElementById('stat-error');
+  const currentStepLabel = document.getElementById('current-step-label');
+  const totalStepsLabel = document.getElementById('total-steps-label');
+  const tableBody = document.getElementById('iter-table-body');
+
+  function resizeCanvas() {
+    canvas.width = canvasWrapper.clientWidth * window.devicePixelRatio;
+    canvas.height = canvasWrapper.clientHeight * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    render();
+  }
+  window.addEventListener('resize', resizeCanvas);
+
+  function computeIterations() {
+    const model = MODELS[currentModelKey];
+    iterations = [];
+    let x = x0;
+    const maxIters = 20;
+
+    for (let i = 0; i <= maxIters; i++) {
+      const gx = model.g(x);
+      const dgx = model.dg(x);
+      const err = Math.abs(gx);
+      const rootErr = Math.abs(x - model.root);
+
+      if (Math.abs(dgx) < 1e-12) {
+        iterations.push({ i, x, gx, dgx, dx: 0, err, rootErr, status: "Zero derivative" });
+        break;
+      }
+
+      // dx = - g(x) / g'(x) = (c - f(x)) / f'(x)
+      const dx = - gx / dgx;
+      iterations.push({ i, x, gx, dgx, dx, err, rootErr });
+
+      if (err <= tolerance || i === maxIters) break;
+      x = x + dx;
+    }
+
+    if (currentStep >= iterations.length) {
+      currentStep = iterations.length - 1;
+    }
+    updateUI();
+  }
+
+  function updateUI() {
+    totalStepsLabel.textContent = Math.max(0, iterations.length - 1);
+    currentStepLabel.textContent = currentStep;
+
+    const cur = iterations[currentStep];
+    if (cur) {
+      statIters.textContent = currentStep;
+      statError.textContent = cur.err < 0.001 ? cur.err.toExponential(2) : cur.err.toFixed(4);
+    }
+
+    // Populate Table
+    tableBody.innerHTML = '';
+    iterations.forEach((it, idx) => {
+      const row = document.createElement('tr');
+      if (idx === currentStep) row.classList.add('active-step');
+
+      const isConv = it.err <= tolerance;
+      const rateHtml = isConv ? '<span class="rate-badge rate-quad">&check; Conv</span>' : (it.err < 0.001 ? it.err.toExponential(2) : it.err.toFixed(4));
+
+      row.innerHTML = `
+        <td>${it.i}</td>
+        <td>${it.x.toFixed(4)}</td>
+        <td>${it.gx.toFixed(4)}</td>
+        <td>${it.dx.toFixed(4)}</td>
+        <td>${rateHtml}</td>
+      `;
+      row.addEventListener('click', () => {
+        currentStep = idx;
+        updateUI();
+        render();
+      });
+      tableBody.appendChild(row);
+    });
+
+    render();
+  }
+
+  function render() {
+    const w = canvasWrapper.clientWidth;
+    const h = canvasWrapper.clientHeight;
+    ctx.clearRect(0, 0, w, h);
+
+    const model = MODELS[currentModelKey];
+    const { xMin, xMax, yMin, yMax } = model;
+
+    // Coordinate transforms
+    function toCanvasX(x) {
+      return ((x - xMin) / (xMax - xMin)) * w;
+    }
+    function toCanvasY(y) {
+      return h - ((y - yMin) / (yMax - yMin)) * h;
+    }
+    function fromCanvasX(cx) {
+      return xMin + (cx / w) * (xMax - xMin);
+    }
+
+    // Grid & Axes
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+
+    // Zero axes
+    const y0 = toCanvasY(0);
+    const x0c = toCanvasX(0);
+
+    // X-axis
+    ctx.beginPath();
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.5;
+    ctx.moveTo(0, y0);
+    ctx.lineTo(w, y0);
+    ctx.stroke();
+
+    // Axis labels
+    ctx.fillStyle = '#64748b';
+    ctx.font = '11px sans-serif';
+    ctx.fillText(model.xLabel, w - 120, y0 - 8);
+
+    // Plot Curve g(x)
+    ctx.beginPath();
+    ctx.strokeStyle = '#1a73e8';
+    ctx.lineWidth = 2.5;
+
+    const steps = 300;
+    for (let i = 0; i <= steps; i++) {
+      const xVal = xMin + (i / steps) * (xMax - xMin);
+      const yVal = model.g(xVal);
+      const cx = toCanvasX(xVal);
+      const cy = toCanvasY(yVal);
+      if (i === 0) ctx.moveTo(cx, cy);
+      else ctx.lineTo(cx, cy);
+    }
+    ctx.stroke();
+
+    // Root point
+    const rootX = toCanvasX(model.root);
+    ctx.fillStyle = '#10b981';
+    ctx.beginPath();
+    ctx.arc(rootX, y0, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillText(`x* ≈ ${model.root.toFixed(3)}`, rootX - 25, y0 + 18);
+
+    // Render iterations up to currentStep
+    for (let k = 0; k <= currentStep; k++) {
+      const it = iterations[k];
+      const cx = toCanvasX(it.x);
+      const cy = toCanvasY(it.gx);
+
+      // Vertical drop from axis
+      ctx.beginPath();
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = (k === currentStep) ? '#ea4335' : '#cbd5e1';
+      ctx.lineWidth = 1.5;
+      ctx.moveTo(cx, y0);
+      ctx.lineTo(cx, cy);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Iterate on curve
+      ctx.fillStyle = (k === currentStep) ? '#ea4335' : '#94a3b8';
+      ctx.beginPath();
+      ctx.arc(cx, cy, (k === currentStep) ? 6 : 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Tangent line to next root
+      if (k < iterations.length - 1 && k <= currentStep) {
+        const nextX = it.x + it.dx;
+        const nextCx = toCanvasX(nextX);
+
+        ctx.beginPath();
+        ctx.strokeStyle = (k === currentStep) ? '#f59e0b' : 'rgba(245, 158, 11, 0.4)';
+        ctx.lineWidth = (k === currentStep) ? 2 : 1;
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(nextCx, y0);
+        ctx.stroke();
+
+        // Point on x-axis
+        ctx.fillStyle = (k === currentStep) ? '#f59e0b' : '#94a3b8';
+        ctx.beginPath();
+        ctx.arc(nextCx, y0, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.font = '10px sans-serif';
+        ctx.fillStyle = (k === currentStep) ? '#ea4335' : '#64748b';
+        ctx.fillText(`x⁽${k}⁾`, cx - 8, (it.gx > 0 ? cy - 8 : cy + 16));
+      }
+    }
+  }
+
+  // Interactive mouse/touch dragging on canvas
+  let isDragging = false;
+  canvasWrapper.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    handlePointer(e);
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (isDragging) handlePointer(e);
+  });
+  window.addEventListener('mouseup', () => isDragging = false);
+
+  function handlePointer(e) {
+    const rect = canvasWrapper.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const model = MODELS[currentModelKey];
+    let newX0 = model.xMin + (cx / rect.width) * (model.xMax - model.xMin);
+    newX0 = Math.max(model.xMin + 0.1, Math.min(model.xMax - 0.1, newX0));
+
+    x0 = newX0;
+    x0Slider.value = x0;
+    x0Val.textContent = x0.toFixed(2);
+    currentStep = 0;
+    computeIterations();
+  }
+
+  // Event handlers
+  modelSelect.addEventListener('change', (e) => {
+    currentModelKey = e.target.value;
+    const model = MODELS[currentModelKey];
+    x0Slider.min = model.xMin + 0.1;
+    x0Slider.max = model.xMax - 0.1;
+    x0Slider.step = ((model.xMax - model.xMin) / 100).toFixed(2);
+    x0 = model.defaultX0;
+    x0Slider.value = x0;
+    x0Val.textContent = x0.toFixed(2);
+    formulaDesc.innerHTML = model.desc;
+    currentStep = 0;
+    computeIterations();
+  });
+
+  x0Slider.addEventListener('input', (e) => {
+    x0 = parseFloat(e.target.value);
+    x0Val.textContent = x0.toFixed(2);
+    currentStep = 0;
+    computeIterations();
+  });
+
+  tolSelect.addEventListener('change', (e) => {
+    tolerance = parseFloat(e.target.value);
+    computeIterations();
+  });
+
+  btnNext.addEventListener('click', () => {
+    if (currentStep < iterations.length - 1) {
+      currentStep++;
+      updateUI();
+    }
+  });
+
+  btnPrev.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      updateUI();
+    }
+  });
+
+  btnReset.addEventListener('click', () => {
+    if (isPlaying) togglePlay();
+    currentStep = 0;
+    updateUI();
+  });
+
+  btnPlay.addEventListener('click', togglePlay);
+
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    if (isPlaying) {
+      btnPlay.textContent = 'Pause';
+      btnPlay.classList.remove('btn-accent');
+      btnPlay.classList.add('btn-secondary');
+      playInterval = setInterval(() => {
+        if (currentStep < iterations.length - 1) {
+          currentStep++;
+          updateUI();
+        } else {
+          togglePlay();
+        }
+      }, 1000);
+    } else {
+      btnPlay.textContent = 'Auto Play';
+      btnPlay.classList.remove('btn-secondary');
+      btnPlay.classList.add('btn-accent');
+      clearInterval(playInterval);
+    }
+  }
+
+  // Initial setup
+  resizeCanvas();
+  computeIterations();
+</script>
+
+</body>
+</html>

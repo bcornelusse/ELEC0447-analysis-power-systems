@@ -1,0 +1,67 @@
+\begin{circuitikz}[american, scale=0.85, transform shape]
+    % Coordinates:
+    % y=2: top conductor
+    % y=0: bottom return rail
+    
+    % --- Sending end ---
+    % Voltage V_S
+    \node at (0.4, 1.6) {$+$};
+    \node at (0.4, 1.0) {$\bar{V}_S$};
+    \node at (0.4, 0.4) {$-$};
+    
+    % Current I_S arrow
+    \draw[->, >=stealth, thick] (0.0, 2.3) -- (1.2, 2.3) node[midway, above] {$\bar{I}_S$};
+    
+    % Dashed wire from sending end
+    \draw[dashed, semithick] (0.0, 2) -- (1.6, 2);
+    \draw[dashed, line width=1.8pt] (0.0, 0) -- (1.6, 0);
+    
+    % --- Bottom rail (thick reference conductor) ---
+    \draw[line width=2.2pt] (1.6, 0) -- (12.2, 0);
+    
+    % --- Cell 1 ---
+    \draw (1.6, 2) to[R, l=$R$] (3.0, 2)
+                   to[L, l=$j\omega L$] (4.4, 2)
+                   -- (5.2, 2);
+    
+    % Current I_x arrow between inductor and node x
+    \draw[->, >=stealth, thick] (4.3, 2.3) -- (5.1, 2.3) node[midway, above] {$\bar{I}_x$};
+    
+    % Shunt at x
+    \draw (5.2, 2) to[C, l=$\frac{1}{j\omega C}$] (5.2, 0);
+    \node at (4.75, 1.55) {$+$};
+    \node at (4.35, 1.0) {$\bar{V}_x$};
+    \node at (4.75, 0.45) {$-$};
+    
+    % --- Cell 2 ---
+    \draw (5.2, 2) to[R, l=$R$] (6.6, 2)
+                   to[L, l=$j\omega L$] (8.0, 2)
+                   -- (8.6, 2);
+    
+    % Shunt 2
+    \draw (8.6, 2) to[C, l=$\frac{1}{j\omega C}$] (8.6, 0);
+    
+    % --- Cell 3 ---
+    \draw (8.6, 2) to[R, l=$R$] (10.0, 2)
+                   to[L, l=$j\omega L$] (11.4, 2)
+                   -- (12.2, 2);
+    
+    % --- Receiving end ---
+    % Current I_R arrow
+    \draw[->, >=stealth, thick] (11.5, 2.3) -- (12.5, 2.3) node[midway, above] {$\bar{I}_R$};
+    
+    % Voltage V_R
+    \node at (12.6, 1.55) {$+$};
+    \node at (12.6, 1.0) {$\bar{V}_R$};
+    \node at (12.6, 0.45) {$-$};
+    
+    % --- Distance axis x ---
+    % Guideline at x
+    \draw[dashed, thin] (5.2, 0) -- (5.2, -0.9);
+    
+    % Arrow from origin (receiving end) to x
+    \draw[<-, >=stealth, thick] (5.2, -0.75) -- (12.2, -0.75);
+    \draw[thick] (12.2, -0.65) -- (12.2, -0.85) node[below] {$0$};
+    \node[left] at (5.2, -0.75) {$x$};
+    
+\end{circuitikz}

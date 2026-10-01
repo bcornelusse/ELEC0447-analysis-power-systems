@@ -31,12 +31,21 @@
 
 % Definition
 \begin{frame}{Definition}
+\begin{columns}[c]
+    \begin{column}{0.66\textwidth}
     \begin{itemize}
-        \item An (overhead) transmission line is a set of 3 bundles of conductors corresponding to the three phases of the system.
-        \item Commonly used voltages range from 70 kV to 380 kV in Belgium (more where distances are larger).
-        \item Minimum distances between conductors depend on the voltage level, and thus electrical properties also depend on the voltage level.
-        \item Underground cables are more and more used. They can be modeled in a similar way as overhead transmission lines, but they have different properties.
+        \item An (overhead) transmission \textbf{line} is a set of 3 bundles of conductors corresponding to the three phases of the system.
+        \item Commonly used \textbf{voltages} range from 70 kV to 380 kV in Belgium (more where distances are larger).
+        \item Minimum \textbf{distances} between conductors depend on the voltage level, and thus electrical properties also depend on the voltage level.
+        \item Underground \textbf{cables} are more and more used. They can be modeled in a similar way as overhead transmission lines, but they have different properties.
     \end{itemize}
+    \end{column}
+    \begin{column}{0.31\textwidth}
+        \centering
+        \includegraphics[angle=0, width=\linewidth]{images/IMG_2205.jpg}
+        {\footnotesize A pylon and lines from SwissGrid (picture by B. Cornélusse).}
+    \end{column}
+\end{columns}
 \end{frame}
 
 % ELIA's network
@@ -95,6 +104,95 @@
 
 \end{frame}
 
+\begin{frame}{Skin effect: current density distribution}
+\begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+    \small
+    Current density decays with depth $d$ from surface:
+    \vspace{-0.4em}
+    \[
+        J(d) = J_0 \, e^{-d / \delta}, \quad \delta = \sqrt{\frac{\rho}{\pi f \mu}}
+    \]
+    \vspace{-0.6em}
+    \begin{itemize}
+        \item At depth $d = \delta$: $J(\delta) = J_0/e \approx 36.8\%$.
+        \item Within $3\delta$: $\approx 95\%$ of current is carried.
+        \item Higher $f$ or $\sigma \implies$ smaller $\delta$.
+        \item Effective AC resistance $R_{\text{AC}} > R_{\text{DC}}$.
+        \item \textbf{ACSR}: steel core in center carries negligible current, providing mechanical strength without losses!
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+        \centering
+        \begin{tikzpicture}
+        \begin{axis}[
+            width=\linewidth,
+            height=5.2cm,
+            xmin=0, xmax=30,
+            ymin=0, ymax=1.05,
+            xlabel={Distance from surface $d$ [mm]},
+            ylabel={Current density $J(d)/J_0$},
+            xlabel style={font=\scriptsize\bfseries, at={(axis description cs:0.5,-0.05)}, anchor=north},
+            ylabel style={font=\scriptsize\bfseries, at={(axis description cs:-0.08,0.5)}, anchor=south},
+            tick label style={font=\tiny},
+            grid=both,
+            grid style={dashed, gray!30},
+            legend style={
+                at={(0.98,0.98)},
+                anchor=north east,
+                font=\tiny,
+                fill=white,
+                fill opacity=0.92,
+                draw=gray!40,
+                inner sep=2pt,
+                row sep=-2.5pt
+            },
+            legend cell align={left},
+            domain=0:30,
+            samples=60
+        ]
+        % Aluminum curves (theme primary teal)
+        \addplot[tPrim, thick, solid] {exp(-x/12.0)};
+        \addlegendentry{Al (50 Hz, $\delta=12.0\,$mm)}
+
+        \addplot[tPrim, thick, dashed] {exp(-x/10.9)};
+        \addlegendentry{Al (60 Hz, $\delta=10.9\,$mm)}
+
+        \addplot[tPrim, thick, dotted] {exp(-x/4.2)};
+        \addlegendentry{Al (400 Hz, $\delta=4.2\,$mm)}
+
+        % Copper curves (theme orange/accent)
+        \addplot[tOrange!90!black, thick, solid] {exp(-x/9.4)};
+        \addlegendentry{Cu (50 Hz, $\delta=9.4\,$mm)}
+
+        \addplot[tOrange!90!black, thick, dashed] {exp(-x/8.6)};
+        \addlegendentry{Cu (60 Hz, $\delta=8.6\,$mm)}
+
+        \addplot[tOrange!90!black, thick, dotted] {exp(-x/3.3)};
+        \addlegendentry{Cu (400 Hz, $\delta=3.3\,$mm)}
+
+        % 1/e threshold line
+        \addplot[gray!70!black, dashdotted, thick, domain=0:30] {0.36788};
+        \addlegendentry{$1/e \approx 0.368$ (Skin depth $\delta$)}
+
+        % Projection lines to x-axis
+        \draw[dotted, tOrange!90!black, thick] (axis cs:9.4, 0) -- (axis cs:9.4, 0.36788);
+        \draw[dotted, tPrim, thick] (axis cs:12.0, 0) -- (axis cs:12.0, 0.36788);
+
+        % Markers for 50 Hz skin depths
+        \addplot[only marks, mark=*, mark size=2pt, tOrange!90!black] coordinates {(9.4, 0.36788)};
+        \addplot[only marks, mark=*, mark size=2pt, tPrim] coordinates {(12.0, 0.36788)};
+
+        % Labels next to projection lines in open area
+        \node[font=\tiny\bfseries, tOrange!90!black, anchor=east] at (axis cs:8.8, 0.22) {$\delta_{\text{Cu}}=9.4\,$mm};
+        \node[font=\tiny\bfseries, tPrim, anchor=east] at (axis cs:8.8, 0.12) {$\delta_{\text{Al}}=12.0\,$mm};
+
+        \end{axis}
+        \end{tikzpicture}
+    \end{column}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Approximate Overhead Transmission Line Parameters}
 For bundled conductors at 60 Hz.
 
@@ -147,12 +245,14 @@ Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \math
     We consider that we are in sinusoidal steady state. 
     On a per-phase basis, the line can be represented as many chunks connected to each other:  
     \begin{center}
-        \includegraphics[width=0.75\textwidth]{images/TL_distributed.png}
+        \input{images/TL_distributed.tex}
     \end{center}
     \textbf{How do voltage and current evolve as a function of the position on the line?}
 
+    \alert{Let's fix the origin of $x$ at the receiving end where $\bar{V}_R$ and $\bar{V}_R$ are assumed known.}
+
     \begin{itemize}
-        \item As $R$ is small, let's assume $R$ is considered as \textit{lumped} (a discrete resistive element on one side of the line)
+        \item As $R$ is small, $R$ is considered as \textit{lumped} (a discrete resistive element on one side of the line)
         \item $\frac{d\bar{V}(x)}{dx} = j\omega L \bar{I}(x)$
         \item $\frac{d\bar{I}(x)}{dx} = j\omega C \bar{V}(x)$
     \end{itemize}
@@ -216,7 +316,7 @@ Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \math
     $$
 
 
-    Example: for $500 \text{ kV}$, $SIL \approx 1020 \text{ MW}.$
+    Example: for $500 \text{ kV}$, $SIL \approx 1020 \text{ MW} (Exercise: show it).$ 
 \end{frame}
 
 % Line loadability
@@ -286,42 +386,156 @@ If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the
 \end{frame}
 
 \section{Line rating}\label{sec:LR}
-\begin{frame}[allowframebreaks]{Static line rating}
 
-The \textbf{Static Line Rating} is the maximum continuous current a transmission line can carry under a specific set of predefined, fixed environmental conditions.
-
-This rating is primarily constrained by \textbf{thermal limits} to ensure the safe and reliable operation of the line.
-
-\begin{itemize}
-\item \textbf{Conductor Thermal Limit:}
-\begin{itemize}
-\item The conductor's electrical resistance generates heat ($RI^2$).
-\item This heat must be balanced by cooling from the environment.
-\item An excessive temperature can cause:
-\begin{enumerate}
-\item \textbf{Increased Sag:} Conductor expansion due to heat causes the line to sag, potentially violating minimum clearance requirements to the ground, buildings, or other infrastructure.
-\item \textbf{Material Damage:} Prolonged high temperatures can anneal the conductor, reducing its tensile strength and lifespan.
-\end{enumerate}
-\end{itemize}
-
-\item \textbf{Environmental Conditions:}
-\begin{itemize}
-    \item The "static" nature of the rating comes from assuming a fixed set of weather parameters.
-    \item \textbf{Ambient Air Temperature:} A baseline temperature (e.g., $40^{\circ}C$) is used. Higher temperatures reduce the cooling capability of the air.
-    \item \textbf{Wind Speed:} A low, static wind speed (e.g., $2 \text{ ft/s}$ at a $45^{\circ}$ angle) is assumed to provide minimal convective cooling. Higher wind speeds would allow for more current.
-    \item \textbf{Solar Radiation:} A fixed value for solar heat gain is included, assuming a specific level of direct sunlight on the conductor.
-\end{itemize}
-
-\end{itemize}
-
-Static line ratings are a conservative and fundamental safety measure. They represent the worst-case continuous scenario to prevent physical damage and clearance violations under predictable conditions.
-
-
-\end{frame}
-% Video slide
-\begin{frame}{Dynamic line rating}
-    \begin{figure}
+% -----------------------------------------------------------------------------
+% Frame 1: Thermal limits & ground clearance
+% -----------------------------------------------------------------------------
+\begin{frame}{Thermal Limits \& Ground Clearance}
+\begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+    \footnotesize
+    Transmission lines are limited by the \textbf{maximum conductor temperature} $T_{\text{max}}$ (typically $75\text{--}90^\circ\text{C}$):
+    \begin{itemize}\setlength{\itemsep}{2pt}
+        \item \textbf{Thermal elongation:} Current generates Joule losses ($R I^2$). The conductor expands ($\Delta L = \alpha L \Delta T$), causing sag to increase: $s \approx \frac{w L^2}{8 H}$.
+        \item \textbf{Ground clearance violation:} Sag reduces distance to ground/trees $\implies$ risk of catastrophic \textbf{flashover} (major contributor to 2003 US blackout!).
+        \item \textbf{Material annealing:} Sustained excessive temperature permanently degrades aluminum tensile strength.
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.52\textwidth}
         \centering
-        \href{https://www.youtube.com/embed/pzYvDuvM5JY}{\underline{Dynamic line rating video link}}
-    \end{figure}
+        \input{images/sag_clearance.tex}
+    \end{column}
+\end{columns}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Frame 2: Conductor Heat Balance
+% -----------------------------------------------------------------------------
+\begin{frame}{Conductor Heat Balance (IEEE 738 / CIGRE 601)}
+\begin{columns}[c]
+    \begin{column}{0.50\textwidth}
+    \footnotesize
+    In steady-state, conductor temperature $T_c$ satisfies:
+    \vspace{-0.4em}
+    \[
+        \underbrace{q_J + q_s}_{\text{Heat gain}} = \underbrace{q_c + q_r}_{\text{Heat loss}}
+    \]
+    \vspace{-0.7em}
+    \begin{itemize}\setlength{\itemsep}{0pt}
+        \item \textbf{Joule heating:} $q_J = R(T_c) \cdot I^2$
+        \item \textbf{Solar gain:} $q_s = \alpha_s \cdot S \cdot D$
+        \item \textbf{Convective cooling:} $q_c = h_c(v_w, \phi) \cdot (T_c - T_a)$ \\
+              (\alert{\textbf{wind speed $v_w$ is the dominant cooling factor!}})
+        \item \textbf{Radiative cooling:} $q_r = \pi D \epsilon \sigma_B (T_c^4 - T_a^4)$
+    \end{itemize}
+    \vspace{0.2em}
+    \textbf{Thermal ampacity limit:}
+    \vspace{-0.5em}
+    \[
+        I_{\text{max}} = \sqrt{\frac{q_c(T_{\text{max}}, T_a, v_w, \phi) + q_r(T_{\text{max}}, T_a) - q_s}{R(T_{\text{max}})}}
+    \]
+    \end{column}
+    \begin{column}{0.50\textwidth}
+        \centering
+        \input{images/heat_balance.tex}
+    \end{column}
+\end{columns}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Frame 3: Static & Seasonal Line Rating
+% -----------------------------------------------------------------------------
+\begin{frame}{Static (SLR) and Seasonal (SeLR) Line Rating}
+\begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+    \footnotesize
+    \textbf{Static Line Rating (SLR):}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item Conservative worst-case assumption: high $T_a$ ($35\text{--}40^\circ$C), low wind ($v_w \approx 0.5\,$m/s), full sun.
+        \item Constant safety baseline across the year.
+    \end{itemize}
+    \vspace{0.2em}
+    \textbf{Seasonal Line Rating (SeLR):}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item Separate Summer/Winter ratings ($+40\%$ base ampacity in winter due to cold ambient air).
+    \end{itemize}
+    \vspace{0.2em}
+    \textbf{The Opportunity for DLR:}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item Atmospheric cooling is much stronger $>95\%$ of time.
+        \item A gentle \alert{\textbf{2 m/s breeze adds +43\% capacity}}, but static limits keep this trapped!
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/ampacity_vs_wind.pdf}
+    \end{column}
+\end{columns}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Frame 4: Dynamic Line Rating & Wind Synergy
+% -----------------------------------------------------------------------------
+\begin{frame}{Dynamic Line Rating (DLR) \& Wind Power Synergy}
+\begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+    \footnotesize
+    \textbf{Dynamic Line Rating (DLR / RTTR):}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item Continuously updates ampacity $I_{\text{DLR}}(t)$ from real-time and forecasted weather/line state.
+        \item \textbf{Wind Synergy:} Strong wind generation coincides with high convective cooling: \alert{\textbf{capacity unlocks when needed most!}}
+    \end{itemize}
+    \vspace{0.2em}
+    \textbf{Operational Value:}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item \textbf{Headroom:} Unlocks $+10\text{--}50\%$ capacity on existing lines without new construction.
+        \item \textbf{Safety:} Detects rare calm heatwaves where static ratings overestimate ampacity ($I_{\text{DLR}} < I_{\text{SLR}}$).
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/dlr_vs_slr_24h.pdf}
+    \end{column}
+\end{columns}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% Frame 5: DLR in Practice & Industrial Deployment
+% -----------------------------------------------------------------------------
+\begin{frame}{DLR in Practice: Sensors \& Grid Integration}
+\begin{columns}[c]
+    \begin{column}{0.54\textwidth}
+    \footnotesize
+    \textbf{Sensing \& Monitoring Technologies:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+        \item \textbf{Autonomous line sensors:} Mounted on conductors to track vibration, sag, and temperature (e.g., \textbf{Ampacimon ADR}, a ULiège spin-off!).
+        \item \textbf{Tension \& sag monitors:} Load cells at dead-end towers.
+        \item \textbf{Weather-based:} Local stations + weather forecasts.
+    \end{itemize}
+    \vspace{0.4em}
+    \textbf{Grid Integration \& Industrial Value:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+        \item Belgian TSO \textbf{Elia} pioneered DLR on 150/380 kV lines.
+        \item Fast live-line drone installation (no power outage).
+        \item SCADA/EMS integration for dynamic congestion relief.
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+        \begin{block}{Video: DLR in Action}
+            \centering
+            \vspace{0.3em}
+            \href{https://www.youtube.com/embed/pzYvDuvM5JY}{\alert{\underline{\textbf{Watch Video (YouTube)}}}}
+            \vspace{0.4em}
+            
+            \raggedright\scriptsize
+            \textbf{Demonstrated in the field:}
+            \begin{itemize}\setlength{\itemsep}{1pt}
+                \item Live-line drone sensor mounting
+                \item Vibration-based real-time sag tracking
+                \item Real-time dynamic ampacity dispatch
+            \end{itemize}
+            \vspace{0.2em}
+        \end{block}
+    \end{column}
+\end{columns}
 \end{frame}
