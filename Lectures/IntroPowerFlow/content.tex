@@ -62,15 +62,14 @@
         \end{column}
     \end{columns}
 
-    \newpage
-    \begin{alertblock}{The Non-Linearity Challenge}
-        The relationship between power injections and bus voltages involves quadratic terms ($V_k^2$) and trigonometric functions of angle differences ($\sin(\theta_k - \theta_m), \cos(\theta_k - \theta_m)$).
+    \begin{block}{The Non-Linearity Challenge}
+        The relationship between power injections and bus voltages involves quadratic terms ($V_k^2$) and trigonometric functions of angle differences.
         This forms a system of \textbf{non-linear algebraic equations} that must be solved using iterative numerical algorithms!
-    \end{alertblock}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Why Do We Use Power Flow? (Operations \& Reliability)}
-    Power flow is the foundational simulation workhorse for grid operators and utilities:
+    Power flow is the foundational simulation tool for grid operators and utilities:
     
     \begin{itemize}
         \item \textbf{Operational Security \& Real-Time Monitoring}:
@@ -118,16 +117,13 @@
         \begin{itemize}
             \item Active power $P_k^{\text{spec}}$ and reactive power $Q_k^{\text{spec}}$ are specified (consumed by loads, or injected by non-voltage-regulating renewable generators).
             \item \textbf{Unknowns to find:} Voltage magnitude $V_k$ and phase angle $\theta_k$.
-        \end{itemize}
-        
+        \end{itemize} \newpage
         \item \textbf{PV Buses (Voltage-regulated generator buses)}:
         \begin{itemize}
             \item Active power $P_k^{\text{spec}}$ and voltage magnitude $V_k^{\text{spec}}$ are specified (controlled via governor and Automatic Voltage Regulator (AVR)).
             \item \textbf{Unknowns to find:} Phase angle $\theta_k$ and reactive power $Q_k$.
             \item \textit{Reactive limits:} If $Q_k$ hits a capability limit ($Q_{\min}$ or $Q_{\max}$), the generator cannot maintain voltage; the bus switches to a \textbf{PQ bus} with $Q_k = Q_{\text{limit}}$.
         \end{itemize}
-
-        \newpage
         \item \textbf{One Slack Bus (Swing or Reference bus)}:
         \begin{itemize}
             \item Sets the angular reference for the entire system: $\theta_{\text{slack}} = 0^\circ$.
@@ -187,7 +183,12 @@
 \end{frame}
 
 \begin{frame}{Results of the 3-Bus Example: Bus State}
-    \begin{table}[h]
+
+    
+
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+                \begin{table}[h]
         \centering
         \footnotesize
         \setlength{\tabcolsep}{6pt}
@@ -201,11 +202,6 @@
             \bottomrule
         \end{tabular}
     \end{table}
-    
-    \vspace{-0.35cm}
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            \scriptsize
             \textbf{Legend \& Conventions:}
             \begin{itemize}
                 \item Standard text: \textbf{Specified input data}
@@ -217,8 +213,7 @@
                 \end{itemize}
             \end{itemize}
         \end{column}
-        \begin{column}{0.5\textwidth}
-            \scriptsize
+        \begin{column}{0.35\textwidth}
             \textbf{Physical Observations:}
             \begin{itemize}
                 \item Bus 1 generator supplies $308.38\text{ MW}$ to balance total load plus line losses
@@ -281,13 +276,13 @@
     
     \begin{itemize}
         \item For line connecting buses $k$ and $m$: series impedance $\bar{z}_{km} = r_{km} + j x_{km}$, series admittance $\bar{y}_{km} = 1/\bar{z}_{km}$ (and $\bar{y}_{km} = 0$ if no line exists)
-        \item Line total charging shunt susceptance $b_{km}^{\text{sh}}$, split equally as $j b_{km}^{\text{sh}}/2$ at each terminal
-        \item Shunt element connected at node $k$ (e.g. reactor/capacitor): $Y_{k0} = G_{k0} + j B_{k0}$
+        \item Line total charging shunt susceptance $b_{km}^{\text{sh}}$, split equally as $j \omega C_{km}/2$ at each terminal
+        \item Shunt element connected at node $k$ (e.g. reactor/capacitor): $Y_{k,sh} = G_{k,sh} + j B_{k,sh}$
         \item Total shunt admittance between bus $k$ and ground:
-        $$\mathcolor[RGB]{00,99,00}{Y_{kG}} = Y_{k0} + \sum_{m \in \mathcal{N}_k} j \frac{b_{km}^{\text{sh}}}{2}$$
+        $$\mathcolor[RGB]{00,99,00}{Y_{kG}} = Y_{k,sh} + \sum_{m \in \mathcal{N}_k} j \frac{\omega C_{km}}{2}$$
     \end{itemize}
 
-    \newpage
+    
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=0.75\textwidth]{images/bus_injection_model.pdf}
@@ -300,7 +295,6 @@
         \mathcolor{blue}{\bar{I}_k} = \mathcolor[RGB]{00,99,00}{Y_{kG}} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus \{k\}} \bar{y}_{km} (\bar{V}_k - \bar{V}_m) \label{eq:bus_inj}
     \end{equation}
 
-    \newpage
     Factoring out the bus voltages:
     \begin{equation}
         \mathcolor{blue}{\bar{I}_k} = \underbrace{\left(\mathcolor[RGB]{00,99,00}{Y_{kG}} + \sum_{m \in \mathcal{N} \setminus \{k\}} \bar{y}_{km} \right)}_{Y_{kk}} \bar{V}_k + \sum_{m \in \mathcal{N} \setminus \{k\}} \underbrace{(-\bar{y}_{km})}_{Y_{km}} \bar{V}_m
@@ -311,12 +305,13 @@
         \mathbf{\bar{I}} = \mathbf{Y}_{\text{bus}} \mathbf{\bar{V}} \label{eq:bus_inj_mat}
     \end{equation}
 
-    \textbf{Rules for building $\mathbf{Y}_{\text{bus}}$ by inspection:}
-    \begin{itemize}
-        \item \textbf{Diagonal element $Y_{kk}$:} sum of all admittances connected to bus $k$ (series lines + shunts)
-        \item \textbf{Off-diagonal element $Y_{km}$ ($m \neq k$):} negative of the series admittance connecting bus $k$ and bus $m$ (hence $Y_{km} = Y_{mk}$ for bilateral lines)
-    \end{itemize}
-\end{frame}
+    \begin{block}{Rules for building $\mathbf{Y}_{\text{bus}}$ by inspection:}
+        \begin{itemize}
+            \item \textbf{Diagonal element $Y_{kk}$:} sum of all admittances connected to bus $k$ (series lines + shunts)
+            \item \textbf{Off-diagonal element $Y_{km}$ ($m \neq k$):} negative of the series admittance connecting bus $k$ and bus $m$ (hence $Y_{km} = Y_{mk}$ for bilateral lines)
+        \end{itemize}
+    \end{block}
+    \end{frame}
 
 \begin{frame}[allowframebreaks]{Power Flow Equations in Polar Coordinates}
     In power systems, boundary conditions are given in powers rather than currents.
