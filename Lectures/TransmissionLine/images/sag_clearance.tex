@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=0.74, every node/.style={transform shape}]
+\begin{tikzpicture}[scale=1, every node/.style={transform shape}]
     % Ground level
     \fill[gray!12] (-0.5, 0) rectangle (7.5, -0.4);
     \draw[thick, gray!60] (-0.5, 0) -- (7.5, 0);
@@ -7,8 +7,8 @@
     % Left Tower
     \draw[thick, gray!70!black] (0.5, 0) -- (0.5, 3.4);
     \draw[thick, gray!70!black] (0.2, 0) -- (0.5, 3.4) -- (0.8, 0);
-    \draw[thick, gray!70!black] (0.3, 1.7) -- (0.7, 1.7);
-    \draw[thick, gray!70!black] (0.36, 0.85) -- (0.64, 0.85);
+    \draw[thick, gray!70!black] (0.31, 1.7) -- (0.69, 1.7);
+    \draw[thick, gray!70!black] (0.25, 0.85) -- (0.75, 0.85);
     \draw[thick, gray!70!black] (0.05, 3.1) -- (0.95, 3.1);
     \draw[thick, gray!70!black] (0.5, 3.1) -- (0.5, 2.75);
     \fill[gray!70!black] (0.5, 2.75) circle (2pt);
@@ -16,8 +16,8 @@
     % Right Tower
     \draw[thick, gray!70!black] (6.5, 0) -- (6.5, 3.4);
     \draw[thick, gray!70!black] (6.2, 0) -- (6.5, 3.4) -- (6.8, 0);
-    \draw[thick, gray!70!black] (6.3, 1.7) -- (6.7, 1.7);
-    \draw[thick, gray!70!black] (6.36, 0.85) -- (6.64, 0.85);
+    \draw[thick, gray!70!black] (6.31, 1.7) -- (6.69, 1.7);
+    \draw[thick, gray!70!black] (6.25, 0.85) -- (6.75, 0.85);
     \draw[thick, gray!70!black] (6.05, 3.1) -- (6.95, 3.1);
     \draw[thick, gray!70!black] (6.5, 3.1) -- (6.5, 2.75);
     \fill[gray!70!black] (6.5, 2.75) circle (2pt);
@@ -38,7 +38,7 @@
 
     % Thermal elongation delta s dimension arrow at x = 5.0
     \draw[<->, >=Stealth, thick, myRed] (5.0, {2.05 + 0.70*((5.0 - 3.5)/3.0)^2}) -- (5.0, {1.30 + 1.45*((5.0 - 3.5)/3.0)^2});
-    \node[font=\tiny\bfseries, myRed, anchor=west] at (5.05, 1.9) {$\Delta s_{\text{thermal}}$};
+    \node[font=\tiny\bfseries, myRed, anchor=west] at (5., 2) {$\Delta s_{\text{thermal}}$};
 
     % Statutory clearance line
     \draw[dashdotted, thick, tOrange!90!black] (0.9, 1.05) -- (5.8, 1.05);

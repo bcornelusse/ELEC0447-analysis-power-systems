@@ -687,11 +687,11 @@
 %==============================================================================
 
 \begin{frame}{The Dual Role of the Slack Bus}
-    In classical AC power flow, the \textbf{slack (or swing) bus} fulfills two distinct roles:
+    \textbf{Reminder}. In classical AC power flow, the \textbf{slack (or swing) bus} fulfills two distinct roles:
     
     \begin{columns}[T]
         \begin{column}{0.48\textwidth}
-            \begin{block}{1. Mathematical: Angle Datum}
+            \begin{block}{1. Mathematical: Angle reference}
                 \footnotesize
                 \begin{itemize}
                     \item In AC grids, power flows depend strictly on \textbf{phase differences} $\theta_k - \theta_m$.
@@ -722,32 +722,26 @@
 \end{frame}
 
 \begin{frame}[allowframebreaks]{How to Choose the Slack Bus in Single-Slack Studies}
-    When configuring a classical single-slack study, how should the engineer select the slack bus?
+    \alert{How should the engineer select the slack bus?}
     
     \begin{itemize}
         \item \textbf{1. Large Generating Capacity and Headroom}:
         \begin{itemize}
-            \item Connect to a major, flexible generating plant (e.g., large hydro or combined-cycle gas turbine).
-            \item Must have ample active and reactive spinning reserves:
+            \item Connect to a major, flexible generating plant (e.g., large hydro or CCGT).
+            \item Must have ample active and reactive spinning reserves (see lecture on generators):
             $$P_{G,\min} \ll P_{G,\text{slack}} \ll P_{G,\max}, \qquad Q_{G,\min} \ll Q_{G,\text{slack}} \ll Q_{G,\max}$$
             to absorb unexpected loss variations without breaching machine capability limits.
         \end{itemize}
-        \vspace{0.15cm}
         \item \textbf{2. Voltage Regulation Capability}:
         \begin{itemize}
-            \item Strong Automatic Voltage Regulator (AVR) and high reactive capability ($Q$) to maintain terminal voltage $V_{\text{slack}} = V^0$.
+            \item Strong Automatic Voltage Regulator (AVR) and high reactive capability ($Q$) to maintain terminal voltage $V_{\text{slack}} = V^0$ (see lecture on generators).
         \end{itemize}
-    \end{itemize}
-
-    \newpage
-    \begin{itemize}
         \item \textbf{3. Electrical Centrality and Grid Strength}:
         \begin{itemize}
             \item High short-circuit capacity (low Thévenin impedance, electrically "stiff" bus).
             \item Centrally located in terms of electrical distance (impedance) to major load centers.
             \item High nodal degree: interconnected with multiple strong, high-capacity transmission lines.
         \end{itemize}
-        \vspace{0.15cm}
         \item \textbf{4. Grid Interconnection / Tie-Line Substation}:
         \begin{itemize}
             \item In regional transmission or distribution utility models, the boundary substation connecting to the external transmission grid is selected as the slack ("infinite bus").
@@ -758,47 +752,44 @@
 \begin{frame}[allowframebreaks]{Pitfalls of a Poor Slack Bus Choice}
     Designating a single, arbitrary slack bus can create serious modeling distortions:
     
-    \begin{alertblock}{1. Artificial Congestion and False Overloads}
+    \begin{block}{1. Artificial Congestion and False Overloads}
         \begin{itemize}
             \item If a small or peripheral generator is chosen as slack, it is forced to supply the loss balance for the \textit{entire} grid.
             \item All loss-compensating energy must travel across local transmission paths, triggering \textbf{spurious overload alarms} on adjacent lines that do not exist in reality!
         \end{itemize}
-    \end{alertblock}
+    \end{block}
+    \begin{block}{2. Generator Limit Violations \& Solver Divergence}
+        If the single slack generator hits its $P_{\max}$ or $Q_{\max}$ limits, the solver must dynamically switch the slack bus, frequently causing limit-cycling or non-convergence in NR.
+    \end{block}
 
     \newpage
-    \begin{alertblock}{2. Sensitivity and Market Distortions}
+    \begin{block}{3. Sensitivity and Market Distortions (notions defined in the Energy Markets course)}
         \begin{itemize}
-            \item Sensitivities such as Power Transfer Distribution Factors (PTDF) and Locational Marginal Prices (LMP) depend directly on the slack reference (These notions are defined in the Energy Markets course)
+            \item Sensitivities such as Power Transfer Distribution Factors (PTDF) and Locational Marginal Prices (LMP) depend directly on the slack reference 
             \item An arbitrary slack choice skews market signals and transmission loss allocation.
         \end{itemize}
-    \end{alertblock}
-    
-    \vspace{0.15cm}
-    \begin{block}{3. Generator Limit Violations \& Solver Divergence}
-        If the single slack generator hits its $P_{\max}$ or $Q_{\max}$ limits, the solver must dynamically switch the slack bus, frequently causing limit-cycling or non-convergence in Newton-Raphson.
     \end{block}
+    
+    
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Why Single Slack Fails in Real Practice}
     \textbf{The Physical Reality of Power Systems:}
     \begin{itemize}
         \item In actual real-time operations, \textbf{no single power plant} absorbs the entire system mismatch or covers all grid losses!
+        \item We will come back to that in the lectrue on frequency stability! 
     \end{itemize}
     
-    \vspace{0.15cm}
     \textbf{1. Primary Frequency Control (Governor Droop, $t < 10\text{ s}$):}
     \begin{itemize}
-        \item (We will come back to that in the lectrue on frequency stability)
         \item Any power imbalance creates an instantaneous frequency deviation $\Delta f = f - f_0$.
         \item All synchronized generators equipped with speed governors respond \textbf{simultaneously} according to their droop characteristic $R_k$:
         $$\Delta P_{Gk} = -\frac{1}{R_k} \Delta f$$
         \item The deficit or surplus is automatically shared across \textbf{all} online generators!
     \end{itemize}
 
-    \newpage
     \textbf{2. Secondary Frequency Control / AGC ($t \sim 30\text{ s} - 15\text{ min}$):}
     \begin{itemize}
-        \item (We will come back to that in the lectrue on frequency stability)
         \item Automatic Generation Control (AGC) restores frequency and tie-line schedules by dispatching regulation reserves across designated generators according to participation factors $\alpha_k$.
     \end{itemize}
     

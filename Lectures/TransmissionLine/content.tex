@@ -316,7 +316,7 @@ Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \math
     $$
 
 
-    Example: for $500 \text{ kV}$, $SIL \approx 1020 \text{ MW} (Exercise: show it).$ 
+    Example: for $500 \text{ kV}$, $SIL \approx 1020 \text{ MW}.$ (Exercise: show it) 
 \end{frame}
 
 % Line loadability
@@ -390,22 +390,45 @@ If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the
 % -----------------------------------------------------------------------------
 % Frame 1: Thermal limits & ground clearance
 % -----------------------------------------------------------------------------
-\begin{frame}{Thermal Limits \& Ground Clearance}
+\begin{frame}[allowframebreaks]{Thermal Limits \& Ground Clearance}
+
+Transmission lines have a \textbf{maximum conductor temperature} $T_{\text{max}}$ (typically $75\text{--}90^\circ\text{C}$):
+
 \begin{columns}[c]
-    \begin{column}{0.48\textwidth}
+    \begin{column}{0.4\textwidth}
     \footnotesize
-    Transmission lines are limited by the \textbf{maximum conductor temperature} $T_{\text{max}}$ (typically $75\text{--}90^\circ\text{C}$):
     \begin{itemize}\setlength{\itemsep}{2pt}
         \item \textbf{Thermal elongation:} Current generates Joule losses ($R I^2$). The conductor expands ($\Delta L = \alpha L \Delta T$), causing sag to increase: $s \approx \frac{w L^2}{8 H}$.
         \item \textbf{Ground clearance violation:} Sag reduces distance to ground/trees $\implies$ risk of catastrophic \textbf{flashover} (major contributor to 2003 US blackout!).
         \item \textbf{Material annealing:} Sustained excessive temperature permanently degrades aluminum tensile strength.
     \end{itemize}
     \end{column}
-    \begin{column}{0.52\textwidth}
+    \begin{column}{0.5\textwidth}
         \centering
         \input{images/sag_clearance.tex}
     \end{column}
 \end{columns}
+% Directly usable in Beamer frames
+% Directly usable in Beamer frames
+\begin{table}
+  \centering
+  \footnotesize
+  \begin{tabular}{c l c p{7.5cm}}
+    \toprule
+    \textbf{Symbol} & \textbf{Parameter} & \textbf{Unit} & \textbf{Description} \\
+    \midrule
+    $s$ & Sag & $\mathrm{m}$ & Vertical drop at mid-span relative to tower support line \\
+    \addlinespace[3pt]
+    $w$ & Linear load & $\mathrm{N/m}$ & Weight per unit length ($m_{\text{line}} g$), plus ice/wind loads \\
+    \addlinespace[3pt]
+    $L$ & Span length & $\mathrm{m}$ & Horizontal distance between adjacent support towers \\
+    \addlinespace[3pt]
+    $H$ & Tension & $\mathrm{N}$ & Constant horizontal component of mechanical tension \\
+    \addlinespace[3pt]
+    $\alpha$ & Thermal coeff. & $\mathrm{K}^{-1}$ & Linear expansion coefficient in $\Delta L = \alpha L \Delta T$ ($\approx 15\text{--}23 \times 10^{-6}\,\mathrm{K}^{-1}$ for ACSR/Al) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 \end{frame}
 
 % -----------------------------------------------------------------------------
