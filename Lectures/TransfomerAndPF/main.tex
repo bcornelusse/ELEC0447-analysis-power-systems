@@ -49,7 +49,7 @@
 \usepackage{tikz}
 \usepackage{blox}
 \usepackage{calc}
-%\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, calc}
 
 
 \newcommand{\Z}       {\mathbb{Z} }
@@ -62,6 +62,13 @@
 \newcommand{\st}{\mathrm{s.t.}}
 \definecolor{myRed}{RGB}{209,34,57} 
 
+
+% Draft watermark (filigrane)
+\addtobeamertemplate{background canvas}{}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[rotate=45, scale=6, text opacity=0.07, color=black, font=\bfseries\sffamily] at (current page.center) {DRAFT};
+  \end{tikzpicture}%
+}
 
 %==============================================================================
 %                               BEGIN DOCUMENT

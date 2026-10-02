@@ -13,10 +13,18 @@
 % What will we learn slide
 \begin{frame}{What will we learn today?}
     \begin{itemize}
-        \item The power transformer
-        \item The next part of power flow analysis: how to include transformers and transformers with tap changers
+        \item The power transformer: physical models, nameplate test data ($v_k\%$, $v_{kr}\%$), and per-unit representation
+        \item Delta-wye connections, phase shifts, and standard vector groups (IEC clock convention)
+        \item Tap changers (OLTC) and phase-shifting transformers (PST) for voltage and power flow control
+        \item How to include transformers in power flow analysis:
+        \begin{itemize}
+            \item Two-port admittance matrix and system $\mathbf{Y}_{\text{bus}}$ stamping
+            \item Equivalent $\pi$-model for in-phase regulation ($t \in \mathbb{R}$)
+            \item Loss of $\mathbf{Y}_{\text{bus}}$ symmetry for phase shifters ($t \in \mathbb{C}$)
+        \end{itemize}
+        \item Hands-on 4-bus case study with PST in PandaPower and Newton-Raphson
     \end{itemize}
-    You will be able to do exercises 6.2, 6.3, 6.4 from Ned Mohan's book.
+    You will be able to do exercises 6.2, 6.3, 6.4, 6.18, 6.19 from Ned Mohan's book.
 \end{frame}
 
 
@@ -30,12 +38,14 @@ An ideal transformer is a two-port represented as
     \begin{column}{0.45\textwidth}
         \includegraphics[width=\textwidth]{images/ideal_transformer.png}
     \end{column}
-    \begin{column}{0.35\textwidth}
+    \begin{column}{0.45\textwidth}
         with
         \begin{align*}
         u_2  &= n u_1 \\
         i_2  &= -\frac{1}{n}i_1
         \end{align*}
+        \footnotesize
+        \textbf{Sign convention note:} Currents $i_1$ and $i_2$ both enter the positive terminals (standard two-port convention), explaining the minus sign. With load convention ($i_2$ leaving), $i_2 = \frac{1}{n} i_1$.
     \end{column}
 \end{columns}
 \end{frame}
@@ -101,11 +111,11 @@ $$Z_{s, base} = n^2 Z_{p, base}$$
 
 
 \begin{columns}
-    \begin{column}{0.55\textwidth}
+    \begin{column}{0.35\textwidth}
         Hence, \alert{in per unit, the transformer can be replaced by a single impedance}
         $$Z_{tr} = \frac{Z_{p}}{Z_{p, base}}+\frac{Z_{s}}{Z_{s, base}}.$$
     \end{column}
-    \begin{column}{0.45\textwidth}
+    \begin{column}{0.6\textwidth}
         \includegraphics[width=\textwidth]{images/tfo-pu.png}
     \end{column}
 \end{columns}
@@ -118,6 +128,54 @@ Thus we have also that
 i.e. \alert{the impedance is the same whether we see it from the primary or the secondary side, although the voltage bases differ}.
 
 Also, if the three-phase transformer is \alert{wye-delta} connected, a \alert{30° phase shift} must be applied (more on this later).
+\end{frame}
+
+\begin{frame}[allowframebreaks]{From Nameplate Data to Per-Unit Parameters}
+In manufacturer datasheets and power flow software (e.g., PandaPower), transformers are specified via standard factory test values:
+\begin{itemize}
+    \item \textbf{Ratings:} rated power $S_n$ [MVA] and rated voltages $V_{n1}, V_{n2}$ [kV]
+    \item \textbf{Short-circuit test (copper losses \& leakage):}
+    \begin{itemize}
+        \item Short-circuit voltage: $v_k\%$ (typically $8\%\text{ to }18\%$ for transmission units)
+        \item Ohmic drop / copper losses: $v_{kr}\%$ (or short-circuit active power $P_{\text{sc}}$ in kW)
+    \end{itemize}
+    \item \textbf{Open-circuit / no-load test (iron losses \& magnetizing):}
+    \begin{itemize}
+        \item No-load active losses: $P_{\text{fe}}$ [kW] (or $p_0\%$)
+        \item No-load magnetizing current: $i_0\%$ (typically $< 0.5\%$, usually neglected in power flow)
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\textbf{1. On the transformer's own rated base $(V_n, S_n)$:}
+$$z_{k, \text{tr}} = \frac{v_k\%}{100} \text{ pu}, \qquad r_{k, \text{tr}} = \frac{v_{kr}\%}{100} = \frac{P_{\text{sc}}}{S_n} \text{ pu}, \qquad x_{k, \text{tr}} = \sqrt{z_{k, \text{tr}}^2 - r_{k, \text{tr}}^2} \text{ pu}$$
+
+\textbf{2. Scaling to the system network base $(V_{\text{base}}, S_{\text{base}})$:}
+$$Z_{k, \text{sys}} = \left( r_{k, \text{tr}} + j x_{k, \text{tr}} \right) \times \left( \frac{S_{\text{base}}}{S_n} \right) \times \left( \frac{V_n}{V_{\text{base}}} \right)^2$$
+Since $X_{k} \gg R_{k}$ in large power transformers (often $X/R > 20$), $R_k$ is often neglected in simplified transmission calculations ($Z_{\text{tr}} \approx j x_k$).
+
+\begin{block}{PandaPower Implementation}
+\small
+In PandaPower, this conversion is computed directly from parameters:
+\begin{align*}
+\texttt{z\_k} &= (\texttt{vk\_percent} / 100) \times (\texttt{net.sn\_mva} / \texttt{sn\_mva}) \\
+\texttt{r\_k} &= (\texttt{vkr\_percent} / 100) \times (\texttt{net.sn\_mva} / \texttt{sn\_mva}) \\
+\texttt{x\_k} &= \sqrt{\texttt{z\_k}^2 - \texttt{r\_k}^2}
+\end{align*}
+\end{block}
+\end{frame}
+
+\begin{frame}{General Per-Unit Base Conversion Formula}
+When converting an impedance from $(V_{\text{base}}^{\text{old}}, S_{\text{base}}^{\text{old}})$ to a new base $(V_{\text{base}}^{\text{new}}, S_{\text{base}}^{\text{new}})$:
+$$Z_{\text{pu}}^{\text{new}} = Z_{\text{pu}}^{\text{old}} \times \left( \frac{S_{\text{base}}^{\text{new}}}{S_{\text{base}}^{\text{old}}} \right) \times \left( \frac{V_{\text{base}}^{\text{old}}}{V_{\text{base}}^{\text{new}}} \right)^2$$
+
+\begin{itemize}
+    \item When voltage bases across transformer zones match the nominal turns ratio:
+    $$\frac{V_{\text{base}, 1}}{V_{\text{base}, 2}} = \frac{V_{n1}}{V_{n2}} \implies \frac{V_{\text{base}}^{\text{old}}}{V_{\text{base}}^{\text{new}}} = 1$$
+    \item Then $Z_{\text{pu}}$ scales \alert{solely with the MVA base ratio}:
+    $$Z_{\text{pu}}^{\text{new}} = Z_{\text{pu}}^{\text{old}} \times \left( \frac{S_{\text{base}}^{\text{new}}}{S_{\text{base}}^{\text{old}}} \right)$$
+    This property is what makes per-unit analysis so powerful across multiple voltage tiers.
+\end{itemize}
 \end{frame}
 
 
@@ -184,33 +242,101 @@ Remarks:
 \end{center}
 \end{frame}
 
-\begin{frame}{Auto-transformers}
+\begin{frame}{Auto-transformers: Working Principle}
+\begin{columns}[c]
+    \begin{column}{0.44\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=0.82, >=Stealth]
+            % Magnetic iron core
+            \draw[line width=1.5pt, gray!70] (2.15, 0.2) -- (2.15, 2.8);
+            \draw[line width=1.5pt, gray!70] (2.30, 0.2) -- (2.30, 2.8);
+            
+            % HV line (top left)
+            \draw[line width=1.1pt] (-0.3, 2.7) -- (1.6, 2.7);
+            \draw[line width=1.1pt, ->] (-0.2, 2.7) -- (0.5, 2.7) node[above, font=\scriptsize] {$I_H$};
+            \node[above=2pt, font=\scriptsize\bfseries] at (-0.3, 2.7) {HV};
+            
+            % Series winding (top: 2.7 down to 1.5)
+            \foreach \y in {2.3, 1.9, 1.5} {
+                \draw[line width=1.1pt] (1.6, \y+0.4) arc (90:-90:0.18 and 0.2);
+            }
+            \node[right=4pt, font=\tiny] at (2.3, 2.1) {$N_{\text{se}}$};
+            
+            % Tap point at y = 1.5
+            \filldraw[black] (1.6, 1.5) circle (1.8pt);
+            \draw[line width=1.1pt] (1.6, 1.5) -- (3.5, 1.5);
+            \draw[line width=1.1pt, ->] (2.5, 1.5) -- (3.2, 1.5) node[above, font=\scriptsize] {$I_L$};
+            \node[above=2pt, font=\scriptsize\bfseries] at (3.5, 1.5) {LV};
+            
+            % Common winding (middle: 1.5 down to 0.3)
+            \foreach \y in {1.1, 0.7, 0.3} {
+                \draw[line width=1.1pt] (1.6, \y+0.4) arc (90:-90:0.18 and 0.2);
+            }
+            \node[right=4pt, font=\tiny] at (2.3, 0.9) {$N_c$};
+            
+            % Opposing current in common part
+            \draw[line width=1.1pt, ->, color=myRed] (1.1, 0.6) -- (1.1, 1.2) node[left=1pt, font=\tiny] {$I_c = I_L - I_H$};
+            
+            % Common neutral line (bottom)
+            \draw[line width=1.1pt] (-0.3, 0.3) -- (3.5, 0.3);
+            \filldraw[black] (1.6, 0.3) circle (1.8pt);
+            
+            % Ground
+            \draw[line width=0.8pt] (1.6, 0.3) -- (1.6, 0.0);
+            \draw[line width=1.0pt] (1.3, 0.0) -- (1.9, 0.0);
+            \draw[line width=0.8pt] (1.4, -0.08) -- (1.8, -0.08);
+            \draw[line width=0.6pt] (1.5, -0.16) -- (1.7, -0.16);
+            
+            % Voltage indicators
+            \draw[line width=0.7pt, <->] (-0.7, 0.3) -- (-0.7, 2.7) node[midway, left=1pt, font=\scriptsize] {$V_H$};
+            \draw[line width=0.7pt, <->] (3.9, 0.3) -- (3.9, 1.5) node[midway, right=1pt, font=\scriptsize] {$V_L$};
+        \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.56\textwidth}
+        \small
+        The two windings are connected in series on the same core, sharing a common section without galvanic isolation.
+        
+        \vspace{0.15cm}
+        \textbf{Voltage \& Current Relations:}
+        $$\frac{V_H}{V_L} = 1 + \frac{N_{\text{se}}}{N_c}, \qquad I_c = I_L - I_H$$
+        
+        \textbf{Dual Power Transfer:}
+        \begin{itemize}
+            \item \alert{Inductive} (magnetic): $S_{\text{ind}} = S_{\text{rated}} \left(1 - \frac{V_L}{V_H}\right)$
+            \item \alert{Conductive} (direct): $S_{\text{cond}} = S_{\text{rated}} \left(\frac{V_L}{V_H}\right)$
+        \end{itemize}
+        When $V_H / V_L \approx 1$, the core is sized only for $S_{\text{ind}} \ll S_{\text{rated}}$, making it much smaller and lighter!
+    \end{column}
+\end{columns}
+\end{frame}
 
-The two windings (of the same phase) are connected in series, without galvanic insulation. 
-They are commonly used when the ratio is limited.
-
-
-\begin{columns}
-    \begin{column}{0.45\textwidth}
-Advantages: 
-\begin{itemize}
-\item Physically smaller
-\item less costly (less copper)
-\item higher efficiency
-\item easy to implement tap changes
-\item "solid" earth grounding
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}
-Disadvantages:
-\begin{itemize}
-\item no electrical insulation
-\item higher short circuit current
-\item full voltage at secondary if it breaks (in case of a step down)
-\end{itemize}
-\end{column}
+\begin{frame}{Auto-transformers: Trade-offs \& Applications}
+\begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+        \textbf{Advantages:}
+        \begin{itemize}
+            \item Physically smaller and lighter
+            \item Less costly (significantly less copper \& iron)
+            \item Higher efficiency ($\eta > 99.7\%$)
+            \item Lower leakage reactance
+            \item Easy to implement tap changers (OLTC)
+            \item Common solid earth ground
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+        \textbf{Disadvantages:}
+        \begin{itemize}
+            \item No galvanic / electrical isolation
+            \item Higher short-circuit current
+            \item Risk of full $V_H$ on secondary if common winding opens
+            \item Economic benefit diminishes if ratio $V_H/V_L > 2$
+        \end{itemize}
+    \end{column}
 \end{columns}
 
+\vspace{0.25cm}
+\footnotesize
+\textbf{Typical Applications:} Interconnecting close transmission voltage levels (e.g. 380/220 kV, 220/150 kV) and serving as the regulating unit in on-load tap changers and phase shifters.
 \end{frame}
 
 \begin{frame}{Phase shift in delta-star transformers}
@@ -237,6 +363,37 @@ We \alert{gain a $\sqrt{3}$ factor} in the amplification, and a \alert{lagging p
 
 The same reasoning holds for phases $b$ and $c$.
 
+\end{frame}
+
+\begin{frame}{Standard Three-Phase Vector Groups (IEC 60076)}
+In industrial practice, phase displacement between windings is designated by a \alert{clock number} (each hour represents a $30^\circ$ lag):
+
+\begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+        \small
+        \textbf{Notation Rules:}
+        \begin{itemize}
+            \item 1st letter: HV winding (\textbf{D} = Delta, \textbf{Y} = Wye)
+            \item 2nd letter: LV winding (\textbf{d} = delta, \textbf{y} = wye, \textbf{n} = neutral out)
+            \item Number $k \in \{0, \dots, 11\}$: phase lag of LV line-to-neutral phasor relative to HV:
+            $\theta_{\text{LV}} - \theta_{\text{HV}} = - k \times 30^\circ$
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+        \small
+        \textbf{Common Examples:}
+        \begin{itemize}
+            \item \textbf{Yy0 / Dd0}: $0^\circ$ shift (12 o'clock)
+            \item \textbf{Dy1}: Delta-Wye, LV lags by $30^\circ$ (1 o'clock) --- \textit{the case studied on previous slide!}
+            \item \textbf{Dy11} (or \textbf{Yd11}): LV leads by $30^\circ$ / lags by $330^\circ$ (11 o'clock)
+            \item \textbf{Yd5}: LV lags by $150^\circ$ (5 o'clock)
+        \end{itemize}
+    \end{column}
+\end{columns}
+
+\vspace{0.15cm}
+\footnotesize
+\textbf{Paralleling Condition:} Transformers can be operated in parallel only if they belong to the \alert{same vector group} (identical phase displacement).
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Power flow regulation by phase shifting}
@@ -269,6 +426,48 @@ For the details of how it is implemented or modeled, see
     \item \href{https://eepublicdownloads.blob.core.windows.net/public-cdn-container/clean-documents/CIM_documents/Grid_Model_CIM/ENTSOE_CGMES_v2.4.14_28May2014_PSTmodelling.pdf}{\underline{ENTSO-E - Phase Shift Transformers Modelling, Version 1.0.0, May 2015}}
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{Physical Principle: Controlling Parallel Path \& Loop Flows}
+Active power divides inversely proportional to line reactances: $P \sim \Delta \theta / X$.
+In meshed grids, this creates \alert{transit flows} and line overloads.
+
+\begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+        \begin{center}
+        \begin{tikzpicture}[scale=0.72, >=Stealth]
+            % Buses
+            \draw[line width=2.5pt] (0, -1.0) -- (0, 1.0) node[above, font=\bfseries] {Area A};
+            \draw[line width=2.5pt] (5.2, -1.0) -- (5.2, 1.0) node[above, font=\bfseries] {Area B};
+            
+            % Path 1 (Direct, low impedance)
+            \draw[line width=1pt] (0, 0.6) -- (1.5, 0.6) node[midway, above, font=\footnotesize] {$X_1$ (small)};
+            \draw[fill=orange!25, line width=1pt] (1.5, 0.25) rectangle (3.2, 0.95) node[midway, font=\scriptsize\bfseries] {PST ($\pm\alpha$)};
+            \draw[line width=1pt, ->] (3.2, 0.6) -- (5.2, 0.6) node[midway, above, font=\footnotesize] {$P_1(\alpha)$};
+            
+            % Path 2 (Alternative path)
+            \draw[line width=1pt, ->] (0, -0.6) -- (5.2, -0.6) node[midway, below, font=\footnotesize] {Path 2: $X_2$ (higher reactance)};
+            
+            % Injections
+            \draw[line width=1.2pt, ->] (-0.9, 0) -- (0, 0) node[midway, above, font=\footnotesize] {$P_{\text{total}}$};
+            \draw[line width=1.2pt, ->] (5.2, 0) -- (6.1, 0) node[midway, above, font=\footnotesize] {$P_{\text{total}}$};
+        \end{tikzpicture}
+        \end{center}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+        \small
+        \textbf{Without PST ($\alpha = 0$):}
+        $$P_1 = P_{\text{total}} \frac{X_2}{X_1 + X_2} \quad (\text{overload on Line 1!})$$
+        
+        \textbf{With PST ($\alpha \ne 0$):}
+        $$P_1 \approx \frac{\theta_A - \theta_B + \alpha}{X_1}$$
+        Tuning $\alpha$ redirects power into Path 2, relieving Line 1 without costly generation redispatch!
+    \end{column}
+\end{columns}
+
+\vspace{0.1cm}
+\footnotesize
+\textbf{Why PSTs on Belgian borders?} German wind power flowing to Southern Germany creates large transit loop flows across Belgium/Netherlands. PSTs act as electrical valves to protect interconnectors.
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Example: phase shifting transformers on the borders of Belgium}
@@ -333,13 +532,12 @@ It is a bit harder to model controllable taps for voltage and flow control.
 
 \begin{frame}[allowframebreaks]{Representing taps and phase shifts}
 
-
 \begin{columns}
     \begin{column}{0.5\textwidth}
     Let $Y_l$ be the leakage admittance and $t$ be the off-nominal turns ratio:
     \begin{itemize}
-        \item if $ 0 < t \leq 1$, this corresponds to a simple tap-changer
-        \item if $ 0 < |t| \leq 1$ but is complex, then this is a phase-shifter ($\angle{t} < \pi/2$)
+        \item If $t \in \mathbb{R}$ (typically $0.90 \le t \le 1.10$, step size $\approx 0.5\%\text{--}1.25\%$), this corresponds to an \alert{in-phase tap-changer (OLTC)} for voltage magnitude and reactive power control.
+        \item If $t = m e^{j\theta}$ with $\theta \ne 0$ ($|\theta| \le 15^\circ\text{--}25^\circ$), this is a \alert{phase-shifting transformer (PST)} for active power flow control.
     \end{itemize}
     \end{column}
     \begin{column}{0.45\textwidth}
@@ -352,24 +550,183 @@ $$\bar{I}_1 = \left(\bar{V}_1 - \frac{\bar{V}_2}{t}\right) Y_l$$
 and since $\frac{\bar{V}_2}{t} \bar{I}_1^\star = -\bar{V}_2 \bar{I}_2^\star$ by energy conservation
 $$\bar{I}_2 = - \frac{\bar{I}_1}{t^\star} = - \bar{V}_1 \frac{Y_l}{t^\star} + \bar{V}_2 \frac{Y_l}{|t|^2}$$
 
-Thus tap and phase shift can be represented by the admittance matrix
+Thus tap and phase shift can be represented by the two-port admittance matrix:
+$$\begin{bmatrix} \bar{I}_1 \\ \bar{I}_2\end{bmatrix} 
+ = \begin{bmatrix} Y_l & -\dfrac{Y_l}{t} \\ -\dfrac{Y_l}{t^\star} & \dfrac{Y_l}{|t|^2} \end{bmatrix}
+ \begin{bmatrix} \bar{V}_1 \\ \bar{V}_2\end{bmatrix}$$
+\end{frame}
 
-$$\left[\begin{array}{c} \bar{I}_1 \\ \bar{I}_2\end{array}\right] 
- = \left[\begin{array}{c c} Y_l & -\frac{Y_l}{t} \\ -\frac{Y_l}{t^\star} & \frac{Y_l}{|t|^2} \end{array}\right]
- \left[\begin{array}{c} \bar{V}_1 \\ \bar{V}_2\end{array}\right]$$
+\begin{frame}[allowframebreaks]{System $\mathbf{Y}_{\text{bus}}$ Stamping \& Newton-Raphson Impact}
+For a transformer connected between \alert{Bus $i$} (series impedance side) and \alert{Bus $j$} (ideal tap side $1:t$):
 
- \newpage
+$$\begin{bmatrix} \bar{I}_i \\ \bar{I}_j \end{bmatrix} = 
+\begin{bmatrix} 
+Y_l & -\dfrac{Y_l}{t} \\ 
+-\dfrac{Y_l}{t^\star} & \dfrac{Y_l}{|t|^2} 
+\end{bmatrix}
+\begin{bmatrix} \bar{V}_i \\ \bar{V}_j \end{bmatrix}$$
+
+\textbf{Stamping Rule into the Global $\mathbf{Y}_{\text{bus}}$ Matrix:}
+\begin{align*}
+    Y_{ii} &\leftarrow Y_{ii} + Y_l \\
+    Y_{jj} &\leftarrow Y_{jj} + \frac{Y_l}{|t|^2} \\
+    Y_{ij} &\leftarrow Y_{ij} - \frac{Y_l}{t} \\
+    Y_{ji} &\leftarrow Y_{ji} - \frac{Y_l}{t^\star}
+\end{align*}
+
+\newpage
+\begin{alertblock}{Consequence for Complex Taps ($t = m e^{j\theta}, \theta \ne 0$)}
+Because $t \ne t^\star$, the off-diagonal terms differ:
+$$Y_{ij} \ne Y_{ji} \implies \mathbf{Y}_{\text{bus}} \ne \mathbf{Y}_{\text{bus}}^T \quad \text{(\alert{loss of symmetry!})}$$
+\end{alertblock}
+
+\textbf{Direct Impact on the Newton-Raphson Power Flow:}
 \begin{itemize}
-    \item if $ 0 < t \leq 1$, this can be represented as a $\pi$ two-port
-    \item if $ 0 < |t| \leq 1$ but is complex, this is not the case
+    \item Standard textbook formulations often assume $Y_{km} = Y_{mk}$ ($G_{km} = G_{mk}, B_{km} = B_{mk}$).
+    \item With PSTs, one \alert{must} strictly use directed branch admittance values:
+    $$P_k = \sum_{m=1}^n V_k V_m \left( G_{km} \cos(\theta_k - \theta_m) + B_{km} \sin(\theta_k - \theta_m) \right)$$
+    where $G_{km} + j B_{km} = Y_{km} \ne Y_{mk}$.
+    \item Off-diagonal blocks in the Jacobian $\mathbf{J}$ are no longer transpose-symmetric.
 \end{itemize}
+\end{frame}
 
-In the power flow analysis you must \alert{pay attention to this when constructing the system-wide admittance matrix.}
-As an exercise, let's add a phase-shifting transformer to our 3-bus example.
+\begin{frame}{The Equivalent $\pi$-Model for In-Phase Taps ($t \in \mathbb{R}$)}
+When $t \in \mathbb{R}$ (pure voltage magnitude regulation, no phase shift), $t = t^\star$, so $Y_{ij} = Y_{ji}$. The two-port is reciprocal and can be synthesized as a \alert{passive $\pi$-equivalent}:
 
+\begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+        \begin{center}
+        \begin{tikzpicture}[scale=0.75, >=Stealth]
+            % Bus bars
+            \draw[line width=2.5pt] (0, -1.0) -- (0, 1.1) node[above, font=\bfseries] {Bus 1 ($\bar{V}_1$)};
+            \draw[line width=2.5pt] (5.5, -1.0) -- (5.5, 1.1) node[above, font=\bfseries] {Bus 2 ($\bar{V}_2$)};
+            
+            % Series branch
+            \draw[line width=1pt] (0, 0.6) -- (1.5, 0.6);
+            \draw[fill=white, line width=1pt] (1.5, 0.25) rectangle (4.0, 0.95) node[midway] {$y_s = \dfrac{Y_l}{t}$};
+            \draw[line width=1pt] (4.0, 0.6) -- (5.5, 0.6);
+            
+            % Shunt 1
+            \draw[line width=1pt] (0.9, 0.6) -- (0.9, 0.1);
+            \draw[fill=white, line width=1pt] (0.1, -0.5) rectangle (1.7, 0.1) node[midway, font=\footnotesize] {$y_{sh1} = Y_l\frac{1-t}{t}$};
+            \draw[line width=1pt] (0.9, -0.5) -- (0.9, -0.85);
+            \draw[line width=1pt] (0.6, -0.85) -- (1.2, -0.85);
+            \draw[line width=1pt] (0.7, -0.95) -- (1.1, -0.95);
+            
+            % Shunt 2
+            \draw[line width=1pt] (4.6, 0.6) -- (4.6, 0.1);
+            \draw[fill=white, line width=1pt] (3.8, -0.5) rectangle (5.4, 0.1) node[midway, font=\footnotesize] {$y_{sh2} = Y_l\frac{t-1}{t^2}$};
+            \draw[line width=1pt] (4.6, -0.5) -- (4.6, -0.85);
+            \draw[line width=1pt] (4.3, -0.85) -- (4.9, -0.85);
+            \draw[line width=1pt] (4.4, -0.95) -- (4.8, -0.95);
+        \end{tikzpicture}
+        \end{center}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+        \small
+        \textbf{Equivalence with Matrix:}
+        \begin{align*}
+            Y_{11} &= y_s + y_{sh1} = Y_l \\
+            Y_{22} &= y_s + y_{sh2} = \frac{Y_l}{t^2} \\
+            Y_{12} &= Y_{21} = -y_s = -\frac{Y_l}{t}
+        \end{align*}
+        \alert{Advantage:} Standard transmission line $\pi$-routines can be directly reused!
+        \vspace{0.1cm}
+        
+        \footnotesize
+        \textbf{Note on PST ($t \in \mathbb{C}$):} Non-reciprocal ($Y_{12} \ne Y_{21}$), cannot be modeled by passive two-terminal elements.
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Illustration: The 4-Bus System with PST}
+In the course exercises, we place a PST between Bus 1 and an auxiliary Bus 4 connected to Bus 3:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.82, >=Stealth]
+    % Bus bars
+    \draw[line width=2.5pt] (-3.8, -0.2) -- (-3.8, 1.4) node[above, font=\bfseries] {Bus 1 (Slack)};
+    \draw[line width=2.5pt] (-1.2, -0.2) -- (-1.2, 1.4) node[above, font=\bfseries] {Bus 4};
+    \draw[line width=2.5pt] (4.0, -0.2) -- (4.0, 1.4) node[above, font=\bfseries] {Bus 3 (PQ)};
+    \draw[line width=2.5pt] (-0.2, -1.8) -- (1.0, -1.8) node[below=4pt, font=\bfseries] {Bus 2 (PV)};
+    
+    % Branches
+    % PST between 1 and 4
+    \draw[line width=1pt] (-3.8, 0.8) -- (-2.9, 0.8);
+    \draw[fill=orange!25, line width=1pt] (-2.9, 0.4) rectangle (-1.9, 1.2) node[midway, font=\scriptsize\bfseries] {PST ($1:t$)};
+    \draw[line width=1pt] (-1.9, 0.8) -- (-1.2, 0.8);
+    
+    % Line 4-3
+    \draw[line width=1pt] (-1.2, 0.8) -- (4.0, 0.8) node[midway, above] {Line 3 (200 km)};
+    % Line 1-2
+    \draw[line width=1pt] (-3.8, 0.1) -- (-2.2, 0.1) -- (-0.2, -1.5) node[midway, left=4pt] {Line 1 (150 km)};
+    % Line 2-3
+    \draw[line width=1pt] (1.0, -1.5) -- (2.6, 0.1) -- (4.0, 0.1) node[midway, right=4pt] {Line 2 (150 km)};
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\textbf{Effect of PST Tap Shift (from $-8^\circ$ to $+8^\circ$):}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{table}[h]
+            \centering
+            \small
+            \begin{tabular}{cccc}
+                \toprule
+                \textbf{Tap Angle} & \textbf{Line 1} & \textbf{Line 2} & \textbf{Line 3} \\
+                \midrule
+                $-8^\circ$ & 61.2 \% & 43.1 \% & \alert{98.5 \%} \\
+                $0^\circ$  & 75.4 \% & 68.2 \% & 84.1 \% \\
+                $+8^\circ$ & \alert{92.8 \%} & 89.4 \% & 67.3 \% \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \small
+        \begin{itemize}
+            \item As tap angle increases, active power is diverted from Line 3 towards Path 1--2.
+            \item Line 3 is relieved without changing generator outputs!
+        \end{itemize}
+    \end{column}
+\end{columns}
+
+\newpage
+\textbf{Network Reduction (Kron / Norton Equivalent):}
+Since no power is injected at auxiliary Bus 4 ($I_4 = 0$):
+$$\mathbf{Y}_{\text{reduced}} = \mathbf{Y}_{aa} - \mathbf{Y}_{ab} Y_{44}^{-1} \mathbf{Y}_{ba}$$
+This yields an exact $3 \times 3$ equivalent network for custom Newton-Raphson solvers.
+
+\vspace{0.2cm}
+\begin{block}{Python Notebooks \& Implementation}
+\centering
+\href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/blob/master/notebooks/PF_3_transformer_gen_limits_pandapower.ipynb}{\beamergotobutton{PandaPower Notebook}}
+\hspace{0.5cm}
+\href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/blob/master/notebooks/power_flow_3-bus-transformer_and_gen_limits_Newton-Raphson.py}{\beamergotobutton{Newton-Raphson Script}}
+\end{block}
+\end{frame}
+
+\begin{frame}{Summary: Branch Modeling in Power Flow}
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Element} & \textbf{Ratio / Parameter} & $\mathbf{Y}_{\text{bus}}$ \textbf{Symmetry} & \textbf{Passive $\pi$-Model} & \textbf{Main Control} \\
+        \midrule
+        \textbf{AC Line} & $Z = R + jX$ & Symmetric & Yes & Passive \\
+        \textbf{Fixed Transfo} & $1:1$ (in pu) & Symmetric & Yes & Voltage level \\
+        \textbf{OLTC} & $1:t$, $t \in \mathbb{R}$ & Symmetric & Yes & Voltage / $Q$ \\
+        \textbf{PST} & $1:m e^{j\theta}$, $\theta \ne 0$ & \alert{Non-symmetric} & \alert{No} & Active flow $P$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{block}{Key Takeaways}
 \begin{itemize}
-    \item \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/blob/master/notebooks/PF_3_transformer_gen_limits_pandapower.ipynb}{\underline{Link to the example in PandaPower}}
-    \item \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/blob/master/notebooks/power_flow_3-bus-transformer_and_gen_limits_Newton-Raphson.py}{\underline{Link to the Newton-Raphson example}}
+    \item Standard line routines can represent OLTCs via modified $\pi$-shunts.
+    \item Phase shifters require explicit directed admittance stamping in $\mathbf{Y}_{\text{bus}}$ and Newton-Raphson Jacobians.
 \end{itemize}
-
+\end{block}
 \end{frame}
