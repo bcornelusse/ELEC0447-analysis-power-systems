@@ -1,0 +1,80 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{palatino}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\pagestyle{empty}
+
+\setlength{\columnsep}{1.8em}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% Academic Year in top right corner
+\begin{flushright}
+    2026--2027
+\end{flushright}
+
+\vspace{-0.5em}
+
+% Title Header
+\begin{center}
+    {\Large \textbf{ELEC0447 -- Analysis of Electric Power and Energy Systems}}\\[0.4em]
+    {\large \textbf{Oral exam questions}}
+\end{center}
+
+\vspace{0.8em}
+
+\textit{You are assigned two questions, one from each of the lists below. Questions from List 1 will be accompanied by a short exercise (the same type as the ones of the practice sessions).}
+
+\vspace{1em}
+
+\begin{multicols}{2}
+
+\textbf{List 1:}
+\begin{enumerate}[leftmargin=*, itemsep=0.4em, topsep=0.3em]
+    \item Describe what a three-phase system is, powers, voltages, currents, star and delta connections, and how (and when) we can simplify the analysis to a per-phase analysis.
+    
+    \item Describe the per-unit normalization principle, its usefulness, and how to apply it. Give an example.
+    
+    \item Describe how a transmission line can be modeled (distributed parameter representation and lumped model), what the SIL is, and why it is useful.
+    
+    \item Describe how a transformer can be modeled and its per unit representation and explain the phase shift in delta-star configurations.
+    
+    \item Describe what a tap-changing transformer is, what a phase-shifting transformer is, how they work, and how to include them in a power flow analysis.
+    
+    \item State the model of a synchronous generator and describe its properties. Explain how a synchronous generator can be included in a power flow analysis.
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{List 2:}
+\begin{enumerate}[leftmargin=*, itemsep=0.4em, topsep=0.3em]
+    \item Explain the principle of the power flow analysis, derive the power flow equations, and sketch a solution method.
+    
+    \item Describe the applications of HVDC systems and the main technologies. Describe the main components of a LCC link.
+    
+    \item Describe the principles of thyristor valves and the operation of a LCC line. Explain briefly how an LCC link can be controlled and how to include it in a power flow analysis (basic model).
+    
+    \item Explain the impact of active and reactive power flows on voltages. (expected answer $\to$ active power flows impact voltage angles, reactive power flows impact voltage magnitudes). Explain what is the nose curve/PV curve. Why do we have a maximum transmissible power through a line? What can we do to increase this maximum power transfer? Give short examples of long-term voltage stability and short-term voltage stability. What can we do to prevent voltage instability? What are the impacts of large penetration of distributed energy resources on the voltages of distribution networks? Explain the issue behind reversal power flows.
+    
+    \item Write down the swing equation and describe every term. Explain the equal area criterion and how it relates to the synchronous machine's kinetic energy. Explain the critical clearing time (CCT) and how an upper and lower bound of the CCT can be found knowing the critical clearing angle. Do the damper windings in a synchronous machine help to prevent transient rotor angle instability? Explain the impact of renewable energy resources on the angle stability.
+    
+    \item Explain how frequency evolves in an AC system, the mechanisms implemented to control the frequency, and the impact of renewable energy integration.
+\end{enumerate}
+
+\end{multicols}
+
+\vfill
+
+\rule{\linewidth}{0.6pt}
+
+\vspace{0.6em}
+
+\begin{center}
+    \textbf{Write your answers on separate sheets, and indicate the}\\
+    \textbf{date, your name, and your student ID on each sheet.}
+\end{center}
+
+\end{document}
