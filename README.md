@@ -29,7 +29,7 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | October 1 | 3 | [The transmission line](Lectures/TransmissionLine/main.pdf) |
 | | | [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf) |
 | | | [Exercises on transmission lines (TP3)](Exercises/ELEC0447_exercise_manual.pdf#page=14) (Section 3) |
-| | | [Project 1: Two-feeder distribution network analysis with PandaPower](pdf/ELEC0447_project_1_2025.pdf) and [Data](pdf/ELEC0447_project_1_2025_network.xlsx) |
+| | | [Project 1: Two-feeder distribution network analysis with PandaPower](Projects/Project_1/ELEC0447_project1_2026.pdf) and [Data](Projects/Project_1/ELEC0447_project_1_2026_network.xlsx) |
 | October 8 | 4 | [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) |
 | | | [Exercises on transformers (TP4)](Exercises/ELEC0447_exercise_manual.pdf#page=20) (Section 4) |
 | October 15 | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf) |
