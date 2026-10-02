@@ -250,7 +250,7 @@ Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \math
     \end{center}
     \textbf{How do voltage and current evolve as a function of the position on the line?}
 
-    \alert{Let's fix the origin of $x$ at the receiving end where $\bar{V}_R$ and $\bar{V}_R$ are assumed known.}
+    \alert{Let's fix the origin of $x$ at the receiving end where $\bar{V}_R$ and $\bar{I}_R$ are assumed known.}
 
     \begin{itemize}
         \item As $R$ is small, $R$ is considered as \textit{lumped} (a discrete resistive element on one side of the line)
@@ -345,15 +345,11 @@ Voltage & $(\boldsymbol{\Omega} / \mathbf{k m})$ & $(\boldsymbol{\Omega} / \math
 
 \section{Lumped transmission line model}
 \begin{frame}{The $\pi$ model}
-If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the line with \textbf{lumped} parameters,
+If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the line with \textbf{lumped} parameters:
+\vspace{0.5cm}
 \begin{columns}
-    \begin{column}{0.55\textwidth}
-    \begin{center}
-        \input{images/pi_1.tex}
-    \end{center}
-    \end{column}
     \begin{column}{0.45\textwidth}
-    with, by manipulation of the previous equations and assuming $\beta l$ small,
+     By manipulation of the previous equations and assuming $\beta l$ small,
     \begin{itemize}
         \item $Z_{\text{series}} = R l +  j \omega L l$
         \item $\frac{Y_{\text{shunt}}}{2} = j \frac{\omega C l}{2}$
@@ -362,6 +358,12 @@ If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the
     Remember that $R$, $L$ and $C$ are per km values.
 
     This $\pi$ model is symmetrical by design.
+    \end{column}
+
+    \begin{column}{0.45\textwidth}
+    \begin{center}
+        \input{images/pi_1.tex}
+    \end{center}
     \end{column}
 \end{columns}
 
@@ -375,7 +377,7 @@ If $l$ is relatively small ($< 300 \text{ km}$), we can \textit{approximate} the
     \begin{column}{0.55\textwidth}
     \begin{center}
         \includegraphics[width=\textwidth]{images/pi_model_voltage.png}
-        \small{SIL, 230 kV line params}
+        \small{230 kV line params, $Z_L=Z_C/2$}
     \end{center}
     \end{column}
     \begin{column}{0.4\textwidth}

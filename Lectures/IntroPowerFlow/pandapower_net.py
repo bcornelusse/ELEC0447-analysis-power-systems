@@ -19,7 +19,7 @@ pp.create_load(net, bus=b3, p_mw=5*Pbase, q_mvar=1*Pbase, name="Load")
 pp.create_gen(net, bus=b2, p_mw=2*Pbase, vm_pu=1.05, name="PV")
 
 # Create branch elements. 
-# Here I neglect shunct capacitances.
+# Here I neglect shunt capacitances.
 Zbase = Vbase**2 / Pbase
 X_km = 0.376
 R_km = 0.037
