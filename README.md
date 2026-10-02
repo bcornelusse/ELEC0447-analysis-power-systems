@@ -47,7 +47,7 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | December 3 | 10 | [Transient stability](Lectures/transient/main.pdf) *(video on eCampus)* |
 | December 10 | 11 | **Visit to Elia's national dispatch center** (presence is mandatory) |
 | December 17 | 12 | **Project 2 assessment** (presence is mandatory) |
-| January | — | Oral exam — [List of theoretical questions](pdf/20231212_ELEC0447_exam_questions.pdf) |
+| January | — | Oral exam — [List of questions](Evaluation/ELEC0447_exam_questions.pdf) |
 
 ### Extra Module: Usual Transforms in Power Systems (Self-Study / Reference)
 
