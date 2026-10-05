@@ -1,0 +1,97 @@
+\begin{tikzpicture}[scale=1, >=Stealth, font=\small]
+  % Coordinates
+  \coordinate (O) at (0,0);
+  \coordinate (CR) at (-2.40, 0);
+  \coordinate (Rpt) at (2.05, 3.44); % Point R: intersection of Stator and Rotor at V=1.0
+  \coordinate (U0) at (-2.40, 0);
+  \coordinate (U_min) at (-2.33, 0.50);
+  \coordinate (U_top) at (-1.55, 3.44);
+
+  % 1. Shaded Permissible Operating Region
+  \fill[opRegion] 
+    (U_top) -- (Rpt) 
+    arc[start angle=37.7, end angle=5.1, radius=5.62] % rotor arc down to P=0.5
+    -- (U_min)
+    .. controls (-2.25, 1.6) and (-1.90, 2.7) .. (U_top) -- cycle;
+
+  % 2. Axes
+  \draw[->, line width=0.85pt] (-3.8, 0) -- (6.8, 0) node[below=2pt, font=\small] {$Q$ \footnotesize(Mvar / pu)};
+  %\draw[->, line width=0.85pt] (0, -0.3) -- (4.5, 0) node[below=2pt] {} ; % dummy to ensure bounds
+  \draw[->, line width=0.85pt] (0, -0.3) -- (0, 4.5) node[left=2pt, font=\small] {$P$ \footnotesize(MW / pu)};
+  
+  % Ticks & markers
+  \fill (O) circle (1.5pt) node[below left=2pt, font=\footnotesize] {$0$};
+  \fill (CR) circle (1.5pt) node[below=3pt, font=\footnotesize] {$-\dfrac{V^2}{X_s}$};
+
+  % 3. Turbine Limits (Horizontal lines)
+  % P_max: solid across operating region, dashed outside
+  \draw[dashed, line width=0.7pt, myOrange!70] (-2.8, 3.44) -- (U_top);
+  \draw[line width=1.1pt, myOrange] (U_top) -- (Rpt);
+  \draw[dashed, line width=0.7pt, myOrange!70] (Rpt) -- (3.5, 3.44);
+  \draw (0, 3.44) -- (-0.08, 3.44) node[above left=1pt, font=\scriptsize, myOrange!90!black] {$P_{\max}$};
+  
+  % P_min: solid across operating region, dashed to the left
+  \draw[dashed, line width=0.7pt, myOrange!70] (-2.8, 0.50) -- (U_min);
+  \draw[line width=0.9pt, myOrange!80!black] (U_min) -- (3.3, 0.50);
+  \draw (0, 0.50) -- (-0.08, 0.50) node[below left=1pt, font=\scriptsize, myOrange!80!black] {$P_{\min}$};
+
+  % 4. Under-excitation / Stability Limit Curve (Left)
+  \draw[line width=1.2pt, myRed!85!black] 
+    (U0) .. controls (-2.25, 1.6) and (-1.90, 2.7) .. (-1.40, 3.9)
+    node[pos=0.68, left=3pt, font=\footnotesize\bfseries, align=right] {Under-excitation\\\& stability limit};
+
+  % 5. Rotor Field Thermal Limits (centered at CR)
+  % V = 1.05 pu (dash-dotted)
+  \draw[dashdotted, line width=0.8pt, red!70!black] 
+    ([shift=(CR)] 50:5.90) arc[start angle=50, end angle=0, radius=5.90];
+  % V = 1.00 pu (solid)
+  \draw[line width=1.3pt, red!85!black] 
+    ([shift=(CR)] 50:5.62) arc[start angle=50, end angle=0, radius=5.62];
+  % V = 0.95 pu (dotted)
+  \draw[dotted, line width=0.9pt, red!70!black] 
+    ([shift=(CR)] 50:5.34) arc[start angle=50, end angle=0, radius=5.34];
+
+  % 6. Stator Armature Thermal Limits (centered at origin O)
+  % V = 1.05 pu (dash-dotted)
+  \draw[dashdotted, line width=0.8pt, myBlue!70] 
+    (70:4.20) arc[start angle=70, end angle=0, radius=4.20];
+  % V = 1.00 pu (solid)
+  \draw[line width=1.3pt, myBlue] 
+    (70:4.00) arc[start angle=70, end angle=0, radius=4.00];
+  % V = 0.95 pu (dotted)
+  \draw[dotted, line width=0.9pt, myBlue!70] 
+    (70:3.80) arc[start angle=70, end angle=0, radius=3.80];
+
+  % 7. Construction vectors to point R
+  \draw[dashed, line width=0.7pt, black!50] (O) -- (Rpt);
+  \node[font=\scriptsize, text=black!85, rotate=59.2] at ($(1.15, 1.93) + (-30.8:0.22)$) {$V I_N$};
+  
+  \draw[dashed, line width=0.7pt, black!50] (CR) -- (Rpt);
+  \node[font=\scriptsize, text=black!85, rotate=37.7] at ($(1.05, 2.66) + (127.7:0.25)$) {$\dfrac{E_{af,\max} V}{X_s}$};
+    
+  \fill[black] (Rpt) circle (2.2pt);
+  \node[above right=2pt, font=\footnotesize\bfseries] at (Rpt) {$\mathrm{R}$};
+
+  % 8. Label: Permissible Operating Region
+  \node[font=\footnotesize\bfseries, teal!80!black, align=center] at (-0.95, 2.30) 
+    {Permissible\\Operating\\Region};
+
+  % 9. Rotor curve legend
+  \node[font=\footnotesize\bfseries, red!85!black, anchor=west] at (4.9, 1.85) {ROTOR LIMIT};
+  \draw[->, >=Stealth, line width=0.6pt, red!85!black] (4.8, 1.50) -- (3.32, 1.50);
+  \node[anchor=west, font=\tiny, red!85!black] at (4.85, 1.50) {$V = 1.05\text{ pu}$};
+  \draw[->, >=Stealth, line width=0.6pt, red!85!black] (4.8, 1.15) -- (3.14, 1.15);
+  \node[anchor=west, font=\tiny, red!85!black] at (4.85, 1.15) {$V = 1.00\text{ pu}$};
+  \draw[->, >=Stealth, line width=0.6pt, red!85!black] (4.8, 0.80) -- (2.86, 0.80);
+  \node[anchor=west, font=\tiny, red!85!black] at (4.85, 0.80) {$V = 0.95\text{ pu}$};
+
+  % 10. Stator curve legend
+  \node[font=\footnotesize\bfseries, myBlue, anchor=west] at (5.1, 3.4) {STATOR LIMIT};
+  \draw[->, >=Stealth, line width=0.6pt, myBlue] (5.0, 3.05) -- (3, 3.05);
+  \node[anchor=west, font=\tiny, myBlue] at (5.05, 3.05) {$V = 1.05\text{ pu}$};
+  \draw[->, >=Stealth, line width=0.6pt, myBlue] (5.0, 2.65) -- (3.05, 2.65);
+  \node[anchor=west, font=\tiny, myBlue] at (5.05, 2.65) {$V = 1.00\text{ pu}$};
+  \draw[->, >=Stealth, line width=0.6pt, myBlue] (5.0, 2.25) -- (3.1, 2.25);
+  \node[anchor=west, font=\tiny, myBlue] at (5.05, 2.25) {$V = 0.95\text{ pu}$};
+
+\end{tikzpicture}

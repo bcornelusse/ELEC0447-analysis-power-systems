@@ -285,7 +285,7 @@
     
     \begin{figure}[htbp]
         \centering
-        \includegraphics[width=0.75\textwidth]{images/bus_injection_model.pdf}
+        \includegraphics[width=0.95\textwidth]{images/bus_injection_model.pdf}
         \caption{Current injection at bus $k$ as a function of branch flows to neighbors ($l, m$) and shunt elements to ground.}
         \label{fig:bus_injection}
     \end{figure}
@@ -335,8 +335,8 @@
     
     Using Euler's identity $e^{j\theta_{km}} = \cos\theta_{km} + j \sin\theta_{km}$ with phase difference $\theta_{km} = \theta_k - \theta_m$:
     \begin{align}
-        P_k &= V_k \sum_{m=1}^n V_m (G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km}) = p_k(\mathbf{V}, \boldsymbol{\theta}) \label{eq:pf_P} \\[0.5em]
-        Q_k &= V_k \sum_{m=1}^n V_m (G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km}) = q_k(\mathbf{V}, \boldsymbol{\theta}) \label{eq:pf_Q}
+        P_k &= \underbrace{V_k \sum_{m=1}^n V_m (G_{km} \cos\theta_{km} + B_{km} \sin\theta_{km})}_{\mathcolor[RGB]{00,99,00}{p_k(\mathbf{V}, \boldsymbol{\theta})}}\label{eq:pf_P} \\[0.5em]
+        Q_k &= \underbrace{V_k \sum_{m=1}^n V_m (G_{km} \sin\theta_{km} - B_{km} \cos\theta_{km})}_{\mathcolor[RGB]{00,99,00}{q_k(\mathbf{V}, \boldsymbol{\theta})}}\label{eq:pf_Q}
     \end{align}
 
     \newpage
@@ -385,13 +385,16 @@
 \section{Power flow solution method}
 %==============================================================================
 
-\begin{frame}{Power Flow Solution via Newton-Raphson}
-    Let the specified active and reactive powers be $P_k^0$ and $Q_k^0$.
+\begin{frame}[allowframebreaks]{Power Flow Solution via Newton-Raphson}
+    Let the specified (known) active and reactive powers be $\mathcolor{blue}{P_k^0}$ and $\mathcolor{blue}{Q_k^0}$. \\
     We define the \textbf{power mismatch functions}:
     \begin{align*}
-        \Delta P_k(\mathbf{V}, \boldsymbol{\theta}) &= P_k^0 - p_k(\mathbf{V}, \boldsymbol{\theta}) = 0, \quad \forall k \in \mathcal{N}_{PQ} \cup \mathcal{N}_{PV} \\
-        \Delta Q_k(\mathbf{V}, \boldsymbol{\theta}) &= Q_k^0 - q_k(\mathbf{V}, \boldsymbol{\theta}) = 0, \quad \forall k \in \mathcal{N}_{PQ}
+        \Delta P_k(\mathbf{V}, \boldsymbol{\theta}) &= \mathcolor{blue}{P_k^0} \mathcolor[RGB]{00,99,00}{- p_k(\mathbf{V}, \boldsymbol{\theta})}, \quad \forall k \in \mathcal{N}_{PQ} \cup \mathcal{N}_{PV} \\
+        \Delta Q_k(\mathbf{V}, \boldsymbol{\theta}) &= \mathcolor{blue}{Q_k^0} \mathcolor[RGB]{00,99,00}{- q_k(\mathbf{V}, \boldsymbol{\theta})}, \quad \forall k \in \mathcal{N}_{PQ}
     \end{align*}
+
+    We want to find a solution such that $$\Delta P_k(\mathbf{V}, \boldsymbol{\theta}) = \Delta Q_k(\mathbf{V}, \boldsymbol{\theta}) = 0,$$
+    i.e. we want to find values for unknown variables to explain the known variables.
     
     This forms a set of $2 n_{PQ} + n_{PV}$ non-linear algebraic equations in $2 n_{PQ} + n_{PV}$ unknown state variables:
     $$\mathbf{x} = \begin{bmatrix} \boldsymbol{\theta}_{PQ, PV} \\ \mathbf{V}_{PQ} \end{bmatrix}, \qquad \mathbf{F}(\mathbf{x}) = \begin{bmatrix} \Delta \mathbf{P}(\mathbf{x}) \\ \Delta \mathbf{Q}(\mathbf{x}) \end{bmatrix} = \mathbf{0}$$
@@ -441,7 +444,7 @@
             \vspace{0.25cm}
             \href{https://colab.research.google.com/drive/12tCcO6kPxkoScAGnUYxgumS3CVSBSmtJ?usp=sharing}{\beamergotobutton{Python Colab Implementation}}
             \quad
-            \href{interactive_nr_visualizer.html}{\beamergotobutton{Interactive Web Visualizer}}
+            \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/blob/master/Lectures/IntroPowerFlow/interactive_nr_visualizer.html}{\beamergotobutton{Interactive Web Visualizer}}
         \end{column} \hfill
         \begin{column}{0.48\textwidth}
             \centering

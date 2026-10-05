@@ -1,0 +1,72 @@
+\begin{tikzpicture}[scale=0.68, >=Stealth, font=\small]
+  % Panel (a)
+  \begin{scope}[shift={(0,0)}]
+    % Axes
+    \draw[->, line width=0.8pt] (-0.2,0) -- (3.25,0) node[below=1pt] {$\delta$};
+    \draw[->, line width=0.8pt] (0,-0.2) -- (0,2.6) node[above] {$P_e$};
+    
+    % Sine curve: domain 0 to pi
+    \draw[line width=1.1pt, myBlue, domain=0:3.1416, samples=50, smooth] 
+      plot (\x, {2.2*sin(\x r)});
+      
+    % Operating points
+    \coordinate (D1) at (0.45, 0.96);
+    \coordinate (D2) at (0.85, 1.65);
+    
+    % Horizontal lines for Pm1 and Pm2
+    \draw[dashed, line width=0.7pt, black!70] (0, 0.96) -- (2.5, 0.96) node[right, font=\scriptsize] {$P_{m1}$};
+    \draw[dashed, line width=0.7pt, black!70] (0, 1.65) -- (2.5, 1.65) node[right, font=\scriptsize] {$P_{m2}$};
+    
+    % Vertical dashed lines
+    \draw[dashed, line width=0.7pt, black!70] (0.45, 0) -- (D1);
+    \draw[dashed, line width=0.7pt, black!70] (0.85, 0) -- (D2);
+    
+    \fill[myBlue] (D1) circle (1.8pt);
+    \fill[myBlue] (D2) circle (1.8pt);
+    
+    \node[below, font=\scriptsize] at (0,0) {$0$};
+    \node[below=1pt, font=\scriptsize] at (0.45,0) {$\delta_1$};
+    \node[below=1pt, font=\scriptsize] at (0.85,0) {$\delta_2$};
+    \draw (1.57, 0) -- (1.57, 0.08);
+    \node[below=1pt, font=\scriptsize] at (1.57,0) {$90^\circ$};
+    
+    \node[left, font=\scriptsize] at (0, 0.96) {$P_{e1}$};
+    \node[left, font=\scriptsize] at (0, 1.65) {$P_{e2}$};
+    
+    \node[below=14pt, font=\small\bfseries] at (1.55, 0) {(a) Operating points};
+  \end{scope}
+
+  % Panel (b) - shifted with ample spacing
+  \begin{scope}[shift={(4.8,0)}]
+    % Fill regions: stable (greenish) and unstable (reddish)
+    \fill[myGreen!12] (0,0) -- plot[domain=0:1.5708, samples=25] (\x, {2.2*sin(\x r)}) -- (1.5708,0) -- cycle;
+    \fill[myRed!10] (1.5708,0) -- plot[domain=1.5708:3.1416, samples=25] (\x, {2.2*sin(\x r)}) -- (3.1416,0) -- cycle;
+    
+    % Axes
+    \draw[->, line width=0.8pt] (-0.2,0) -- (3.25,0) node[below=1pt] {$\delta$};
+    \draw[->, line width=0.8pt] (0,-0.2) -- (0,2.6) node[above] {$P_e$};
+    
+    % Sine curve
+    \draw[line width=1.1pt, myBlue, domain=0:3.1416, samples=50, smooth] 
+      plot (\x, {2.2*sin(\x r)});
+      
+    \coordinate (PEAK) at (1.5708, 2.2);
+    
+    % Tangent line
+    \draw[dashed, line width=0.7pt, myRed] (0, 2.2) -- (2.6, 2.2);
+    \draw[dashed, line width=0.7pt, black!70] (1.5708, 0) -- (PEAK);
+    
+    \fill[myRed] (PEAK) circle (2pt);
+    
+    \node[below, font=\scriptsize] at (0,0) {$0$};
+    \draw (1.5708, 0) -- (1.5708, 0.08);
+    \node[below=1pt, font=\scriptsize] at (1.5708,0) {$90^\circ$};
+    \node[left, font=\scriptsize] at (0, 2.2) {$P_{e,\max}$};
+    
+    % Region labels
+    \node[font=\tiny\bfseries, text=myGreen!70!black] at (0.75, 0.65) {Stable};
+    \node[font=\tiny\bfseries, text=myRed!70!black] at (2.35, 0.65) {Unstable};
+    
+    \node[below=14pt, font=\small\bfseries] at (1.55, 0) {(b) Stability limit};
+  \end{scope}
+\end{tikzpicture}

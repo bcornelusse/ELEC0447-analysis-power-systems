@@ -1,3 +1,4 @@
+\pdfminorversion=7
 \documentclass[aspectratio=169]{beamer}
 
 \usefonttheme{professionalfonts}
@@ -34,6 +35,7 @@
 \usepackage{colortbl}
 \usepackage{tcolorbox}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
 \usepackage{calc}
 
 \newcommand{\Z}{\mathbb{Z}}
@@ -41,6 +43,17 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
 \definecolor{myRed}{RGB}{209,34,57}
+\definecolor{myBlue}{RGB}{28,90,160}
+\definecolor{myGreen}{RGB}{34,139,34}
+\definecolor{myOrange}{RGB}{210,105,15}
+\definecolor{opRegion}{RGB}{224,244,246}
+
+% Draft watermark (filigrane)
+\addtobeamertemplate{background canvas}{}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[rotate=45, scale=6, text opacity=0.07, color=black, font=\bfseries\sffamily] at (current page.center) {DRAFT};
+  \end{tikzpicture}%
+}
 
 \begin{document}
 

@@ -30,13 +30,11 @@
 \section{Operating principle}
 
 \begin{frame}{Synchronous machines}
-  Synchronous machines produce the major part of electrical energy worldwide:
-  \begin{itemize}
-    \item Unit ratings range from a few kVA (emergency generators) to a few hundred MVA, with the largest units exceeding 1500 MVA (nuclear power plants).
-  \end{itemize}
-  \vspace{0.2cm}
+  Synchronous machines produce the major part of electrical energy worldwide, with unit ratings ranging from a few kVA to over 1500 MVA (nuclear power plants).
+  \vspace{0.15cm}
+  
   Beyond bulk active power production, they play three critical system roles:
-  \begin{itemize}
+  \begin{itemize}\setlength{\itemsep}{2pt}
     \item \textbf{Frequency setting}: They impose the synchronous frequency of grid voltages and currents.
     \item \textbf{Energy buffer}: They store significant kinetic energy in their rotating masses (providing instantaneous system inertia).
     \item \textbf{Voltage control}: They can produce or consume reactive power by adjusting their rotor field current.
@@ -122,7 +120,7 @@
 \begin{frame}{Interaction between fields \& electromechanical conversion}
   \begin{columns}
     \begin{column}{0.55\textwidth}
-      \begin{itemize}
+      \begin{itemize}\setlength{\itemsep}{2pt}\small
         \item In steady state, the rotor rotates at the exact same angular speed $\omega$ as the stator magnetic field: \textbf{synchronism}.
         \item Therefore, the stator and rotor magnetic fields are stationary with respect to each other.
         \item Both fields tend to align in the manner of two coupled magnets.
@@ -132,7 +130,7 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{center}
-        \includegraphics[height=0.45\textheight,keepaspectratio]{images/interaction_fields.jpg}\\
+        \includegraphics[width=\linewidth,height=0.45\textheight,keepaspectratio]{images/interaction_fields.jpg}\\
         \vspace{0.1cm}
         \small Mechanical analogy: generator mode $\leftrightarrow$ motor mode
       \end{center}
@@ -149,7 +147,7 @@
   \begin{columns}
     \begin{column}{0.55\textwidth}
       Certain prime movers (e.g. hydro turbines) run at low rotational speed, yet the electrical frequency must remain $f = 50\text{ Hz}$ ($T = 20\text{ ms}$):
-      \begin{itemize}
+      \begin{itemize}\setlength{\itemsep}{2pt}\small
         \item The rotor is equipped with $p$ pairs of poles ($2p$ poles).
         \item In one mechanical revolution, each stator winding experiences $p$ electrical cycles.
         \item Rotational speed $n$ (in rpm) is linked to grid frequency $f$:
@@ -158,7 +156,7 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{center}
-        \includegraphics[height=0.55\textheight,keepaspectratio]{images/several_poles.jpg}\\
+        \includegraphics[height=0.46\textheight,keepaspectratio]{images/several_poles.jpg}\\
         \vspace{0.1cm}
         \small Example: $p = 2$ ($4$ poles, $n = 1500\text{ rpm}$)
       \end{center}
@@ -167,24 +165,20 @@
 \end{frame}
 
 \begin{frame}{Round-rotor generators (turbo-alternators)}
-  \begin{columns}
-    \begin{column}{0.55\textwidth}
-      Driven by high-speed steam or gas turbines:
-      \begin{itemize}
-        \item Typically $p=1$ ($3000\text{ rpm}$) or $p=2$ ($1500\text{ rpm}$ in nuclear plants).
-        \item Cylindrical rotor forged from solid steel alloy; small diameter and long length (due to severe centrifugal forces).
-        \item Field winding embedded in milled rotor slots.
-        \item Extreme power density: cooled by pressurized hydrogen ($7\times$ higher thermal conductivity than air) or demineralized water in hollow conductors.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \begin{center}
-        \includegraphics[height=0.55\textheight,keepaspectratio]{images/round_rotor.png}\\
-        \vspace{0.1cm}
-        \tiny Cross-section of a round-rotor machine
-      \end{center}
-    \end{column}
-  \end{columns}
+  Driven by high-speed steam or gas turbines:
+  \begin{itemize}\setlength{\itemsep}{2pt}\small
+    \item Typically $p=1$ ($3000\text{ rpm}$) or $p=2$ ($1500\text{ rpm}$ in nuclear plants).
+    \item Cylindrical rotor forged from solid steel alloy; small diameter and long length (due to severe centrifugal forces).
+    \item Field winding embedded in milled rotor slots.
+    \item Extreme power density: cooled by pressurized hydrogen ($7\times$ higher thermal conductivity than air) or demineralized water in hollow conductors.
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{images/round_rotor.png}\\
+    \vspace{0.1cm}
+    \tiny Cross-section of a round-rotor machine
+  \end{center}
+
 \end{frame}
 
 \begin{frame}{Salient-pole generators}
@@ -201,7 +195,7 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{center}
-        \includegraphics[height=0.55\textheight,keepaspectratio]{images/salient_poles.png}\\
+        \includegraphics[width=\linewidth,keepaspectratio]{images/salient_poles.png}\\
         \vspace{0.1cm}
         \tiny Cross-section of a salient-pole machine
       \end{center}
@@ -282,7 +276,7 @@
     \item Stator resistance: $R_s \approx 0.005\text{ pu}$ (frequently neglected in grid studies).
     \item Synchronous reactance: $X_s \in [1.5, 2.5]\text{ pu}$ (for round-rotor turbo-generators).
   \end{itemize}
-  \vspace{0.3cm}
+  \vspace{0.15cm}
   \textbf{Machine models for transient conditions:}
   Depending on the time frame of the phenomenon, stator reaction is hindered by rotor screening circuits:
   \begin{itemize}
@@ -309,14 +303,13 @@
 \end{frame}
 
 \begin{frame}{Steady-state stability limit}
-  \begin{columns}
-    \begin{column}{0.4\textwidth}
-      \begin{center}
-        \includegraphics[width=\textwidth]{images/steady_state_stability_limit.png}
-      \end{center}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \input{images/steady_state_stability_limit.tex}
     \end{column}
-    \begin{column}{0.6\textwidth}
-      \begin{itemize}
+    \begin{column}{0.50\textwidth}
+      \begin{itemize}\setlength{\itemsep}{2pt}\small
         \item When excitation $E_{af}$ is constant, active power $P$ is strictly proportional to $\sin\delta$.
         \item Maximum power is reached at $\delta = 90^\circ$:
           $$P_{\max} = \frac{E_{af} V_\infty}{X_T}$$
@@ -330,7 +323,7 @@
 \begin{frame}{Adjusting reactive power via field current}
   Suppose the generator delivers constant active power $P$, requiring $E_{af} \sin\delta = \text{cst}$ and $I_a \cos\phi = \text{cst}$:
   \begin{center}
-    \includegraphics[width=0.85\textwidth]{images/adjusting_Q_diagram.pdf}
+    \includegraphics[width=0.76\textwidth]{images/adjusting_Q_diagram.pdf}
   \end{center}
   By varying the DC field excitation current $I_f$, we directly control the amplitude $E_{af}$ and the reactive power $Q$ exchanged with the grid.
 \end{frame}
@@ -374,20 +367,20 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Generator capability curve}
-  The capability curve defines the permissible operating region in the $(P, Q)$ plane under constant terminal voltage $V$:
-  \begin{center}
-    \includegraphics[height=0.62\textheight,keepaspectratio]{images/capability.jpg}
-  \end{center}
+\begin{frame}{Generator capability curve: the permissible operating region in the $(P, Q)$ plane under constant terminal voltage $V$}
+   \begin{center}
+    \input{images/generator_capability.tex}
+   \end{center}
 \end{frame}
 
 \begin{frame}{Operating limits breakdown}
-  \begin{enumerate}
+  \small
+  \begin{enumerate}\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
     \item \textbf{Prime mover (turbine) limit}: Maximum mechanical power input ($P \le P_{\max}$). A minimum power $P_{\min}$ also exists for flame stability in thermal boilers.
     \item \textbf{Stator thermal limit}: Armature Joule losses ($R_s I_a^2$). Current magnitude is capped ($I_a \le I_{a,\max}$):
       $$P^2 + Q^2 \le (V I_{a,\max})^2 \quad \text{(circle centered at origin)}$$
     \item \textbf{Rotor thermal limit}: Joule losses in field winding ($R_f I_f^2$). Maximum excitation voltage $E_{af} \le E_{af,\max}$:
-      $$P^2 + \left(Q + \frac{V^2}{X_s}\right)^2 \le \left(\frac{V E_{af,\max}}{X_s}\right)^2 \quad \text{(circle centered at } (0, -V^2/X_s)\text{)}$$
+      $$P^2 + \left(Q + \frac{V^2}{X_s}\right)^2 \le \left(\frac{V E_{af,\max}}{X_s}\right)^2 \quad \text{(circle centered at } (-V^2/X_s, 0)\text{)}$$
     \item \textbf{Underexcitation / Stability limit}: Minimum field excitation required to avoid excessive internal angle $\delta$ and loss of synchronism.
   \end{enumerate}
 \end{frame}
@@ -398,21 +391,20 @@
 \section{Generators in power flow analysis}
 
 \begin{frame}{Inclusion in power flow: PV to PQ bus switching}
-  In power flow formulations:
-  \begin{itemize}
-    \item A synchronous generator is initially modeled as a \textbf{PV bus}:
-      \begin{itemize}
+  \begin{itemize}\setlength{\itemsep}{2pt}\small
+    \item \textbf{Initial PV bus representation}:
+      \begin{itemize}\setlength{\itemsep}{0pt}
         \item Active power $P$ is fixed by turbine dispatch.
         \item Voltage magnitude $|V|$ is fixed by the AVR setpoint.
-        \item Reactive power $Q$ and phase angle $\theta$ are unknown.
+        \item Reactive power $Q$ and phase angle $\theta$ are state variables to solve.
       \end{itemize}
-    \item After computing power flow equations, the required reactive power $Q$ is checked against capability limits:
-      $$Q_{\min} \le Q \le Q_{\max}$$
-    \item If a limit is violated (e.g. $Q > Q_{\max}$):
-      \begin{itemize}
-        \item The generator cannot provide enough field current to sustain the voltage setpoint.
-        \item The bus is switched from a \textbf{PV bus} to a \textbf{PQ bus} with $Q = Q_{\max}$ (or $Q_{\min}$).
-        \item Voltage $|V|$ is freed and becomes a state variable.
+    \item \textbf{Limit verification}: Computed $Q$ is checked against capability limits:
+      $Q_{\min} \le Q \le Q_{\max}$.
+    \item \textbf{PV to PQ switching}: If a limit is violated (e.g. $Q > Q_{\max}$):
+      \begin{itemize}\setlength{\itemsep}{0pt}
+        \item Generator field current cannot sustain the voltage setpoint.
+        \item Bus is switched from a \textbf{PV bus} to a \textbf{PQ bus} with $Q = Q_{\max}$ (or $Q_{\min}$).
+        \item Voltage magnitude $|V|$ is freed and becomes a state variable.
         \item Power flow is re-solved iteratively until no limits are violated.
       \end{itemize}
   \end{itemize}
