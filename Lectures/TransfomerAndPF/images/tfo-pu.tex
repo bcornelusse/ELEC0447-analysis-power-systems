@@ -1,0 +1,45 @@
+\providecolor{puGreen}{RGB}{140,195,120}%
+\begin{tikzpicture}[scale=0.78, >=Stealth]
+    % Vertical dotted green dividing line (zone separation)
+    \draw[dotted, line width=1.6pt, puGreen] (2.6, 2.7) -- (2.6, 2.3);
+    \draw[dotted, line width=1.6pt, puGreen] (2.6, 1.7) -- (2.6, -0.6);
+    
+    % Terminals
+    \draw[thick, fill=white] (0.3, 2.0) circle (2.2pt);
+    \draw[thick, fill=white] (0.3, 0.4) circle (2.2pt);
+    \draw[thick, fill=white] (4.9, 2.0) circle (2.2pt);
+    \draw[thick, fill=white] (4.9, 0.4) circle (2.2pt);
+    
+    % Primary voltage label
+    \node[left=3pt, font=\scriptsize] at (0.3, 1.7) {$+$};
+    \node[left=3pt, font=\small] at (0.2, 1.2) {$\bar{V}_{p,\text{pu}}$};
+    \node[left=3pt, font=\scriptsize] at (0.3, 0.7) {$-$};
+    
+    % Secondary voltage label
+    \node[right=3pt, font=\scriptsize] at (4.9, 1.7) {$+$};
+    \node[right=3pt, font=\small] at (5.0, 1.2) {$\bar{V}_{s,\text{pu}}$};
+    \node[right=3pt, font=\scriptsize] at (4.9, 0.7) {$-$};
+    
+    % Top wire
+    \draw[thick] (0.38, 2.0) -- (1.9, 2.0);
+    \draw[thick] (3.3, 2.0) -- (4.82, 2.0);
+    
+    % Impedance box with fill
+    \draw[thick, fill=white] (1.9, 1.75) rectangle (3.3, 2.25);
+    \draw[dotted, line width=1.6pt, puGreen] (2.6, 1.75) -- (2.6, 2.25);
+    \node[above=3pt, font=\small, fill=white, inner sep=1pt] at (2.6, 2.25) {$Z_{\text{tr}}$};
+    
+    % Current arrows
+    \draw[thick, ->] (0.6, 2.0) -- (1.3, 2.0) node[above=1pt, midway, font=\scriptsize] {$\bar{I}_{p,\text{pu}}$};
+    \draw[thick, ->] (3.9, 2.0) -- (4.6, 2.0) node[above=1pt, midway, font=\scriptsize] {$\bar{I}_{s,\text{pu}}$};
+    
+    % Bottom wire
+    \draw[thick] (0.38, 0.4) -- (4.82, 0.4);
+    
+    % Base voltage arrows
+    \draw[puGreen, line width=3.2pt, {Stealth[length=5pt]}-{Stealth[length=5pt]}] (0.3, -0.15) -- (2.45, -0.15);
+    \node[below=2pt, font=\small] at (1.38, -0.15) {$V_{p,\text{base}}$};
+    
+    \draw[puGreen, line width=3.2pt, {Stealth[length=5pt]}-{Stealth[length=5pt]}] (2.75, -0.15) -- (4.9, -0.15);
+    \node[below=2pt, font=\small] at (3.82, -0.15) {$V_{s,\text{base}}$};
+\end{tikzpicture}%

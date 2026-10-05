@@ -1,0 +1,20 @@
+\begin{circuitikz}[american, scale=0.72, transform shape]
+    % Primary side with referred impedance
+    \draw (0,2) to[short, o-] (0.5,2)
+          to[R, l={$Z_p + \frac{Z_s}{n^2}$}] (2.7,2) -- (3.2,2);
+    \draw (3.2,0) to[L] (3.2,2);
+    \draw[line width=1.4pt, gray!80!black] (3.45, 0.2) -- (3.45, 1.8);
+    \draw[line width=1.4pt, gray!80!black] (3.60, 0.2) -- (3.60, 1.8);
+    \draw (3.85,2) to[L] (3.85,0);
+    
+    % Secondary side (ideal wire)
+    \draw (3.85,2) to[short, -o] (6.0,2);
+          
+    % Bottom rails
+    \draw (0,0) to[short, o-] (3.2,0);
+    \draw (3.85,0) to[short, -o] (6.0,0);
+    
+    % Turns ratio labels
+    \node[above=2pt, font=\normalsize] at (3.2, 2) {$1$};
+    \node[above=2pt, font=\normalsize] at (3.85, 2) {$n$};
+\end{circuitikz}

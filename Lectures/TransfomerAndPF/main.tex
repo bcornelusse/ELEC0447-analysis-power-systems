@@ -47,6 +47,7 @@
 \usepackage{colortbl}
 \usepackage{listings}
 \usepackage{tikz}
+\usepackage[american]{circuitikz}
 \usepackage{blox}
 \usepackage{calc}
 \usetikzlibrary{arrows.meta, positioning, calc}
@@ -63,13 +64,13 @@
 \definecolor{myRed}{RGB}{209,34,57} 
 
 
-% Draft watermark (filigrane)
-\addtobeamertemplate{background canvas}{}{%
-  \begin{tikzpicture}[remember picture, overlay]
-    \node[rotate=45, scale=6, text opacity=0.07, color=black, font=\bfseries\sffamily] at (current page.center) {DRAFT};
-  \end{tikzpicture}%
-}
-
+%% Draft watermark (filigrane)
+%\addtobeamertemplate{background canvas}{}{%
+%  \begin{tikzpicture}[remember picture, overlay]
+%    \node[rotate=45, scale=6, text opacity=0.07, color=black, font=\bfseries\sffamily] at (current page.center) {DRAFT};
+%  \end{tikzpicture}%
+%}
+%
 %==============================================================================
 %                               BEGIN DOCUMENT
 %==============================================================================

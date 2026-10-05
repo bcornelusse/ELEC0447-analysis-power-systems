@@ -1,0 +1,31 @@
+\begin{circuitikz}[american, scale=0.92, transform shape]
+    % Primary series branch: R1 and jX_leakage,1
+    \draw (0,2) to[short, o-] (0.5,2)
+          to[R, l=$R_1$] (2.2,2)
+          to[L, l=$jX_{\text{leakage}, 1}$] (4.0,2);
+          
+    % Shunt excitation branch: R_core || jX_m
+    \draw (4.0,2) -- (5.5,2);
+    \draw (4.0,2) to[R, l_=$R_{\text{core}}$] (4.0,0);
+    \draw (5.5,2) to[L, l_=$jX_m$] (5.5,0);
+    
+    % Ideal transformer: 1 : n with magnetic core
+    \draw (5.5,2) -- (6.8,2);
+    \draw (6.8,0) to[L] (6.8,2);
+    \draw[line width=1.4pt, gray!80!black] (7.05, 0.2) -- (7.05, 1.8);
+    \draw[line width=1.4pt, gray!80!black] (7.20, 0.2) -- (7.20, 1.8);
+    \draw (7.45,2) to[L] (7.45,0);
+    
+    % Secondary series branch: R2 and jX_leakage,2
+    \draw (7.45,2) to[R, l=$R_2$] (9.2,2)
+          to[L, l=$jX_{\text{leakage}, 2}$] (11.0,2)
+          to[short, -o] (11.5,2);
+          
+    % Bottom rails (galvanically isolated)
+    \draw (0,0) to[short, o-] (6.8,0);
+    \draw (7.45,0) to[short, -o] (11.5,0);
+    
+    % Turns ratio labels
+    \node[above=2pt, font=\normalsize] at (6.8, 2) {$1$};
+    \node[above=2pt, font=\normalsize] at (7.45, 2) {$n$};
+\end{circuitikz}
