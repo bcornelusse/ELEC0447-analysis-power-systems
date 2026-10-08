@@ -172,8 +172,11 @@
     Usually, engineers use specialized power system software. One such open-source, Python-based tool is \textbf{PandaPower} \cite{thurner2018pandapower}.
 
     \begin{center}
-        \vspace{0.4cm}
+        \vspace{0.3cm}
         \href{https://colab.research.google.com/drive/103VIzly2huoS-PjnYdbCaeBS1dunJS7H?usp=sharing}{\beamergotobutton{Open PandaPower 3-Bus Model in Google Colab}}
+        
+        \vspace{0.25cm}
+        \href{https://github.com/bcornelusse/ELEC0447-analysis-power-systems/tree/master/notebooks/power_flow_3-bus_pandapower.ipynb}{\beamergotobutton{Open Local PandaPower Python Notebook}}
     \end{center}
 \end{frame}
 
@@ -266,6 +269,63 @@
         \end{column}
     \end{columns}
 \end{frame}
+
+\begin{frame}[allowframebreaks]{Solving Overloads: Realistic Sequence of Actions}
+    The 3-bus results showed \alert{\textbf{severe overloads ($>200\%$)}} and \alert{\textbf{massive reactive circulation ($267\text{ Mvar}$)}}. How do engineers address this in practice?
+
+    \vspace{0.15cm}
+    \textbf{Phase 1: Operational Voltage \& Reactive Power Actions}
+    \begin{enumerate}
+        \item \textbf{Compensate Reactive Power on the Load Side (Bus 3)}:
+        \begin{itemize}
+            \item Load at Bus 3 consumes $100\text{ Mvar}$.
+            \item Installing a shunt capacitor bank directly at Bus 3 provides this reactive power locally.
+            \item Eliminates reactive transit over Lines 2 and 3, reducing line currents:
+            $$I = \frac{\sqrt{P^2 + Q^2}}{\sqrt{3} V}$$
+            and significantly lowering $I^2 X$ line voltage drops and losses.
+        \end{itemize}
+        \vspace{0.1cm}
+        \item \textbf{Regulate Voltage at Bus 2 at a Lower Setpoint}:
+        \begin{itemize}
+            \item Bus 2 was set at $V_2 = 1.05\text{ pu}$ while Bus 1 is at $1.00\text{ pu}$.
+            \item This large voltage gradient drove an unneeded $266.7\text{ Mvar}$ into the grid!
+            \item Lowering $V_2$ (e.g., to $1.01\text{ pu}$) drastically cuts reactive power circulation.
+        \end{itemize}
+        \vspace{0.1cm}
+        \item \textbf{Relieve Generator 2 $\implies$ Increase Active Power Generation}:
+        \begin{itemize}
+            \item Reducing $Q_{G2}$ frees apparent power capacity: $S = \sqrt{P^2 + Q^2}$.
+            \item Inside the generator's \textbf{capability curve} (rotor and stator thermal limits, covered in a future lecture), Gen 2 can now produce more active power $P_2$.
+            \item Producing more power at Bus 2 brings generation closer to load Bus 3 and relieves the distant slack generator at Bus 1!
+        \end{itemize}
+    \end{enumerate}
+
+    \newpage
+    \textbf{Phase 2: Thermal Ratings, Emergency Actions \& Planning}
+    \begin{enumerate}
+        \setcounter{enumi}{3}
+        \item \textbf{Re-Evaluate Line Thermal Ratings: Can We Temporarily Exceed Them?}:
+        \begin{itemize}
+            \item Even with $V/Q$ control, lines remain heavily loaded ($>200\text{ MW}$).
+            \item \textit{Question:} Is $I_{\max} = 0.20\text{ kA}$ an overly conservative Static Line Rating (SLR) based on worst-case weather (high ambient $T^\circ$, zero wind)?
+            \item Overhead conductors have thermal inertia (time constants of $10\text{--}20\text{ minutes}$).
+            \item Operators can leverage \textbf{short-term emergency ratings} or \textbf{Dynamic Line Rating (DLR)} to operate above nominal while taking remedial actions.
+        \end{itemize}
+        \vspace{0.1cm}
+        \item \textbf{If Overloads Persist: Emergency Load Shedding}:
+        \begin{itemize}
+            \item If lines cannot safely sustain the flow without risk of excessive conductor sag (ground clearance violation) or annealing:
+            \item The operator must immediately perform \textbf{load shedding} / curtailment at Bus 3 as a last resort to prevent protection tripping and cascading blackouts.
+        \end{itemize}
+        \vspace{0.1cm}
+        \item \textbf{Long-Term Planning Solutions}:
+        \begin{itemize}
+            \item \textbf{Transmission expansion}: Reconductor lines with High-Temperature Low-Sag (HTLS) conductors, or build parallel circuits (Line 2 bis, Line 3 bis).
+            \item \textbf{Generation expansion}: Build a new generator or utility-scale battery storage directly at or near load Bus 3.
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
 
 %==============================================================================
 \section{The power flow equations}

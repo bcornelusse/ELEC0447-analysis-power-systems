@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<quiz>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q01: ACSR Conductor Design & Skin Effect]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Physical Parameters & Conductor Physics]</strong></p><p>High-voltage overhead transmission lines commonly use ACSR (Aluminum Conductor Steel-Reinforced) conductors. What is the fundamental physical rationale behind this design?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Steel carries the bulk of AC current in the center, while outer aluminum protects against corrosion.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Aluminum has much higher conductivity than steel ($3.5 \times 10^7$ vs $0.7 \times 10^7\text{ S/m}$). Steel carries negligible current.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Aluminum carries most AC current near the surface due to skin effect, while the steel core provides tensile strength.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! Skin depth in aluminum at 50 Hz is $\delta \approx 12\text{ mm}$, pushing current to the outer strands while steel carries mechanical tension.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Steel cancels internal magnetic flux to minimize reactance, while outer aluminum absorbs mechanical vibrations.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. The steel core does not cancel inductive reactance; its role is purely structural.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Aluminum shields the inner steel core from corona discharge, while steel maintains dielectric insulation.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Corona occurs at the outer conductor surface, not inside the core. Steel is an electrical conductor, not an insulator.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q02: Overhead Lines vs. Underground Cables]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Physical Parameters & Conductor Physics]</strong></p><p>How do the electrical parameters of high-voltage underground cables compare to overhead lines of identical voltage rating?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Cables have much higher series inductance and lower shunt capacitance, causing severe inductive voltage drops.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Cable inductance is much lower than overhead lines because conductors are placed much closer together.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Cables have identical inductance and capacitance, but ten times higher resistance due to thermal insulation.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Cable geometry differs fundamentally from overhead lines, altering both $L$ and $C$ by over an order of magnitude.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Cables have much lower series inductance and 20 to 40 times higher shunt capacitance, causing high reactive charging.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! High dielectric permittivity and tight conductor spacing give cables $20\text{--}40\times$ higher capacitance and lower series inductance.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Cables have negligible shunt capacitance and zero reactive charging because surrounding soil absorbs electric fields.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Cables generate massive reactive charging currents due to their large shunt capacitance.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q03: Surge Impedance ($Z_c$) Definition & Values]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Distributed Line Model & Wave Propagation]</strong></p><p>For a lossless transmission line, how is the surge impedance $Z_c$ defined, and what are typical values for overhead lines vs. underground cables?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text><![CDATA[$Z_c = \sqrt{L / C}$; typically 250–400 $\Omega$ for overhead lines and 30–50 $\Omega$ for underground cables.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! $Z_c = \sqrt{L/C}$. High capacitance in cables leads to a characteristic impedance of 30–50 $\Omega$, compared to 250–400 $\Omega$ for overhead lines.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$Z_c = \sqrt{C / L}$; typically 30–50 $\Omega$ for overhead lines and 250–400 $\Omega$ for underground cables.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. That expression is the surge admittance $Y_c = \sqrt{C/L}$, which has units of Siemens ($\mho$), not Ohms.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$Z_c = \omega \sqrt{LC}$; typically 50 $\Omega$ for overhead lines and 75 $\Omega$ for underground cables.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. $\omega \sqrt{LC}$ is the phase propagation constant $\beta$ (in rad/km), not an impedance.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$Z_c = R + j\omega L$; typically 500 $\Omega$ for overhead lines and 2000 $\Omega$ for underground cables.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. $R + j\omega L$ is the series impedance per km ($z$), not the characteristic wave impedance $Z_c$.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q04: Equilibrium at Surge Impedance Loading]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Surge Impedance Loading (SIL)]</strong></p><p>When a lossless transmission line is loaded exactly at its Surge Impedance Loading (SIL), what occurs along the line?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Voltage drops linearly from sending to receiving end because reactive power is absorbed by surge impedance.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. The voltage magnitude does not drop along the line at SIL; only the phase angle shifts.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Receiving-end voltage rises significantly above sending-end voltage due to the Ferranti effect.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. The Ferranti effect (voltage rise) occurs at no-load or light load ($P \ll SIL$), not at SIL.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Active power transfer drops to zero because the line capacity is completely saturated by reactive circulation.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. At SIL, purely active power $P = SIL$ is transmitted with unity power factor and zero net reactive exchange.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Voltage magnitude remains uniform along the line because inductive consumption ($I^2 \omega L$) balances capacitive generation ($V^2 \omega C$).]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! At SIL, reactive power consumed by series inductance ($I^2 \omega L$) exactly equals reactive power supplied by shunt capacitance ($V^2 \omega C$), keeping voltage magnitude flat.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q05: SIL Calculation Formula & Values]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Surge Impedance Loading (SIL)]</strong></p><p>Which formula gives the three-phase Surge Impedance Loading (SIL) from line-to-line voltage $V_{LL}$ and surge impedance $Z_c$, and what is the SIL for a 500 kV line with $Z_c = 250\ \Omega$?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$SIL = V_{LL}^2 / (\sqrt{3} Z_c)$; approximately 577 MW.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Do not divide by $\sqrt{3}$; $3 \times (V_{LL}/\sqrt{3})^2 = V_{LL}^2$.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[$SIL = V_{LL}^2 / Z_c$; exactly 1000 MW.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! $SIL = V_{LL}^2 / Z_c = (500\text{ kV})^2 / 250\ \Omega = 250{,}000 / 250 = 1000\text{ MW}$.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$SIL = \sqrt{3} V_{LL} Z_c$; approximately 216 MW.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. The units are incorrect ($\text{kV} \times \Omega$ does not yield power in MW).]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$SIL = V_{LL} / Z_c$; exactly 2000 MW.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. $V_{LL} / Z_c$ gives current (in kA), not 3-phase power.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q06: Line Loadability Limits (St. Clair Curve)]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Lumped Model & Loadability]</strong></p><p>According to the St. Clair line loadability curve, what physical limits govern short lines ($l \lt 100\text{ km}$) versus long lines ($l \gt 300\text{ km}$)?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Short lines are limited by thermal ampacity, while long lines are limited by rotor angle stability margin.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! Short lines hit thermal ampacity limits first, while long high-reactance lines hit rotor angle stability limits.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Short lines are limited by rotor angle stability margin, while long lines are limited by conductor thermal sag.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. It is the opposite: stability governs long lines due to large series reactance, while thermal limits govern short lines.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Short lines are limited by dielectric breakdown of air, while long lines are limited by corona power loss.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Dielectric breakdown determines tower clearances, not the power transfer loadability curve.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Both short and long lines are governed exclusively by a fixed 5% terminal voltage drop criterion.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. The 5% voltage drop criterion governs medium lines (100–300 km), not short or long lines.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q07: Validity of the Lumped $\pi$ Model]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Lumped Model & Loadability]</strong></p><p>Under what condition is the symmetrical lumped $\pi$ model an accurate engineering representation of an AC transmission line?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[For lines longer than 1000 km, where wave propagation effects can be completely neglected.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Beyond 300 km, distributed wave effects are strong and require the exact distributed parameter model.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Only for DC transmission lines, because AC wave behavior causes excessive error at any distance.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. The lumped $\pi$ model is the standard model in AC power systems for lines up to 300 km.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[For lines shorter than 300 km, but with total shunt admittance placed solely at the receiving terminal.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Placing all capacitance at one end breaks symmetry and introduces large voltage errors.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[For lines shorter than 300 km (where $\beta l \ll 1$), with half of total shunt admittance placed at each terminal.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! For $l \lt 300\text{ km}$ at 50 Hz, $\beta l \ll 1$, making the symmetrical lumped $\pi$ model ($Y/2$ at each terminal) highly accurate.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q08: Bundled Conductors: Engineering Purpose]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Physical Parameters & Conductor Physics]</strong></p><p>Why do extra-high-voltage (EHV) transmission lines use bundled conductors (2 to 4 sub-conductors per phase) separated by spacers?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To provide mechanical backup so the phase remains energized if one wire snaps during an ice storm.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. While mechanical resilience matters, bundling is chosen primarily for electromagnetic and corona control.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To eliminate the skin effect by insulating sub-conductors from each other with ceramic spacers.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Sub-conductors are bare and electrically bonded at the same phase potential, not insulated.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[To increase equivalent geometric radius, lowering surface electric field to mitigate corona while reducing inductance.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! Bundling increases the effective geometric radius, lowering surface electric field stress (mitigating corona) while lowering inductance.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To transform the three-phase AC circuit into a multi-conductor DC system that eliminates reactive losses.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Bundled conductors are all connected in parallel at the same AC phase potential.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q09: Conductor Sag, Temperature Limits & Ground Clearance]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Line Rating & DLR]</strong></p><p>Why is the maximum operating temperature of overhead lines strictly capped (typically 75°C to 90°C)?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Because aluminum melts at 95°C, risking immediate structural failure of the conductor.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Aluminum melts at ~660°C. The operating limit is dictated by clearance sag and metallurgical annealing.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[To prevent excessive thermal sag from violating ground clearance and avoid permanent aluminum annealing.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! Thermal elongation causes excessive sag risking flashover to ground, and high temperatures cause irreversible annealing of aluminum.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Because electrical resistance drops to zero above 90°C, causing dangerous short-circuit overcurrents.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Metal resistance increases with temperature: $R(T) = R_0 (1 + \alpha_T \Delta T)$.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To prevent synthetic insulation around overhead bare conductors from burning and catching fire.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Overhead transmission lines use bare uninsulated conductors cooled directly by ambient air.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q10: Conductor Heat Balance (IEEE 738 / CIGRE 601)]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Line Rating & DLR]</strong></p><p>In the steady-state heat balance equation $q_J + q_s = q_c + q_r$, which cooling mechanism dominates heat dissipation under realistic outdoor conditions?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Forced convective cooling ($q_c$), where ambient wind accounts for the majority of heat removal.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! Convective wind cooling ($q_c$) provides 70–85% of total heat dissipation; even a mild breeze dramatically increases line ampacity.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Radiative heat dissipation ($q_r$), which removes over 90% of heat regardless of wind conditions.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Radiative cooling ($q_r$) provides a baseline, but wind convection dominates total heat dissipation.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Axial thermal conduction through the conductor core into supporting steel transmission towers.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Longitudinal conduction along kilometers of span to tower crossarms is negligible.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Evaporative cooling caused by continuous condensation and vaporization of atmospheric moisture.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Overhead conductors are dry bare metal; evaporation plays no role in standard line rating calculations.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q11: Dynamic Line Rating (DLR) & Wind Power Synergy]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Line Rating & DLR]</strong></p><p>What is Dynamic Line Rating (DLR), and why does it exhibit a strong natural synergy with wind power generation?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[DLR raises tower heights with hydraulic lifts during high wind conditions to increase ground clearance.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. DLR is a software/sensor ampacity calculation; transmission towers remain fixed.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[DLR steps up transmission voltage during storms to force more active power through existing corridors.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Operating voltages are fixed by transformers and insulation; DLR adjusts the allowable current rating.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[DLR acts as a fast curtailment system that disconnects wind farms whenever conductors approach rated limits.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. DLR prevents curtailment by safely unlocking higher transmission capacity for renewable generation.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[DLR updates ampacity using real-time weather; high wind output coincides with strong convective cooling.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! Strong winds driving peak wind farm production simultaneously provide high convective line cooling, unlocking extra capacity when needed most.]]></text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text><![CDATA[Q12: Wavelength and Electrical Length at 50 Hz]]></text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>[Distributed Line Model & Wave Propagation]</strong></p><p>For a 50 Hz overhead line where electromagnetic waves travel near light speed ($v \approx 300{,}000\text{ km/s}$), what is the wavelength $\lambda$, and what does this mean for a 150 km line?</p>]]></text>
+    </questiontext>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$\lambda \approx 150\text{ km}$; a 150 km line operates at quarter-wave resonance and cannot transmit power.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Wavelength at 50 Hz is 6000 km, not 150 km.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$\lambda \approx 300\text{ m}$; all power lines span thousands of wavelengths and require microwave models.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. 300 m corresponds to 1 MHz radio frequencies, not 50 Hz power frequency.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[$\lambda = 6000\text{ km}$; a 150 km line is only 2.5% of a wavelength, making the lumped $\pi$ model very accurate.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Correct! $\lambda = 300{,}000 / 50 = 6000\text{ km}$. A 150 km line is only $2.5\%$ of $\lambda$, so $\beta l \ll 1$, validating the lumped $\pi$ model.]]></text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[$\lambda = \infty$; at 50 Hz electromagnetic fields are purely static and no wave propagation occurs.]]></text>
+      <feedback format="html">
+        <text><![CDATA[Incorrect. Electromagnetic waves propagate at light speed along lines; at 50 Hz the wavelength is finite (6000 km).]]></text>
+      </feedback>
+    </answer>
+  </question>
+</quiz>

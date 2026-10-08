@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEC0447 - Transmission Lines & Line Rating Quiz</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX CSS & JS for crisp LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMath()"></script>
+
+    <style>
+        :root {
+            --primary: #00843B;         /* ULiège / Trigon Green */
+            --primary-dark: #00632b;
+            --primary-light: #e8f5e9;
+            --accent: #f07f3c;          /* Trigon Orange */
+            --accent-light: #fff3e0;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #00843B 0%, #005a27 100%);
+            color: white;
+            padding: 32px 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .course-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #a7f3d0;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header-desc {
+            font-size: 0.95rem;
+            color: #d1fae5;
+            max-width: 720px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 960px;
+            margin: -20px auto 0;
+            padding: 0 20px;
+        }
+
+        /* Controls & Stats Bar */
+        .toolbar {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .stats-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-bar-container {
+            width: 140px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .select-filter {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            background: white;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 3px;
+            border-radius: 8px;
+            gap: 2px;
+        }
+
+        .view-btn {
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Quiz Card */
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .quiz-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .q-text {
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: #fcfdfc;
+            transform: translateX(4px);
+        }
+
+        .opt-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .opt-text {
+            flex-grow: 1;
+            padding-top: 2px;
+        }
+
+        /* States */
+        .option-item.correct {
+            border-color: var(--success);
+            background: var(--success-bg);
+            color: #065f46;
+        }
+        .option-item.correct .opt-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-item.wrong {
+            border-color: var(--danger);
+            background: var(--danger-bg);
+            color: #991b1b;
+        }
+        .option-item.wrong .opt-letter {
+            background: var(--danger);
+            color: white;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 20px;
+            padding: 16px 20px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explanation-content {
+            font-size: 0.92rem;
+            color: #334155;
+            line-height: 1.55;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Step-by-step Navigation */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .nav-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-btn.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Result Banner */
+        .summary-card {
+            background: white;
+            border-radius: var(--radius);
+            border: 2px solid var(--primary);
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .summary-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .summary-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .btn-restart {
+            padding: 10px 24px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-restart:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 640px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .stats-group {
+                justify-content: space-between;
+            }
+            .progress-bar-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div>
+                <div class="course-tag">ELEC0447 • Analysis of Electric Power Systems</div>
+                <h1>Transmission Lines &amp; Line Rating Quiz</h1>
+                <p class="header-desc">
+                    Interactive practice quiz testing physical line parameters, surge impedance loading (SIL), 
+                    lumped &pi; modeling limits, conductor catenary sag, and Static vs. Dynamic Line Rating (SLR/DLR).
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="stats-group">
+                <div class="stat-item">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="score-display">0 / 0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Progress</span>
+                    <span class="stat-value" id="progress-text">0%</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="topic-select">Topic:</label>
+                <select id="topic-select" class="select-filter">
+                    <option value="all">All Topics (12 questions)</option>
+                    <option value="Physical Parameters &amp; Conductor Physics">Physical Parameters &amp; Skin Effect</option>
+                    <option value="Distributed Line Model &amp; Wave Propagation">Distributed Waves &amp; Surge Impedance</option>
+                    <option value="Surge Impedance Loading (SIL)">Surge Impedance Loading (SIL)</option>
+                    <option value="Lumped Model &amp; Loadability">Lumped &pi; Model &amp; Loadability</option>
+                    <option value="Line Rating &amp; DLR">Ampacity, Sag &amp; DLR</option>
+                </select>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" id="btn-view-step" onclick="setViewMode('step')">Step-by-step</button>
+                <button class="view-btn" id="btn-view-all" onclick="setViewMode('all')">All Questions</button>
+            </div>
+        </div>
+
+        <!-- Summary Card (shown at end of step mode) -->
+        <div id="summary-card" class="summary-card">
+            <div class="score-circle" id="summary-percent">100%</div>
+            <h2 class="summary-title" id="summary-headline">Excellent Work!</h2>
+            <p class="summary-text" id="summary-detail">You answered 12 out of 12 questions correctly.</p>
+            <button class="btn-restart" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="quiz-container"></div>
+
+        <!-- Step Navigation Controls -->
+        <div id="step-nav" class="nav-controls">
+            <button class="nav-btn" id="btn-prev" onclick="changeQuestion(-1)" disabled>&larr; Previous</button>
+            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);" id="q-counter-text">Question 1 of 12</span>
+            <button class="nav-btn primary" id="btn-next" onclick="changeQuestion(1)">Next &rarr;</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+  {
+    "id": "Q01",
+    "title": "Q01: ACSR Conductor Design & Skin Effect",
+    "category": "Physical Parameters & Conductor Physics",
+    "question": "High-voltage overhead transmission lines commonly use ACSR (Aluminum Conductor Steel-Reinforced) conductors. What is the fundamental physical rationale behind this design?",
+    "options": [
+      "Steel carries the bulk of AC current in the center, while outer aluminum protects against corrosion.",
+      "Aluminum carries most AC current near the surface due to skin effect, while the steel core provides tensile strength.",
+      "Steel cancels internal magnetic flux to minimize reactance, while outer aluminum absorbs mechanical vibrations.",
+      "Aluminum shields the inner steel core from corona discharge, while steel maintains dielectric insulation."
+    ],
+    "correct": 1,
+    "explanation": "At 50 Hz, the skin depth in aluminum is $\\delta = \\sqrt{\\rho / (\\pi f \\mu)} \\approx 12\\text{ mm}$. AC current concentrates in outer aluminum strands, while the central steel core provides high tensile strength with negligible Joule loss.",
+    "distractor_feedbacks": [
+      "Incorrect. Aluminum has much higher conductivity than steel ($3.5 \\times 10^7$ vs $0.7 \\times 10^7\\text{ S/m}$). Steel carries negligible current.",
+      "Correct! Skin depth in aluminum at 50 Hz is $\\delta \\approx 12\\text{ mm}$, pushing current to the outer strands while steel carries mechanical tension.",
+      "Incorrect. The steel core does not cancel inductive reactance; its role is purely structural.",
+      "Incorrect. Corona occurs at the outer conductor surface, not inside the core. Steel is an electrical conductor, not an insulator."
+    ]
+  },
+  {
+    "id": "Q02",
+    "title": "Q02: Overhead Lines vs. Underground Cables",
+    "category": "Physical Parameters & Conductor Physics",
+    "question": "How do the electrical parameters of high-voltage underground cables compare to overhead lines of identical voltage rating?",
+    "options": [
+      "Cables have much higher series inductance and lower shunt capacitance, causing severe inductive voltage drops.",
+      "Cables have identical inductance and capacitance, but ten times higher resistance due to thermal insulation.",
+      "Cables have much lower series inductance and 20 to 40 times higher shunt capacitance, causing high reactive charging.",
+      "Cables have negligible shunt capacitance and zero reactive charging because surrounding soil absorbs electric fields."
+    ],
+    "correct": 2,
+    "explanation": "Due to close conductor spacing and solid dielectric insulation ($\\varepsilon_r \\approx 2.5\\text{--}3.5$), underground cables have $20\\text{--}40\\times$ higher capacitance $C$ and much lower series inductance $L$. This produces large capacitive charging reactive power ($Q = \\omega C V^2$).",
+    "distractor_feedbacks": [
+      "Incorrect. Cable inductance is much lower than overhead lines because conductors are placed much closer together.",
+      "Incorrect. Cable geometry differs fundamentally from overhead lines, altering both $L$ and $C$ by over an order of magnitude.",
+      "Correct! High dielectric permittivity and tight conductor spacing give cables $20\\text{--}40\\times$ higher capacitance and lower series inductance.",
+      "Incorrect. Cables generate massive reactive charging currents due to their large shunt capacitance."
+    ]
+  },
+  {
+    "id": "Q03",
+    "title": "Q03: Surge Impedance ($Z_c$) Definition & Values",
+    "category": "Distributed Line Model & Wave Propagation",
+    "question": "For a lossless transmission line, how is the surge impedance $Z_c$ defined, and what are typical values for overhead lines vs. underground cables?",
+    "options": [
+      "$Z_c = \\sqrt{L / C}$; typically 250–400 $\\Omega$ for overhead lines and 30–50 $\\Omega$ for underground cables.",
+      "$Z_c = \\sqrt{C / L}$; typically 30–50 $\\Omega$ for overhead lines and 250–400 $\\Omega$ for underground cables.",
+      "$Z_c = \\omega \\sqrt{LC}$; typically 50 $\\Omega$ for overhead lines and 75 $\\Omega$ for underground cables.",
+      "$Z_c = R + j\\omega L$; typically 500 $\\Omega$ for overhead lines and 2000 $\\Omega$ for underground cables."
+    ],
+    "correct": 0,
+    "explanation": "Surge impedance is defined as $Z_c = \\sqrt{L / C}$. Because cables have much higher capacitance $C$ and lower inductance $L$, their surge impedance ($30\\text{--}50\\ \\Omega$) is much lower than that of overhead lines ($250\\text{--}400\\ \\Omega$).",
+    "distractor_feedbacks": [
+      "Correct! $Z_c = \\sqrt{L/C}$. High capacitance in cables leads to a characteristic impedance of 30–50 $\\Omega$, compared to 250–400 $\\Omega$ for overhead lines.",
+      "Incorrect. That expression is the surge admittance $Y_c = \\sqrt{C/L}$, which has units of Siemens ($\\mho$), not Ohms.",
+      "Incorrect. $\\omega \\sqrt{LC}$ is the phase propagation constant $\\beta$ (in rad/km), not an impedance.",
+      "Incorrect. $R + j\\omega L$ is the series impedance per km ($z$), not the characteristic wave impedance $Z_c$."
+    ]
+  },
+  {
+    "id": "Q04",
+    "title": "Q04: Equilibrium at Surge Impedance Loading",
+    "category": "Surge Impedance Loading (SIL)",
+    "question": "When a lossless transmission line is loaded exactly at its Surge Impedance Loading (SIL), what occurs along the line?",
+    "options": [
+      "Voltage drops linearly from sending to receiving end because reactive power is absorbed by surge impedance.",
+      "Receiving-end voltage rises significantly above sending-end voltage due to the Ferranti effect.",
+      "Active power transfer drops to zero because the line capacity is completely saturated by reactive circulation.",
+      "Voltage magnitude remains uniform along the line because inductive consumption ($I^2 \\omega L$) balances capacitive generation ($V^2 \\omega C$)."
+    ],
+    "correct": 3,
+    "explanation": "At SIL, the load impedance equals $Z_c$. Current is $I = V / Z_c$, so $I^2 \\omega L = V^2 \\omega C$. Reactive power consumed by series inductance perfectly balances reactive power generated by shunt capacitance everywhere, yielding a flat voltage magnitude profile $|V(x)| = V_R$.",
+    "distractor_feedbacks": [
+      "Incorrect. The voltage magnitude does not drop along the line at SIL; only the phase angle shifts.",
+      "Incorrect. The Ferranti effect (voltage rise) occurs at no-load or light load ($P \\ll SIL$), not at SIL.",
+      "Incorrect. At SIL, purely active power $P = SIL$ is transmitted with unity power factor and zero net reactive exchange.",
+      "Correct! At SIL, reactive power consumed by series inductance ($I^2 \\omega L$) exactly equals reactive power supplied by shunt capacitance ($V^2 \\omega C$), keeping voltage magnitude flat."
+    ]
+  },
+  {
+    "id": "Q05",
+    "title": "Q05: SIL Calculation Formula & Values",
+    "category": "Surge Impedance Loading (SIL)",
+    "question": "Which formula gives the three-phase Surge Impedance Loading (SIL) from line-to-line voltage $V_{LL}$ and surge impedance $Z_c$, and what is the SIL for a 500 kV line with $Z_c = 250\\ \\Omega$?",
+    "options": [
+      "$SIL = V_{LL}^2 / (\\sqrt{3} Z_c)$; approximately 577 MW.",
+      "$SIL = V_{LL}^2 / Z_c$; exactly 1000 MW.",
+      "$SIL = \\sqrt{3} V_{LL} Z_c$; approximately 216 MW.",
+      "$SIL = V_{LL} / Z_c$; exactly 2000 MW."
+    ],
+    "correct": 1,
+    "explanation": "Total 3-phase SIL is $3 \\times V_{LN}^2 / Z_c = V_{LL}^2 / Z_c$. For $V_{LL} = 500\\text{ kV}$ and $Z_c = 250\\ \\Omega$, $SIL = (500 \\times 10^3)^2 / 250 = 1000\\text{ MW}$.",
+    "distractor_feedbacks": [
+      "Incorrect. Do not divide by $\\sqrt{3}$; $3 \\times (V_{LL}/\\sqrt{3})^2 = V_{LL}^2$.",
+      "Correct! $SIL = V_{LL}^2 / Z_c = (500\\text{ kV})^2 / 250\\ \\Omega = 250{,}000 / 250 = 1000\\text{ MW}$.",
+      "Incorrect. The units are incorrect ($\\text{kV} \\times \\Omega$ does not yield power in MW).",
+      "Incorrect. $V_{LL} / Z_c$ gives current (in kA), not 3-phase power."
+    ]
+  },
+  {
+    "id": "Q06",
+    "title": "Q06: Line Loadability Limits (St. Clair Curve)",
+    "category": "Lumped Model & Loadability",
+    "question": "According to the St. Clair line loadability curve, what physical limits govern short lines ($l \\lt 100\\text{ km}$) versus long lines ($l \\gt 300\\text{ km}$)?",
+    "options": [
+      "Short lines are limited by thermal ampacity, while long lines are limited by rotor angle stability margin.",
+      "Short lines are limited by rotor angle stability margin, while long lines are limited by conductor thermal sag.",
+      "Short lines are limited by dielectric breakdown of air, while long lines are limited by corona power loss.",
+      "Both short and long lines are governed exclusively by a fixed 5% terminal voltage drop criterion."
+    ],
+    "correct": 0,
+    "explanation": "Short lines ($l \\lt 100\\text{ km}$) are limited by conductor thermal heating ($I_{\\max}$, up to ~3$\\times$ SIL). Medium lines ($100\\text{--}300\\text{ km}$) are limited by voltage drop ($< 5\\%$). Long lines ($> 300\\text{ km}$) are constrained by transient rotor angle stability (keeping angle $\\Delta\\theta < 40^\\circ$ for synchronism margin).",
+    "distractor_feedbacks": [
+      "Correct! Short lines hit thermal ampacity limits first, while long high-reactance lines hit rotor angle stability limits.",
+      "Incorrect. It is the opposite: stability governs long lines due to large series reactance, while thermal limits govern short lines.",
+      "Incorrect. Dielectric breakdown determines tower clearances, not the power transfer loadability curve.",
+      "Incorrect. The 5% voltage drop criterion governs medium lines (100–300 km), not short or long lines."
+    ]
+  },
+  {
+    "id": "Q07",
+    "title": "Q07: Validity of the Lumped $\\pi$ Model",
+    "category": "Lumped Model & Loadability",
+    "question": "Under what condition is the symmetrical lumped $\\pi$ model an accurate engineering representation of an AC transmission line?",
+    "options": [
+      "For lines longer than 1000 km, where wave propagation effects can be completely neglected.",
+      "Only for DC transmission lines, because AC wave behavior causes excessive error at any distance.",
+      "For lines shorter than 300 km, but with total shunt admittance placed solely at the receiving terminal.",
+      "For lines shorter than 300 km (where $\\beta l \\ll 1$), with half of total shunt admittance placed at each terminal."
+    ],
+    "correct": 3,
+    "explanation": "When line length is moderate ($l \\lt 300\\text{ km}$ at 50/60 Hz), the electrical length $\\beta l \\ll 1$. Hyperbolic corrections are negligible ($\\sinh \\gamma l \\approx \\gamma l$, $\\tanh(\\gamma l/2) \\approx \\gamma l/2$). The symmetrical $\\pi$ circuit with series $Z = z l$ and shunt $Y/2 = y l / 2$ at each end is very accurate.",
+    "distractor_feedbacks": [
+      "Incorrect. Beyond 300 km, distributed wave effects are strong and require the exact distributed parameter model.",
+      "Incorrect. The lumped $\\pi$ model is the standard model in AC power systems for lines up to 300 km.",
+      "Incorrect. Placing all capacitance at one end breaks symmetry and introduces large voltage errors.",
+      "Correct! For $l \\lt 300\\text{ km}$ at 50 Hz, $\\beta l \\ll 1$, making the symmetrical lumped $\\pi$ model ($Y/2$ at each terminal) highly accurate."
+    ]
+  },
+  {
+    "id": "Q08",
+    "title": "Q08: Bundled Conductors: Engineering Purpose",
+    "category": "Physical Parameters & Conductor Physics",
+    "question": "Why do extra-high-voltage (EHV) transmission lines use bundled conductors (2 to 4 sub-conductors per phase) separated by spacers?",
+    "options": [
+      "To provide mechanical backup so the phase remains energized if one wire snaps during an ice storm.",
+      "To eliminate the skin effect by insulating sub-conductors from each other with ceramic spacers.",
+      "To increase equivalent geometric radius, lowering surface electric field to mitigate corona while reducing inductance.",
+      "To transform the three-phase AC circuit into a multi-conductor DC system that eliminates reactive losses."
+    ],
+    "correct": 2,
+    "explanation": "Bundling increases the effective geometric mean radius (GMR). This reduces the surface electric field gradient below the air breakdown threshold (~30 kV/cm), suppressing corona discharge and audible noise, while also reducing series inductance $L$ and increasing current-carrying capacity.",
+    "distractor_feedbacks": [
+      "Incorrect. While mechanical resilience matters, bundling is chosen primarily for electromagnetic and corona control.",
+      "Incorrect. Sub-conductors are bare and electrically bonded at the same phase potential, not insulated.",
+      "Correct! Bundling increases the effective geometric radius, lowering surface electric field stress (mitigating corona) while lowering inductance.",
+      "Incorrect. Bundled conductors are all connected in parallel at the same AC phase potential."
+    ]
+  },
+  {
+    "id": "Q09",
+    "title": "Q09: Conductor Sag, Temperature Limits & Ground Clearance",
+    "category": "Line Rating & DLR",
+    "question": "Why is the maximum operating temperature of overhead lines strictly capped (typically 75°C to 90°C)?",
+    "options": [
+      "Because aluminum melts at 95°C, risking immediate structural failure of the conductor.",
+      "To prevent excessive thermal sag from violating ground clearance and avoid permanent aluminum annealing.",
+      "Because electrical resistance drops to zero above 90°C, causing dangerous short-circuit overcurrents.",
+      "To prevent synthetic insulation around overhead bare conductors from burning and catching fire."
+    ],
+    "correct": 1,
+    "explanation": "Conductor thermal elongation increases sag according to the catenary formula ($s \\approx w L^2 / (8H)$). If minimum ground clearance is violated, flashovers to ground or vegetation can occur. Prolonged operation above 90°C also causes permanent metallurgical annealing, weakening the conductor's tensile strength.",
+    "distractor_feedbacks": [
+      "Incorrect. Aluminum melts at ~660°C. The operating limit is dictated by clearance sag and metallurgical annealing.",
+      "Correct! Thermal elongation causes excessive sag risking flashover to ground, and high temperatures cause irreversible annealing of aluminum.",
+      "Incorrect. Metal resistance increases with temperature: $R(T) = R_0 (1 + \\alpha_T \\Delta T)$.",
+      "Incorrect. Overhead transmission lines use bare uninsulated conductors cooled directly by ambient air."
+    ]
+  },
+  {
+    "id": "Q10",
+    "title": "Q10: Conductor Heat Balance (IEEE 738 / CIGRE 601)",
+    "category": "Line Rating & DLR",
+    "question": "In the steady-state heat balance equation $q_J + q_s = q_c + q_r$, which cooling mechanism dominates heat dissipation under realistic outdoor conditions?",
+    "options": [
+      "Forced convective cooling ($q_c$), where ambient wind accounts for the majority of heat removal.",
+      "Radiative heat dissipation ($q_r$), which removes over 90% of heat regardless of wind conditions.",
+      "Axial thermal conduction through the conductor core into supporting steel transmission towers.",
+      "Evaporative cooling caused by continuous condensation and vaporization of atmospheric moisture."
+    ],
+    "correct": 0,
+    "explanation": "Convective heat loss $q_c = h_c(v_w, \\phi)(T_c - T_a)$ is by far the dominant cooling mechanism, typically accounting for 70–85% of total heat dissipation. Even a slight 2 m/s perpendicular breeze increases heat dissipation by over 40% compared to still air.",
+    "distractor_feedbacks": [
+      "Correct! Convective wind cooling ($q_c$) provides 70–85% of total heat dissipation; even a mild breeze dramatically increases line ampacity.",
+      "Incorrect. Radiative cooling ($q_r$) provides a baseline, but wind convection dominates total heat dissipation.",
+      "Incorrect. Longitudinal conduction along kilometers of span to tower crossarms is negligible.",
+      "Incorrect. Overhead conductors are dry bare metal; evaporation plays no role in standard line rating calculations."
+    ]
+  },
+  {
+    "id": "Q11",
+    "title": "Q11: Dynamic Line Rating (DLR) & Wind Power Synergy",
+    "category": "Line Rating & DLR",
+    "question": "What is Dynamic Line Rating (DLR), and why does it exhibit a strong natural synergy with wind power generation?",
+    "options": [
+      "DLR raises tower heights with hydraulic lifts during high wind conditions to increase ground clearance.",
+      "DLR steps up transmission voltage during storms to force more active power through existing corridors.",
+      "DLR acts as a fast curtailment system that disconnects wind farms whenever conductors approach rated limits.",
+      "DLR updates ampacity using real-time weather; high wind output coincides with strong convective cooling."
+    ],
+    "correct": 3,
+    "explanation": "Static ratings (SLR) assume worst-case calm hot weather ($v_w \\approx 0.5\\text{ m/s}$). DLR computes actual real-time ampacity from sensors and local weather. High wind power output naturally coincides with strong ambient wind that provides intensive convective cooling to lines, unlocking 10–50% extra capacity precisely when needed.",
+    "distractor_feedbacks": [
+      "Incorrect. DLR is a software/sensor ampacity calculation; transmission towers remain fixed.",
+      "Incorrect. Operating voltages are fixed by transformers and insulation; DLR adjusts the allowable current rating.",
+      "Incorrect. DLR prevents curtailment by safely unlocking higher transmission capacity for renewable generation.",
+      "Correct! Strong winds driving peak wind farm production simultaneously provide high convective line cooling, unlocking extra capacity when needed most."
+    ]
+  },
+  {
+    "id": "Q12",
+    "title": "Q12: Wavelength and Electrical Length at 50 Hz",
+    "category": "Distributed Line Model & Wave Propagation",
+    "question": "For a 50 Hz overhead line where electromagnetic waves travel near light speed ($v \\approx 300{,}000\\text{ km/s}$), what is the wavelength $\\lambda$, and what does this mean for a 150 km line?",
+    "options": [
+      "$\\lambda \\approx 150\\text{ km}$; a 150 km line operates at quarter-wave resonance and cannot transmit power.",
+      "$\\lambda \\approx 300\\text{ m}$; all power lines span thousands of wavelengths and require microwave models.",
+      "$\\lambda = 6000\\text{ km}$; a 150 km line is only 2.5% of a wavelength, making the lumped $\\pi$ model very accurate.",
+      "$\\lambda = \\infty$; at 50 Hz electromagnetic fields are purely static and no wave propagation occurs."
+    ],
+    "correct": 2,
+    "explanation": "Wavelength is $\\lambda = c / f = 300{,}000 / 50 = 6000\\text{ km}$ at 50 Hz (5000 km at 60 Hz). A 150 km line is only $\\lambda / 40$ (electrical length $\\beta l = 2\\pi(150/6000) \\approx 0.16\\text{ rad} \\approx 9^\\circ$). Because $\\beta l \\ll 1$, wave propagation effects are minor and the lumped $\\pi$ model is highly accurate.",
+    "distractor_feedbacks": [
+      "Incorrect. Wavelength at 50 Hz is 6000 km, not 150 km.",
+      "Incorrect. 300 m corresponds to 1 MHz radio frequencies, not 50 Hz power frequency.",
+      "Correct! $\\lambda = 300{,}000 / 50 = 6000\\text{ km}$. A 150 km line is only $2.5\\%$ of $\\lambda$, so $\\beta l \\ll 1$, validating the lumped $\\pi$ model.",
+      "Incorrect. Electromagnetic waves propagate at light speed along lines; at 50 Hz the wavelength is finite (6000 km)."
+    ]
+  }
+];
+
+        let currentIdx = 0;
+        let viewMode = 'step'; // 'step' or 'all'
+        let userAnswers = {}; // { qIndex: selectedOptionIndex }
+        let score = 0;
+        let filteredIndices = questions.map((_, i) => i);
+
+        function initQuiz() {
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.getElementById('btn-view-step').classList.toggle('active', mode === 'step');
+            document.getElementById('btn-view-all').classList.toggle('active', mode === 'all');
+            document.getElementById('step-nav').style.display = (mode === 'step') ? 'flex' : 'none';
+            document.getElementById('summary-card').style.display = 'none';
+
+            renderQuestions();
+            updateNavigation();
+        }
+
+        document.getElementById('topic-select').addEventListener('change', (e) => {
+            const cat = e.target.value;
+            if (cat === 'all') {
+                filteredIndices = questions.map((_, i) => i);
+            } else {
+                filteredIndices = [];
+                questions.forEach((q, i) => {
+                    if (q.category === cat) filteredIndices.push(i);
+                });
+            }
+            currentIdx = 0;
+            renderQuestions();
+            updateNavigation();
+            updateStats();
+        });
+
+        function renderQuestions() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            if (filteredIndices.length === 0) {
+                container.innerHTML = '<div class="quiz-card"><p>No questions found in this category.</p></div>';
+                return;
+            }
+
+            const indicesToRender = (viewMode === 'step') 
+                ? [filteredIndices[currentIdx]] 
+                : filteredIndices;
+
+            indicesToRender.forEach((qIdx) => {
+                if (qIdx === undefined) return;
+                const q = questions[qIdx];
+                const answered = userAnswers.hasOwnProperty(qIdx);
+                const selectedOpt = userAnswers[qIdx];
+
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `card-${qIdx}`;
+
+                const letters = ['A', 'B', 'C', 'D'];
+                let optionsHtml = '';
+                q.options.forEach((opt, oIdx) => {
+                    let optClass = 'option-item';
+                    if (answered) {
+                        optClass += ' disabled';
+                        if (oIdx === q.correct) {
+                            optClass += ' correct';
+                        } else if (oIdx === selectedOpt) {
+                            optClass += ' wrong';
+                        }
+                    }
+
+                    optionsHtml += `
+                        <div class="${optClass}" onclick="handleSelect(${qIdx}, ${oIdx})">
+                            <span class="opt-letter">${letters[oIdx]}</span>
+                            <span class="opt-text">${opt}</span>
+                        </div>
+                    `;
+                });
+
+                const explanationStyle = answered ? 'display: block;' : 'display: none;';
+
+                card.innerHTML = `
+                    <div class="q-meta">
+                        <span class="q-badge">${q.id}</span>
+                        <span class="q-category">${q.category}</span>
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options-grid">
+                        ${optionsHtml}
+                    </div>
+                    <div class="explanation-box" id="exp-${qIdx}" style="${explanationStyle}">
+                        <div class="explanation-title">
+                            <span>Pedagogical Analysis &amp; Reference</span>
+                        </div>
+                        <div class="explanation-content">
+                            ${q.explanation}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleSelect(qIdx, optIdx) {
+            if (userAnswers.hasOwnProperty(qIdx)) return; // already answered
+
+            userAnswers[qIdx] = optIdx;
+            const q = questions[qIdx];
+            if (optIdx === q.correct) {
+                score++;
+            }
+
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function updateStats() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const total = questions.length;
+            const pct = Math.round((answeredCount / total) * 100);
+
+            document.getElementById('score-display').textContent = `${score} / ${answeredCount}`;
+            document.getElementById('progress-text').textContent = `${pct}%`;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+        }
+
+        function changeQuestion(delta) {
+            const newIdx = currentIdx + delta;
+            if (newIdx >= 0 && newIdx < filteredIndices.length) {
+                currentIdx = newIdx;
+                renderQuestions();
+                updateNavigation();
+            } else if (newIdx >= filteredIndices.length && viewMode === 'step') {
+                showSummary();
+            }
+        }
+
+        function updateNavigation() {
+            if (viewMode !== 'step') return;
+            const total = filteredIndices.length;
+            document.getElementById('btn-prev').disabled = (currentIdx === 0);
+            
+            const btnNext = document.getElementById('btn-next');
+            if (currentIdx === total - 1) {
+                btnNext.innerHTML = 'Finish &rarr;';
+            } else {
+                btnNext.innerHTML = 'Next &rarr;';
+            }
+            
+            document.getElementById('q-counter-text').textContent = `Question ${currentIdx + 1} of ${total}`;
+        }
+
+        function showSummary() {
+            document.getElementById('quiz-container').innerHTML = '';
+            document.getElementById('step-nav').style.display = 'none';
+            const card = document.getElementById('summary-card');
+            card.style.display = 'block';
+
+            const total = questions.length;
+            const pct = Math.round((score / total) * 100);
+            document.getElementById('summary-percent').textContent = `${pct}%`;
+            document.getElementById('summary-detail').textContent = `You correctly answered ${score} out of ${total} questions.`;
+
+            const headline = document.getElementById('summary-headline');
+            if (pct >= 85) headline.textContent = "Outstanding Mastery!";
+            else if (pct >= 60) headline.textContent = "Solid Understanding!";
+            else headline.textContent = "Review Recommended";
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            score = 0;
+            currentIdx = 0;
+            document.getElementById('summary-card').style.display = 'none';
+            if (viewMode === 'step') {
+                document.getElementById('step-nav').style.display = 'flex';
+            }
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function renderMath() {
+            const target = document.getElementById('quiz-container') || document.body;
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(target, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '\\[', right: '\\]', display: true },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            } else {
+                setTimeout(renderMath, 60);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>
