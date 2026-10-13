@@ -32,7 +32,7 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | | | [Project 1: Two-feeder distribution network analysis with PandaPower](Projects/Project_1/ELEC0447_project1_2026.pdf) and [Data](Projects/Project_1/ELEC0447_project_1_2026_network.xlsx) |
 | October 8 | 4 | [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) — **[Interactive Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transformers.html)** ([local](Lectures/TransfomerAndPF/quiz_transformers.html)) |
 | | | [Exercises on transformers (TP4)](Exercises/ELEC0447_exercise_manual.pdf#page=20) (Section 4) |
-| October 15 | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf) |
+| October 15 | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf) — **[Interactive Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_generators.html)** ([local](Lectures/SynchronousGenerator/quiz_generators.html)) |
 | | | [Exercises on synchronous machines (TP5)](Exercises/ELEC0447_exercise_manual.pdf#page=26) (Section 5) |
 | | | Q&A: Project 1 |
 | October 22 | — | *No lecture — team is at IEEE PES ISGT Europe 2026 in Budapest* |
@@ -56,9 +56,11 @@ Web-based practice quizzes with step-by-step navigation, KaTeX math rendering, i
 - ⚡ **Transmission Lines & Line Rating**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transmission_lines.html)** | [Source HTML](Lectures/TransmissionLine/quiz_transmission_lines.html)
   - *Topics*: Conductor physics & skin effect, surge impedance loading (SIL), lumped $\pi$ model validity, catenary sag & ground clearances, Static vs. Dynamic Line Rating (SLR/DLR).
 - 🔄 **Power Flow Analysis**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_power_flow.html)** | [Source HTML](Lectures/IntroPowerFlow/quiz_power_flow.html)
-  - *Topics*: Bus classification (PQ, PV, Slack), nodal admittance matrix $\mathbf{Y}_{\text{bus}}$, Newton-Raphson quadratic convergence & sparsity, generator reactive limits ($Q_{\min}/Q_{\max}$), Fast Decoupled and DC linear power flow, and grid overload remediation.
+  - *Topics*: Bus classification (PQ, PV, Slack), nodal admittance matrix $\mathbf{Y}_{\text{bus}}$, Newton-Raphson quadratic convergence & sparsity, Fast Decoupled and DC linear power flow, and grid overload remediation.
 - ⚙️ **Transformers & Per-Unit Power Flow**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transformers.html)** | [Source HTML](Lectures/TransfomerAndPF/quiz_transformers.html)
   - *Topics*: IEC nameplate test data ($v_k\%, v_{kr}\%$), per-unit referral invariance, vector groups (Dyn11), auto-transformer core sizing ($k_{\text{size}}$), On-Load Tap Changers (OLTC), Phase-Shifting Transformers (PST quadrature boost), and two-port $\mathbf{Y}_{\text{bus}}$ matrix stamping.
+- 🔋 **Synchronous Generators**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_generators.html)** | [Source HTML](Lectures/SynchronousGenerator/quiz_generators.html)
+  - *Topics*: Synchronous speed & pole pairs ($n = 60f/p$), Ferraris rotating field, cylindrical vs. salient-pole rotors, damper windings (*amortisseurs*), per-phase equivalent circuit ($\bar{E}_{af} = \bar{V}_a + jX_s\bar{I}_a$), subtransient/transient reactances ($X''_d < X'_d < X_d$), power-angle relation & stability limit ($\delta = 90^\circ$), over/underexcitation, synchronous condensers, $(P, Q)$ capability curves, and PV-to-PQ bus switching in power flow.
 
 > **Configuring Centralized Google Sheet Submissions:**  
 > All quizzes submit to a single Google Apps Script endpoint. To collect student responses into your Google Sheet, follow the quick 2-minute setup instructions in [`Lectures/google_apps_script.js`](Lectures/google_apps_script.js) and update the `GOOGLE_SCRIPT_URL` constant. Submissions will automatically log to a master tab and to dedicated tabs per quiz.
