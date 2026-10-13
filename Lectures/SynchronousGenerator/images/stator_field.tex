@@ -43,14 +43,15 @@
   \draw[line width=0.6pt, fluxCol, ->] (-\Rgap, 0) -- ({-(\Rrotor+\Rgap)/2 + 0.05}, 0);
 
   % 7 nested symmetrical pairs covering the full depth of the stator yoke
-  \foreach \dAng/\Rapex in {
-    4/3.28,
-    8/3.17,
-    12/3.06,
-    16/2.95,
-    20/2.84,
-    24/2.73,
-    28/2.62
+  % dAng: air gap angle. Ri: yoke radius. phiArc: angle where circular arc starts
+  \foreach \dAng/\Ri/\phiArc in {
+    4/3.28/45,
+    8/3.17/47,
+    12/3.06/49,
+    16/2.95/52,
+    20/2.84/55,
+    24/2.73/59,
+    28/2.62/64
   } {
     \coordinate (RentryR) at (\dAng:\Rrotor);
     \coordinate (RgapR)   at (\dAng:\Rgap);
@@ -58,25 +59,30 @@
     \coordinate (RgapL)   at ({180-\dAng}:\Rgap);
 
     % Upper half (y > 0)
-    % Radial air gap segment (strictly perpendicular to iron surface) with arrow
+    % A. Radial segment across air gap with arrow (strictly perpendicular to iron surface)
     \draw[line width=0.6pt, fluxCol, ->] (RentryR) -- (\dAng:{(\Rrotor+\Rgap)/2 + 0.04});
     \draw[line width=0.6pt, fluxCol] (\dAng:{(\Rrotor+\Rgap)/2}) -- (RgapR);
 
     \draw[line width=0.6pt, fluxCol, <-] (RentryL) -- ({180-\dAng}:{(\Rrotor+\Rgap)/2 - 0.04});
     \draw[line width=0.6pt, fluxCol] ({180-\dAng}:{(\Rrotor+\Rgap)/2}) -- (RgapL);
 
-    % Rotor core horizontal segment
-    \draw[line width=0.6pt, fluxCol] (RentryL) -- (RentryR);
-    \pgfmathsetmacro{\yRot}{\Rrotor * sin(\dAng)}
-    \draw[line width=0.6pt, fluxCol, ->] (-0.05, \yRot) -- (0.08, \yRot);
-
-    % Stator yoke return loop
-    \coordinate (ApexU) at (90:\Rapex);
-    \pgfmathsetmacro{\tanLen}{\Rapex * cos(\dAng) * 0.52}
-    \pgfmathsetmacro{\entryLen}{(\Rapex - \Rgap) * 0.55 + 0.15}
+    % B. Inside rotor: smooth horizontal transition tangent to radial at boundary
+    \pgfmathsetmacro{\yMid}{\Rrotor * sin(\dAng) * 0.95}
     \draw[line width=0.6pt, fluxCol]
-      (RgapR) .. controls ($(RgapR) + (\dAng:\entryLen)$) and ($(ApexU) + (0:\tanLen)$) .. (ApexU)
-      .. controls ($(ApexU) + (180:\tanLen)$) and ($(RgapL) + ({180-\dAng}:\entryLen)$) .. (RgapL);
+      (RentryL) .. controls ($(RentryL) + ({-\dAng}:0.4)$) and (-0.5, \yMid) .. (0, \yMid)
+      .. controls (0.5, \yMid) and ($(RentryR) + ({180+\dAng}:0.4)$) .. (RentryR);
+    \draw[line width=0.6pt, fluxCol, ->] (-0.05, \yMid) -- (0.08, \yMid);
+
+    % C. Stator yoke: fillet from radial at Rgap to azimuthal at Ri, true circular arc across top, and fillet back
+    \coordinate (ArcStartU) at (\phiArc:\Ri);
+    \coordinate (ArcEndU)   at ({180-\phiArc}:\Ri);
+    \pgfmathsetmacro{\filletL}{(\Ri - \Rgap) * 0.6}
+    \pgfmathsetmacro{\filletT}{\Ri * sin(\phiArc - \dAng) * 0.6}
+
+    \draw[line width=0.6pt, fluxCol]
+      (RgapR) .. controls ($(RgapR) + (\dAng:\filletL)$) and ($(ArcStartU) + ({\phiArc-90}:\filletT)$) .. (ArcStartU)
+      arc[start angle=\phiArc, end angle={180-\phiArc}, radius=\Ri]
+      .. controls ($(ArcEndU) + ({180-\phiArc+90}:\filletT)$) and ($(RgapL) + ({180-\dAng}:\filletL)$) .. (RgapL);
 
     % Lower half (y < 0)
     \coordinate (RentryRL) at (-\dAng:\Rrotor);
@@ -90,13 +96,18 @@
     \draw[line width=0.6pt, fluxCol, <-] (RentryLL) -- ({-180+\dAng}:{(\Rrotor+\Rgap)/2 - 0.04});
     \draw[line width=0.6pt, fluxCol] ({-180+\dAng}:{(\Rrotor+\Rgap)/2}) -- (RgapLL);
 
-    \draw[line width=0.6pt, fluxCol] (RentryLL) -- (RentryRL);
-    \draw[line width=0.6pt, fluxCol, ->] (-0.05, -\yRot) -- (0.08, -\yRot);
-
-    \coordinate (ApexL) at (-90:\Rapex);
     \draw[line width=0.6pt, fluxCol]
-      (RgapRL) .. controls ($(RgapRL) + (-\dAng:\entryLen)$) and ($(ApexL) + (0:\tanLen)$) .. (ApexL)
-      .. controls ($(ApexL) + (180:\tanLen)$) and ($(RgapLL) + ({-180+\dAng}:\entryLen)$) .. (RgapLL);
+      (RentryLL) .. controls ($(RentryLL) + (\dAng:0.4)$) and (-0.5, -\yMid) .. (0, -\yMid)
+      .. controls (0.5, -\yMid) and ($(RentryRL) + ({-180-\dAng}:0.4)$) .. (RentryRL);
+    \draw[line width=0.6pt, fluxCol, ->] (-0.05, -\yMid) -- (0.08, -\yMid);
+
+    \coordinate (ArcStartL) at (-\phiArc:\Ri);
+    \coordinate (ArcEndL)   at ({-180+\phiArc}:\Ri);
+
+    \draw[line width=0.6pt, fluxCol]
+      (RgapRL) .. controls ($(RgapRL) + (-\dAng:\filletL)$) and ($(ArcStartL) + ({-\phiArc+90}:\filletT)$) .. (ArcStartL)
+      arc[start angle=-\phiArc, end angle={-180+\phiArc}, radius=\Ri]
+      .. controls ($(ArcEndL) + ({-180+\phiArc-90}:\filletT)$) and ($(RgapLL) + ({-180+\dAng}:\filletL)$) .. (RgapLL);
   }
 
   % 3. Conductors in stator slots
@@ -113,6 +124,10 @@
     \draw[line width=0.55pt, myBlue!85!black] ($(C)+(-1.4pt,-1.4pt)$) -- ($(C)+(1.4pt,1.4pt)$);
     \draw[line width=0.55pt, myBlue!85!black] ($(C)+(-1.4pt,1.4pt)$) -- ($(C)+(1.4pt,-1.4pt)$);
   }
+
+  % Winding schematic end-turn outline
+  \draw[line width=0.45pt, black!50] (28:\Rgap+0.16) [bend right=25] to (45:\Rgap+0.36) arc[start angle=45, end angle=135, radius=\Rgap+0.36] [bend right=25] to (152:\Rgap+0.16);
+  \draw[line width=0.45pt, black!50] (-28:\Rgap+0.16) [bend left=25] to (-45:\Rgap+0.36) arc[start angle=-45, end angle=-135, radius=\Rgap+0.36] [bend left=25] to (-152:\Rgap+0.16);
 
   % 4. Winding Axis
   \draw[dashed, line width=0.55pt, black!65] (-3.5, 0) -- (3.5, 0) 

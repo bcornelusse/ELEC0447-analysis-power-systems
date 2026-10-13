@@ -26,58 +26,80 @@
   \draw[line width=0.8pt, black!70] (0,0) circle (\Rrotor);
 
   % 2. Magnetic Flux Lines
-  % 8 symmetrical nested loops on each side covering the full depth of the stator yoke
-  \foreach \dAng/\Rapex in {
-    6/3.28,
-    14/3.16,
-    22/3.04,
-    30/2.92,
-    38/2.80,
-    46/2.68,
-    54/2.56,
-    62/2.44
+  % 8 symmetrical loops on each side:
+  % dAng: air gap angle from tilt axis
+  % Ri: stator yoke radius
+  % dPhi: half-span of concentric circular arc centered at tilt+90
+  \foreach \dAng/\Ri/\dPhi in {
+    6/3.28/46,
+    14/3.16/43,
+    22/3.04/40,
+    30/2.92/37,
+    38/2.80/33,
+    46/2.68/28,
+    54/2.56/22,
+    62/2.44/14
   } {
     \pgfmathsetmacro{\angNU}{\tilt + \dAng}
     \pgfmathsetmacro{\angSU}{\tilt + 180 - \dAng}
     \pgfmathsetmacro{\angNL}{\tilt - \dAng}
     \pgfmathsetmacro{\angSL}{\tilt + 180 + \dAng}
 
-    % Upper radial air gap with arrow (strictly perpendicular to iron surfaces)
+    % Upper circuit:
+    % 1. Radial air gap transitions with arrows (strictly perpendicular to iron surfaces)
     \draw[line width=0.6pt, fluxCol, ->] (\angNU:\Rrotor) -- (\angNU:{(\Rrotor+\Rgap)/2 + 0.04});
     \draw[line width=0.6pt, fluxCol] (\angNU:{(\Rrotor+\Rgap)/2}) -- (\angNU:\Rgap);
 
     \draw[line width=0.6pt, fluxCol, <-] (\angSU:\Rrotor) -- (\angSU:{(\Rrotor+\Rgap)/2 - 0.04});
     \draw[line width=0.6pt, fluxCol] (\angSU:{(\Rrotor+\Rgap)/2}) -- (\angSU:\Rgap);
 
-    % Upper rotor: parallel straight line along field axis direction
-    \draw[line width=0.6pt, fluxCol] (\angSU:\Rrotor) -- (\angNU:\Rrotor);
+    % 2. Rotor core: smooth flow aligned with tilt axis, curving smoothly to radial at boundary
+    \pgfmathsetmacro{\dPerp}{\Rrotor * sin(\dAng) * 0.95}
 
-    % Upper stator loop
-    \coordinate (ApexU) at ({\tilt+90}:\Rapex);
-    \pgfmathsetmacro{\tanLen}{\Rapex * cos(\dAng) * 0.52}
-    \pgfmathsetmacro{\entryLen}{(\Rapex - \Rgap) * 0.55 + 0.15}
     \draw[line width=0.6pt, fluxCol]
-      (\angNU:\Rgap) .. controls ($(\angNU:\Rgap) + (\angNU:\entryLen)$) and ($(ApexU) + (\tilt:\tanLen)$) .. (ApexU)
-      .. controls ($(ApexU) + ({\tilt+180}:\tanLen)$) and ($(\angSU:\Rgap) + (\angSU:\entryLen)$) .. (\angSU:\Rgap);
+      (\angSU:\Rrotor) .. controls ($(\angSU:\Rrotor) + ({\tilt-\dAng}:0.3)$) and ($({\tilt+90}:\dPerp) + ({\tilt+180}:0.5)$) .. ($({\tilt+90}:\dPerp)$)
+      .. controls ($({\tilt+90}:\dPerp) + (\tilt:0.5)$) and ($(\angNU:\Rrotor) + ({\tilt+180+\dAng}:0.3)$) .. (\angNU:\Rrotor);
 
-    % Lower radial air gap with arrow
+    % 3. Upper stator yoke: true concentric circular arc of radius Ri
+    \pgfmathsetmacro{\phiStartU}{\tilt + 90 - \dPhi}
+    \pgfmathsetmacro{\phiEndU}{\tilt + 90 + \dPhi}
+    \coordinate (ArcStartU) at (\phiStartU:\Ri);
+    \coordinate (ArcEndU)   at (\phiEndU:\Ri);
+
+    \pgfmathsetmacro{\filletL}{(\Ri - \Rgap) * 0.55}
+    \pgfmathsetmacro{\filletTU}{\Ri * sin(\phiStartU - \angNU) * 0.55}
+
+    \draw[line width=0.6pt, fluxCol]
+      (\angNU:\Rgap) .. controls ($(\angNU:\Rgap) + (\angNU:\filletL)$) and ($(ArcStartU) + ({\phiStartU-90}:\filletTU)$) .. (ArcStartU)
+      arc[start angle=\phiStartU, end angle=\phiEndU, radius=\Ri]
+      .. controls ($(ArcEndU) + ({\phiEndU+90}:\filletTU)$) and ($(\angSU:\Rgap) + (\angSU:\filletL)$) .. (\angSU:\Rgap);
+
+    % Lower circuit:
+    % 1. Radial air gap transitions with arrows
     \draw[line width=0.6pt, fluxCol, ->] (\angNL:\Rrotor) -- (\angNL:{(\Rrotor+\Rgap)/2 + 0.04});
     \draw[line width=0.6pt, fluxCol] (\angNL:{(\Rrotor+\Rgap)/2}) -- (\angNL:\Rgap);
 
     \draw[line width=0.6pt, fluxCol, <-] (\angSL:\Rrotor) -- (\angSL:{(\Rrotor+\Rgap)/2 - 0.04});
     \draw[line width=0.6pt, fluxCol] (\angSL:{(\Rrotor+\Rgap)/2}) -- (\angSL:\Rgap);
 
-    % Lower rotor: parallel straight line
-    \draw[line width=0.6pt, fluxCol] (\angSL:\Rrotor) -- (\angNL:\Rrotor);
-
-    % Lower stator loop
-    \coordinate (ApexL) at ({\tilt-90}:\Rapex);
+    % 2. Lower rotor core flow
     \draw[line width=0.6pt, fluxCol]
-      (\angNL:\Rgap) .. controls ($(\angNL:\Rgap) + (\angNL:\entryLen)$) and ($(ApexL) + (\tilt:\tanLen)$) .. (ApexL)
-      .. controls ($(ApexL) + ({\tilt+180}:\tanLen)$) and ($(\angSL:\Rgap) + (\angSL:\entryLen)$) .. (\angSL:\Rgap);
+      (\angSL:\Rrotor) .. controls ($(\angSL:\Rrotor) + ({\tilt+\dAng}:0.3)$) and ($({\tilt-90}:\dPerp) + ({\tilt+180}:0.5)$) .. ($({\tilt-90}:\dPerp)$)
+      .. controls ($({\tilt-90}:\dPerp) + (\tilt:0.5)$) and ($(\angNL:\Rrotor) + ({\tilt+180-\dAng}:0.3)$) .. (\angNL:\Rrotor);
+
+    % 3. Lower stator yoke: true concentric circular arc of radius Ri
+    \pgfmathsetmacro{\phiStartL}{\tilt - 90 + \dPhi}
+    \pgfmathsetmacro{\phiEndL}{\tilt - 90 - \dPhi}
+    \coordinate (ArcStartL) at (\phiStartL:\Ri);
+    \coordinate (ArcEndL)   at (\phiEndL:\Ri);
+
+    \draw[line width=0.6pt, fluxCol]
+      (\angNL:\Rgap) .. controls ($(\angNL:\Rgap) + (\angNL:\filletL)$) and ($(ArcStartL) + ({\phiStartL+90}:\filletTU)$) .. (ArcStartL)
+      arc[start angle=\phiStartL, end angle=\phiEndL, radius=\Ri]
+      .. controls ($(ArcEndL) + ({\phiEndL-90}:\filletTU)$) and ($(\angSL:\Rgap) + (\angSL:\filletL)$) .. (\angSL:\Rgap);
   }
 
-  % 3. Rotor Field Winding Slots (neat notches at tilt +/- 90 deg)
+  % 3. Rotor Field Winding Slots
   % Top slot at tilt + 90 = 112 deg (dot: current out of page)
   \fill[rotorIron] ({\tilt+79}:{\Rrotor+0.01}) 
     -- ({\tilt+79}:{\Rrotor-0.16}) 
