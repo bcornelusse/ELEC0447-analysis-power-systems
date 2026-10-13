@@ -324,7 +324,10 @@ $$Z_k \equiv Z_{\text{total}}^{(p)} = Z_p + \frac{Z_s}{n^2} \qquad \Longleftrigh
     \item Voltage $V_{\text{sc}}$ applied until rated current $I_{n1}$ flows.
     \item Since $V_{\text{sc}} \approx 8\%\text{--}18\% V_n$, core flux is tiny $\to$ excitation current $\bar{I}_0 \approx 0$.
     \item Applied voltage drops \textbf{entirely across the series windings}:
-    $$Z_k = \frac{V_{\text{sc}}}{\sqrt{3} I_{n1}} = \left( R_1 + \frac{R_2}{n^2} \right) + j\left( X_{\text{leakage}, 1} + \frac{X_{\text{leakage}, 2}}{n^2} \right) \equiv Z_{\text{total}}^{(p)}$$
+    \begin{align*}
+    Z_k &= \frac{V_{\text{sc}}}{\sqrt{3} I_{n1}} \\ 
+    &= (R_1 + \frac{R_2}{n^2}) + j( X_{\text{leakage}, 1} + \frac{X_{\text{leakage}, 2}}{n^2} ) \equiv Z_{\text{total}}^{(p)}
+    \end{align*}
 \end{itemize}
 \normalsize
 \end{column}
@@ -512,7 +515,7 @@ Remarks:
 \end{itemize}
 \end{frame}
 
-\section{Tap-chaning transformers and auto-transformers}
+\section{Tap-changing transformers and auto-transformers}
 
 \begin{frame}{Tap changers}
 
@@ -605,7 +608,7 @@ Single continuous winding per phase on a shared magnetic core (no galvanic isola
 \alert{\textbf{Key Result:}} Only $S_{\text{ind}}$ crosses the core $\implies$ the physical core is sized for $S_{\text{ind}}$, not the full throughput $S_{\text{rated}}$!
 \end{frame}
 
-\begin{frame}{Auto-transformers: Sizing \& Why $V_H/V_L \approx 1$ Matters}
+\begin{frame}{Auto-transformers sizing: why $V_H/V_L \approx 1$ matters}
 \small
 The \textbf{core sizing factor} (co-ratio) defines the fraction of power crossing the core:
 $$k_{\text{size}} = \frac{S_{\text{ind}}}{S_{\text{rated}}} = 1 - \frac{V_L}{V_H} = \frac{V_H - V_L}{V_H} \qquad (k_{\text{size}} = 1 \text{ for 2-winding transformer})$$
@@ -665,11 +668,21 @@ $$k_{\text{size}} = \frac{S_{\text{ind}}}{S_{\text{rated}}} = 1 - \frac{V_L}{V_H
 \textbf{Typical Applications:} Interconnecting close transmission voltage levels (e.g. 380/220 kV, 220/150 kV) and serving as the regulating unit in on-load tap changers and phase shifters.
 \end{frame}
 
+\section{Phase shifting}
+
+\begin{frame}{Phase shifting}
+
+    \begin{block}{Transformers causing a phase shift}
+        Some transformers naturally introduce a phase shift, as is explained below for \textit{Dy} transformers.
+        \begin{itemize}
+            \item In radial systems, the phase shift has no consequence, as long as parallel transformers/paths introduce the same phase shift.
+            \item  In meshed networks, we can use this property to control power flows using dedicated \textit{phase shifting transformers}.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \begin{frame}{Phase shift in delta-star transformers}
-
 The star part has $n$ times the number of turns of the delta part (primary side).
-
-
 \begin{columns}
     \begin{column}{0.45\textwidth}
 Let's reason on phase $a$,
