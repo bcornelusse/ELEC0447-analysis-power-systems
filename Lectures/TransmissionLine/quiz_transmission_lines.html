@@ -446,6 +446,176 @@
             background: var(--primary-dark);
         }
 
+        /* Student Identity Card */
+        .identity-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .identity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .identity-title {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .identity-desc {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .identity-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 13px;
+            font-size: 0.92rem;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 132, 59, 0.15);
+        }
+
+        /* Submission Section */
+        .submit-section {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 22px auto 0;
+            max-width: 580px;
+            text-align: left;
+        }
+
+        .submit-section-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .submit-btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-download {
+            padding: 10px 16px;
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-download:hover {
+            background: #f1f5f9;
+        }
+
+        .submit-status-msg {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            display: none;
+        }
+
+        .submit-status-success {
+            background: var(--success-bg);
+            border: 1px solid var(--success);
+            color: #065f46;
+        }
+
+        .submit-status-error {
+            background: var(--danger-bg);
+            border: 1px solid var(--danger);
+            color: #991b1b;
+        }
+
+        .submit-status-loading {
+            background: #e0f2fe;
+            border: 1px solid #38bdf8;
+            color: #0369a1;
+        }
+
         /* Utility */
         .hidden {
             display: none !important;
@@ -481,6 +651,28 @@
     </header>
 
     <div class="main-container">
+        <!-- Participant Identity Card -->
+        <div class="identity-card" id="identity-box">
+            <div class="identity-header">
+                <div class="identity-title">
+                    <span>👤 Student Identification</span>
+                </div>
+            </div>
+            <p class="identity-desc">
+                Enter your details to register your quiz score in the instructor's grade sheet upon completion.
+            </p>
+            <div class="identity-grid">
+                <div class="form-group">
+                    <label for="student-name">Full Name (Nom &amp; Prénom)</label>
+                    <input type="text" id="student-name" class="form-input" placeholder="e.g. Marie Curie">
+                </div>
+                <div class="form-group">
+                    <label for="student-email">ULiège Email or Student ID</label>
+                    <input type="text" id="student-email" class="form-input" placeholder="e.g. mcurie@student.uliege.be">
+                </div>
+            </div>
+        </div>
+
         <!-- Toolbar -->
         <div class="toolbar">
             <div class="stats-group">
@@ -520,11 +712,53 @@
             <div class="score-circle" id="summary-percent">100%</div>
             <h2 class="summary-title" id="summary-headline">Excellent Work!</h2>
             <p class="summary-text" id="summary-detail">You answered 12 out of 12 questions correctly.</p>
-            <button class="btn-restart" onclick="restartQuiz()">Restart Quiz</button>
+
+            <!-- Submission Section in Summary -->
+            <div class="submit-section" id="submit-section">
+                <div class="submit-section-title">
+                    <span>📤 Register &amp; Submit Results to Instructor</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                    Send your verified results directly to the course Google Sheet or export a JSON summary.
+                </p>
+                <div class="submit-btn-group">
+                    <button class="btn-submit" id="btn-submit-results" onclick="submitResultsToGoogle('submit-status')">
+                        🚀 Submit Answers
+                    </button>
+                    <button class="btn-download" id="btn-download-results" onclick="downloadResultsJSON()">
+                        💾 Download Summary (JSON)
+                    </button>
+                </div>
+                <div id="submit-status" class="submit-status-msg"></div>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <button class="btn-restart" onclick="restartQuiz()">Restart Quiz</button>
+            </div>
         </div>
 
         <!-- Questions Container -->
         <div id="quiz-container"></div>
+
+        <!-- Bottom Submission Card for All-Questions View -->
+        <div id="all-view-submit-card" class="identity-card" style="display: none; margin-top: 24px; text-align: center;">
+            <h3 style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 6px;">Finished Answering?</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">
+                Submit your quiz answers to the instructor's spreadsheet or download your results report.
+            </p>
+            <div class="submit-btn-group" style="justify-content: center;">
+                <button class="btn-submit" id="btn-submit-all-view" onclick="submitResultsToGoogle('submit-status-all')">
+                    🚀 Submit Answers to Instructor
+                </button>
+                <button class="btn-download" onclick="downloadResultsJSON()">
+                    💾 Download Summary (JSON)
+                </button>
+                <button class="btn-restart" onclick="restartQuiz()" style="padding: 10px 18px; font-size: 0.88rem;">
+                    Restart Quiz
+                </button>
+            </div>
+            <div id="submit-status-all" class="submit-status-msg" style="max-width: 580px; margin: 12px auto 0;"></div>
+        </div>
 
         <!-- Step Navigation Controls -->
         <div id="step-nav" class="nav-controls">
@@ -778,6 +1012,18 @@
   }
 ];
 
+        // =========================================================================
+        // Instructor Configuration: Unified Google Apps Script Webhook
+        // =========================================================================
+        // Paste your deployed Google Apps Script Web App URL below (see Lectures/google_apps_script.js):
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8je0JsdjMqN8JmkE6Qi-jw1w8c4ILChxpRkUkYDlCvX-MuJxwgGzdyXw0kMF1pdWaiQ/exec"; 
+
+        const QUIZ_CONFIG = {
+            course: "ELEC0447",
+            quiz_id: "transmission_lines",
+            quiz_title: "Transmission Lines & Line Rating"
+        };
+
         let currentIdx = 0;
         let viewMode = 'step'; // 'step' or 'all'
         let userAnswers = {}; // { qIndex: selectedOptionIndex }
@@ -785,9 +1031,28 @@
         let filteredIndices = questions.map((_, i) => i);
 
         function initQuiz() {
+            initStudentIdentity();
             renderQuestions();
             updateStats();
             updateNavigation();
+        }
+
+        function initStudentIdentity() {
+            const nameInput = document.getElementById('student-name');
+            const emailInput = document.getElementById('student-email');
+            if (!nameInput || !emailInput) return;
+
+            const savedName = localStorage.getItem('elec0447_student_name');
+            const savedEmail = localStorage.getItem('elec0447_student_email');
+            if (savedName) nameInput.value = savedName;
+            if (savedEmail) emailInput.value = savedEmail;
+
+            nameInput.addEventListener('input', (e) => {
+                localStorage.setItem('elec0447_student_name', e.target.value.trim());
+            });
+            emailInput.addEventListener('input', (e) => {
+                localStorage.setItem('elec0447_student_email', e.target.value.trim());
+            });
         }
 
         function setViewMode(mode) {
@@ -796,6 +1061,11 @@
             document.getElementById('btn-view-all').classList.toggle('active', mode === 'all');
             document.getElementById('step-nav').style.display = (mode === 'step') ? 'flex' : 'none';
             document.getElementById('summary-card').style.display = 'none';
+            
+            const allSubmitCard = document.getElementById('all-view-submit-card');
+            if (allSubmitCard) {
+                allSubmitCard.style.display = (mode === 'all') ? 'block' : 'none';
+            }
 
             renderQuestions();
             updateNavigation();
@@ -953,6 +1223,9 @@
             if (pct >= 85) headline.textContent = "Outstanding Mastery!";
             else if (pct >= 60) headline.textContent = "Solid Understanding!";
             else headline.textContent = "Review Recommended";
+
+            const statusEl = document.getElementById('submit-status');
+            if (statusEl) statusEl.style.display = 'none';
         }
 
         function restartQuiz() {
@@ -963,9 +1236,125 @@
             if (viewMode === 'step') {
                 document.getElementById('step-nav').style.display = 'flex';
             }
+            const statusEl1 = document.getElementById('submit-status');
+            if (statusEl1) statusEl1.style.display = 'none';
+            const statusEl2 = document.getElementById('submit-status-all');
+            if (statusEl2) statusEl2.style.display = 'none';
+
             renderQuestions();
             updateStats();
             updateNavigation();
+        }
+
+        function buildResultsPayload() {
+            const name = (document.getElementById('student-name')?.value || "").trim();
+            const email = (document.getElementById('student-email')?.value || "").trim();
+            const total = questions.length;
+            const answeredCount = Object.keys(userAnswers).length;
+            const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+
+            const detailedAnswers = questions.map((q, idx) => {
+                const userSel = userAnswers[idx];
+                const hasAnswered = userAnswers.hasOwnProperty(idx);
+                return {
+                    id: q.id,
+                    question_index: idx + 1,
+                    category: q.category,
+                    question: q.question,
+                    has_answered: hasAnswered,
+                    selected_index: hasAnswered ? userSel : null,
+                    selected_text: hasAnswered ? q.options[userSel] : "Not answered",
+                    correct_index: q.correct,
+                    correct_text: q.options[q.correct],
+                    is_correct: hasAnswered ? (userSel === q.correct) : false
+                };
+            });
+
+            return {
+                timestamp: new Date().toISOString(),
+                course: QUIZ_CONFIG.course,
+                quiz_id: QUIZ_CONFIG.quiz_id,
+                quiz_title: QUIZ_CONFIG.quiz_title,
+                name: name || "Anonymous",
+                email: email || "N/A",
+                score: score,
+                total: total,
+                answered: answeredCount,
+                percentage: pct,
+                answers: detailedAnswers
+            };
+        }
+
+        async function submitResultsToGoogle(statusElementId = "submit-status") {
+            const statusEl = document.getElementById(statusElementId);
+            const name = (document.getElementById("student-name")?.value || "").trim();
+            const btnSubmit = document.getElementById(statusElementId === 'submit-status' ? 'btn-submit-results' : 'btn-submit-all-view');
+
+            if (!name) {
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.style.display = "block";
+                    statusEl.textContent = "⚠️ Please enter your Full Name in the Student Identification box before submitting.";
+                }
+                document.getElementById("student-name")?.focus();
+                return;
+            }
+
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.trim() === "") {
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.style.display = "block";
+                    statusEl.innerHTML = "⚠️ <strong>Google Script Webhook URL not configured yet.</strong><br>The instructor can paste the Web App URL into <code>GOOGLE_SCRIPT_URL</code> in this file, or you can click <strong>'Download Summary (JSON)'</strong> to save your results.";
+                }
+                return;
+            }
+
+            const payload = buildResultsPayload();
+
+            if (btnSubmit) btnSubmit.disabled = true;
+            if (statusEl) {
+                statusEl.className = "submit-status-msg submit-status-loading";
+                statusEl.style.display = "block";
+                statusEl.textContent = "⏳ Submitting answers to instructor...";
+            }
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-success";
+                    statusEl.innerHTML = "✅ <strong>Results successfully registered!</strong> Thank you for participating.";
+                }
+            } catch (err) {
+                console.error("Submission error:", err);
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.innerHTML = "❌ Could not send results directly. Please click <strong>'Download Summary (JSON)'</strong> to save your results file.";
+                }
+            } finally {
+                if (btnSubmit) btnSubmit.disabled = false;
+            }
+        }
+
+        function downloadResultsJSON() {
+            const payload = buildResultsPayload();
+            const safeName = (payload.name || "student").replace(/[^a-z0-9_-]/gi, "_");
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ELEC0447_${QUIZ_CONFIG.quiz_id}_${safeName}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         function renderMath() {

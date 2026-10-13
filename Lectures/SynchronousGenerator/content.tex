@@ -53,7 +53,7 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{center}
-        \includegraphics[height=0.45\textheight,keepaspectratio]{images/stator_field.jpg}\\
+        \resizebox{0.95\linewidth}{!}{\input{images/stator_field.tex}}\\
         \vspace{0.1cm}
         \tiny Field from direct current in one stator winding
       \end{center}
@@ -73,7 +73,7 @@
     \end{column}
     \begin{column}{0.4\textwidth}
       \begin{center}
-        \includegraphics[height=0.5\textheight,keepaspectratio]{images/layout_phases.jpg}\\
+        \resizebox{0.95\linewidth}{!}{\input{images/layout_phases.tex}}\\
         \vspace{0.1cm}
         \tiny Three-phase winding layout (single turn shown)
       \end{center}
@@ -109,7 +109,7 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{center}
-        \includegraphics[height=0.55\textheight,keepaspectratio]{images/rotor_field.jpg}\\
+        \resizebox{0.95\linewidth}{!}{\input{images/rotor_field.tex}}\\
         \vspace{0.1cm}
         \tiny Magnetic field produced by rotor field winding
       \end{center}
@@ -119,7 +119,7 @@
 
 \begin{frame}{Interaction between fields \& electromechanical conversion}
   \begin{columns}
-    \begin{column}{0.55\textwidth}
+    \begin{column}{0.5\textwidth}
       \begin{itemize}\setlength{\itemsep}{2pt}\small
         \item In steady state, the rotor rotates at the exact same angular speed $\omega$ as the stator magnetic field: \textbf{synchronism}.
         \item Therefore, the stator and rotor magnetic fields are stationary with respect to each other.
@@ -128,9 +128,9 @@
         \item There exists a maximum torque $T_{e,\max}$ beyond which synchronism is lost.
       \end{itemize}
     \end{column}
-    \begin{column}{0.45\textwidth}
+    \begin{column}{0.48\textwidth}
       \begin{center}
-        \includegraphics[width=\linewidth,height=0.45\textheight,keepaspectratio]{images/interaction_fields.jpg}\\
+        \resizebox{\linewidth}{!}{\input{images/interaction_fields.tex}}\\
         \vspace{0.1cm}
         \small Mechanical analogy: generator mode $\leftrightarrow$ motor mode
       \end{center}
@@ -156,7 +156,7 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{center}
-        \includegraphics[height=0.46\textheight,keepaspectratio]{images/several_poles.jpg}\\
+        \resizebox{0.92\linewidth}{!}{\input{images/several_poles.tex}}\\
         \vspace{0.1cm}
         \small Example: $p = 2$ ($4$ poles, $n = 1500\text{ rpm}$)
       \end{center}

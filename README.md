@@ -26,11 +26,11 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | | | [Exercises on sinusoidal steady-state analysis (TP1)](Exercises/ELEC0447_exercise_manual.pdf#page=3) (Section 1) |
 | September 24 | 2 | [3-phase systems, per unit normalization](Lectures/ThreePhaseAndPu/main.pdf) |
 | | | [Exercises on 3-phase systems, per unit normalization (TP2)](Exercises/ELEC0447_exercise_manual.pdf#page=7) (Section 2) |
-| October 1 | 3 | [The transmission line](Lectures/TransmissionLine/main.pdf) |
-| | | [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf) |
+| October 1 | 3 | [The transmission line](Lectures/TransmissionLine/main.pdf) — **[Interactive Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transmission_lines.html)** ([local](Lectures/TransmissionLine/quiz_transmission_lines.html)) |
+| | | [Introduction to the power flow analysis](Lectures/IntroPowerFlow/main.pdf) — **[Interactive Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_power_flow.html)** ([local](Lectures/IntroPowerFlow/quiz_power_flow.html)) |
 | | | [Exercises on transmission lines (TP3)](Exercises/ELEC0447_exercise_manual.pdf#page=14) (Section 3) |
 | | | [Project 1: Two-feeder distribution network analysis with PandaPower](Projects/Project_1/ELEC0447_project1_2026.pdf) and [Data](Projects/Project_1/ELEC0447_project_1_2026_network.xlsx) |
-| October 8 | 4 | [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) |
+| October 8 | 4 | [The transformer and its inclusion in the power flow analysis](Lectures/TransfomerAndPF/main.pdf) — **[Interactive Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transformers.html)** ([local](Lectures/TransfomerAndPF/quiz_transformers.html)) |
 | | | [Exercises on transformers (TP4)](Exercises/ELEC0447_exercise_manual.pdf#page=20) (Section 4) |
 | October 15 | 5 | [The synchronous generator and the inclusion of generator limits in the power flow analysis](Lectures/SynchronousGenerator/main.pdf) |
 | | | [Exercises on synchronous machines (TP5)](Exercises/ELEC0447_exercise_manual.pdf#page=26) (Section 5) |
@@ -48,6 +48,20 @@ We use **eCampus** for announcements, discussion, homework submissions, and lect
 | December 10 | 11 | **Visit to Elia's national dispatch center** (presence is mandatory) |
 | December 17 | 12 | **Project 2 assessment** (presence is mandatory) |
 | January | — | Oral exam — [List of questions](Evaluation/ELEC0447_exam_questions.pdf) |
+
+### Interactive Self-Assessment Quizzes
+
+Web-based practice quizzes with step-by-step navigation, KaTeX math rendering, immediate feedback with detailed pedagogical analyses, and centralized grade submission:
+
+- ⚡ **Transmission Lines & Line Rating**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transmission_lines.html)** | [Source HTML](Lectures/TransmissionLine/quiz_transmission_lines.html)
+  - *Topics*: Conductor physics & skin effect, surge impedance loading (SIL), lumped $\pi$ model validity, catenary sag & ground clearances, Static vs. Dynamic Line Rating (SLR/DLR).
+- 🔄 **Power Flow Analysis**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_power_flow.html)** | [Source HTML](Lectures/IntroPowerFlow/quiz_power_flow.html)
+  - *Topics*: Bus classification (PQ, PV, Slack), nodal admittance matrix $\mathbf{Y}_{\text{bus}}$, Newton-Raphson quadratic convergence & sparsity, generator reactive limits ($Q_{\min}/Q_{\max}$), Fast Decoupled and DC linear power flow, and grid overload remediation.
+- ⚙️ **Transformers & Per-Unit Power Flow**: **[Online Quiz](https://people.montefiore.uliege.be/cornelusse/ELEC0447/quiz_transformers.html)** | [Source HTML](Lectures/TransfomerAndPF/quiz_transformers.html)
+  - *Topics*: IEC nameplate test data ($v_k\%, v_{kr}\%$), per-unit referral invariance, vector groups (Dyn11), auto-transformer core sizing ($k_{\text{size}}$), On-Load Tap Changers (OLTC), Phase-Shifting Transformers (PST quadrature boost), and two-port $\mathbf{Y}_{\text{bus}}$ matrix stamping.
+
+> **Configuring Centralized Google Sheet Submissions:**  
+> All quizzes submit to a single Google Apps Script endpoint. To collect student responses into your Google Sheet, follow the quick 2-minute setup instructions in [`Lectures/google_apps_script.js`](Lectures/google_apps_script.js) and update the `GOOGLE_SCRIPT_URL` constant. Submissions will automatically log to a master tab and to dedicated tabs per quiz.
 
 ### Extra Module: Usual Transforms in Power Systems (Self-Study / Reference)
 

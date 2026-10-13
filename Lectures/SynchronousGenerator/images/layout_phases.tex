@@ -1,0 +1,87 @@
+\providecolor{myRed}{RGB}{209,34,57}
+\providecolor{myBlue}{RGB}{28,90,160}
+\providecolor{myGreen}{RGB}{34,139,34}
+\providecolor{myOrange}{RGB}{210,105,15}
+\providecolor{statorIron}{RGB}{234,240,248}
+\providecolor{rotorIron}{RGB}{246,247,250}
+\providecolor{airGapCol}{RGB}{255,255,255}
+
+\begin{tikzpicture}[scale=0.75, >=Stealth, font=\small]
+
+  % Radii
+  \def\Rrotor{1.75}
+  \def\Rgap{2.20}
+  \def\Rstator{3.20}
+
+  % 1. Iron Cores
+  % Stator core
+  \fill[statorIron] (0,0) circle (\Rstator);
+  \fill[airGapCol] (0,0) circle (\Rgap);
+  
+  % Rotor core
+  \fill[rotorIron] (0,0) circle (\Rrotor);
+
+  % Boundaries
+  \draw[line width=1.0pt, black!75] (0,0) circle (\Rstator);
+  \draw[line width=0.75pt, black!70] (0,0) circle (\Rgap);
+  \draw[line width=0.75pt, black!70] (0,0) circle (\Rrotor);
+
+  % 2. Central Shaft
+  \draw[line width=0.65pt, black!70] (0,0) circle (0.24);
+  \draw[line width=0.65pt, black!70] (-0.17,-0.17) -- (0.17,0.17);
+  \draw[line width=0.65pt, black!70] (-0.17,0.17) -- (0.17,-0.17);
+
+  % 3. Stator 3-Phase Conductors (single turn: go & return)
+  % Phase a (Red): a at 180 deg, a' at 0 deg
+  \coordinate (Sa) at (180:{\Rgap+0.15});
+  \fill[white] (Sa) circle (3.8pt);
+  \draw[line width=1.0pt, myRed] (Sa) circle (3.8pt);
+  \node[left=3pt, font=\normalsize\bfseries, text=myRed] at (180:\Rstator) {$a$};
+
+  \coordinate (Saprime) at (0:{\Rgap+0.15});
+  \fill[white] (Saprime) circle (3.8pt);
+  \draw[line width=1.0pt, myRed] (Saprime) circle (3.8pt);
+  \node[right=3pt, font=\normalsize\bfseries, text=myRed] at (0:\Rstator) {$a'$};
+
+  % Phase b (Green): b at 300 deg (-60), b' at 120 deg
+  \coordinate (Sb) at (300:{\Rgap+0.15});
+  \fill[white] (Sb) circle (3.8pt);
+  \draw[line width=1.0pt, myGreen] (Sb) circle (3.8pt);
+  \node[below right=1pt, font=\normalsize\bfseries, text=myGreen] at (300:\Rstator) {$b$};
+
+  \coordinate (Sbprime) at (120:{\Rgap+0.15});
+  \fill[white] (Sbprime) circle (3.8pt);
+  \draw[line width=1.0pt, myGreen] (Sbprime) circle (3.8pt);
+  \node[above left=1pt, font=\normalsize\bfseries, text=myGreen] at (120:\Rstator) {$b'$};
+
+  % Phase c (Blue): c at 60 deg, c' at 240 deg
+  \coordinate (Sc) at (60:{\Rgap+0.15});
+  \fill[white] (Sc) circle (3.8pt);
+  \draw[line width=1.0pt, myBlue] (Sc) circle (3.8pt);
+  \node[above right=1pt, font=\normalsize\bfseries, text=myBlue] at (60:\Rstator) {$c$};
+
+  \coordinate (Scprime) at (240:{\Rgap+0.15});
+  \fill[white] (Scprime) circle (3.8pt);
+  \draw[line width=1.0pt, myBlue] (Scprime) circle (3.8pt);
+  \node[below left=1pt, font=\normalsize\bfseries, text=myBlue] at (240:\Rstator) {$c'$};
+
+  % 4. Rotor Field Winding Conductors (Orange/Copper)
+  % Cross at 45 deg (into page)
+  \coordinate (Rf_cross) at (45:1.25);
+  \fill[white] (Rf_cross) circle (4.0pt);
+  \draw[line width=0.75pt, myOrange!85!black] (Rf_cross) circle (4.0pt);
+  \draw[line width=0.75pt, myOrange!85!black] ($(Rf_cross)+(-2.4pt,-2.4pt)$) -- ($(Rf_cross)+(2.4pt,2.4pt)$);
+  \draw[line width=0.75pt, myOrange!85!black] ($(Rf_cross)+(-2.4pt,2.4pt)$) -- ($(Rf_cross)+(2.4pt,-2.4pt)$);
+
+  % Dot at 225 deg (out of page)
+  \coordinate (Rf_dot) at (225:1.25);
+  \fill[white] (Rf_dot) circle (4.0pt);
+  \draw[line width=0.75pt, myOrange!85!black] (Rf_dot) circle (4.0pt);
+  \fill[myOrange!85!black] (Rf_dot) circle (2.0pt);
+  \fill[white] (Rf_dot) circle (0.7pt);
+
+  % 5. Rotor Pole Labels
+  \node[font=\large\bfseries, text=myRed!85!black] at (135:1.15) {N};
+  \node[font=\large\bfseries, text=myBlue!85!black] at (315:1.15) {S};
+
+\end{tikzpicture}

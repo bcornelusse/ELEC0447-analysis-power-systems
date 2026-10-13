@@ -1,0 +1,104 @@
+\providecolor{myRed}{RGB}{209,34,57}
+\providecolor{myBlue}{RGB}{28,90,160}
+\providecolor{myGreen}{RGB}{34,139,34}
+\providecolor{myOrange}{RGB}{210,105,15}
+\providecolor{statorIron}{RGB}{234,240,248}
+\providecolor{rotorIron}{RGB}{246,247,250}
+\providecolor{airGapCol}{RGB}{255,255,255}
+
+\begin{tikzpicture}[scale=0.54, >=Stealth, font=\small]
+
+  \def\Rrot{1.55}
+  \def\Rstat{2.45}
+
+  % ====================================================
+  % PANEL (a): GENERATOR MODE
+  % ====================================================
+  \begin{scope}[shift={(0,0)}]
+    % Iron cores
+    \fill[statorIron] (0,0) circle (\Rstat);
+    \fill[airGapCol] (0,0) circle (\Rrot);
+    \fill[rotorIron] (0,0) circle (\Rrot);
+
+    % Boundaries
+    \draw[line width=1.0pt, black!75] (0,0) circle (\Rstat);
+    \draw[line width=0.8pt, black!70] (0,0) circle (\Rrot);
+
+    % Labels
+    \node[font=\footnotesize\bfseries, text=black!75] at (0, -0.6) {ROTOR};
+    \node[font=\footnotesize\bfseries, text=black!75] at (0, -2.85) {STATOR};
+    \node[font=\scriptsize\bfseries, text=myBlue!90!black] at (0, -3.35) {Generator mode};
+
+    % Speed of rotation omega (counterclockwise in air gap)
+    \draw[->, line width=0.8pt, black!85] (-45:{\Rrot+0.55}) arc[start angle=-45, end angle=-5, radius={\Rrot+0.55}];
+    %\draw[line width=0.5pt, black!50] (-50:{\Rrot+0.25}) arc[start angle=-50, end angle=-15, radius={\Rrot+0.25}];
+    \node[font=\small] at (-28:{\Rrot+0.28}) {$\omega$};
+
+    % Spring: connects Rotor dot at 65 deg to Stator dot at 28 deg
+    % Rotor is ahead of Stator!
+    \coordinate (RotPtG) at (65:\Rrot);
+    \coordinate (StatPtG) at (28:\Rstat);
+
+    \draw[line width=0.95pt, myRed!90!black,
+          decorate, decoration={zigzag, segment length=4.5pt, amplitude=3.2pt, pre length=3pt, post length=3pt}]
+      (RotPtG) -- (StatPtG);
+
+    \fill[black] (RotPtG) circle (2.2pt);
+    \fill[black] (StatPtG) circle (2.2pt);
+
+    % Torques on Rotor:
+    % Tm (driving forward CCW)
+    \draw[->, line width=1.0pt, myOrange] (85:{\Rrot-0.35}) arc[start angle=85, end angle=145, radius={\Rrot-0.35}];
+    \node[font=\small\bfseries, text=myOrange] at (115:{\Rrot-0.73}) {$T_m$};
+
+    % Te (electromagnetic resisting CW)
+    \draw[->, line width=1.0pt, myBlue] (55:{\Rrot-0.35}) arc[start angle=55, end angle=-5, radius={\Rrot-0.35}];
+    \node[font=\small\bfseries, text=myBlue] at (25:{\Rrot-0.73}) {$T_e$};
+  \end{scope}
+
+  % ====================================================
+  % PANEL (b): MOTOR MODE
+  % ====================================================
+  \begin{scope}[shift={(5.8,0)}]
+    % Iron cores
+    \fill[statorIron] (0,0) circle (\Rstat);
+    \fill[airGapCol] (0,0) circle (\Rrot);
+    \fill[rotorIron] (0,0) circle (\Rrot);
+
+    % Boundaries
+    \draw[line width=1.0pt, black!75] (0,0) circle (\Rstat);
+    \draw[line width=0.8pt, black!70] (0,0) circle (\Rrot);
+
+    % Labels
+    \node[font=\footnotesize\bfseries, text=black!75] at (0, -0.6) {ROTOR};
+    \node[font=\footnotesize\bfseries, text=black!75] at (0, -2.85) {STATOR};
+    \node[font=\scriptsize\bfseries, text=myBlue!90!black] at (0, -3.35) {Motor mode};
+
+    % Speed of rotation omega (counterclockwise in air gap)
+    \draw[->, line width=0.8pt, black!85] (-65:{\Rrot+0.55}) arc[start angle=-65, end angle=-25, radius={\Rrot+0.55}];
+    %\draw[line width=0.5pt, black!50] (-70:{\Rrot+0.25}) arc[start angle=-70, end angle=-35, radius={\Rrot+0.25}];
+    \node[font=\small] at (-48:{\Rrot+0.28}) {$\omega$};
+
+    % Spring: connects Rotor dot at -15 deg to Stator dot at 25 deg
+    % Stator is ahead of Rotor!
+    \coordinate (RotPtM) at (-15:\Rrot);
+    \coordinate (StatPtM) at (25:\Rstat);
+
+    \draw[line width=0.95pt, myRed!90!black,
+          decorate, decoration={zigzag, segment length=4.5pt, amplitude=3.2pt, pre length=3pt, post length=3pt}]
+      (RotPtM) -- (StatPtM);
+
+    \fill[black] (RotPtM) circle (2.2pt);
+    \fill[black] (StatPtM) circle (2.2pt);
+
+    % Torques on Rotor:
+    % Te (driving forward CCW)
+    \draw[->, line width=1.0pt, myBlue] (85:{\Rrot-0.35}) arc[start angle=85, end angle=145, radius={\Rrot-0.35}];
+    \node[font=\small\bfseries, text=myBlue] at (115:{\Rrot-0.73}) {$T_e$};
+
+    % Tm (mechanical load resisting CW)
+    \draw[->, line width=1.0pt, myOrange] (55:{\Rrot-0.35}) arc[start angle=55, end angle=-5, radius={\Rrot-0.35}];
+    \node[font=\small\bfseries, text=myOrange] at (25:{\Rrot-0.73}) {$T_m$};
+  \end{scope}
+
+\end{tikzpicture}

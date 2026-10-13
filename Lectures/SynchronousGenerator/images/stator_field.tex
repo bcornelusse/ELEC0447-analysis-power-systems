@@ -1,0 +1,134 @@
+\providecolor{myRed}{RGB}{209,34,57}
+\providecolor{myBlue}{RGB}{28,90,160}
+\providecolor{myGreen}{RGB}{34,139,34}
+\providecolor{myOrange}{RGB}{210,105,15}
+\providecolor{statorIron}{RGB}{234,240,248}
+\providecolor{rotorIron}{RGB}{246,247,250}
+\providecolor{airGapCol}{RGB}{255,255,255}
+\providecolor{fluxCol}{RGB}{20,80,165}
+\providecolor{slotColor}{RGB}{248,242,235}
+
+\begin{tikzpicture}[scale=1, >=Stealth, font=\small]
+
+  % Geometry parameters
+  \def\Rrotor{1.75}
+  \def\Rgap{2.20}
+  \def\Rstator{3.40}
+
+  % 1. Iron Cores
+  \fill[statorIron] (0,0) circle (\Rstator);
+  \fill[airGapCol] (0,0) circle (\Rgap);
+  \fill[rotorIron] (0,0) circle (\Rrotor);
+
+  % Slot regions shading
+  \fill[slotColor] (32:\Rgap) arc[start angle=32, end angle=148, radius=\Rgap] 
+    -- (148:\Rgap+0.32) arc[start angle=148, end angle=32, radius=\Rgap+0.32] -- cycle;
+  \fill[slotColor] (-32:\Rgap) arc[start angle=-32, end angle=-148, radius=\Rgap] 
+    -- (-148:\Rgap+0.32) arc[start angle=-148, end angle=-32, radius=\Rgap+0.32] -- cycle;
+
+  % Boundaries
+  \draw[line width=1.1pt, black!75] (0,0) circle (\Rstator);
+  \draw[line width=0.8pt, black!70] (0,0) circle (\Rgap);
+  \draw[line width=0.8pt, black!70] (0,0) circle (\Rrotor);
+
+  % Slot outlines
+  \draw[line width=0.55pt, black!55] (32:\Rgap) -- (32:\Rgap+0.32) arc[start angle=32, end angle=148, radius=\Rgap+0.32] -- (148:\Rgap);
+  \draw[line width=0.55pt, black!55] (-32:\Rgap) -- (-32:\Rgap+0.32) arc[start angle=-32, end angle=-148, radius=\Rgap+0.32] -- (-148:\Rgap);
+
+  % 2. Magnetic Flux Lines
+  % Center line along axis
+  \draw[line width=0.6pt, fluxCol] (-\Rgap, 0) -- (\Rgap, 0);
+  \draw[line width=0.6pt, fluxCol, ->] (0, 0) -- (0.08, 0);
+  \draw[line width=0.6pt, fluxCol, ->] (\Rrotor, 0) -- ({(\Rrotor+\Rgap)/2 + 0.05}, 0);
+  \draw[line width=0.6pt, fluxCol, ->] (-\Rgap, 0) -- ({-(\Rrotor+\Rgap)/2 + 0.05}, 0);
+
+  % 7 nested symmetrical pairs covering the full depth of the stator yoke
+  \foreach \dAng/\Rapex in {
+    4/3.28,
+    8/3.17,
+    12/3.06,
+    16/2.95,
+    20/2.84,
+    24/2.73,
+    28/2.62
+  } {
+    \coordinate (RentryR) at (\dAng:\Rrotor);
+    \coordinate (RgapR)   at (\dAng:\Rgap);
+    \coordinate (RentryL) at ({180-\dAng}:\Rrotor);
+    \coordinate (RgapL)   at ({180-\dAng}:\Rgap);
+
+    % Upper half (y > 0)
+    % Radial air gap segment (strictly perpendicular to iron surface) with arrow
+    \draw[line width=0.6pt, fluxCol, ->] (RentryR) -- (\dAng:{(\Rrotor+\Rgap)/2 + 0.04});
+    \draw[line width=0.6pt, fluxCol] (\dAng:{(\Rrotor+\Rgap)/2}) -- (RgapR);
+
+    \draw[line width=0.6pt, fluxCol, <-] (RentryL) -- ({180-\dAng}:{(\Rrotor+\Rgap)/2 - 0.04});
+    \draw[line width=0.6pt, fluxCol] ({180-\dAng}:{(\Rrotor+\Rgap)/2}) -- (RgapL);
+
+    % Rotor core horizontal segment
+    \draw[line width=0.6pt, fluxCol] (RentryL) -- (RentryR);
+    \pgfmathsetmacro{\yRot}{\Rrotor * sin(\dAng)}
+    \draw[line width=0.6pt, fluxCol, ->] (-0.05, \yRot) -- (0.08, \yRot);
+
+    % Stator yoke return loop
+    \coordinate (ApexU) at (90:\Rapex);
+    \pgfmathsetmacro{\tanLen}{\Rapex * cos(\dAng) * 0.52}
+    \pgfmathsetmacro{\entryLen}{(\Rapex - \Rgap) * 0.55 + 0.15}
+    \draw[line width=0.6pt, fluxCol]
+      (RgapR) .. controls ($(RgapR) + (\dAng:\entryLen)$) and ($(ApexU) + (0:\tanLen)$) .. (ApexU)
+      .. controls ($(ApexU) + (180:\tanLen)$) and ($(RgapL) + ({180-\dAng}:\entryLen)$) .. (RgapL);
+
+    % Lower half (y < 0)
+    \coordinate (RentryRL) at (-\dAng:\Rrotor);
+    \coordinate (RgapRL)   at (-\dAng:\Rgap);
+    \coordinate (RentryLL) at ({-180+\dAng}:\Rrotor);
+    \coordinate (RgapLL)   at ({-180+\dAng}:\Rgap);
+
+    \draw[line width=0.6pt, fluxCol, ->] (RentryRL) -- (-\dAng:{(\Rrotor+\Rgap)/2 + 0.04});
+    \draw[line width=0.6pt, fluxCol] (-\dAng:{(\Rrotor+\Rgap)/2}) -- (RgapRL);
+
+    \draw[line width=0.6pt, fluxCol, <-] (RentryLL) -- ({-180+\dAng}:{(\Rrotor+\Rgap)/2 - 0.04});
+    \draw[line width=0.6pt, fluxCol] ({-180+\dAng}:{(\Rrotor+\Rgap)/2}) -- (RgapLL);
+
+    \draw[line width=0.6pt, fluxCol] (RentryLL) -- (RentryRL);
+    \draw[line width=0.6pt, fluxCol, ->] (-0.05, -\yRot) -- (0.08, -\yRot);
+
+    \coordinate (ApexL) at (-90:\Rapex);
+    \draw[line width=0.6pt, fluxCol]
+      (RgapRL) .. controls ($(RgapRL) + (-\dAng:\entryLen)$) and ($(ApexL) + (0:\tanLen)$) .. (ApexL)
+      .. controls ($(ApexL) + (180:\tanLen)$) and ($(RgapLL) + ({-180+\dAng}:\entryLen)$) .. (RgapLL);
+  }
+
+  % 3. Conductors in stator slots
+  \foreach \a in {38, 49, 60, 71, 82, 98, 109, 120, 131, 142} {
+    \coordinate (C) at (\a:{\Rgap+0.16});
+    \fill[white] (C) circle (2.6pt);
+    \draw[line width=0.55pt, myRed!85!black] (C) circle (2.6pt);
+    \fill[myRed!90!black] (C) circle (1.0pt);
+  }
+  \foreach \a in {-38, -49, -60, -71, -82, -98, -109, -120, -131, -142} {
+    \coordinate (C) at (\a:{\Rgap+0.16});
+    \fill[white] (C) circle (2.6pt);
+    \draw[line width=0.55pt, myBlue!85!black] (C) circle (2.6pt);
+    \draw[line width=0.55pt, myBlue!85!black] ($(C)+(-1.4pt,-1.4pt)$) -- ($(C)+(1.4pt,1.4pt)$);
+    \draw[line width=0.55pt, myBlue!85!black] ($(C)+(-1.4pt,1.4pt)$) -- ($(C)+(1.4pt,-1.4pt)$);
+  }
+
+  % 4. Winding Axis
+  \draw[dashed, line width=0.55pt, black!65] (-3.5, 0) -- (3.5, 0) 
+    node[right=1pt, font=\scriptsize, align=left] {axis of stator\\winding};
+
+  % Point P at angle 50 deg
+  \draw[dashed, line width=0.5pt, black!60] (0,0) -- (50:3.65);
+  \fill[black] (50:{\Rgap+0.08}) circle (1.8pt) node[left=1.5pt, font=\scriptsize] {P};
+
+  % Angle phi arc
+  \draw[->, line width=0.5pt, dashed, black!75] (0:3.15) arc[start angle=0, end angle=50, radius=3.15];
+  \node[font=\footnotesize] at (25:3.45) {$\varphi$};
+
+  % 5. Annotations
+  \draw[dashed, line width=0.5pt, black!65, ->] (-3.2, -1.2) node[left=1pt, font=\scriptsize] {rotor} -- (-1.1, -0.5);
+  \draw[dashed, line width=0.5pt, black!65, ->] (3.2, -1.7) node[right=1pt, font=\tiny, align=left] {air gap\\[-2pt](width exaggerated)\\[-2pt]to other dimensions} -- (2.0, -0.6);
+  \draw[dashed, line width=0.5pt, black!65, ->] (3.2, -0.8) node[right=1pt, font=\scriptsize] {stator} -- (2.7, -0.7);
+
+\end{tikzpicture}

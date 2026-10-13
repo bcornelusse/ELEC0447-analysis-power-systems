@@ -1,0 +1,177 @@
+\providecolor{myRed}{RGB}{209,34,57}
+\providecolor{myBlue}{RGB}{28,90,160}
+\providecolor{myGreen}{RGB}{34,139,34}
+\providecolor{myOrange}{RGB}{210,105,15}
+\providecolor{statorIron}{RGB}{234,240,248}
+\providecolor{rotorIron}{RGB}{246,247,250}
+\providecolor{airGapCol}{RGB}{255,255,255}
+
+\begin{tikzpicture}[scale=0.72, >=Stealth, font=\small]
+
+  \def\RstatOut{3.30}
+  \def\RstatIn{2.45}
+
+  % 1. Stator Iron Core
+  \fill[statorIron] (0,0) circle (\RstatOut);
+  \fill[airGapCol] (0,0) circle (\RstatIn);
+  \draw[line width=1.0pt, black!75] (0,0) circle (\RstatOut);
+  \draw[line width=0.75pt, black!70] (0,0) circle (\RstatIn);
+
+  % 2. Rotor Hub
+  \fill[rotorIron] (0,0) circle (0.85);
+
+  % Salient Poles (4 poles at 45, 135, 225, 315 deg)
+  \foreach \p in {45, 135, 225, 315} {
+    \begin{scope}[rotate=\p]
+      \fill[rotorIron] 
+        (-0.32, 0.75) -- (-0.32, 1.45) 
+        .. controls (-0.60, 1.55) and (-0.75, 1.70) .. (-0.72, 1.95)
+        .. controls (-0.40, 2.12) and (0.40, 2.12) .. (0.72, 1.95)
+        .. controls (0.75, 1.70) and (0.60, 1.55) .. (0.32, 1.45)
+        -- (0.32, 0.75) -- cycle;
+
+      \draw[line width=0.8pt, black!75]
+        (-0.32, 0.75) -- (-0.32, 1.45) 
+        .. controls (-0.60, 1.55) and (-0.75, 1.70) .. (-0.72, 1.95)
+        .. controls (-0.40, 2.12) and (0.40, 2.12) .. (0.72, 1.95)
+        .. controls (0.75, 1.70) and (0.60, 1.55) .. (0.32, 1.45)
+        -- (0.32, 0.75);
+    \end{scope}
+  }
+
+  % Hub boundary curves between poles
+  \foreach \p in {45, 135, 225, 315} {
+    \draw[line width=0.8pt, black!75] ({\p+22}:0.85) arc[start angle={\p+22}, end angle={\p+90-22}, radius=0.85];
+  }
+
+  % 3. Concentrated Field Coils & Polarity Labels
+  % Pole N at 135 deg:
+  \begin{scope}[rotate=135]
+    % Right coil (cross)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (-0.52, 0.95) rectangle (-0.32, 1.42);
+    \draw[line width=0.55pt, myOrange!85!black] (-0.48, 1.02) -- (-0.36, 1.35);
+    \draw[line width=0.55pt, myOrange!85!black] (-0.48, 1.35) -- (-0.36, 1.02);
+    
+    % Left coil (dot)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (0.32, 0.95) rectangle (0.52, 1.42);
+    \fill[myOrange!85!black] (0.42, 1.185) circle (1.8pt);
+    \fill[white] (0.42, 1.185) circle (0.6pt);
+
+    \node[font=\large\bfseries, text=myRed!85!black] at (0, 1.55) {N};
+  \end{scope}
+
+  % Pole S at 45 deg:
+  \begin{scope}[rotate=45]
+    % Right coil (dot)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (-0.52, 0.95) rectangle (-0.32, 1.42);
+    \fill[myOrange!85!black] (-0.42, 1.185) circle (1.8pt);
+    \fill[white] (-0.42, 1.185) circle (0.6pt);
+
+    % Left coil (cross)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (0.32, 0.95) rectangle (0.52, 1.42);
+    \draw[line width=0.55pt, myOrange!85!black] (0.36, 1.02) -- (0.48, 1.35);
+    \draw[line width=0.55pt, myOrange!85!black] (0.36, 1.35) -- (0.48, 1.02);
+
+    \node[font=\large\bfseries, text=myBlue!85!black] at (0, 1.55) {S};
+  \end{scope}
+
+  % Pole S at 225 deg:
+  \begin{scope}[rotate=225]
+    % Right coil (dot)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (-0.52, 0.95) rectangle (-0.32, 1.42);
+    \fill[myOrange!85!black] (-0.42, 1.185) circle (1.8pt);
+    \fill[white] (-0.42, 1.185) circle (0.6pt);
+
+    % Left coil (cross)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (0.32, 0.95) rectangle (0.52, 1.42);
+    \draw[line width=0.55pt, myOrange!85!black] (0.36, 1.02) -- (0.48, 1.35);
+    \draw[line width=0.55pt, myOrange!85!black] (0.36, 1.35) -- (0.48, 1.02);
+
+    \node[font=\large\bfseries, text=myBlue!85!black] at (0, 1.55) {S};
+  \end{scope}
+
+  % Pole N at 315 deg:
+  \begin{scope}[rotate=315]
+    % Right coil (cross)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (-0.52, 0.95) rectangle (-0.32, 1.42);
+    \draw[line width=0.55pt, myOrange!85!black] (-0.48, 1.02) -- (-0.36, 1.35);
+    \draw[line width=0.55pt, myOrange!85!black] (-0.48, 1.35) -- (-0.36, 1.02);
+
+    % Left coil (dot)
+    \draw[line width=0.55pt, myOrange!85!black, fill=white] (0.32, 0.95) rectangle (0.52, 1.42);
+    \fill[myOrange!85!black] (0.42, 1.185) circle (1.8pt);
+    \fill[white] (0.42, 1.185) circle (0.6pt);
+
+    \node[font=\large\bfseries, text=myRed!85!black] at (0, 1.55) {N};
+  \end{scope}
+
+  % 4. Center Shaft
+  \draw[line width=0.65pt, black!70] (0,0) circle (0.24);
+  \draw[line width=0.65pt, black!70] (-0.17,-0.17) -- (0.17,0.17);
+  \draw[line width=0.65pt, black!70] (-0.17,0.17) -- (0.17,-0.17);
+
+  % 5. Stator 12 Conductors (Color-coded by phase)
+  % Phase a (Red): 0 (a), 90 (a'), 180 (a), 270 (a')
+  \coordinate (C_a0) at (0:{\RstatIn+0.05});
+  \fill[white] (C_a0) circle (3.4pt);
+  \draw[line width=1.0pt, myRed] (C_a0) circle (3.4pt);
+  \node[right=2pt, font=\small\bfseries, text=myRed] at (0:\RstatOut) {$a$};
+
+  \coordinate (C_ap90) at (90:{\RstatIn+0.05});
+  \fill[white] (C_ap90) circle (3.4pt);
+  \draw[line width=1.0pt, myRed] (C_ap90) circle (3.4pt);
+  \node[above=2pt, font=\small\bfseries, text=myRed] at (90:\RstatOut) {$a'$};
+
+  \coordinate (C_a180) at (180:{\RstatIn+0.05});
+  \fill[white] (C_a180) circle (3.4pt);
+  \draw[line width=1.0pt, myRed] (C_a180) circle (3.4pt);
+  \node[left=2pt, font=\small\bfseries, text=myRed] at (180:\RstatOut) {$a$};
+
+  \coordinate (C_ap270) at (270:{\RstatIn+0.05});
+  \fill[white] (C_ap270) circle (3.4pt);
+  \draw[line width=1.0pt, myRed] (C_ap270) circle (3.4pt);
+  \node[below=2pt, font=\small\bfseries, text=myRed] at (270:\RstatOut) {$a'$};
+
+  % Phase b (Green): 60 (b), 150 (b'), 240 (b), 330 (b')
+  \coordinate (C_b60) at (60:{\RstatIn+0.05});
+  \fill[white] (C_b60) circle (3.4pt);
+  \draw[line width=1.0pt, myGreen] (C_b60) circle (3.4pt);
+  \node[above right=1pt, font=\small\bfseries, text=myGreen] at (60:\RstatOut) {$b$};
+
+  \coordinate (C_bp150) at (150:{\RstatIn+0.05});
+  \fill[white] (C_bp150) circle (3.4pt);
+  \draw[line width=1.0pt, myGreen] (C_bp150) circle (3.4pt);
+  \node[above left=1pt, font=\small\bfseries, text=myGreen] at (150:\RstatOut) {$b'$};
+
+  \coordinate (C_b240) at (240:{\RstatIn+0.05});
+  \fill[white] (C_b240) circle (3.4pt);
+  \draw[line width=1.0pt, myGreen] (C_b240) circle (3.4pt);
+  \node[below left=1pt, font=\small\bfseries, text=myGreen] at (240:\RstatOut) {$b$};
+
+  \coordinate (C_bp330) at (330:{\RstatIn+0.05});
+  \fill[white] (C_bp330) circle (3.4pt);
+  \draw[line width=1.0pt, myGreen] (C_bp330) circle (3.4pt);
+  \node[below right=1pt, font=\small\bfseries, text=myGreen] at (330:\RstatOut) {$b'$};
+
+  % Phase c (Blue): 30 (c'), 120 (c), 210 (c'), 300 (c)
+  \coordinate (C_cp30) at (30:{\RstatIn+0.05});
+  \fill[white] (C_cp30) circle (3.4pt);
+  \draw[line width=1.0pt, myBlue] (C_cp30) circle (3.4pt);
+  \node[above right=1pt, font=\small\bfseries, text=myBlue] at (30:\RstatOut) {$c'$};
+
+  \coordinate (C_c120) at (120:{\RstatIn+0.05});
+  \fill[white] (C_c120) circle (3.4pt);
+  \draw[line width=1.0pt, myBlue] (C_c120) circle (3.4pt);
+  \node[above left=1pt, font=\small\bfseries, text=myBlue] at (120:\RstatOut) {$c$};
+
+  \coordinate (C_cp210) at (210:{\RstatIn+0.05});
+  \fill[white] (C_cp210) circle (3.4pt);
+  \draw[line width=1.0pt, myBlue] (C_cp210) circle (3.4pt);
+  \node[below left=1pt, font=\small\bfseries, text=myBlue] at (210:\RstatOut) {$c'$};
+
+  \coordinate (C_c300) at (300:{\RstatIn+0.05});
+  \fill[white] (C_c300) circle (3.4pt);
+  \draw[line width=1.0pt, myBlue] (C_c300) circle (3.4pt);
+  \node[below right=1pt, font=\small\bfseries, text=myBlue] at (300:\RstatOut) {$c$};
+
+\end{tikzpicture}

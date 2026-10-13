@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEC0447 - Power Flow Analysis Quiz</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX CSS & JS for crisp LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMath()"></script>
+
+    <style>
+        :root {
+            --primary: #00843B;         /* ULiège / Trigon Green */
+            --primary-dark: #00632b;
+            --primary-light: #e8f5e9;
+            --accent: #f07f3c;          /* Trigon Orange */
+            --accent-light: #fff3e0;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #00843B 0%, #005a27 100%);
+            color: white;
+            padding: 32px 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .course-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #a7f3d0;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header-desc {
+            font-size: 0.95rem;
+            color: #d1fae5;
+            max-width: 760px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 960px;
+            margin: -20px auto 0;
+            padding: 0 20px;
+        }
+
+        /* Student Identity Card */
+        .identity-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .identity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .identity-title {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .identity-desc {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .identity-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 13px;
+            font-size: 0.92rem;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 132, 59, 0.15);
+        }
+
+        /* Controls & Stats Bar */
+        .toolbar {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .stats-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-bar-container {
+            width: 140px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .select-filter {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            background: white;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 3px;
+            border-radius: 8px;
+            gap: 2px;
+        }
+
+        .view-btn {
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Quiz Card */
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .quiz-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .q-text {
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: #fcfdfc;
+            transform: translateX(4px);
+        }
+
+        .opt-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .opt-text {
+            flex-grow: 1;
+            padding-top: 2px;
+        }
+
+        /* States */
+        .option-item.correct {
+            border-color: var(--success);
+            background: var(--success-bg);
+            color: #065f46;
+        }
+        .option-item.correct .opt-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-item.wrong {
+            border-color: var(--danger);
+            background: var(--danger-bg);
+            color: #991b1b;
+        }
+        .option-item.wrong .opt-letter {
+            background: var(--danger);
+            color: white;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 20px;
+            padding: 16px 20px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explanation-content {
+            font-size: 0.92rem;
+            color: #334155;
+            line-height: 1.55;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Step-by-step Navigation */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .nav-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-btn.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Result Banner */
+        .summary-card {
+            background: white;
+            border-radius: var(--radius);
+            border: 2px solid var(--primary);
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .summary-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .summary-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .btn-restart {
+            padding: 10px 24px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-restart:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Submission Section */
+        .submit-section {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 22px auto 0;
+            max-width: 580px;
+            text-align: left;
+        }
+
+        .submit-section-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .submit-btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-download {
+            padding: 10px 16px;
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-download:hover {
+            background: #f1f5f9;
+        }
+
+        .submit-status-msg {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            display: none;
+        }
+
+        .submit-status-success {
+            background: var(--success-bg);
+            border: 1px solid var(--success);
+            color: #065f46;
+        }
+
+        .submit-status-error {
+            background: var(--danger-bg);
+            border: 1px solid var(--danger);
+            color: #991b1b;
+        }
+
+        .submit-status-loading {
+            background: #e0f2fe;
+            border: 1px solid #38bdf8;
+            color: #0369a1;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 640px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .stats-group {
+                justify-content: space-between;
+            }
+            .progress-bar-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div>
+                <div class="course-tag">ELEC0447 • Analysis of Electric Power Systems</div>
+                <h1>Power Flow Analysis Quiz</h1>
+                <p class="header-desc">
+                    Interactive practice quiz testing power flow formulations, bus classifications (PQ, PV, Slack), 
+                    nodal admittance matrix $\mathbf{Y}_{\text{bus}}$, Newton-Raphson quadratic convergence, 
+                    Fast Decoupled &amp; DC approximations, and grid overload diagnosis.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Participant Identity Card -->
+        <div class="identity-card" id="identity-box">
+            <div class="identity-header">
+                <div class="identity-title">
+                    <span>👤 Student Identification</span>
+                </div>
+            </div>
+            <p class="identity-desc">
+                Enter your details to register your quiz score in the instructor's grade sheet upon completion.
+            </p>
+            <div class="identity-grid">
+                <div class="form-group">
+                    <label for="student-name">Full Name (Nom &amp; Prénom)</label>
+                    <input type="text" id="student-name" class="form-input" placeholder="e.g. Marie Curie">
+                </div>
+                <div class="form-group">
+                    <label for="student-email">ULiège Email or Student ID</label>
+                    <input type="text" id="student-email" class="form-input" placeholder="e.g. mcurie@student.uliege.be">
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="stats-group">
+                <div class="stat-item">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="score-display">0 / 0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Progress</span>
+                    <span class="stat-value" id="progress-text">0%</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="topic-select">Topic:</label>
+                <select id="topic-select" class="select-filter">
+                    <option value="all">All Topics (15 questions)</option>
+                    <option value="Problem Formulation &amp; Bus Classification">Bus Types &amp; Formulations</option>
+                    <option value="Nodal Admittance Matrix Ybus">Nodal Matrix Y_bus</option>
+                    <option value="Newton-Raphson Method &amp; Convergence">Newton-Raphson &amp; Jacobian</option>
+                    <option value="Fast Decoupled &amp; DC Power Flow">Decoupled &amp; DC Flow</option>
+                    <option value="Grid Diagnosis &amp; Remediation">Diagnosis &amp; Overloads</option>
+                </select>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" id="btn-view-step" onclick="setViewMode('step')">Step-by-step</button>
+                <button class="view-btn" id="btn-view-all" onclick="setViewMode('all')">All Questions</button>
+            </div>
+        </div>
+
+        <!-- Summary Card (shown at end of step mode) -->
+        <div id="summary-card" class="summary-card">
+            <div class="score-circle" id="summary-percent">100%</div>
+            <h2 class="summary-title" id="summary-headline">Excellent Work!</h2>
+            <p class="summary-text" id="summary-detail">You answered 15 out of 15 questions correctly.</p>
+
+            <!-- Submission Section in Summary -->
+            <div class="submit-section" id="submit-section">
+                <div class="submit-section-title">
+                    <span>📤 Register &amp; Submit Results to Instructor</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                    Send your verified results directly to the course Google Sheet or export a JSON summary.
+                </p>
+                <div class="submit-btn-group">
+                    <button class="btn-submit" id="btn-submit-results" onclick="submitResultsToGoogle('submit-status')">
+                        🚀 Submit Answers
+                    </button>
+                    <button class="btn-download" id="btn-download-results" onclick="downloadResultsJSON()">
+                        💾 Download Summary (JSON)
+                    </button>
+                </div>
+                <div id="submit-status" class="submit-status-msg"></div>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <button class="btn-restart" onclick="restartQuiz()">Restart Quiz</button>
+            </div>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="quiz-container"></div>
+
+        <!-- Bottom Submission Card for All-Questions View -->
+        <div id="all-view-submit-card" class="identity-card" style="display: none; margin-top: 24px; text-align: center;">
+            <h3 style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 6px;">Finished Answering?</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">
+                Submit your quiz answers to the instructor's spreadsheet or download your results report.
+            </p>
+            <div class="submit-btn-group" style="justify-content: center;">
+                <button class="btn-submit" id="btn-submit-all-view" onclick="submitResultsToGoogle('submit-status-all')">
+                    🚀 Submit Answers to Instructor
+                </button>
+                <button class="btn-download" onclick="downloadResultsJSON()">
+                    💾 Download Summary (JSON)
+                </button>
+                <button class="btn-restart" onclick="restartQuiz()" style="padding: 10px 18px; font-size: 0.88rem;">
+                    Restart Quiz
+                </button>
+            </div>
+            <div id="submit-status-all" class="submit-status-msg" style="max-width: 580px; margin: 12px auto 0;"></div>
+        </div>
+
+        <!-- Step Navigation Controls -->
+        <div id="step-nav" class="nav-controls">
+            <button class="nav-btn" id="btn-prev" onclick="changeQuestion(-1)" disabled>&larr; Previous</button>
+            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);" id="q-counter-text">Question 1 of 12</span>
+            <button class="nav-btn primary" id="btn-next" onclick="changeQuestion(1)">Next &rarr;</button>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // Instructor Configuration: Unified Google Apps Script Webhook
+        // =========================================================================
+        // Paste your deployed Google Apps Script Web App URL below (see Lectures/google_apps_script.js):
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8je0JsdjMqN8JmkE6Qi-jw1w8c4ILChxpRkUkYDlCvX-MuJxwgGzdyXw0kMF1pdWaiQ/exec"; 
+
+        const QUIZ_CONFIG = {
+            course: "ELEC0447",
+            quiz_id: "power_flow",
+            quiz_title: "Power Flow Analysis"
+        };
+
+        const questions = [
+  {
+    "id": "Q01",
+    "title": "Q01: Non-Linearity of the Power Flow Problem",
+    "category": "Problem Formulation & Bus Classification",
+    "question": "Why cannot the steady-state electrical state of an AC power network be found directly using standard linear circuit theory ($\\mathbf{\\bar{I}} = \\mathbf{Y}_{\\text{bus}} \\mathbf{\\bar{V}} \\implies \\mathbf{\\bar{V}} = \\mathbf{Y}_{\\text{bus}}^{-1} \\mathbf{\\bar{I}}$)?",
+    "options": [
+      "Because overhead line conductors experience magnetic saturation that dynamically alters series reactance under nominal current loading.",
+      "Because network boundary conditions are specified in active and reactive power, making nodal current injections non-linear in bus voltages.",
+      "Because the nodal admittance matrix $\\mathbf{Y}_{\\text{bus}}$ is always singular and mathematically impossible to invert for physical power grids.",
+      "Because grid frequency fluctuates continuously around 50 Hz, which prevents steady-state phasor representations from being formulated."
+    ],
+    "correct": 1,
+    "explanation": "In standard linear nodal analysis, network boundary conditions are given as independent current or voltage sources. In power systems, loads and generators specify active and reactive powers ($P, Q$). The resulting injected currents $\\bar{I}_k = (S_k / \\bar{V}_k)^*$ depend non-linearly on unknown complex voltages, producing non-linear algebraic equations with quadratic voltage terms and trigonometric functions of phase differences.",
+    "distractor_feedbacks": [
+      "Incorrect. Overhead transmission lines operate well below saturation; their series impedances are modeled as linear constants.",
+      "Correct! Power injections ($S = \\bar{V}\\bar{I}^*$) make current injections non-linear functions of voltage magnitudes and phase angles.",
+      "Incorrect. $\\mathbf{Y}_{\\text{bus}}$ is invertible once shunt elements or voltage boundary conditions ground the system.",
+      "Incorrect. Static power flow analysis explicitly assumes a constant synchronous nominal system frequency."
+    ]
+  },
+  {
+    "id": "Q02",
+    "title": "Q02: Necessity of an Angular Datum (Slack Bus)",
+    "category": "Problem Formulation & Bus Classification",
+    "question": "Why is an angular reference ($\\theta_{\\text{slack}} = 0^\\circ$) mathematically required in the AC power flow problem?",
+    "options": [
+      "Because branch power transfers depend solely on voltage phase angle differences, leaving absolute phase angles undetermined without a reference.",
+      "Because the Newton-Raphson iteration algorithm would otherwise produce complex eigenvalues that trigger numerical oscillations in active power.",
+      "Because setting an arbitrary reference angle ensures that all transmission lines operate strictly below their surge impedance loading threshold.",
+      "Because zeroing the reference bus angle forces total active power transmission losses to zero across the entire high-voltage transmission grid."
+    ],
+    "correct": 0,
+    "explanation": "Power transfer between any two buses depends exclusively on the angular difference $\\theta_k - \\theta_m$. If a constant angle offset were added to every bus, all voltages, line currents, and power transfers would remain identical. To remove this degree of freedom and make the Jacobian non-singular, one bus is designated as the slack bus with its phase angle pinned to $\\theta_{\\text{slack}} = 0^\\circ$.",
+    "distractor_feedbacks": [
+      "Correct! Branch power flows depend only on angular differences ($\\theta_k - \\theta_m$), requiring one bus to anchor the angular coordinate system.",
+      "Incorrect. Eigenvalues and oscillations relate to small-signal dynamic stability, not the static algebraic indeterminacy of absolute angles.",
+      "Incorrect. Surge impedance loading is an electromagnetic property of lines, completely unrelated to the mathematical angular reference.",
+      "Incorrect. Setting the reference angle does not eliminate physical Joule losses on lines."
+    ]
+  },
+  {
+    "id": "Q03",
+    "title": "Q03: System Loss Balance at the Slack Bus",
+    "category": "Problem Formulation & Bus Classification",
+    "question": "Why can the active power generation $P_G$ of the slack bus not be fixed in advance before solving the power flow?",
+    "options": [
+      "Because national grid codes mandate that the slack generator must supply all industrial consumers located within its local control area.",
+      "Because fixing active power at the slack generator would cause its terminal voltage magnitude to collapse below acceptable statutory limits.",
+      "Because total transmission Joule losses depend on line currents and voltages that are unknown before the power flow converges.",
+      "Because the mechanical governor of the slack turbine operates only in open loop without any active power setpoint during steady state."
+    ],
+    "correct": 2,
+    "explanation": "In an AC network, total generation must equal total demand plus transmission Joule losses: $\\sum P_G = \\sum P_L + P_{\\text{loss}}(\\mathbf{V})$. Because line currents and losses ($P_{\\text{loss}} = \\sum R_{km} I_{km}^2$) depend non-linearly on bus voltages, total system losses cannot be known beforehand. The slack generator provides the variable buffer needed to supply the unknown residual losses once all bus voltages are solved.",
+    "distractor_feedbacks": [
+      "Incorrect. Grid codes define operational boundaries, but the slack active power indeterminacy is a mathematical consequence of unknown grid losses.",
+      "Incorrect. Voltage magnitude at the slack bus is a fixed input ($V_{\\text{slack}} = 1.0\\text{ pu}$); active power does not cause voltage collapse.",
+      "Correct! Because transmission losses depend on line currents that are only known after convergence, one generator must balance residual losses.",
+      "Incorrect. Power flow is a static calculation; dynamic governor open-loop behavior is not the reason."
+    ]
+  },
+  {
+    "id": "Q04",
+    "title": "Q04: Count of State Unknowns at PQ and PV Buses",
+    "category": "Problem Formulation & Bus Classification",
+    "question": "In an $n$-bus power network containing $n_{PQ}$ PQ buses, $n_{PV}$ PV buses, and 1 slack bus, what is the exact number of unknown state variables?",
+    "options": [
+      "$2n$ unknowns: both voltage magnitude $V_k$ and phase angle $\\theta_k$ must be iteratively calculated at every bus in the network.",
+      "$n_{PQ} + n_{PV}$ unknowns: only voltage phase angles $\\theta_k$ are updated during iterative power flow calculations.",
+      "$2n - 1$ unknowns: all voltage magnitudes and angles are solved except for the reference angle at the slack generator bus.",
+      "$2n_{PQ} + n_{PV}$ unknowns: $(V_k, \\theta_k)$ at all PQ buses and $\\theta_k$ at all PV buses, with slack variables fixed as inputs."
+    ],
+    "correct": 3,
+    "explanation": "At each PQ bus, $P_k$ and $Q_k$ are specified; the unknowns are $V_k$ and $\\theta_k$ ($2 \\times n_{PQ}$). At each PV bus, $P_k$ and $V_k$ are specified; the only unknown is $\\theta_k$ ($1 \\times n_{PV}$). At the slack bus, both $V_{\\text{slack}}$ and $\\theta_{\\text{slack}}$ are specified boundary conditions. Thus, the unknown state vector $\\mathbf{x} = [\\boldsymbol{\\theta}_{PQ, PV}^T, \\mathbf{V}_{PQ}^T]^T$ has dimension $2n_{PQ} + n_{PV}$.",
+    "distractor_feedbacks": [
+      "Incorrect. Voltage magnitudes at PV buses and at the slack bus are fixed parameters, not unknown variables.",
+      "Incorrect. Voltage magnitudes at PQ buses are unknown and must be iteratively solved alongside phase angles.",
+      "Incorrect. This forgets that voltage magnitudes at PV buses are already specified setpoints.",
+      "Correct! Each PQ bus contributes 2 unknowns ($V_k, \\theta_k$) and each PV bus contributes 1 unknown ($\\theta_k$), giving $2n_{PQ} + n_{PV}$."
+    ]
+  },
+  {
+    "id": "Q05",
+    "title": "Q05: Stamping Rules for the Admittance Matrix Ybus",
+    "category": "Nodal Admittance Matrix Ybus",
+    "question": "How are the diagonal ($Y_{kk}$) and off-diagonal ($Y_{km}$) elements of $\\mathbf{Y}_{\\text{bus}}$ formed from branch admittances $\\bar{y}_{km}$ and shunt elements $Y_{kG}$?",
+    "options": [
+      "$Y_{kk} = 1 / \\sum \\bar{z}_{km}$ as the reciprocal of total branch impedance, and off-diagonal $Y_{km} = +\\bar{y}_{km}$ as direct branch series admittance.",
+      "$Y_{kk} = \\sum_{m \\neq k} (-\\bar{y}_{km})$ as negative sum of series admittances, and off-diagonal $Y_{km} = Y_{kG} + \\bar{y}_{km}$ as total mutual branch admittance.",
+      "$Y_{kk} = Y_{kG} + \\sum_{m \\neq k} \\bar{y}_{km}$ as sum of incident admittances, and off-diagonal $Y_{km} = -\\bar{y}_{km}$ as negative series admittance.",
+      "$Y_{kk} = Y_{kG}$ as local ground shunt admittance alone, and off-diagonal $Y_{km} = -\\bar{y}_{km} / 2$ as half the line series branch admittance."
+    ],
+    "correct": 2,
+    "explanation": "Applying KCL at bus $k$: $\\bar{I}_k = Y_{kG}\\bar{V}_k + \\sum_{m \\ne k} \\bar{y}_{km}(\\bar{V}_k - \\bar{V}_m) = (Y_{kG} + \\sum_{m \\ne k} \\bar{y}_{km})\\bar{V}_k + \\sum_{m \\ne k}(-\\bar{y}_{km})\\bar{V}_m$. Consequently, diagonal entry $Y_{kk}$ equals the sum of all branch admittances and shunt elements connected to bus $k$, while off-diagonal entry $Y_{km} = -\\bar{y}_{km}$ equals the negative of the series admittance between bus $k$ and bus $m$.",
+    "distractor_feedbacks": [
+      "Incorrect. Admittances in parallel add directly; one does not invert the sum of branch impedances.",
+      "Incorrect. Diagonal elements are positive sums of incident admittances, and off-diagonal entries have negative signs.",
+      "Correct! $Y_{kk}$ is the sum of all admittances connected to bus $k$, and $Y_{km} = -\\bar{y}_{km}$.",
+      "Incorrect. Series branch admittances connect bus $k$ to adjacent buses and must be included in the diagonal $Y_{kk}$."
+    ]
+  },
+  {
+    "id": "Q06",
+    "title": "Q06: Polar Power Injection Equations",
+    "category": "Nodal Admittance Matrix Ybus",
+    "question": "In polar coordinates ($\\bar{V}_k = V_k e^{j\\theta_k}$, $Y_{km} = G_{km} + j B_{km}$), which expression defines the net active power injection $P_k$ at bus $k$?",
+    "options": [
+      "$P_k = V_k \\sum_{m=1}^n V_m (G_{km}\\cos\\theta_{km} + B_{km}\\sin\\theta_{km})$, where $\\theta_{km} = \\theta_k - \\theta_m$ is the phase difference between buses.",
+      "$P_k = V_k \\sum_{m=1}^n V_m (G_{km}\\sin\\theta_{km} - B_{km}\\cos\\theta_{km})$, where $\\theta_{km} = \\theta_k - \\theta_m$ is the phase difference between buses.",
+      "$P_k = \\sum_{m=1}^n (V_k - V_m)^2 G_{km}$, where active power injection is governed strictly by voltage drops across branch conductances.",
+      "$P_k = V_k^2 G_{kk} + \\sum_{m \\neq k} V_m B_{km} \\theta_{km}$, where trigonometric coupling is replaced by direct linear angular differences."
+    ],
+    "correct": 0,
+    "explanation": "From complex power $S_k = P_k + j Q_k = \\bar{V}_k \\bar{I}_k^* = V_k e^{j\\theta_k} \\sum_m (G_{km} - j B_{km}) V_m e^{-j\\theta_m} = \\sum_m V_k V_m (\\cos\\theta_{km} + j\\sin\\theta_{km})(G_{km} - j B_{km})$. Taking the real part yields $P_k = V_k \\sum_m V_m (G_{km}\\cos\\theta_{km} + B_{km}\\sin\\theta_{km})$, while the imaginary part gives $Q_k = V_k \\sum_m V_m (G_{km}\\sin\\theta_{km} - B_{km}\\cos\\theta_{km})$.",
+    "distractor_feedbacks": [
+      "Correct! This is the exact fundamental AC active power injection equation in polar coordinates.",
+      "Incorrect. This expression corresponds to reactive power injection $Q_k$, not active power $P_k$.",
+      "Incorrect. This only accounts for series ohmic resistance across branches, missing complex bus cross-products.",
+      "Incorrect. This confuses the exact polar AC equation with linearized DC approximations."
+    ]
+  },
+  {
+    "id": "Q07",
+    "title": "Q07: Newton-Raphson Jacobian Submatrix Structure",
+    "category": "Newton-Raphson Method & Convergence",
+    "question": "How is the Newton-Raphson power flow Jacobian matrix $\\mathbf{J}$ partitioned into submatrix blocks of partial derivatives?",
+    "options": [
+      "$\\mathbf{J} = \\begin{bmatrix} \\partial \\mathbf{P}/\\partial\\boldsymbol{\\theta} & \\partial \\mathbf{P}/\\partial\\mathbf{V} \\\\ \\partial \\mathbf{Q}/\\partial\\boldsymbol{\\theta} & \\partial \\mathbf{Q}/\\partial\\mathbf{V} \\end{bmatrix}$, coupling active and reactive mismatches to state updates.",
+      "$\\mathbf{J} = \\begin{bmatrix} \\mathbf{G}_{\\text{bus}} & -\\mathbf{B}_{\\text{bus}} \\\\ \\mathbf{B}_{\\text{bus}} & \\mathbf{G}_{\\text{bus}} \\end{bmatrix}$, reflecting conductive and susceptive admittance properties.",
+      "$\\mathbf{J} = \\begin{bmatrix} \\text{diag}(\\partial P_k/\\partial\\theta_k) & \\mathbf{0} \\\\ \\mathbf{0} & \\text{diag}(\\partial Q_k/\\partial V_k) \\end{bmatrix}$, neglecting all branch mutual couplings.",
+      "$\\mathbf{J} = \\begin{bmatrix} \\mathbf{R}_{\\text{bus}} & \\mathbf{X}_{\\text{bus}} \\\\ -\\mathbf{X}_{\\text{bus}} & \\mathbf{R}_{\\text{bus}} \\end{bmatrix}$, derived from loop impedance matrix formulations."
+    ],
+    "correct": 0,
+    "explanation": "The Newton-Raphson method linearizes active and reactive power mismatch functions around current iterates: $[\\Delta \\mathbf{P}, \\Delta \\mathbf{Q}]^T = \\mathbf{J} [\\Delta \\boldsymbol{\\theta}, \\Delta \\mathbf{V}]^T$. The Jacobian $\\mathbf{J}$ is partitioned into four partial derivative blocks: $\\mathbf{J}_{P\\theta} = \\partial \\mathbf{P}/\\partial\\boldsymbol{\\theta}$, $\\mathbf{J}_{PV} = \\partial \\mathbf{P}/\\partial\\mathbf{V}$, $\\mathbf{J}_{Q\\theta} = \\partial \\mathbf{Q}/\\partial\\boldsymbol{\\theta}$, and $\\mathbf{J}_{QV} = \\partial \\mathbf{Q}/\\partial\\mathbf{V}$.",
+    "distractor_feedbacks": [
+      "Correct! $\\mathbf{J}$ is partitioned into $\\mathbf{J}_{P\\theta}, \\mathbf{J}_{PV}, \\mathbf{J}_{Q\\theta}, \\mathbf{J}_{QV}$.",
+      "Incorrect. The Jacobian contains partial derivatives of non-linear power mismatch equations, not copies of $\\mathbf{Y}_{\\text{bus}}$.",
+      "Incorrect. Off-diagonal elements reflect transmission branches connecting adjacent buses and cannot be ignored in standard Newton-Raphson.",
+      "Incorrect. The Jacobian does not contain bus impedance matrix blocks."
+    ]
+  },
+  {
+    "id": "Q08",
+    "title": "Q08: Efficient Solution of the Newton-Raphson System",
+    "category": "Newton-Raphson Method & Convergence",
+    "question": "Why do professional power flow engines solve $\\mathbf{J}\\Delta\\mathbf{x} = -\\mathbf{f}$ using sparse LU factorization rather than explicitly computing $\\mathbf{J}^{-1}$?",
+    "options": [
+      "Because calculating $\\mathbf{J}^{-1}$ directly causes numerical overflow whenever bus voltage angles exceed $45^\\circ$ across long transmission corridors.",
+      "Because matrix inversion produces dense fill-in, destroying the high sparsity of $\\mathbf{J}$ and escalating computational cost to $\\mathcal{O}(n^3)$.",
+      "Because the Jacobian matrix is mathematically skew-symmetric, which prevents Gaussian elimination and standard matrix inversion algorithms.",
+      "Because sparse LU decomposition guarantees that power flow calculations converge in exactly one iteration regardless of system size."
+    ],
+    "correct": 1,
+    "explanation": "In physical power systems, each bus is typically connected to only 2 to 4 neighbors, meaning $\\mathbf{J}$ contains over $99\\%$ zeros in large grids. Computing $\\mathbf{J}^{-1}$ explicitly fills in nearly all zeros, requiring $\\mathcal{O}(n^2)$ memory and $\\mathcal{O}(n^3)$ operations. Sparse LU factorization with optimal bus ordering preserves sparsity, solving each iteration in only $\\mathcal{O}(n^{1.2})$ operations with minimal memory.",
+    "distractor_feedbacks": [
+      "Incorrect. Angular magnitudes do not cause numerical overflow in matrix inversion algorithms.",
+      "Correct! Explicit inversion causes dense fill-in ($\\mathcal{O}(n^3)$), whereas sparse LU decomposition preserves sparsity ($\\mathcal{O}(n^{1.2})$).",
+      "Incorrect. The power flow Jacobian is not skew-symmetric; its structure is determined by network topology.",
+      "Incorrect. LU decomposition is a linear system solver; it does not turn a non-linear problem into a single-iteration solver."
+    ]
+  },
+  {
+    "id": "Q09",
+    "title": "Q09: Concept and Purpose of a Flat Start",
+    "category": "Newton-Raphson Method & Convergence",
+    "question": "What initial operating state is chosen when initializing the Newton-Raphson power flow using a standard 'flat start'?",
+    "options": [
+      "All voltage magnitudes are set to zero ($V_k^{(0)} = 0\\text{ pu}$) and all voltage phase angles are initialized to $\\theta_k^{(0)} = 0^\\circ$.",
+      "All voltage magnitudes are randomized between 0.90 and 1.10 pu, and phase angles are drawn from a uniform distribution between $-\\pi$ and $+\\pi$.",
+      "All unknown voltage magnitudes are set to 1.0 pu (or regulated target $V_k^{\\text{spec}}$) and all phase angles are initialized to $\\theta_k^{(0)} = 0^\\circ$.",
+      "All generator active powers are doubled and load impedances are scaled down to establish an initial over-excited state across the network."
+    ],
+    "correct": 2,
+    "explanation": "A flat start initializes all phase angles to $\\theta_k^{(0)} = 0^\\circ$ and all unknown voltage magnitudes to $1.0\\text{ pu}$ (with PV buses initialized at their specified regulated targets $V_k^{\\text{spec}}$). Because physical transmission networks operate close to nominal voltage ($0.95\\text{--}1.05\\text{ pu}$) and angle differences are typically small ($< 15^\\circ$), the flat start provides a realistic initial guess well within the basin of attraction of the Newton-Raphson method.",
+    "distractor_feedbacks": [
+      "Incorrect. Initializing voltages to zero leads to a singular Jacobian matrix and division by zero in power mismatches.",
+      "Incorrect. Random initialization frequently falls outside the convergence basin, causing numerical divergence.",
+      "Correct! A flat start sets all angles to $0^\\circ$ and unknown voltages to $1.0\\text{ pu}$ (or specified target $V_k^{\\text{spec}}$).",
+      "Incorrect. Power injections are fixed problem parameters; they are never altered during algorithm initialization."
+    ]
+  },
+  {
+    "id": "Q10",
+    "title": "Q10: Newton-Raphson Quadratic Convergence Rate",
+    "category": "Newton-Raphson Method & Convergence",
+    "question": "How does the numerical error of the Newton-Raphson algorithm evolve from iteration to iteration once the state is close to the solution?",
+    "options": [
+      "Linearly: error decreases by a fixed constant fraction each iteration ($|e_{k+1}| \\le c |e_k|$), requiring 20 to 30 steps for convergence.",
+      "Logarithmically: error decreases rapidly during initial steps but slows drastically near the root ($|e_{k+1}| \\approx \\ln|e_k|$), risking stalls.",
+      "Sub-linearly: error oscillates periodically between positive and negative bounds without monotonic reduction in residual norms.",
+      "Quadratically: error satisfies $|e_{k+1}| \\le K |e_k|^2$, roughly doubling the number of correct decimal digits each step and converging in 3 to 5 iterations."
+    ],
+    "correct": 3,
+    "explanation": "Near a regular solution where the Jacobian is non-singular, Taylor series expansion demonstrates that the linear error term vanishes: $e_{k+1} \\approx \\frac{1}{2} \\mathbf{J}^{-1} \\mathbf{f}''(x^*) e_k^2$. This quadratic convergence implies that the number of significant digits roughly doubles at each iteration, allowing professional power flow solvers to reach tight tolerances ($10^{-5}$ or $10^{-6}$) in typically only 3 to 5 iterations.",
+    "distractor_feedbacks": [
+      "Incorrect. Linear convergence is characteristic of first-order gradient or Gauss-Seidel methods, not Newton-Raphson.",
+      "Incorrect. The error reduction does not follow a logarithmic slowing curve near the solution.",
+      "Incorrect. Newton-Raphson does not exhibit sub-linear oscillation when starting from a healthy flat start.",
+      "Correct! Quadratic convergence ($|e_{k+1}| \\le K |e_k|^2$) doubles significant digits each iteration, converging in 3 to 5 steps."
+    ]
+  },
+  {
+    "id": "Q11",
+    "title": "Q11: Physical Decoupling in High-Voltage Networks",
+    "category": "Fast Decoupled & DC Power Flow",
+    "question": "Which physical property of high-voltage transmission grids justifies decoupling active power-angle calculations from reactive power-voltage calculations?",
+    "options": [
+      "A very high resistance-to-reactance ratio ($R \\gg X$), which causes active power to depend primarily on voltage magnitude drops.",
+      "A very high reactance-to-resistance ratio ($X \\gg R$), which makes active power flow driven by angles and reactive power by voltages.",
+      "The complete absence of shunt capacitance across conductors, which eliminates all voltage-dependent charging currents from the network.",
+      "The presence of purely resistive consumer loads, which naturally decouples the reactive power balance equations from bus phase angles."
+    ],
+    "correct": 1,
+    "explanation": "High-voltage lines have thick conductors and wide conductor spacing, yielding $X/R$ ratios typically between 5 and 15 ($X \\gg R$). In inductive networks with small angular differences, $P \\sim (V_1 V_2 / X) \\sin\\theta_{12} \\implies \\partial P / \\partial\\theta \\gg \\partial P / \\partial V$, while $Q \\sim (V_1^2 - V_1 V_2 \\cos\\theta_{12}) / X \\implies \\partial Q / \\partial V \\gg \\partial Q / \\partial\\theta$. This physical reality allows cross-coupling Jacobian blocks to be neglected ($\\mathbf{J}_{PV} \\approx \\mathbf{0}, \\mathbf{J}_{Q\\theta} \\approx \\mathbf{0}$) in the Fast Decoupled Power Flow.",
+    "distractor_feedbacks": [
+      "Incorrect. High-voltage lines have $X \\gg R$, not $R \\gg X$ (the latter is typical of low-voltage distribution networks).",
+      "Correct! High $X/R$ ratio ($X \\gg R$) physically decouples $P\\text{--}\\theta$ relationships from $Q\\text{--}V$ relationships.",
+      "Incorrect. Transmission lines exhibit significant shunt capacitance, but high inductive series reactance is what drives decoupling.",
+      "Incorrect. Consumer loads consume substantial reactive power due to induction motors and transformers."
+    ]
+  },
+  {
+    "id": "Q12",
+    "title": "Q12: The Four DC Power Flow Assumptions",
+    "category": "Fast Decoupled & DC Power Flow",
+    "question": "Which combination of engineering assumptions defines the classical DC power flow model?",
+    "options": [
+      "Neglecting series reactance ($X=0$), allowing free voltage variations, assuming large angle spreads, and maximizing reactive power flow.",
+      "Replacing AC lines with ideal DC cables, setting frequency to zero, converting generators to DC dynamos, and removing transformers.",
+      "Neglecting resistance ($R \\ll X$), fixing voltages ($V_k \\approx 1\\text{ pu}$), assuming small angles ($\\sin\\theta \\approx \\theta$), and ignoring $Q$.",
+      "Assuming infinite surge impedance loading, setting identical bus angles ($\\theta_k = \\theta_m$), doubling losses, and freeing grid frequency."
+    ],
+    "correct": 2,
+    "explanation": "The DC power flow linearizes the AC power flow using 4 classical assumptions: (1) Line resistance is neglected compared to reactance ($R \\ll X \\implies R=0$, lossless network); (2) Voltage magnitudes remain close to nominal ($V_k \\approx 1.0\\text{ pu}$); (3) Voltage phase angle differences across lines are small ($\\sin\\theta_{km} \\approx \\theta_{km}$, $\\cos\\theta_{km} \\approx 1$); (4) Reactive power equations and line shunt charging are ignored entirely.",
+    "distractor_feedbacks": [
+      "Incorrect. Inductive reactance $X$ is the primary parameter governing power flow; it is never set to zero.",
+      "Incorrect. DC power flow is a linearized AC model, not a physical conversion to direct current.",
+      "Correct! Neglecting $R$, assuming $V \\approx 1.0\\text{ pu}$, linearizing $\\sin\\theta \\approx \\theta$, and omitting reactive power defines the DC power flow.",
+      "Incorrect. Setting $\\theta_k = \\theta_m$ would yield zero power flow across all transmission lines."
+    ]
+  },
+  {
+    "id": "Q13",
+    "title": "Q13: Mathematical Form and Applications of DC Power Flow",
+    "category": "Fast Decoupled & DC Power Flow",
+    "question": "What mathematical structure does the DC power flow problem take, and why is it ubiquitous in wholesale electricity markets?",
+    "options": [
+      "A non-linear optimization program solved by interior-point algorithms to establish dynamic reserve allocations during real-time dispatch.",
+      "A linear matrix equation ($\\mathbf{P} = \\mathbf{B}' \\boldsymbol{\\theta}$) guaranteeing a unique solution without non-convergence, ideal for MILP Unit Commitment.",
+      "A set of differential-algebraic equations solved via Runge-Kutta numerical integration to determine transient generator rotor angles.",
+      "A complex eigenvalue system solved by Arnoldi iteration to evaluate small-signal damping coefficients across interconnected power pools."
+    ],
+    "correct": 1,
+    "explanation": "Under the 4 DC assumptions, branch flows simplify to $P_{km} = (\\theta_k - \\theta_m)/X_{km} = B_{km}\\theta_{km}$, resulting in the linear matrix equation $\\mathbf{P} = \\mathbf{B}'\\boldsymbol{\\theta}$. Because this system is purely linear, it has a guaranteed unique solution and never suffers from convergence failure. This linearity allows transmission constraints to be embedded directly into Mixed-Integer Linear Programs (MILP) for Day-Ahead wholesale market clearing and fast $N-1$ contingency screening.",
+    "distractor_feedbacks": [
+      "Incorrect. DC power flow is strictly linear, not a non-linear optimization problem.",
+      "Correct! Linearity ($\\mathbf{P} = \\mathbf{B}'\\boldsymbol{\\theta}$) guarantees a unique solution and enables MILP wholesale market clearing and contingency analysis.",
+      "Incorrect. Differential-algebraic equations belong to dynamic time-domain simulation, not static power flow.",
+      "Incorrect. Small-signal modal analysis uses state-space eigenvalue techniques, not DC power flow."
+    ]
+  },
+  {
+    "id": "Q14",
+    "title": "Q14: Diagnosing Thermal Overloads with Good Voltage Profiles",
+    "category": "Grid Diagnosis & Remediation",
+    "question": "Why can a transmission corridor suffer severe thermal overloads even when all bus voltages remain well within acceptable limits (0.98 to 1.05 pu)?",
+    "options": [
+      "Because excessive reactive power transit inflates total apparent current ($I = \\sqrt{P^2 + Q^2} / (\\sqrt{3} V)$), consuming thermal capacity.",
+      "Because conductor thermal heating is governed strictly by active power losses, which are completely independent of line currents.",
+      "Because overhead line conductors expand thermally due to ambient solar radiation rather than the flow of electric current through the line.",
+      "Because automatic voltage regulators on synchronous generators artificially suppress thermal relay measurements during steady-state operation."
+    ],
+    "correct": 0,
+    "explanation": "A healthy voltage profile does not guarantee thermal safety. Conductor heating is determined by Joule losses ($3 R I^2$), where total line current is $I = S / (\\sqrt{3}V) = \\sqrt{P^2 + Q^2} / (\\sqrt{3}V)$. When large amounts of reactive power circulate through a line (e.g. 267 Mvar feeding an uncompensated inductive load), this reactive current consumes line thermal capacity and pushes the corridor into severe overload, even if terminal voltages are maintained near 1.0 pu by strong voltage-regulating generators.",
+    "distractor_feedbacks": [
+      "Correct! Line current is driven by total apparent power $S = \\sqrt{P^2 + Q^2}$; massive reactive transit causes thermal overloads even with good voltages.",
+      "Incorrect. Conductor heating is proportional to $I^2 R$; it depends directly on total current, not active power alone.",
+      "Incorrect. While solar radiation affects line rating, electric current produces the internal Joule heating that causes overloads.",
+      "Incorrect. Automatic voltage regulators control excitation voltage; they do not manipulate thermal measurement systems."
+    ]
+  },
+  {
+    "id": "Q15",
+    "title": "Q15: Operational Remediation of Reactive-Driven Line Overloads",
+    "category": "Grid Diagnosis & Remediation",
+    "question": "When a transmission line is overloaded due to large reactive power transit feeding an inductive load, what is the most effective localized operational remedy?",
+    "options": [
+      "Immediately shedding all residential consumer demand connected to the overloaded corridor to force total line current to zero.",
+      "Raising generator terminal voltage setpoints at the sending bus to 1.25 pu to drive more reactive power into the transmission corridor.",
+      "Re-conductoring the entire transmission corridor with high-temperature low-sag conductors as an emergency real-time switching action.",
+      "Connecting shunt capacitor compensation at the load bus, supplying reactive power locally to eliminate upstream transmission transit."
+    ],
+    "correct": 3,
+    "explanation": "When line overload is driven by reactive power demand (e.g. supplying 100 Mvar across multiple corridors), the most efficient and localized remediation is to provide reactive support directly at the load bus via shunt capacitors or FACTS. Supplying reactive power locally relieves the upstream transmission lines from carrying that reactive current, cutting line currents and Joule losses immediately. Raising sending voltage would worsen reactive transit, and load shedding is an extreme measure of last resort.",
+    "distractor_feedbacks": [
+      "Incorrect. Load shedding is a drastic emergency measure of last resort, not the primary operational response to reactive transit.",
+      "Incorrect. Increasing sending voltage would steepen the voltage gradient and exacerbate unwanted reactive power transit.",
+      "Incorrect. Re-conductoring requires months of civil works and capital investment; it is not an operational dispatch action.",
+      "Correct! Local shunt capacitor compensation supplies reactive power directly at the load, removing reactive transit from upstream lines."
+    ]
+  }
+];
+
+        let currentIdx = 0;
+        let viewMode = 'step'; // 'step' or 'all'
+        let userAnswers = {}; // { qIndex: selectedOptionIndex }
+        let score = 0;
+        let filteredIndices = questions.map((_, i) => i);
+
+        function initQuiz() {
+            initStudentIdentity();
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function initStudentIdentity() {
+            const nameInput = document.getElementById('student-name');
+            const emailInput = document.getElementById('student-email');
+            if (!nameInput || !emailInput) return;
+
+            const savedName = localStorage.getItem('elec0447_student_name');
+            const savedEmail = localStorage.getItem('elec0447_student_email');
+            if (savedName) nameInput.value = savedName;
+            if (savedEmail) emailInput.value = savedEmail;
+
+            nameInput.addEventListener('input', (e) => {
+                localStorage.setItem('elec0447_student_name', e.target.value.trim());
+            });
+            emailInput.addEventListener('input', (e) => {
+                localStorage.setItem('elec0447_student_email', e.target.value.trim());
+            });
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.getElementById('btn-view-step').classList.toggle('active', mode === 'step');
+            document.getElementById('btn-view-all').classList.toggle('active', mode === 'all');
+            document.getElementById('step-nav').style.display = (mode === 'step') ? 'flex' : 'none';
+            document.getElementById('summary-card').style.display = 'none';
+
+            const allSubmitCard = document.getElementById('all-view-submit-card');
+            if (allSubmitCard) {
+                allSubmitCard.style.display = (mode === 'all') ? 'block' : 'none';
+            }
+
+            renderQuestions();
+            updateNavigation();
+        }
+
+        document.getElementById('topic-select').addEventListener('change', (e) => {
+            const cat = e.target.value;
+            if (cat === 'all') {
+                filteredIndices = questions.map((_, i) => i);
+            } else {
+                filteredIndices = [];
+                questions.forEach((q, i) => {
+                    if (q.category === cat) filteredIndices.push(i);
+                });
+            }
+            currentIdx = 0;
+            renderQuestions();
+            updateNavigation();
+            updateStats();
+        });
+
+        function renderQuestions() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            if (filteredIndices.length === 0) {
+                container.innerHTML = '<div class="quiz-card"><p>No questions found in this category.</p></div>';
+                return;
+            }
+
+            const indicesToRender = (viewMode === 'step') 
+                ? [filteredIndices[currentIdx]] 
+                : filteredIndices;
+
+            indicesToRender.forEach((qIdx) => {
+                if (qIdx === undefined) return;
+                const q = questions[qIdx];
+                const answered = userAnswers.hasOwnProperty(qIdx);
+                const selectedOpt = userAnswers[qIdx];
+
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `card-${qIdx}`;
+
+                const letters = ['A', 'B', 'C', 'D'];
+                let optionsHtml = '';
+                q.options.forEach((opt, oIdx) => {
+                    let optClass = 'option-item';
+                    if (answered) {
+                        optClass += ' disabled';
+                        if (oIdx === q.correct) {
+                            optClass += ' correct';
+                        } else if (oIdx === selectedOpt) {
+                            optClass += ' wrong';
+                        }
+                    }
+
+                    optionsHtml += `
+                        <div class="${optClass}" onclick="handleSelect(${qIdx}, ${oIdx})">
+                            <span class="opt-letter">${letters[oIdx]}</span>
+                            <span class="opt-text">${opt}</span>
+                        </div>
+                    `;
+                });
+
+                const explanationStyle = answered ? 'display: block;' : 'display: none;';
+
+                card.innerHTML = `
+                    <div class="q-meta">
+                        <span class="q-badge">${q.id}</span>
+                        <span class="q-category">${q.category}</span>
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options-grid">
+                        ${optionsHtml}
+                    </div>
+                    <div class="explanation-box" id="exp-${qIdx}" style="${explanationStyle}">
+                        <div class="explanation-title">
+                            <span>Pedagogical Analysis &amp; Reference</span>
+                        </div>
+                        <div class="explanation-content">
+                            ${q.explanation}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleSelect(qIdx, optIdx) {
+            if (userAnswers.hasOwnProperty(qIdx)) return; // already answered
+
+            userAnswers[qIdx] = optIdx;
+            const q = questions[qIdx];
+            if (optIdx === q.correct) {
+                score++;
+            }
+
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function updateStats() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const total = questions.length;
+            const pct = Math.round((answeredCount / total) * 100);
+
+            document.getElementById('score-display').textContent = `${score} / ${answeredCount}`;
+            document.getElementById('progress-text').textContent = `${pct}%`;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+        }
+
+        function changeQuestion(delta) {
+            const newIdx = currentIdx + delta;
+            if (newIdx >= 0 && newIdx < filteredIndices.length) {
+                currentIdx = newIdx;
+                renderQuestions();
+                updateNavigation();
+            } else if (newIdx >= filteredIndices.length && viewMode === 'step') {
+                showSummary();
+            }
+        }
+
+        function updateNavigation() {
+            if (viewMode !== 'step') return;
+            const total = filteredIndices.length;
+            document.getElementById('btn-prev').disabled = (currentIdx === 0);
+            
+            const btnNext = document.getElementById('btn-next');
+            if (currentIdx === total - 1) {
+                btnNext.innerHTML = 'Finish &rarr;';
+            } else {
+                btnNext.innerHTML = 'Next &rarr;';
+            }
+            
+            document.getElementById('q-counter-text').textContent = `Question ${currentIdx + 1} of ${total}`;
+        }
+
+        function showSummary() {
+            document.getElementById('quiz-container').innerHTML = '';
+            document.getElementById('step-nav').style.display = 'none';
+            const card = document.getElementById('summary-card');
+            card.style.display = 'block';
+
+            const total = questions.length;
+            const pct = Math.round((score / total) * 100);
+            document.getElementById('summary-percent').textContent = `${pct}%`;
+            document.getElementById('summary-detail').textContent = `You correctly answered ${score} out of ${total} questions.`;
+
+            const headline = document.getElementById('summary-headline');
+            if (pct >= 85) headline.textContent = "Outstanding Mastery!";
+            else if (pct >= 60) headline.textContent = "Solid Understanding!";
+            else headline.textContent = "Review Recommended";
+
+            const statusEl = document.getElementById('submit-status');
+            if (statusEl) statusEl.style.display = 'none';
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            score = 0;
+            currentIdx = 0;
+            document.getElementById('summary-card').style.display = 'none';
+            if (viewMode === 'step') {
+                document.getElementById('step-nav').style.display = 'flex';
+            }
+            const statusEl1 = document.getElementById('submit-status');
+            if (statusEl1) statusEl1.style.display = 'none';
+            const statusEl2 = document.getElementById('submit-status-all');
+            if (statusEl2) statusEl2.style.display = 'none';
+
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function buildResultsPayload() {
+            const name = (document.getElementById('student-name')?.value || "").trim();
+            const email = (document.getElementById('student-email')?.value || "").trim();
+            const total = questions.length;
+            const answeredCount = Object.keys(userAnswers).length;
+            const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+
+            const detailedAnswers = questions.map((q, idx) => {
+                const userSel = userAnswers[idx];
+                const hasAnswered = userAnswers.hasOwnProperty(idx);
+                return {
+                    id: q.id,
+                    question_index: idx + 1,
+                    category: q.category,
+                    question: q.question,
+                    has_answered: hasAnswered,
+                    selected_index: hasAnswered ? userSel : null,
+                    selected_text: hasAnswered ? q.options[userSel] : "Not answered",
+                    correct_index: q.correct,
+                    correct_text: q.options[q.correct],
+                    is_correct: hasAnswered ? (userSel === q.correct) : false
+                };
+            });
+
+            return {
+                timestamp: new Date().toISOString(),
+                course: QUIZ_CONFIG.course,
+                quiz_id: QUIZ_CONFIG.quiz_id,
+                quiz_title: QUIZ_CONFIG.quiz_title,
+                name: name || "Anonymous",
+                email: email || "N/A",
+                score: score,
+                total: total,
+                answered: answeredCount,
+                percentage: pct,
+                answers: detailedAnswers
+            };
+        }
+
+        async function submitResultsToGoogle(statusElementId = "submit-status") {
+            const statusEl = document.getElementById(statusElementId);
+            const name = (document.getElementById("student-name")?.value || "").trim();
+            const btnSubmit = document.getElementById(statusElementId === 'submit-status' ? 'btn-submit-results' : 'btn-submit-all-view');
+
+            if (!name) {
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.style.display = "block";
+                    statusEl.textContent = "⚠️ Please enter your Full Name in the Student Identification box before submitting.";
+                }
+                document.getElementById("student-name")?.focus();
+                return;
+            }
+
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.trim() === "") {
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.style.display = "block";
+                    statusEl.innerHTML = "⚠️ <strong>Google Script Webhook URL not configured yet.</strong><br>The instructor can paste the Web App URL into <code>GOOGLE_SCRIPT_URL</code> in this file, or you can click <strong>'Download Summary (JSON)'</strong> to save your results.";
+                }
+                return;
+            }
+
+            const payload = buildResultsPayload();
+
+            if (btnSubmit) btnSubmit.disabled = true;
+            if (statusEl) {
+                statusEl.className = "submit-status-msg submit-status-loading";
+                statusEl.style.display = "block";
+                statusEl.textContent = "⏳ Submitting answers to instructor...";
+            }
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-success";
+                    statusEl.innerHTML = "✅ <strong>Results successfully registered!</strong> Thank you for participating.";
+                }
+            } catch (err) {
+                console.error("Submission error:", err);
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.innerHTML = "❌ Could not send results directly. Please click <strong>'Download Summary (JSON)'</strong> to save your results file.";
+                }
+            } finally {
+                if (btnSubmit) btnSubmit.disabled = false;
+            }
+        }
+
+        function downloadResultsJSON() {
+            const payload = buildResultsPayload();
+            const safeName = (payload.name || "student").replace(/[^a-z0-9_-]/gi, "_");
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ELEC0447_${QUIZ_CONFIG.quiz_id}_${safeName}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function renderMath() {
+            const target = document.getElementById('quiz-container') || document.body;
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(target, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '\\[', right: '\\]', display: true },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            } else {
+                setTimeout(renderMath, 60);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+\providecolor{myRed}{RGB}{209,34,57}
+\providecolor{myBlue}{RGB}{28,90,160}
+\providecolor{myGreen}{RGB}{34,139,34}
+\providecolor{myOrange}{RGB}{210,105,15}
+\providecolor{statorIron}{RGB}{234,240,248}
+\providecolor{rotorIron}{RGB}{246,247,250}
+\providecolor{airGapCol}{RGB}{255,255,255}
+\providecolor{fluxCol}{RGB}{20,80,165}
+
+\begin{tikzpicture}[scale=1, >=Stealth, font=\small]
+
+  % Geometry parameters
+  \def\Rrotor{1.75}
+  \def\Rgap{2.20}
+  \def\Rstator{3.40}
+  \def\tilt{22} % tilt angle of field winding axis in degrees
+
+  % 1. Iron Cores
+  \fill[statorIron] (0,0) circle (\Rstator);
+  \fill[airGapCol] (0,0) circle (\Rgap);
+  \fill[rotorIron] (0,0) circle (\Rrotor);
+
+  % Boundaries
+  \draw[line width=1.1pt, black!75] (0,0) circle (\Rstator);
+  \draw[line width=0.8pt, black!70] (0,0) circle (\Rgap);
+  \draw[line width=0.8pt, black!70] (0,0) circle (\Rrotor);
+
+  % 2. Magnetic Flux Lines
+  % 8 symmetrical nested loops on each side covering the full depth of the stator yoke
+  \foreach \dAng/\Rapex in {
+    6/3.28,
+    14/3.16,
+    22/3.04,
+    30/2.92,
+    38/2.80,
+    46/2.68,
+    54/2.56,
+    62/2.44
+  } {
+    \pgfmathsetmacro{\angNU}{\tilt + \dAng}
+    \pgfmathsetmacro{\angSU}{\tilt + 180 - \dAng}
+    \pgfmathsetmacro{\angNL}{\tilt - \dAng}
+    \pgfmathsetmacro{\angSL}{\tilt + 180 + \dAng}
+
+    % Upper radial air gap with arrow (strictly perpendicular to iron surfaces)
+    \draw[line width=0.6pt, fluxCol, ->] (\angNU:\Rrotor) -- (\angNU:{(\Rrotor+\Rgap)/2 + 0.04});
+    \draw[line width=0.6pt, fluxCol] (\angNU:{(\Rrotor+\Rgap)/2}) -- (\angNU:\Rgap);
+
+    \draw[line width=0.6pt, fluxCol, <-] (\angSU:\Rrotor) -- (\angSU:{(\Rrotor+\Rgap)/2 - 0.04});
+    \draw[line width=0.6pt, fluxCol] (\angSU:{(\Rrotor+\Rgap)/2}) -- (\angSU:\Rgap);
+
+    % Upper rotor: parallel straight line along field axis direction
+    \draw[line width=0.6pt, fluxCol] (\angSU:\Rrotor) -- (\angNU:\Rrotor);
+
+    % Upper stator loop
+    \coordinate (ApexU) at ({\tilt+90}:\Rapex);
+    \pgfmathsetmacro{\tanLen}{\Rapex * cos(\dAng) * 0.52}
+    \pgfmathsetmacro{\entryLen}{(\Rapex - \Rgap) * 0.55 + 0.15}
+    \draw[line width=0.6pt, fluxCol]
+      (\angNU:\Rgap) .. controls ($(\angNU:\Rgap) + (\angNU:\entryLen)$) and ($(ApexU) + (\tilt:\tanLen)$) .. (ApexU)
+      .. controls ($(ApexU) + ({\tilt+180}:\tanLen)$) and ($(\angSU:\Rgap) + (\angSU:\entryLen)$) .. (\angSU:\Rgap);
+
+    % Lower radial air gap with arrow
+    \draw[line width=0.6pt, fluxCol, ->] (\angNL:\Rrotor) -- (\angNL:{(\Rrotor+\Rgap)/2 + 0.04});
+    \draw[line width=0.6pt, fluxCol] (\angNL:{(\Rrotor+\Rgap)/2}) -- (\angNL:\Rgap);
+
+    \draw[line width=0.6pt, fluxCol, <-] (\angSL:\Rrotor) -- (\angSL:{(\Rrotor+\Rgap)/2 - 0.04});
+    \draw[line width=0.6pt, fluxCol] (\angSL:{(\Rrotor+\Rgap)/2}) -- (\angSL:\Rgap);
+
+    % Lower rotor: parallel straight line
+    \draw[line width=0.6pt, fluxCol] (\angSL:\Rrotor) -- (\angNL:\Rrotor);
+
+    % Lower stator loop
+    \coordinate (ApexL) at ({\tilt-90}:\Rapex);
+    \draw[line width=0.6pt, fluxCol]
+      (\angNL:\Rgap) .. controls ($(\angNL:\Rgap) + (\angNL:\entryLen)$) and ($(ApexL) + (\tilt:\tanLen)$) .. (ApexL)
+      .. controls ($(ApexL) + ({\tilt+180}:\tanLen)$) and ($(\angSL:\Rgap) + (\angSL:\entryLen)$) .. (\angSL:\Rgap);
+  }
+
+  % 3. Rotor Field Winding Slots (neat notches at tilt +/- 90 deg)
+  % Top slot at tilt + 90 = 112 deg (dot: current out of page)
+  \fill[rotorIron] ({\tilt+79}:{\Rrotor+0.01}) 
+    -- ({\tilt+79}:{\Rrotor-0.16}) 
+    arc[start angle={\tilt+79}, end angle={\tilt+101}, radius={\Rrotor-0.16}] 
+    -- ({\tilt+101}:{\Rrotor+0.01}) 
+    arc[start angle={\tilt+101}, end angle={\tilt+79}, radius={\Rrotor+0.01}] -- cycle;
+  \draw[line width=0.5pt, black!70] ({\tilt+79}:{\Rrotor}) 
+    -- ({\tilt+79}:{\Rrotor-0.16}) 
+    arc[start angle={\tilt+79}, end angle={\tilt+101}, radius={\Rrotor-0.16}] 
+    -- ({\tilt+101}:{\Rrotor});
+
+  \coordinate (SlotTop) at ({\tilt+90}:{\Rrotor-0.08});
+  \fill[white] (SlotTop) circle (3.0pt);
+  \draw[line width=0.6pt, myOrange!85!black] (SlotTop) circle (3.0pt);
+  \fill[myOrange!85!black] (SlotTop) circle (1.2pt);
+
+  % Bottom slot at tilt - 90 = -68 deg (cross: current into page)
+  \fill[rotorIron] ({\tilt-79}:{\Rrotor+0.01}) 
+    -- ({\tilt-79}:{\Rrotor-0.16}) 
+    arc[start angle={\tilt-79}, end angle={\tilt-101}, radius={\Rrotor-0.16}] 
+    -- ({\tilt-101}:{\Rrotor+0.01}) 
+    arc[start angle={\tilt-101}, end angle={\tilt-79}, radius={\Rrotor+0.01}] -- cycle;
+  \draw[line width=0.5pt, black!70] ({\tilt-79}:{\Rrotor}) 
+    -- ({\tilt-79}:{\Rrotor-0.16}) 
+    arc[start angle={\tilt-79}, end angle={\tilt-101}, radius={\Rrotor-0.16}] 
+    -- ({\tilt-101}:{\Rrotor});
+
+  \coordinate (SlotBot) at ({\tilt-90}:{\Rrotor-0.08});
+  \fill[white] (SlotBot) circle (3.0pt);
+  \draw[line width=0.6pt, myOrange!85!black] (SlotBot) circle (3.0pt);
+  \draw[line width=0.6pt, myOrange!85!black] ($(SlotBot)+(-1.8pt,-1.8pt)$) -- ($(SlotBot)+(1.8pt,1.8pt)$);
+  \draw[line width=0.6pt, myOrange!85!black] ($(SlotBot)+(-1.8pt,1.8pt)$) -- ($(SlotBot)+(1.8pt,-1.8pt)$);
+  \node[right=4pt, font=\normalsize\bfseries, text=myOrange!85!black] at (SlotBot) {$I_f$};
+
+  % 4. Axis of field winding
+  \draw[dashed, line width=0.55pt, black!65] ({\tilt+180}:3.6) -- (\tilt:3.6)
+    node[above right=-2pt, font=\scriptsize, align=left] {axis of field\\winding};
+
+  % 5. Labels & Pointers
+  \draw[dashed, line width=0.5pt, black!65, ->] (-3.1, 1.3) node[left=1pt, font=\scriptsize] {rotor} -- (-0.8, 0.8);
+  \draw[dashed, line width=0.5pt, black!65, ->] (3.0, -1.2) node[right=1pt, font=\scriptsize] {stator} -- (2.6, -0.6);
+
+\end{tikzpicture}
