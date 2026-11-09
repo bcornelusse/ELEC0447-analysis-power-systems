@@ -18,9 +18,13 @@ TL_SRC="$REPO_DIR/Lectures/TransmissionLine/quiz_transmission_lines.html"
 PF_SRC="$REPO_DIR/Lectures/IntroPowerFlow/quiz_power_flow.html"
 TR_SRC="$REPO_DIR/Lectures/TransfomerAndPF/quiz_transformers.html"
 SG_SRC="$REPO_DIR/Lectures/SynchronousGenerator/quiz_generators.html"
+FC_SRC="$REPO_DIR/Lectures/frequency_control/quiz_frequency_control.html"
+VS_SRC="$REPO_DIR/Lectures/voltage_stability/quiz_voltage_stability.html"
+TS_SRC="$REPO_DIR/Lectures/transient/quiz_transient_stability.html"
+HD_SRC="$REPO_DIR/Lectures/HVDC/quiz_hvdc.html"
 
 # Verify that all quiz source files exist
-for f in "$TL_SRC" "$PF_SRC" "$TR_SRC" "$SG_SRC"; do
+for f in "$TL_SRC" "$PF_SRC" "$TR_SRC" "$SG_SRC" "$FC_SRC" "$VS_SRC" "$TS_SRC" "$HD_SRC"; do
     if [ ! -f "$f" ]; then
         echo "❌ Error: Required file not found: $f" >&2
         exit 1
@@ -85,7 +89,7 @@ run_ssh_cmd ssh -o StrictHostKeyChecking=accept-new "${REMOTE_USER}@${REMOTE_HOS
 
 # Step 2: Upload quiz files directly into WWW/ELEC0447/
 echo "📤 Uploading quiz files..."
-run_ssh_cmd scp -o StrictHostKeyChecking=accept-new "$TL_SRC" "$PF_SRC" "$TR_SRC" "$SG_SRC" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
+run_ssh_cmd scp -o StrictHostKeyChecking=accept-new "$TL_SRC" "$PF_SRC" "$TR_SRC" "$SG_SRC" "$FC_SRC" "$VS_SRC" "$TS_SRC" "$HD_SRC" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
 
 # Step 3: Ensure files and directory are readable by the Apache web server
 echo "🔓 Setting web permissions (chmod -R a+rX ${REMOTE_DIR})..."
@@ -96,8 +100,12 @@ echo "==========================================================================
 echo "✅ Quizzes successfully uploaded!"
 echo "============================================================================="
 echo "Published quizzes are now accessible at:"
-echo "  👉 Transmission Lines:     https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_transmission_lines.html"
-echo "  👉 Power Flow:            https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_power_flow.html"
-echo "  👉 Transformers:          https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_transformers.html"
-echo "  👉 Synchronous Generators: https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_generators.html"
+echo "  👉 Transmission Lines:       https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_transmission_lines.html"
+echo "  👉 Power Flow:              https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_power_flow.html"
+echo "  👉 Transformers:            https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_transformers.html"
+echo "  👉 Synchronous Generators:   https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_generators.html"
+echo "  👉 Frequency Control:       https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_frequency_control.html"
+echo "  👉 Voltage Stability:       https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_voltage_stability.html"
+echo "  👉 Rotor Angle Stability:   https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_transient_stability.html"
+echo "  👉 HVDC & Grid Expansions:  https://people.montefiore.uliege.be/${REMOTE_USER}/ELEC0447/quiz_hvdc.html"
 echo "============================================================================="

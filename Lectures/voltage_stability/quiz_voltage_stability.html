@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEC0447 - Voltage Stability & Reactive Power Quiz</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX CSS & JS for crisp LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMath()"></script>
+
+    <style>
+        :root {
+            --primary: #00843B;         /* ULiège / Trigon Green */
+            --primary-dark: #00632b;
+            --primary-light: #e8f5e9;
+            --accent: #f07f3c;          /* Trigon Orange */
+            --accent-light: #fff3e0;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #00843B 0%, #005a27 100%);
+            color: white;
+            padding: 32px 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .course-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #a7f3d0;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header-desc {
+            font-size: 0.95rem;
+            color: #d1fae5;
+            max-width: 760px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 960px;
+            margin: -20px auto 0;
+            padding: 0 20px;
+        }
+
+        /* Student Identity Card */
+        .identity-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .identity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .identity-title {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .identity-desc {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .identity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .identity-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 13px;
+            font-size: 0.92rem;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 132, 59, 0.15);
+        }
+
+        /* Controls & Stats Bar */
+        .toolbar {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .stats-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-bar-container {
+            width: 140px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .select-filter {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            background: white;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 3px;
+            border-radius: 8px;
+            gap: 2px;
+        }
+
+        .view-btn {
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Quiz Card */
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .quiz-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .q-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .q-text {
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .option-item:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: #fcfdfc;
+            transform: translateX(4px);
+        }
+
+        .opt-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .opt-text {
+            flex-grow: 1;
+            padding-top: 2px;
+        }
+
+        /* States */
+        .option-item.correct {
+            border-color: var(--success);
+            background: var(--success-bg);
+            color: #065f46;
+        }
+        .option-item.correct .opt-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-item.wrong {
+            border-color: var(--danger);
+            background: var(--danger-bg);
+            color: #991b1b;
+        }
+        .option-item.wrong .opt-letter {
+            background: var(--danger);
+            color: white;
+        }
+
+        .option-item.disabled {
+            cursor: default;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 20px;
+            padding: 16px 20px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explanation-content {
+            font-size: 0.92rem;
+            color: #334155;
+            line-height: 1.55;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Step-by-step Navigation */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .nav-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-btn.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Result Banner */
+        .summary-card {
+            background: white;
+            border-radius: var(--radius);
+            border: 2px solid var(--primary);
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .summary-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .summary-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .btn-restart {
+            padding: 10px 24px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-restart:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Submission Section */
+        .submit-section {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 22px auto 0;
+            max-width: 580px;
+            text-align: left;
+        }
+
+        .submit-section-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .submit-btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-download {
+            padding: 10px 16px;
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-download:hover {
+            background: #f1f5f9;
+        }
+
+        .submit-status-msg {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            display: none;
+        }
+
+        .submit-status-success {
+            background: var(--success-bg);
+            border: 1px solid var(--success);
+            color: #065f46;
+        }
+
+        .submit-status-error {
+            background: var(--danger-bg);
+            border: 1px solid var(--danger);
+            color: #991b1b;
+        }
+
+        .submit-status-loading {
+            background: #e0f2fe;
+            border: 1px solid #38bdf8;
+            color: #0369a1;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 640px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .stats-group {
+                justify-content: space-between;
+            }
+            .progress-bar-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div>
+                <div class="course-tag">ELEC0447 • Analysis of Electric Power Systems</div>
+                <h1>Voltage Stability &amp; Reactive Power Quiz</h1>
+                <p class="header-desc">
+                    Interactive practice quiz testing maximum power transfer, P-V nose curves, saddle-node bifurcations, power factor effects, generator reactive limits, and shunt compensation.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Participant Identity Card -->
+        <div class="identity-card" id="identity-box">
+            <div class="identity-header">
+                <div class="identity-title">
+                    <span>👤 Student Identification</span>
+                </div>
+            </div>
+            <p class="identity-desc">
+                Enter your details to register your quiz score in the instructor's grade sheet upon completion.
+            </p>
+            <div class="identity-grid">
+                <div class="form-group">
+                    <label for="student-name">Full Name (Nom &amp; Prénom)</label>
+                    <input type="text" id="student-name" class="form-input" placeholder="e.g. Marie Curie">
+                </div>
+                <div class="form-group">
+                    <label for="student-email">ULiège Email or Student ID</label>
+                    <input type="text" id="student-email" class="form-input" placeholder="e.g. mcurie@student.uliege.be">
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="stats-group">
+                <div class="stat-item">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="score-display">0 / 0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Progress</span>
+                    <span class="stat-value" id="progress-text">0%</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="topic-select">Topic:</label>
+                <select id="topic-select" class="select-filter">
+                    <option value="all">All Topics (5 questions)</option>
+                    <option value="P-V Nose Curves & Maximum Power">P-V Curves & Maximum Power</option>
+                    <option value="Power Factor & Reactive Drops">Power Factor & Reactive Drops</option>
+                    <option value="Generator Limits (Q-lims)">Generator Limits (Q-lims)</option>
+                    <option value="Shunt Compensation & Controls">Shunt Compensation & Controls</option>
+                </select>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" id="btn-view-step" onclick="setViewMode('step')">Step-by-step</button>
+                <button class="view-btn" id="btn-view-all" onclick="setViewMode('all')">All Questions</button>
+            </div>
+        </div>
+
+        <!-- Summary Card (shown at end of step mode) -->
+        <div id="summary-card" class="summary-card">
+            <div class="score-circle" id="summary-percent">100%</div>
+            <h2 class="summary-title" id="summary-headline">Excellent Work!</h2>
+            <p class="summary-text" id="summary-detail">You answered 12 out of 12 questions correctly.</p>
+
+            <!-- Submission Section in Summary -->
+            <div class="submit-section" id="submit-section">
+                <div class="submit-section-title">
+                    <span>📤 Register &amp; Submit Results to Instructor</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                    Send your verified results directly to the course Google Sheet or export a JSON summary.
+                </p>
+                <div class="submit-btn-group">
+                    <button class="btn-submit" id="btn-submit-results" onclick="submitResultsToGoogle('submit-status')">
+                        🚀 Submit Answers
+                    </button>
+                    <button class="btn-download" id="btn-download-results" onclick="downloadResultsJSON()">
+                        💾 Download Summary (JSON)
+                    </button>
+                </div>
+                <div id="submit-status" class="submit-status-msg"></div>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <button class="btn-restart" onclick="restartQuiz()">Restart Quiz</button>
+            </div>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="quiz-container"></div>
+
+        <!-- Bottom Submission Card for All-Questions View -->
+        <div id="all-view-submit-card" class="identity-card" style="display: none; margin-top: 24px; text-align: center;">
+            <h3 style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 6px;">Finished Answering?</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">
+                Submit your quiz answers to the instructor's spreadsheet or download your results report.
+            </p>
+            <div class="submit-btn-group" style="justify-content: center;">
+                <button class="btn-submit" id="btn-submit-all-view" onclick="submitResultsToGoogle('submit-status-all')">
+                    🚀 Submit Answers to Instructor
+                </button>
+                <button class="btn-download" onclick="downloadResultsJSON()">
+                    💾 Download Summary (JSON)
+                </button>
+                <button class="btn-restart" onclick="restartQuiz()" style="padding: 10px 18px; font-size: 0.88rem;">
+                    Restart Quiz
+                </button>
+            </div>
+            <div id="submit-status-all" class="submit-status-msg" style="max-width: 580px; margin: 12px auto 0;"></div>
+        </div>
+
+        <!-- Step Navigation Controls -->
+        <div id="step-nav" class="nav-controls">
+            <button class="nav-btn" id="btn-prev" onclick="changeQuestion(-1)" disabled>&larr; Previous</button>
+            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);" id="q-counter-text">Question 1 of 5</span>
+            <button class="nav-btn primary" id="btn-next" onclick="changeQuestion(1)">Next &rarr;</button>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // Instructor Configuration: Unified Google Apps Script Webhook
+        // =========================================================================
+        // Paste your deployed Google Apps Script Web App URL below (see Lectures/google_apps_script.js):
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8je0JsdjMqN8JmkE6Qi-jw1w8c4ILChxpRkUkYDlCvX-MuJxwgGzdyXw0kMF1pdWaiQ/exec"; 
+
+        const QUIZ_CONFIG = {
+            course: "ELEC0447",
+            quiz_id: "voltage_stability",
+            quiz_title: "Voltage Stability & Reactive Power"
+        };
+
+        const questions = [
+  {
+    "id": "Q01",
+    "title": "Q01: Mathematical Origin of the P-V Nose Point and Solver Divergence",
+    "category": "P-V Nose Curves & Maximum Power",
+    "question": "When tracing the receiving-end voltage $V_R$ as active power demand $P$ increases, the curve reaches a maximum transmissible power $P_{\\max}$ (the nose of the $P$-$V$ curve). Why does a standard Newton-Raphson power flow solver diverge if power demand is increased beyond $P_{\\max}$?",
+    "options": [
+      "At the nose point, transmission line current reaches $I = \\infty$, causing the series branch impedance matrix to become non-invertible due to infinite resistive dissipation ($I^2 R \\to \\infty$).",
+      "At the nose point, the voltage phase angle reaches $\\delta = 180^\\circ$, causing active power flow $P = \\frac{V_1 V_2}{X} \\sin\\delta$ to reverse sign and creating persistent numerical limit cycles.",
+      "At the nose point, the power flow Jacobian matrix becomes singular ($\\det \\mathbf{J} = 0$, $dP/dV = 0$); beyond this saddle-node bifurcation point, no real-valued steady-state voltage solution exists.",
+      "At the nose point, reactive power demand satisfies $Q = V^2 B_c$, triggering an exact numerical resonance with shunt capacitance that generates division-by-zero errors in the solver."
+    ],
+    "correct": 2,
+    "explanation": "The nose point represents a saddle-node bifurcation. As power demand reaches $P_{\\max}$, the high-voltage (stable) and low-voltage (unstable) solutions coalesce. At this point, $\\frac{dP}{dV} = 0$, causing the power flow Jacobian matrix $\\mathbf{J} = \\begin{bmatrix} \\frac{\\partial P}{\\partial \\theta} & \\frac{\\partial P}{\\partial V} \\\\ \\frac{\\partial Q}{\\partial \\theta} & \\frac{\\partial Q}{\\partial V} \\end{bmatrix}$ to become singular ($\\det \\mathbf{J} = 0$). Beyond $P_{\\max}$, the mathematical equations have only complex roots; no physical steady-state operating point exists, triggering solver divergence.",
+    "distractor_feedbacks": [
+      "Incorrect. Line current remains finite at the nose point; divergence is caused by Jacobian singularity and the absence of real algebraic roots, not infinite physical current.",
+      "Incorrect. The voltage angle at the nose point is typically in the range of $30^\\circ\\text{--}45^\\circ$, far below $180^\\circ$.",
+      "Correct! The nose point is a saddle-node bifurcation where $\\det \\mathbf{J} = 0$ and $dP/dV = 0$. Beyond $P_{\\max}$, no real power flow solution exists.",
+      "Incorrect. Shunt capacitance provides voltage support; divergence occurs when load exceeds network transfer capability, causing Jacobian singularity."
+    ]
+  },
+  {
+    "id": "Q02",
+    "title": "Q02: Influence of Load Power Factor on Voltage Stability",
+    "category": "Power Factor & Reactive Drops",
+    "question": "Consider a transmission corridor feeding a load bus. How does shifting the load power factor from unity ($\\cos\\phi = 1.0$) to lagging ($\\cos\\phi = 0.95$ inductive) alter the $P$-$V$ nose curve and the maximum transferable power $P_{\\max}$?",
+    "options": [
+      "Lagging power factor draws inductive current that causes large reactive voltage drops ($\\Delta V \\approx X Q / V$) across line reactances, drastically shrinking $P_{\\max}$ and raising the critical collapse voltage.",
+      "Lagging power factor increases $P_{\\max}$ because inductive current compensates line shunt charging ($Q_{\\text{load}} = \\omega C V^2$), holding transmission voltage flat up to twice nominal loading.",
+      "The active power limit $P_{\\max}$ remains completely unchanged because active power transfer $P$ is mathematically decoupled from reactive power $Q$ in high-voltage grids ($\\partial P / \\partial Q = 0$).",
+      "Lagging power factor shifts the receiving voltage to $V_R = V_S \\cos\\delta$, eliminating the lower unstable branch of the nose curve and transforming the bifurcation into an unconditional linear limit."
+    ],
+    "correct": 0,
+    "explanation": "High-voltage transmission lines are predominantly inductive ($X \\gg R$). Drawing lagging (inductive) current creates severe voltage drops $\\Delta V \\approx \\frac{R P + X Q}{V} \\approx \\frac{X Q}{V}$. When a load consumes inductive reactive power alongside active power ($Q = P \\tan\\phi > 0$), reactive losses $I^2 X$ compound, causing receiving voltage to decline much faster with active power. As a result, the maximum transferable active power $P_{\\max}$ drops substantially, and the critical voltage $V_{\\text{crit}}$ at the collapse point shifts higher.",
+    "distractor_feedbacks": [
+      "Correct! Inductive current creates heavy reactive voltage drops across transmission line reactances ($X Q / V$), severely curtailing $P_{\\max}$.",
+      "Incorrect. Ferranti rise occurs on lightly loaded lines due to shunt capacitance, whereas inductive load current aggravates line reactive consumption and accelerates collapse.",
+      "Incorrect. Active and reactive power flows are tightly coupled through line series reactances and node voltage magnitudes; lagging power factor significantly contracts $P_{\\max}$.",
+      "Incorrect. The two solutions (upper stable and lower unstable) persist under lagging power factor, but the bifurcation point occurs at a lower $P_{\\max}$."
+    ]
+  },
+  {
+    "id": "Q03",
+    "title": "Q03: Impact of Generator Reactive Power Limits ($Q_{\\max}$)",
+    "category": "Generator Limits (Q-lims)",
+    "question": "When analyzing transmission voltage stability under increasing system load, what physical and numerical change occurs when a nearby synchronous generator reaches its rotor excitation current limit ($Q = Q_{\\max}$)?",
+    "options": [
+      "The generator bus converts from PV to Slack with voltage angle clamped at $\\theta = 0^\\circ$; absorbing unlimited active power from the transmission grid to stabilize stator winding temperatures.",
+      "The generator bus converts from PV to PQ with $Q$ clamped at $Q_{\\max}$; losing local terminal voltage regulation creates a sharp downward break in the $P$-$V$ curve and drastically brings forward voltage collapse.",
+      "The generator excitation protection trips the unit offline within 10 milliseconds, instantaneously dropping active power output ($P = 0$) and causing an immediate transient angle collapse.",
+      "The generator automatic voltage regulator switches to frequency droop control, dynamically doubling active power generation ($P = 2 P_0$) to compensate for the reactive power shortfall."
+    ],
+    "correct": 1,
+    "explanation": "Synchronous generators normally operate as PV buses, adjusting rotor excitation current via Automatic Voltage Regulators (AVR) to maintain constant terminal voltage ($V = V_{\\text{set}}$). When reactive demand forces field or armature current to its thermal ceiling ($Q = Q_{\\max}$), excitation can no longer increase. In power flow, the bus switches to a PQ bus with fixed reactive injection $Q_{\\max}$ and free voltage $V$. The grid loses local voltage control, transferring reactive burden to more distant machines and drastically shrinking the voltage stability margin.",
+    "distractor_feedbacks": [
+      "Incorrect. Reaching reactive limits converts a PV bus into a PQ bus; it does not turn the machine into an infinite slack bus.",
+      "Correct! Hitting $Q_{\\max}$ converts the bus from PV to PQ; losing voltage control creates a sharp downward kink in the $P$-$V$ curve and brings forward collapse.",
+      "Incorrect. Physical generators do not trip merely upon reaching Mvar excitation limits; the Over-Excitation Limiter (OEL) simply clamps excitation to prevent thermal damage.",
+      "Incorrect. Voltage regulators control excitation (reactive power), while turbine governors control active power; reaching $Q_{\\max}$ does not alter turbine active setpoints."
+    ]
+  },
+  {
+    "id": "Q04",
+    "title": "Q04: Shunt Capacitor Placement for Voltage Support",
+    "category": "Shunt Compensation & Controls",
+    "question": "To prevent voltage collapse and expand the permissible active power transfer margin along a heavily loaded transmission corridor, why is placing a shunt capacitor bank at the receiving load substation vastly more effective than placing it further upstream near the sending generation bus?",
+    "options": [
+      "Upstream placement near the sending bus causes capacitor dielectric breakdown under elevated generator electromotive force ($E_{af} > 1.2\\text{ pu}$), forcing protection relays to isolate the capacitor bank.",
+      "Shunt capacitors installed at receiving buses consume active power ($P = V^2 G$), directly damping electromechanical power oscillations between sending and receiving substations.",
+      "Upstream capacitor placement reverses the polarity of transformer leakage reactance ($X_t < 0$), causing uncontrollable overvoltages across downstream distribution networks.",
+      "Transmitting reactive power across inductive lines incurs high reactive losses ($\\Delta Q = I^2 X$) and large voltage drops; local compensation supplies $Q$ at the load, offloading upstream corridors and maximizing $P_{\\max}$."
+    ],
+    "correct": 3,
+    "explanation": "Reactive power transport over transmission lines consumes reactive power itself ($\\Delta Q_{\\text{loss}} = I^2 X$). Supplying reactive power from upstream requires transmitting high reactive currents across bottleneck lines, depressing voltage along the entire corridor. Installing shunt capacitors directly at the receiving load bus provides reactive compensation locally, eliminating the reactive current component flowing through upstream branches. This offloads transmission lines, reduces active and reactive losses, and provides maximum elevation of the $P$-$V$ nose curve.",
+    "distractor_feedbacks": [
+      "Incorrect. Capacitor banks are rated for the nominal bus voltage at their installation substation; location choice is governed by network power flow physics, not dielectric breakdown.",
+      "Incorrect. Shunt capacitors are purely reactive components ($Q = V^2 B_c$); they do not consume significant active power nor act as electromechanical dampers.",
+      "Incorrect. Shunt capacitors connect in parallel to ground; they do not alter the series leakage inductive reactance of transformers.",
+      "Correct! Supplying reactive power locally at the load bus relieves upstream transmission lines of reactive current, minimizing $I^2 X$ drops and maximizing stability margins."
+    ]
+  },
+  {
+    "id": "Q05",
+    "title": "Q05: Under-Load Tap Changers (OLTC) and Voltage Collapse",
+    "category": "Shunt Compensation & Controls",
+    "question": "How can automatic Under-Load Tap Changers (OLTC) on transmission-to-distribution transformers inadvertently trigger or accelerate a system-wide voltage collapse during depressed grid conditions?",
+    "options": [
+      "When transmission voltage sags, OLTCs boost secondary turns to restore distribution voltage; for voltage-sensitive loads, restoring load voltage restores power draw, pulling even higher current through the struggling transmission network.",
+      "When transmission voltage sags, OLTC tap changers automatically invert the phase angle between primary and secondary windings by $180^\\circ$, converting inductive loads into negative resistance generators.",
+      "When transmission voltage sags, OLTC transition resistors remain permanently in-circuit, dissipating megawatts of active power as heat and causing thermal overload of the substation busbars.",
+      "When transmission voltage sags, OLTC controllers lock all downstream distribution capacitor banks into a disconnected state, preventing reactive power injection during emergency low-voltage conditions."
+    ],
+    "correct": 0,
+    "explanation": "This phenomenon is known as 'tap changer reverse action' or load restoration. When transmission voltage drops, OLTCs automatically adjust tap ratios to keep distribution bus voltage near $1.0\\text{ pu}$. However, restoring distribution voltage causes voltage-dependent loads (thermostatic, motor, and constant impedance loads) to draw their full nominal power. This forces the transmission network to supply higher currents through its inductive reactances, deepening transmission voltage drops and pushing the grid over the nose of the $P$-$V$ curve.",
+    "distractor_feedbacks": [
+      "Correct! Restoring secondary distribution voltages prevents natural load relief, demanding high currents from the stressed transmission grid and accelerating collapse.",
+      "Incorrect. Standard OLTCs modify voltage magnitude (in-phase ratio taps); they do not invert phase angle by $180^\\circ$.",
+      "Incorrect. Transition resistors are switched in for only a few milliseconds during tap transitions; they do not cause transmission voltage collapse.",
+      "Incorrect. Tap changers regulate transformer turns ratio; they do not send remote disconnect commands to independent distribution capacitor banks."
+    ]
+  }
+];
+
+
+        let currentIdx = 0;
+        let viewMode = 'step'; // 'step' or 'all'
+        let userAnswers = {}; // { qIndex: selectedOptionIndex }
+        let score = 0;
+        let filteredIndices = questions.map((_, i) => i);
+
+        function initQuiz() {
+            initStudentIdentity();
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function initStudentIdentity() {
+            const nameInput = document.getElementById('student-name');
+            const emailInput = document.getElementById('student-email');
+            if (!nameInput || !emailInput) return;
+
+            const savedName = localStorage.getItem('elec0447_student_name');
+            const savedEmail = localStorage.getItem('elec0447_student_email');
+            if (savedName) nameInput.value = savedName;
+            if (savedEmail) emailInput.value = savedEmail;
+
+            nameInput.addEventListener('input', (e) => {
+                localStorage.setItem('elec0447_student_name', e.target.value.trim());
+            });
+            emailInput.addEventListener('input', (e) => {
+                localStorage.setItem('elec0447_student_email', e.target.value.trim());
+            });
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.getElementById('btn-view-step').classList.toggle('active', mode === 'step');
+            document.getElementById('btn-view-all').classList.toggle('active', mode === 'all');
+            document.getElementById('step-nav').style.display = (mode === 'step') ? 'flex' : 'none';
+            document.getElementById('summary-card').style.display = 'none';
+
+            const allSubmitCard = document.getElementById('all-view-submit-card');
+            if (allSubmitCard) {
+                allSubmitCard.style.display = (mode === 'all') ? 'block' : 'none';
+            }
+
+            renderQuestions();
+            updateNavigation();
+        }
+
+        document.getElementById('topic-select').addEventListener('change', (e) => {
+            const cat = e.target.value;
+            if (cat === 'all') {
+                filteredIndices = questions.map((_, i) => i);
+            } else {
+                filteredIndices = [];
+                questions.forEach((q, i) => {
+                    if (q.category === cat) filteredIndices.push(i);
+                });
+            }
+            currentIdx = 0;
+            renderQuestions();
+            updateNavigation();
+            updateStats();
+        });
+
+        function renderQuestions() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            if (filteredIndices.length === 0) {
+                container.innerHTML = '<div class="quiz-card"><p>No questions found in this category.</p></div>';
+                return;
+            }
+
+            const indicesToRender = (viewMode === 'step') 
+                ? [filteredIndices[currentIdx]] 
+                : filteredIndices;
+
+            indicesToRender.forEach((qIdx) => {
+                if (qIdx === undefined) return;
+                const q = questions[qIdx];
+                const answered = userAnswers.hasOwnProperty(qIdx);
+                const selectedOpt = userAnswers[qIdx];
+
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `card-${qIdx}`;
+
+                const letters = ['A', 'B', 'C', 'D'];
+                let optionsHtml = '';
+                q.options.forEach((opt, oIdx) => {
+                    let optClass = 'option-item';
+                    if (answered) {
+                        optClass += ' disabled';
+                        if (oIdx === q.correct) {
+                            optClass += ' correct';
+                        } else if (oIdx === selectedOpt) {
+                            optClass += ' wrong';
+                        }
+                    }
+
+                    optionsHtml += `
+                        <div class="${optClass}" onclick="handleSelect(${qIdx}, ${oIdx})">
+                            <span class="opt-letter">${letters[oIdx]}</span>
+                            <span class="opt-text">${opt}</span>
+                        </div>
+                    `;
+                });
+
+                const explanationStyle = answered ? 'display: block;' : 'display: none;';
+
+                card.innerHTML = `
+                    <div class="q-meta">
+                        <span class="q-badge">${q.id}</span>
+                        <span class="q-category">${q.category}</span>
+                    </div>
+                    <div class="q-text">${q.question}</div>
+                    <div class="options-grid">
+                        ${optionsHtml}
+                    </div>
+                    <div class="explanation-box" id="exp-${qIdx}" style="${explanationStyle}">
+                        <div class="explanation-title">
+                            <span>Pedagogical Analysis &amp; Reference</span>
+                        </div>
+                        <div class="explanation-content">
+                            ${q.explanation}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            renderMath();
+        }
+
+        function handleSelect(qIdx, optIdx) {
+            if (userAnswers.hasOwnProperty(qIdx)) return; // already answered
+
+            userAnswers[qIdx] = optIdx;
+            const q = questions[qIdx];
+            if (optIdx === q.correct) {
+                score++;
+            }
+
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function updateStats() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const total = questions.length;
+            const pct = Math.round((answeredCount / total) * 100);
+
+            document.getElementById('score-display').textContent = `${score} / ${answeredCount}`;
+            document.getElementById('progress-text').textContent = `${pct}%`;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+        }
+
+        function changeQuestion(delta) {
+            const newIdx = currentIdx + delta;
+            if (newIdx >= 0 && newIdx < filteredIndices.length) {
+                currentIdx = newIdx;
+                renderQuestions();
+                updateNavigation();
+            } else if (newIdx >= filteredIndices.length && viewMode === 'step') {
+                showSummary();
+            }
+        }
+
+        function updateNavigation() {
+            if (viewMode !== 'step') return;
+            const total = filteredIndices.length;
+            document.getElementById('btn-prev').disabled = (currentIdx === 0);
+            
+            const btnNext = document.getElementById('btn-next');
+            if (currentIdx === total - 1) {
+                btnNext.innerHTML = 'Finish &rarr;';
+            } else {
+                btnNext.innerHTML = 'Next &rarr;';
+            }
+            
+            document.getElementById('q-counter-text').textContent = `Question ${currentIdx + 1} of ${total}`;
+        }
+
+        function showSummary() {
+            document.getElementById('quiz-container').innerHTML = '';
+            document.getElementById('step-nav').style.display = 'none';
+            const card = document.getElementById('summary-card');
+            card.style.display = 'block';
+
+            const total = questions.length;
+            const pct = Math.round((score / total) * 100);
+            document.getElementById('summary-percent').textContent = `${pct}%`;
+            document.getElementById('summary-detail').textContent = `You correctly answered ${score} out of ${total} questions.`;
+
+            const headline = document.getElementById('summary-headline');
+            if (pct >= 85) headline.textContent = "Outstanding Mastery!";
+            else if (pct >= 60) headline.textContent = "Solid Understanding!";
+            else headline.textContent = "Review Recommended";
+
+            const statusEl = document.getElementById('submit-status');
+            if (statusEl) statusEl.style.display = 'none';
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            score = 0;
+            currentIdx = 0;
+            document.getElementById('summary-card').style.display = 'none';
+            if (viewMode === 'step') {
+                document.getElementById('step-nav').style.display = 'flex';
+            }
+            const statusEl1 = document.getElementById('submit-status');
+            if (statusEl1) statusEl1.style.display = 'none';
+            const statusEl2 = document.getElementById('submit-status-all');
+            if (statusEl2) statusEl2.style.display = 'none';
+
+            renderQuestions();
+            updateStats();
+            updateNavigation();
+        }
+
+        function buildResultsPayload() {
+            const name = (document.getElementById('student-name')?.value || "").trim();
+            const email = (document.getElementById('student-email')?.value || "").trim();
+            const total = questions.length;
+            const answeredCount = Object.keys(userAnswers).length;
+            const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+
+            const detailedAnswers = questions.map((q, idx) => {
+                const userSel = userAnswers[idx];
+                const hasAnswered = userAnswers.hasOwnProperty(idx);
+                return {
+                    id: q.id,
+                    question_index: idx + 1,
+                    category: q.category,
+                    question: q.question,
+                    has_answered: hasAnswered,
+                    selected_index: hasAnswered ? userSel : null,
+                    selected_text: hasAnswered ? q.options[userSel] : "Not answered",
+                    correct_index: q.correct,
+                    correct_text: q.options[q.correct],
+                    is_correct: hasAnswered ? (userSel === q.correct) : false
+                };
+            });
+
+            return {
+                timestamp: new Date().toISOString(),
+                course: QUIZ_CONFIG.course,
+                quiz_id: QUIZ_CONFIG.quiz_id,
+                quiz_title: QUIZ_CONFIG.quiz_title,
+                name: name || "Anonymous",
+                email: email || "N/A",
+                score: score,
+                total: total,
+                answered: answeredCount,
+                percentage: pct,
+                answers: detailedAnswers
+            };
+        }
+
+        async function submitResultsToGoogle(statusElementId = "submit-status") {
+            const statusEl = document.getElementById(statusElementId);
+            const name = (document.getElementById("student-name")?.value || "").trim();
+            const btnSubmit = document.getElementById(statusElementId === 'submit-status' ? 'btn-submit-results' : 'btn-submit-all-view');
+
+            if (!name) {
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.style.display = "block";
+                    statusEl.textContent = "⚠️ Please enter your Full Name in the Student Identification box before submitting.";
+                }
+                document.getElementById("student-name")?.focus();
+                return;
+            }
+
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.trim() === "") {
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.style.display = "block";
+                    statusEl.innerHTML = "⚠️ <strong>Google Script Webhook URL not configured yet.</strong><br>The instructor can paste the Web App URL into <code>GOOGLE_SCRIPT_URL</code> in this file, or you can click <strong>'Download Summary (JSON)'</strong> to save your results.";
+                }
+                return;
+            }
+
+            const payload = buildResultsPayload();
+
+            if (btnSubmit) btnSubmit.disabled = true;
+            if (statusEl) {
+                statusEl.className = "submit-status-msg submit-status-loading";
+                statusEl.style.display = "block";
+                statusEl.textContent = "⏳ Submitting answers to instructor...";
+            }
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-success";
+                    statusEl.innerHTML = "✅ <strong>Results successfully registered!</strong> Thank you for participating.";
+                }
+            } catch (err) {
+                console.error("Submission error:", err);
+                if (statusEl) {
+                    statusEl.className = "submit-status-msg submit-status-error";
+                    statusEl.innerHTML = "❌ Could not send results directly. Please click <strong>'Download Summary (JSON)'</strong> to save your results file.";
+                }
+            } finally {
+                if (btnSubmit) btnSubmit.disabled = false;
+            }
+        }
+
+        function downloadResultsJSON() {
+            const payload = buildResultsPayload();
+            const safeName = (payload.name || "student").replace(/[^a-z0-9_-]/gi, "_");
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ELEC0447_${QUIZ_CONFIG.quiz_id}_${safeName}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function renderMath() {
+            const target = document.getElementById('quiz-container') || document.body;
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(target, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '\\[', right: '\\]', display: true },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            } else {
+                setTimeout(renderMath, 60);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>
