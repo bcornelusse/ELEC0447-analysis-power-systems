@@ -201,6 +201,28 @@ The ideas previously developed still stand, except that now the load can:
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Voltage stability margin (loading margin)}
+    \begin{columns}[onlytextwidth]
+        \begin{column}{0.48\textwidth}
+        \small
+        For an operating point $(P_0, V_0)$ on the stable branch of the $P$-$V$ curve:
+        \begin{itemize}\setlength{\itemsep}{1pt}
+            \item \textbf{Maximum power ($P_{\max}$)}:
+            Active power limit at the \alert{nose point} (saddle-node bifurcation), where $\frac{dP}{dV} = 0$ and the Jacobian $\mathbf{J}$ is singular.
+            \item \textbf{Stability margin ($\Delta P$)}:
+            Also called \emph{loading margin} or \emph{MW margin}:
+            $$\Delta P = P_{\max} - P_0, \quad M_{\%} = \frac{\Delta P}{P_0} \times 100\%$$
+            \item Quantifies headroom before \textbf{voltage collapse}.
+            \item TSO security criteria: e.g. $M_{\%} \ge 10\text{--}15\%$ in $N\text{-}0$, $\ge 5\%$ in $N\text{-}1$.
+        \end{itemize}
+        \end{column}
+        \begin{column}{0.50\textwidth}
+        \centering
+        \includegraphics[width=0.88\linewidth]{images/voltage_stability_margin.pdf}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 \begin{frame}{Key points}
 \begin{itemize}
     \item There's a maximum transmissible power ($P_{R}^{max} = \frac{V_S^2}{2 X_L}$ for load with $\cos \phi = 1$).

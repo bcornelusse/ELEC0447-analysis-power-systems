@@ -28,3 +28,8 @@ Lectures/frequency_control/main.synctex.gz
 Lectures/frequency_control/main.log
 Lectures/frequency_control/main.fls
 Lectures/frequency_control/main.fdb_latexmk
+
+# Project 1 solution (local work, not committed)
+project_1_solution/
+.ipynb_checkpoints/
+

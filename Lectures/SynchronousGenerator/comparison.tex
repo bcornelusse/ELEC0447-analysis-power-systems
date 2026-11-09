@@ -1,0 +1,120 @@
+\documentclass[aspectratio=169]{beamer}
+\usefonttheme{professionalfonts}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, decorations.pathmorphing}
+
+\definecolor{myRed}{RGB}{209,34,57}
+\definecolor{myBlue}{RGB}{28,90,160}
+\definecolor{myGreen}{RGB}{34,139,34}
+\definecolor{myOrange}{RGB}{210,105,15}
+\definecolor{opRegion}{RGB}{224,244,246}
+\definecolor{statorIron}{RGB}{234,240,248}
+\definecolor{rotorIron}{RGB}{246,247,250}
+\definecolor{airGapCol}{RGB}{255,255,255}
+\definecolor{fluxCol}{RGB}{22,82,158}
+\definecolor{slotColor}{RGB}{248,242,235}
+
+\title{Comparison: Original vs New TikZ Figures}
+\subtitle{ELEC0447 - Synchronous Generators Lecture (Slides 4, 5, 8, 9, 10)}
+\author{Antigravity Assistant}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ----------------------------------------------------
+% Slide 4 Comparison
+% ----------------------------------------------------
+\begin{frame}{Slide 4: Magnetic field created by the stator}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{black!70}{Original Picture (Raster)}}\\[4pt]
+      \fbox{\includegraphics[width=0.92\linewidth,height=0.62\textheight,keepaspectratio]{images/stator_field.jpg}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{myBlue}{New TikZ Figure (Vector)}}\\[4pt]
+      \resizebox{0.92\linewidth}{!}{\input{images/stator_field.tex}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------
+% Slide 5 Comparison
+% ----------------------------------------------------
+\begin{frame}{Slide 5: Three-phase stator winding layout}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{black!70}{Original Picture (Raster)}}\\[4pt]
+      \fbox{\includegraphics[width=0.92\linewidth,height=0.62\textheight,keepaspectratio]{images/layout_phases.jpg}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{myBlue}{New TikZ Figure (Vector)}}\\[4pt]
+      \resizebox{0.88\linewidth}{!}{\input{images/layout_phases.tex}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------
+% Slide 8 Comparison
+% ----------------------------------------------------
+\begin{frame}{Slide 8: Magnetic field created by the rotor}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{black!70}{Original Picture (Raster)}}\\[4pt]
+      \fbox{\includegraphics[width=0.92\linewidth,height=0.62\textheight,keepaspectratio]{images/rotor_field.jpg}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{myBlue}{New TikZ Figure (Vector)}}\\[4pt]
+      \resizebox{0.92\linewidth}{!}{\input{images/rotor_field.tex}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------
+% Slide 9 Comparison
+% ----------------------------------------------------
+\begin{frame}{Slide 9: Field interaction and electromechanical conversion}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{black!70}{Original Picture (Raster)}}\\[4pt]
+      \fbox{\includegraphics[width=0.95\linewidth,height=0.55\textheight,keepaspectratio]{images/interaction_fields.jpg}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{myBlue}{New TikZ Figure (Vector)}}\\[4pt]
+      \resizebox{0.98\linewidth}{!}{\input{images/interaction_fields.tex}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------
+% Slide 10 Comparison
+% ----------------------------------------------------
+\begin{frame}{Slide 10: Salient-pole machine ($p=2$, 4 poles)}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{black!70}{Original Picture (Raster)}}\\[4pt]
+      \fbox{\includegraphics[width=0.92\linewidth,height=0.62\textheight,keepaspectratio]{images/several_poles.jpg}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \textbf{\textcolor{myBlue}{New TikZ Figure (Vector)}}\\[4pt]
+      \resizebox{0.88\linewidth}{!}{\input{images/several_poles.tex}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\end{document}

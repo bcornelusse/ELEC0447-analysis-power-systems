@@ -544,6 +544,115 @@ If the actual clearing time is denoted $t^*$, we can conclude that:
 \end{enumerate}
 \end{frame}
 
+\section{Short-Circuit Capacity and Rotor Angle Stability}
+
+\begin{frame}[allowframebreaks]{Grid Strength: Subtransient Reactance and Thévenin Impedance}
+\begin{itemize}
+    \item \textbf{Subtransient behavior of synchronous machines}:
+    Immediately after a short circuit occurs ($t \approx 10\text{--}40\text{ ms}$), magnetic flux linkages trapped inside rotor windings cannot change discontinuously. 
+    Synchronous machines behave as ideal AC voltage sources behind their \textbf{subtransient reactance} $X''_d$, feeding large currents ($5\text{ to }7 \times I_{\text{nominal}}$) into the network.
+    
+    \item \textbf{Thévenin equivalent and IEC 60909 standard}:
+    Seen from any network bus $i$, the interconnected transmission grid can be represented by its Thévenin equivalent impedance $Z_{th,i} \approx j X_{th,i}$ and nominal voltage $U_n$.
+    The \textbf{initial symmetrical short-circuit current} $I''_k$ and \textbf{short-circuit apparent power} $S''_{sc}$ are:
+    $$I''_k = \frac{c \cdot U_n}{\sqrt{3} |Z_{th}|} \approx \frac{c \cdot U_n}{\sqrt{3} X_{th}}, \qquad S''_{sc} = \sqrt{3} U_n I''_k \approx \frac{c \cdot U_n^2}{X_{th}}$$
+    where $c = 1.10$ is the voltage factor for high-voltage networks.
+    
+    \item \textbf{Physical meaning of Grid Strength}:
+    \begin{itemize}
+        \item \textbf{High $I''_k$ / High $S''_{sc} \iff$ Low $X_{th}$}: \textbf{Strong grid} with stiff voltage support and tight electrical coupling.
+        \item \textbf{Low $I''_k$ / Low $S''_{sc} \iff$ High $X_{th}$}: \textbf{Weak grid} with high electrical impedance to surrounding sources.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Impact of Short-Circuit Level on the Equal Area Criterion}
+Recall the electrical power delivered by a synchronous machine to an infinite bus:
+$$P_e(\delta) = \hat{P}_e \sin \delta = \frac{E' V}{X'_d + X_{th}} \sin \delta$$
+
+\textbf{Post-fault power-angle curve}:
+\begin{itemize}
+    \item The peak post-fault power $\hat{P}_{e,pf} = \frac{E' V}{X'_d + X_{th,pf}}$ depends directly on the grid Thévenin reactance $X_{th,pf}$.
+    \item Higher short-circuit capacity $S''_{sc}$ $\implies$ smaller $X_{th,pf}$ $\implies$ \textbf{much higher $\hat{P}_{e,pf}$}.
+\end{itemize}
+
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+    \textbf{Equal Area Impact}:
+    \begin{itemize}
+        \item \textbf{Decelerating Area (Area B)} expands:
+        $$\text{Area B} = \int_{\delta_{cct}}^{\delta_{max}} (\hat{P}_{e,pf}\sin\theta - P_m) d\theta$$
+        \item $\delta_{max} = \pi - \arcsin(P_m / \hat{P}_{e,pf})$ shifts to the right, widening the permissible angular swing.
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \textbf{Critical Clearing Time}:
+    \begin{itemize}
+        \item With a larger decelerating capacity, the system can tolerate a larger accelerating area (Area A).
+        \item The critical clearing angle $\delta_{cct}$ increases.
+        \item The \textbf{Critical Clearing Time ($CCT$) increases}, giving protection relays more time to clear faults safely.
+    \end{itemize}
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Small-Signal Synchronizing Torque Coefficient $K_s$}
+Linearizing the swing equation around an operating angle $\delta_0$ ($M \frac{d^2\Delta\delta}{dt^2} + K_s \Delta\delta = 0$):
+$$K_s = \left.\frac{\partial P_e}{\partial\delta}\right|_{\delta_0} = \frac{E' V}{X'_d + X_{th}} \cos \delta_0$$
+\begin{itemize}
+    \item A higher short-circuit capacity ($X_{th}$ small) directly increases $K_s$.
+    \item The pre-fault operating angle $\delta_0 = \arcsin\left(\frac{P_m(X'_d + X_{th})}{E' V}\right)$ is smaller $\implies \cos\delta_0 \approx 1$.
+    \item \textbf{Physical consequence}: A stiff electromechanical coupling ("stiffer magnetic spring") prevents monotonic loss of synchronism and increases the oscillation frequency:
+    $$\omega_n = \sqrt{\frac{K_s}{M}}$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Spatial Propagation of Fault Voltage Dips}
+Short-circuit strength also governs the spatial severity of voltage dips during faults:
+\begin{itemize}
+    \item \textbf{Strong grid (high short-circuit current $I''_k$)}:
+    \begin{itemize}
+        \item Fault-induced voltage depressions remain localized close to the fault impedance.
+        \item Surrounding generators maintain healthy terminal voltages and continue delivering electrical counter-torque $P_e$.
+    \end{itemize}
+    \vspace{0.2cm}
+    \item \textbf{Weak grid (low short-circuit current $I''_k$)}:
+    \begin{itemize}
+        \item The voltage collapses across vast electrical distances ($V \to 0$).
+        \item Distant generators lose their electrical counter-torque simultaneously ($P_e \to 0$), causing wide-area multi-machine rotor acceleration.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Energy Transition: Inverter-Based Resources vs. Synchronous Fleets}
+\begin{columns}
+    \begin{column}{0.52\textwidth}
+    \textbf{Inverter Fault Current Limitation}:
+    \begin{itemize}
+        \item Synchronous generators naturally inject $5\text{--}7 \times I_n$ during faults due to physical subtransient rotor flux conservation.
+        \item Inverters (PV, Wind) are strictly limited by semiconductor thermal limits to $1.1\text{--}1.2 \times I_n$.
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+    \textbf{System Stability Impact}:
+    \begin{itemize}
+        \item Decommissioning synchronous plants causes local short-circuit capacity $S''_{sc}$ to collapse ($X_{th} \uparrow$).
+        \item Remaining synchronous units see a weaker grid: their peak power $\hat{P}_e$ drops, decelerating Area B shrinks, and $CCT$ shortens.
+    \end{itemize}
+    \end{column}
+\end{columns}
+
+\framebreak
+
+\textbf{Modern Mitigation Strategies in Low Short-Circuit Grids}:
+\begin{itemize}
+    \item \textbf{Synchronous Condensers}: 
+    De-clutched synchronous machines (no prime mover) providing pure subtransient fault current ($I''_k$), physical inertia ($H$), and reactive voltage support.
+    \item \textbf{Grid-Forming (GFM) Inverters}: 
+    Advanced control schemes that operate converters as instantaneous voltage sources behind a virtual impedance, delivering instantaneous power during frequency and voltage disturbances.
+\end{itemize}
+\end{frame}
+
 \begin{frame} {Extension on dynamics}
 \textbf{Swing equations with damping coefficient}
 $$\frac{d\Delta \omega(t)}{dt} = \frac{1}{2H}\left(P_m - P_{e,max}(t) \sin (\delta(t)) - D \Delta \omega(t) \right)$$
