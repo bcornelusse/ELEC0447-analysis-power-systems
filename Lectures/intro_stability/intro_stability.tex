@@ -46,7 +46,12 @@
 \usepackage{tikz}
 \usepackage{blox}
 \usepackage{calc}
-%\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, calc, backgrounds}
+
+\definecolor{cPrimary}{RGB}{0, 102, 180}
+\definecolor{cWarning}{RGB}{210, 120, 10}
+\definecolor{cDanger}{RGB}{209, 34, 57}
+\definecolor{cSafe}{RGB}{34, 139, 34}
 
 
 \newcommand{\Z}       {\mathbb{Z} }
@@ -59,6 +64,33 @@
 \newcommand{\st}{\mathrm{s.t.}}
 \definecolor{myRed}{RGB}{209,34,57} 
 
+% Slide numbers on the bottom left; bottom right clear for camera overlay
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\textwidth, sep=6pt, leftskip=8pt, rightskip=8pt]{page number in head/foot}%
+    \usebeamerfont{page number in head/foot}%
+    \usebeamercolor[fg]{page number in head/foot}%
+    \insertframenumber\,/\,\inserttotalframenumber%
+    \hfill%
+    \usebeamertemplate*{frame footer}%
+  \end{beamercolorbox}%
+}
+
+% Section transition slides: include section number (Option 1: \thesection.~\insertsectionhead)
+\renewcommand{\sectionframe}{%
+  \setbeamertemplate{background}[\sectionstyle]%
+  \frame[plain,noframenumbering]{%
+    \vskip40pt%
+    \begin{center}%
+      \begin{minipage}[t][][c]{\textwidth}%
+        \centering%
+        \usebeamerfont{section title}\usebeamercolor[fg]{title}%
+        \thesection.~\insertsectionhead\par%
+      \end{minipage}%
+    \end{center}%
+    \vfill%
+  }%
+  \setbeamertemplate{background}[\slidestyle]%
+}
 
 %==============================================================================
 %                               BEGIN DOCUMENT

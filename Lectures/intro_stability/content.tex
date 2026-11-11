@@ -72,81 +72,466 @@
 \end{frame}
 
 
-\section{Why do we need stability?}
+\section{A quick history of blackouts}
 
-\begin{frame} {Key points}
-\begin{itemize}
-    \item We often take electricity as a simple commodity.
-    \item But the electric power system is one of the most complex and largest man-made systems.
-    \item The chances of system failures are very high taking into account the impact of external factors and rapid changes in the system's state.
-    \item However, power systems are very reliable (operated 24h/24h 7d/7d and only a few hours of power outages per year!).
-    \item But when instabilities occur, it can lead to blackouts with huge financial and societal consequences.
-\end{itemize}
-\end{frame}
+%\begin{frame} {Key points}
+%\begin{itemize}
+%    \item We often take electricity as a simple commodity.
+%    \item But the electric power system is one of the most complex and largest man-made systems.
+%    \item The chances of system failures are very high taking into account the impact of external factors and rapid changes in the system's state.
+%    \item However, power systems are very reliable (operated 24h/24h 7d/7d and only a few hours of power outages per year!).
+%    \item But when instabilities occur, it can lead to blackouts with huge financial and societal consequences.
+%\end{itemize}
+%\end{frame}
 
-\begin{frame}{Tokyo 1987}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-    \begin{itemize}
-        \item Unexpected load increase and presence of constant power devices (air conditioners) led to a voltage collapse.
-        \item \textbf{8 GW lost} and \textbf{2.8M customers impacted} \cite{ohno20061987, kurita1988power}
-    \end{itemize}
+\begin{frame}{Tokyo Blackout (23 July 1987)}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+    \centering
+    \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{images/tokyo_voltage_collapse.pdf}
 \end{column}
-\begin{column}{0.5\textwidth}
-    \begin{center}
-    \includegraphics[width=0.7\linewidth]{images/TokyoCollapse.png}
-    \end{center}
+\begin{column}{0.42\textwidth}
+    \scriptsize
+    \textbf{Chronology of Voltage Collapse \cite{ohno20061987, kurita1988power}:}
+    \vspace{2pt}
+    
+    \begin{tikzpicture}[x=1cm, y=1cm, >=Latex]
+        % Vertical spine line
+        \draw[line width=1.2pt, gray!35] (0.4, 0.1) -- (0.4, -3.2);
+
+        % 13:00
+        \node[draw=cPrimary, fill=cPrimary, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.4, 0) {13:00};
+        \node[anchor=west, text width=4.6cm, font=\tiny, align=left] at (0.9, 0) {
+            \textbf{\color{cPrimary}Air Conditioning (A/C) Surge:}\\
+            Heatwave ($>39^\circ\text{C}$); A/C load surges ($>400\text{ MW/min}$, $+30\%$ vs forecast).
+        };
+
+        % 13:10
+        \node[draw=cWarning, fill=cWarning, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.4, -0.95) {13:10};
+        \node[anchor=west, text width=4.6cm, font=\tiny, align=left] at (0.9, -0.95) {
+            \textbf{\color{cWarning!90!black}Capacitors Exhausted:}\\
+            Heavy transfers cause line reactive losses $Q_{\text{loss}} \approx X I^2$; shunt capacitors depleted.
+        };
+
+        % 13:15
+        \node[draw=cWarning!90!black, fill=cWarning!90!black, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.4, -1.95) {13:15};
+        \node[anchor=west, text width=4.6cm, font=\tiny, align=left] at (0.9, -1.95) {
+            \textbf{\color{cWarning!90!black}OLTC Tap Restoration:}\\
+            Distribution transformers boost voltage to sustain load, drawing even more $Q$ from transmission.
+        };
+
+        % 13:19
+        \node[draw=cDanger, fill=cDanger, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.4, -2.95) {13:19};
+        \node[anchor=west, text width=4.6cm, font=\tiny, align=left] at (0.9, -2.95) {
+            \textbf{\color{cDanger}Runaway Voltage Collapse:}\\
+            $V < 0.75\text{ p.u.}$ Undervoltage relays trip lines: \textbf{8.2 GW cut}, \textbf{2.8M customers} lost.
+        };
+    \end{tikzpicture}
+
+    \vspace{2pt}
+    \begin{alertblock}{Pure Voltage Instability}
+    \tiny
+    No short-circuit fault occurred. Collapse was purely driven by load dynamics, line reactive losses, and tap-changer response!
+    \end{alertblock}
 \end{column}
 \end{columns}
-
 \end{frame}
 
-\begin{frame}{Canada/Northeast USA 2003}
-\begin{columns}
-\begin{column}{0.6\textwidth}
-    \begin{itemize}
-        \item Initial problem: not enough reactive power reserve. Hot weather and large consumption led to transmission lines overloading and eventually sagging into trees, further deteriorating the initial problem.
-        \item A cascading event caused the tripping of hundreds of lines and generating units.
-        \item \textbf{63 GW lost} and \textbf{50M customers impacted} and \textbf{Estimated cost above \$5 Billion}
-        \item Watch \tiny{\url{https://www.youtube.com/watch?v=nd3teNgUq8E}, \url{https://www.youtube.com/watch?v=KciAzYfXNwU}}
-    \end{itemize}
+\begin{frame}{Northeast USA \& Canada Blackout (14 August 2003)}
+\begin{columns}[T]
+\begin{column}{0.28\textwidth}
+    \centering
+    \includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{images/USABlackOut.png}
+    \vspace{4pt}
+    \begin{block}{Impact \cite{uscanada2004blackout}}
+    \tiny
+    \textbf{61.8 GW lost}, \textbf{50M people} impacted across 8 US states \& Ontario. Estimated damage: \textbf{\$4--10 Billion}.
+    \end{block}
 \end{column}
-\begin{column}{0.4\textwidth}
-    \begin{center}
-    \includegraphics[width=0.6\linewidth]{images/USABlackOut.png}
-    \end{center}
+\begin{column}{0.70\textwidth}
+    \scriptsize
+    \textbf{Chronology of Cascading Failure \cite{uscanada2004blackout, andersson2005causes}:}
+    \vspace{2pt}
+
+    \begin{tikzpicture}[x=1cm, y=1cm, >=Latex]
+        \draw[line width=1.2pt, gray!35] (0.5, 0.1) -- (0.5, -3.2);
+
+        % 13:31
+        \node[draw=cPrimary, fill=cPrimary, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, 0) {13:31};
+        \node[anchor=west, text width=8.0cm, font=\tiny, align=left] at (1.05, 0) {
+            \textbf{\color{cPrimary}Eastlake Unit 5 Trips (Ohio):}\\
+            Major coal plant near Cleveland trips, removing critical local reactive voltage support.
+        };
+
+        % 14:14
+        \node[draw=cWarning, fill=cWarning, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -0.95) {14:14};
+        \node[anchor=west, text width=8.0cm, font=\tiny, align=left] at (1.05, -0.95) {
+            \textbf{\color{cWarning!90!black}EMS Alarm Processor Freezes (Software Bug):}\\
+            Race condition in FirstEnergy's SCADA/EMS alarm logger. Operators fly blind for $>1\text{ h}$.
+        };
+
+        % 15:05 - 15:41
+        \node[draw=cWarning!90!black, fill=cWarning!90!black, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -1.95) {15:05};
+        \node[anchor=west, text width=8.0cm, font=\tiny, align=left] at (1.05, -1.95) {
+            \textbf{\color{cWarning!90!black}345 kV Lines Sag into Trees:}\\
+            Heavily overloaded Stuart-Atlanta \& Harding-Chamberlin lines overheat and sag into unpruned trees.
+        };
+
+        % 16:06 - 16:13
+        \node[draw=cDanger, fill=cDanger, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -2.95) {16:10};
+        \node[anchor=west, text width=8.0cm, font=\tiny, align=left] at (1.05, -2.95) {
+            \textbf{\color{cDanger}Cascading Grid Collapse (7 Minutes):}\\
+            Overloads cascade into NY, Ontario \& Michigan. \textbf{263 power plants trip in 7 minutes}.
+        };
+    \end{tikzpicture}
 \end{column}
 \end{columns}
-
-
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Europe 2006}
-\begin{itemize}
-    \item Disconnection of a transmission line in Germany for the transport of a ship approved by the local TSO.
-    \item The local TSO approved to advance the disconnection later that day, but the commercial flows remained unchanged.
-    \item Some lines were critically loaded because of the line disconnection and a fast increase of load consumption led to a cascading event.
-    \item The European interconnected network was split into 3 islands.
-    \item Watch \url{https://www.youtube.com/watch?v=A30DdnsICuw}
-    \item \textbf{14.5 GW lost} and \textbf{15M customers impacted} \cite{li2007analysis}
-\end{itemize}
+\begin{frame}{Italian Blackout (28 September 2003)}
+\begin{columns}[T]
+\begin{column}{0.62\textwidth}
+    \scriptsize
+    \textbf{Chronology: Intertie Trips to Island Collapse \cite{ucte2004italy, andersson2005causes}:}
+    \vspace{2pt}
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/EuropeBlackOut.png}
-\end{center}
+    \begin{tikzpicture}[x=1cm, y=1cm, >=Latex]
+        \draw[line width=1.2pt, gray!35] (0.5, 0.1) -- (0.5, -3.2);
+
+        % 03:01
+        \node[draw=cPrimary, fill=cPrimary, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, 0) {03:01};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, 0) {
+            \textbf{\color{cPrimary}Lukmanier 380 kV Line Trips (Switzerland):}\\
+            Italy importing $6.7\text{ GW}$ (near limit). Line sags into tree and flashes over.
+        };
+
+        % 03:11
+        \node[draw=cWarning, fill=cWarning, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -0.95) {03:11};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -0.95) {
+            \textbf{\color{cWarning!90!black}Coordination Delay (Voice Protocol):}\\
+            Swiss TSO calls Italy to curtail imports; phone protocol takes 10 min, too slow to relieve lines.
+        };
+
+        % 03:25
+        \node[draw=cWarning!90!black, fill=cWarning!90!black, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -1.95) {03:25};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -1.95) {
+            \textbf{\color{cWarning!90!black}San Bernardino Trips $\to$ Intertie Cascade:}\\
+            Line trips on overload; within 12 seconds, all Swiss, French, and Austrian interties trip!
+        };
+
+        % 03:26
+        \node[draw=cDanger, fill=cDanger, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -2.95) {03:26};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -2.95) {
+            \textbf{\color{cDanger}Island Frequency Collapse:}\\
+            Instantaneous $6.4\text{ GW}$ deficit ($25\%$ demand); $f$ crashes to $48.2\text{ Hz}$ in seconds $\to$ blackout.
+        };
+    \end{tikzpicture}
+\end{column}
+\begin{column}{0.36\textwidth}
+    \begin{alertblock}{Active Power Imbalance}
+    \scriptsize
+    Interconnected grids depend strictly on continuous active power balance. An unhedged deficit causes immediate frequency collapse!
+    \end{alertblock}
+
+    \vspace{4pt}
+    \begin{block}{Impact}
+    \scriptsize
+    \textbf{27 GW lost}, \textbf{56M people} affected across Italy (blackout lasted up to 18 hours).
+    \end{block}
+\end{column}
+\end{columns}
 \end{frame}
 
-\begin{frame}{Brazil 2023}
-\begin{itemize}
-    \item False operation of a relay protection system led to a 500kV line disconnection.
-    \item The Energy Management System did not operate properly.
-    \item \textbf{19 GW lost}
-\end{itemize}
+\begin{frame}{European Grid Disturbance (4 November 2006): The 3 Islands}
+\begin{columns}[T]
+\begin{column}{0.54\textwidth}
+    \centering
+    \includegraphics[width=\linewidth,height=4.2cm,keepaspectratio]{images/EuropeBlackOut.png}
+\end{column}
+\begin{column}{0.44\textwidth}
+    \scriptsize
+    \textbf{The Continental Split \cite{ucte2007disturbance, li2007analysis}:}
+    \begin{itemize}\setlength{\itemsep}{1.5pt}
+        \item \textbf{Context:} High wind generation in Northern Germany; heavy north-to-south and east-to-west transit flows.
+        \item Cascading line trips split Continental Europe into \textbf{three asynchronous islands} in 15 seconds:
+        \begin{itemize}\setlength{\itemsep}{1pt}
+            \tiny
+            \item \textbf{\color{cDanger}Western Island:} Deficit of $8.9\text{ GW}$ ($f$ dropped to $49.0\text{ Hz}$). Saved by $17\text{ GW}$ automatic UFLS load shedding.
+            \item \textbf{\color{cPrimary}North-Eastern Island:} Surplus of $10.9\text{ GW}$ ($f$ climbed to $51.4\text{ Hz}$). Stabilized by wind generator overfrequency trips.
+            \item \textbf{\color{cSafe}South-Eastern Island:} Slight surplus ($f = 50.3\text{ Hz}$).
+        \end{itemize}
+    \end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
-\begin{frame}{Conclusion}
-\begin{itemize}
-    \item Every time a blackout happened, lessons have been learned, and new rules have been put in place.
-    \item Nonetheless, due to the system complexity, new complex phenomena occur that power system engineers try to understand.
-    \item In the following, we'll dive into the mechanisms of voltage instability.
-\end{itemize}
+
+\begin{frame}{European Disturbance: Timeline of the Continental Split}
+\begin{columns}[T]
+\begin{column}{0.65\textwidth}
+    \scriptsize
+    \textbf{Chronology of the Split and Restoration \cite{ucte2007disturbance}:}
+    \vspace{2pt}
+
+    \begin{tikzpicture}[x=1cm, y=1cm, >=Latex]
+        \draw[line width=1.2pt, gray!35] (0.5, 0.1) -- (0.5, -3.2);
+
+        % 21:38
+        \node[draw=cPrimary, fill=cPrimary, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, 0) {21:38};
+        \node[anchor=west, text width=7.2cm, font=\tiny, align=left] at (1.05, 0) {
+            \textbf{\color{cPrimary}Planned Line Outage Moved Forward:}\\
+            Conneforde-Diele 380 kV line de-energized 2 hours early for ship passage without re-running $N-1$ check or warning neighbors.
+        };
+
+        % 22:05
+        \node[draw=cWarning, fill=cWarning, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -0.95) {22:05};
+        \node[anchor=west, text width=7.2cm, font=\tiny, align=left] at (1.05, -0.95) {
+            \textbf{\color{cWarning!90!black}Critical Corridor Overloading:}\\
+            Landesbergen-Wehrendorf 380 kV line exceeds thermal limits; manual bus coupling attempt worsens power flow.
+        };
+
+        % 22:10:11
+        \node[draw=cDanger, fill=cDanger, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -1.95) {22:10};
+        \node[anchor=west, text width=7.2cm, font=\tiny, align=left] at (1.05, -1.95) {
+            \textbf{\color{cDanger}Cascade Splits Continent (15 Seconds):}\\
+            Line trips on overload; cascade fractures Continental Europe into 3 islands. UFLS sheds $17\text{ GW}$ in Western island.
+        };
+
+        % 22:45
+        \node[draw=cSafe, fill=cSafe, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -2.95) {22:45};
+        \node[anchor=west, text width=7.2cm, font=\tiny, align=left] at (1.05, -2.95) {
+            \textbf{\color{cSafe}Resynchronization \& Restoration:}\\
+            Gradual resynchronization of the 3 islands. 15M European consumers disconnected.
+        };
+    \end{tikzpicture}
+\end{column}
+\begin{column}{0.33\textwidth}
+    \begin{alertblock}{Legacy for Europe}
+    \scriptsize
+    Showed that local operational errors propagate cross-border in seconds. Led directly to:
+    \begin{itemize}\setlength{\itemsep}{1pt}
+        \tiny
+        \item Creation of \textbf{ENTSO-E} (2009)
+        \item Legally binding \textbf{EU Network Codes}
+        \item Regional Security Coordinators (RSC)
+    \end{itemize}
+    \end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Brazilian National Blackout (15 August 2023)}
+\begin{columns}[T]
+\begin{column}{0.62\textwidth}
+    \scriptsize
+    \textbf{Chronology: Line Trip to Inverter-Driven Split \cite{ons2023brazil}:}
+    \vspace{2pt}
+
+    \begin{tikzpicture}[x=1cm, y=1cm, >=Latex]
+        \draw[line width=1.2pt, gray!35] (0.5, 0.1) -- (0.5, -3.2);
+
+        % 08:31:00
+        \node[draw=cPrimary, fill=cPrimary, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, 0) {08:31:00};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, 0) {
+            \textbf{\color{cPrimary}Quixad\'a-Fortaleza 500 kV Line Trips:}\\
+            High wind/solar export from Northeast to Southeast. Line trips on protection malfunction.
+        };
+
+        % 08:31:01
+        \node[draw=cWarning, fill=cWarning, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -0.95) {08:31:01};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -0.95) {
+            \textbf{\color{cWarning!90!black}IBR Fast Voltage Control Failure:}\\
+            Wind/solar plant inverters fail to inject fast reactive current during transient; severe voltage dips propagate.
+        };
+
+        % 08:31:04
+        \node[draw=cWarning!90!black, fill=cWarning!90!black, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -1.95) {08:31:04};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -1.95) {
+            \textbf{\color{cWarning!90!black}Loss-of-Synchronism Tripping:}\\
+            Voltage dip wave triggers loss-of-synchronism and distance protections across 500 kV corridors.
+        };
+
+        % 08:31:10
+        \node[draw=cDanger, fill=cDanger, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -2.95) {08:31:10};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -2.95) {
+            \textbf{\color{cDanger}National Split \& Load Shedding:}\\
+            System splits into islands; UFLS disconnects \textbf{18.9 GW} ($\sim 29\%$ of national demand, 29M people).
+        };
+    \end{tikzpicture}
+\end{column}
+\begin{column}{0.36\textwidth}
+    \begin{alertblock}{Modern Challenge: IBR}
+    \scriptsize
+    Displacing synchronous machines with inverters removes physical inertia and alters voltage dynamics during faults!
+    \end{alertblock}
+
+    \vspace{4pt}
+    \begin{block}{Impact}
+    \scriptsize
+    Affected \textbf{25 Brazilian states} and the Federal District, lasting up to 6 hours.
+    \end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Iberian Peninsula Blackout (28 April 2025)}
+\begin{columns}[T]
+\begin{column}{0.62\textwidth}
+    \scriptsize
+    \textbf{Chronology: Oscillations to Inverter Overvoltage Cascade \cite{entsoe2026iberia}:}
+    \vspace{2pt}
+
+    \begin{tikzpicture}[x=1cm, y=1cm, >=Latex]
+        \draw[line width=1.2pt, gray!35] (0.5, 0.1) -- (0.5, -3.2);
+
+        % 12:03
+        \node[draw=cPrimary, fill=cPrimary, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, 0) {12:03};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, 0) {
+            \textbf{\color{cPrimary}Inter-Area Power Oscillations ($>70\%$ IBR):}\\
+            Spring midday. Poorly damped $0.21\text{ Hz}$ inter-area and $0.63\text{ Hz}$ local swings develop between Spain \& France.
+        };
+
+        % 12:25
+        \node[draw=cWarning, fill=cWarning, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -0.95) {12:25};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -0.95) {
+            \textbf{\color{cWarning!90!black}TSO Remedial Control Action:}\\
+            Operators re-mesh 400 kV lines and set INELFE HVDC to constant power mode to damp oscillations.
+        };
+
+        % 12:30
+        \node[draw=cWarning!90!black, fill=cWarning!90!black, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -1.95) {12:30};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -1.95) {
+            \textbf{\color{cWarning!90!black}Fatal Overvoltage Surge ($>440\text{ kV}$):}\\
+            Damping succeeds, but sudden impedance changes trigger extreme voltage surge in reactive-starved grid.
+        };
+
+        % 12:32
+        \node[draw=cDanger, fill=cDanger, text=white, font=\tiny\bfseries, rounded corners=2pt, inner sep=1.8pt] at (0.5, -2.95) {12:32};
+        \node[anchor=west, text width=6.8cm, font=\tiny, align=left] at (1.05, -2.95) {
+            \textbf{\color{cDanger}Cascading Inverter Trips \& Blackout:}\\
+            Inverters trip on overvoltage ($>15\text{ GW}$ lost); interties trip on loss-of-synchronism $\to$ \textbf{31 GW lost (55M people)}.
+        };
+    \end{tikzpicture}
+\end{column}
+\begin{column}{0.36\textwidth}
+    \centering
+    \includegraphics[width=\linewidth,height=4.8cm,keepaspectratio]{images/iberian_blackout.pdf}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Iberian Blackout: Technical Analysis \& Lessons}
+\begin{columns}[T]
+\begin{column}{0.62\textwidth}
+    \scriptsize
+    \textbf{Root Causes \& Inverter Dynamics \cite{entsoe2026iberia}:}
+    \begin{itemize}\setlength{\itemsep}{1pt}
+        \item \textbf{Control Coupling:} Shifting HVDC mode and re-meshing lines damped oscillations but triggered the overvoltage surge.
+        \item \textbf{Passive Mode:} Solar/wind plants lacked fast dynamic reactive absorption.
+        \item \textbf{Nuisance Trips:} Inverters tripped on overvoltage rather than riding through.
+    \end{itemize}
+    \vspace{2pt}
+    \textbf{Recommendations for High-Renewable Grids:}
+    \begin{itemize}\setlength{\itemsep}{1pt}
+        \item \textbf{Grid-Forming (GFM):} Converters must supply virtual inertia and voltage support.
+        \item \textbf{HVDC POD Tuning:} Coordinated damping without adverse voltage coupling.
+        \item \textbf{TSO-DSO Coordination:} Unified reactive management to prevent overvoltages.
+    \end{itemize}
+\end{column}
+\begin{column}{0.36\textwidth}
+    \begin{alertblock}{New Stability Paradigm}
+    \scriptsize
+    Europe's first major blackout driven by \textbf{converter-driven stability} and \textbf{fast voltage dynamics}, proving that low-inertia grids require active grid-forming controls!
+    \end{alertblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Assessing Power System Security}
+
+\begin{frame}{Operational Security: The $N-1$ Criterion}
+\begin{columns}[T]
+\begin{column}{0.65\textwidth}
+    \footnotesize
+    \textbf{How do Transmission System Operators (TSOs) prevent blackouts?}
+    \begin{itemize}
+        \item \textbf{Basic principle:} The grid must withstand the loss of any single unexpected critical element ($N-1$) without causing cascading outages, voltage collapse, or service interruptions.
+        \item \textbf{Contingency List ($N-1$):}
+        \begin{itemize}
+            \item Loss of any single transmission line or cable
+            \item Loss of any substation transformer
+            \item Loss of the largest generating unit or HVDC link
+        \end{itemize}
+        \item If a single failure causes another element to overload beyond emergency ratings, the operating state is \alert{\textbf{insecure}}.
+    \end{itemize}
+\end{column}
+\begin{column}{0.35\textwidth}
+    \begin{block}{TSO Security Scope}
+    \scriptsize
+    TSOs evaluate both:
+    \begin{enumerate}
+        \item \textbf{Static Security:} Post-fault power flow within thermal and voltage bounds.
+        \item \textbf{Dynamic Security:} Transient rotor angle, frequency, and voltage stability.
+    \end{enumerate}
+    \end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Static $N-1$ Security Assessment Workflow}
+\footnotesize
+\textbf{Real-Time Online Security Analysis (every 5 to 15 minutes in EMS):}
+\begin{enumerate}
+    \item \textbf{State Estimation Base Case ($N$):}
+    \begin{itemize}
+        \item Obtain real-time bus voltages $\mathbf{V}$, injections $\mathbf{P}, \mathbf{Q}$, and branch flows from SCADA and PMU measurements.
+        \item Verify that pre-contingency variables satisfy continuous operating limits:
+        \begin{equation*}
+            I_{ij}^{(0)} \le I_{ij}^{\max,\text{perm}}, \quad V_k^{\min,\text{perm}} \le V_k^{(0)} \le V_k^{\max,\text{perm}}
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Simulate Contingency List $\{c = 1, \dots, C\}$:}
+    \begin{itemize}
+        \item For each contingency $c$, solve the post-outage AC power flow equations:
+        \begin{equation*}
+            \mathbf{P}_{\text{inj}}^{(c)} = \mathbf{P}(\mathbf{V}^{(c)}, \boldsymbol{\theta}^{(c)}), \quad \mathbf{Q}_{\text{inj}}^{(c)} = \mathbf{Q}(\mathbf{V}^{(c)}, \boldsymbol{\theta}^{(c)})
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Check Post-Contingency Bounds:}
+    \begin{itemize}
+        \item Branch currents must respect short-term emergency thermal ratings ($I_{ij}^{(c)} \le I_{ij}^{\max,\text{emerg}}$).
+        \item Substation voltages must remain within emergency limits (typically $[0.90, 1.10]\text{ p.u.}$).
+    \end{itemize}
+    \item \textbf{Industrial Complexity (e.g., Elia in Belgium):}
+    \begin{itemize}
+        \item $1000 - 2000$ single contingencies evaluated.
+        \item Over $4000$ branch and voltage constraints checked per contingency.
+        \item If violations occur, the operator must enact \textbf{preventive redispatch} or prepare fast \textbf{corrective remedial actions}.
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{From Static Security to Dynamic Stability}
+\begin{columns}[T]
+\begin{column}{0.65\textwidth}
+    \footnotesize
+    \textbf{Static $N-1$ analysis assumes the system reaches a steady state!}
+    \begin{itemize}
+        \item But will the system survive the dynamic transition after a fault?
+        \item \textbf{ELEC0447 Core Curriculum:}
+        \begin{enumerate}
+            \item \textbf{Frequency Control:} Balancing active power ($P-f$) across milliseconds to hours.
+            \item \textbf{Voltage Stability:} Reactive power balance ($Q-V$) and PV/QV curve margins.
+            \item \textbf{Rotor Angle Stability:} Machine swing equations, critical clearing time, and synchronism.
+            \item \textbf{HVDC Integration:} Fast active/reactive power control and converter dynamics.
+        \end{enumerate}
+    \end{itemize}
+\end{column}
+\begin{column}{0.35\textwidth}
+    \begin{block}{Next Lecture}
+    \scriptsize
+    \textbf{Frequency Control:}
+    How synchronous inertia, governors, and AGC maintain $50\text{ Hz}$ across the European continent.
+    \end{block}
+\end{column}
+\end{columns}
 \end{frame}

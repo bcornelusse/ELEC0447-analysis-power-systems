@@ -89,7 +89,7 @@ Web-based practice quizzes with step-by-step navigation, KaTeX math rendering, i
 
 ## Repository Structure
 
-- [`Lectures/`](Lectures/): LaTeX Beamer slide decks for all lectures, the self-study module on transforms ([`Lectures/transforms/`](Lectures/transforms/)), and the compilation script [`compile_all.sh`](Lectures/compile_all.sh).
+- [`Lectures/`](Lectures/): LaTeX Beamer slide decks for all lectures, the self-study module on transforms ([`Lectures/transforms/`](Lectures/transforms/)), the frequency control simulation notebook ([`Lectures/frequency_control/frequency_control_simulation.ipynb`](Lectures/frequency_control/frequency_control_simulation.ipynb)), and the compilation script [`compile_all.sh`](Lectures/compile_all.sh).
 - [`Exercises/`](Exercises/): Complete exercise manual containing problem statements and step-by-step solutions for TP1 through TP6, authored in modular LaTeX (`ELEC0447_exercise_manual.tex`, `tp1_phasor_analysis.tex` to `tp6_voltage_stability.tex`) and the compiled document [`ELEC0447_exercise_manual.pdf`](Exercises/ELEC0447_exercise_manual.pdf).
 - [`pdf/`](pdf/): Project descriptions, data sheets, and past exam questions.
 - [`notebooks/`](notebooks/): Python and Jupyter notebooks for tutorials, power flow algorithms (Newton–Raphson, DC power flow), and [pandapower](https://www.pandapower.org/) examples.
