@@ -1,6 +1,7 @@
 \documentclass[a4paper,10pt]{article}
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=1.4cm, bottom=1.4cm, left=1.6cm, right=1.6cm]{geometry}
 \usepackage{palatino}
+\usepackage{amsmath}
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage{hyperref}
@@ -12,69 +13,82 @@
 
 \begin{document}
 
-% Academic Year in top right corner
+% Academic Year
 \begin{flushright}
     2026--2027
 \end{flushright}
 
-\vspace{-0.5em}
+\vspace{-1em}
 
 % Title Header
 \begin{center}
-    {\Large \textbf{ELEC0447 -- Analysis of Electric Power and Energy Systems}}\\[0.4em]
-    {\large \textbf{Oral exam questions}}
+    {\Large \textbf{ELEC0447 -- Analysis of Electric Power and Energy Systems}}\\[0.3em]
+    {\large \textbf{Oral Examination Questions}}
 \end{center}
 
-\vspace{0.8em}
+\vspace{0.3em}
 
-\textit{You are assigned two questions, one from each of the lists below. Questions from List 1 will be accompanied by a short exercise (the same type as the ones of the practice sessions).}
+\textit{You will be assigned two questions, one from each list below. Questions from \textbf{List~1} are accompanied by a short numerical exercise (of the same type as those solved during the practical sessions TP~1 to TP~6).}
 
-\vspace{1em}
+\vspace{0.6em}
 
 \begin{multicols}{2}
 
-\textbf{List 1:}
-\begin{enumerate}[leftmargin=*, itemsep=0.4em, topsep=0.3em]
-    \item Describe what a three-phase system is, powers, voltages, currents, star and delta connections, and how (and when) we can simplify the analysis to a per-phase analysis.
+\textbf{\large List 1: Modeling \& Analytical Problems}
+\vspace{0.2em}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em, topsep=0.2em]
+    \item \textbf{Three-Phase Systems and Power Transfer:}\\
+    Describe three-phase systems, line-to-line vs. phase voltages, star and delta connections, and the per-phase equivalent circuit. Derive the active and reactive power transfer equations between two AC buses connected through an inductive branch.
     
-    \item Describe the per-unit normalization principle, its usefulness, and how to apply it. Give an example.
+    \item \textbf{The Per-Unit Normalization System:}\\
+    Explain the per-unit normalization principle, the choice of base quantities ($S_b, V_b, I_b, Z_b$), impedance transformation across voltage levels, and base change formulas. Discuss its usefulness and apply it to a multi-voltage example.
     
-    \item Describe how a transmission line can be modeled (distributed parameter representation and lumped model), what the SIL is, and why it is useful.
+    \item \textbf{Transmission Line Modeling:}\\
+    Formulate the distributed parameter model (Telegrapher's equations), the characteristic impedance, and the propagation constant. Define the Surge Impedance Loading (SIL) and explain its physical significance. Derive the lumped $\pi$-equivalent model.
     
-    \item Describe how a transformer can be modeled and its per unit representation and explain the phase shift in delta-star configurations.
+    \item \textbf{Transformers and Voltage/Angle Regulators:}\\
+    Describe the equivalent circuit of a real transformer, its per-unit model, and phase shifts in $Y$-$\Delta$ configurations. Explain the operating principle and power flow modeling of tap-changing (OLTC) and phase-shifting transformers (PST).
     
-    \item Describe what a tap-changing transformer is, what a phase-shifting transformer is, how they work, and how to include them in a power flow analysis.
+    \item \textbf{Synchronous Generators:}\\
+    State the steady-state per-phase model of a synchronous generator, draw its phasor diagram, and derive the power-angle equation. Describe excitation control ($E_{af}\sin\delta = \text{cst}$), reactances ($X_d'', X_d', X_d$), and capability limits in power flow.
     
-    \item State the model of a synchronous generator and describe its properties. Explain how a synchronous generator can be included in a power flow analysis.
+    \item \textbf{Power Transfer Limits and the $P$-$V$ Nose Curve:}\\
+    Analytically derive the relationship between load active power $P$ and receiving-end voltage $V$. Derive the maximum transmissible active power $P_{\max}$ and critical voltage $V_{\text{crit}}$. Explain the influence of power factor and line reactance.
 \end{enumerate}
 
-\vspace{0.5em}
-\textbf{List 2:}
-\begin{enumerate}[leftmargin=*, itemsep=0.4em, topsep=0.3em]
-    \item Explain the principle of the power flow analysis, derive the power flow equations, and sketch a solution method.
+\columnbreak
+
+\textbf{\large List 2: Grid Operation, Control \& Dynamics}
+\vspace{0.2em}
+\begin{enumerate}[leftmargin=*, itemsep=0.35em, topsep=0.2em]
+    \item \textbf{Power Flow Analysis:}\\
+    Explain the power flow problem and bus classifications (Slack, PV, PQ). Derive the nodal mismatch equations and describe the Newton-Raphson solution algorithm. Contrast it with the DC power flow approximation, and explain single vs. distributed slack buses.
     
-    \item Describe the applications of HVDC systems and the main technologies. Describe the main components of a LCC link.
+    \item \textbf{Operational Security and Blackouts Analysis:}\\
+    Explain the principle of the $N-1$ operational security criterion and how static security assessment is conducted. Choose and explain in detail one historical major grid disturbance or blackout (e.g., Tokyo 1987, Northeast US 2003, Italy 2003, Europe 2006, or Iberian Peninsula 2025): describe the initial events, the cascading mechanism, and the main technical lessons learned.
     
-    \item Describe the principles of thyristor valves and the operation of a LCC line. Explain briefly how an LCC link can be controlled and how to include it in a power flow analysis (basic model).
+    \item \textbf{Frequency Dynamics and Control Hierarchy:}\\
+    Explain power balance and frequency evolution in an AC system (kinetic energy, inertia constant $H$, RoCoF). Describe the control hierarchy: primary (governor droop), secondary (AGC/aFRR), and tertiary control. Discuss the operational challenges associated with declining system inertia.
     
-    \item Explain the impact of active and reactive power flows on voltages. (expected answer $\to$ active power flows impact voltage angles, reactive power flows impact voltage magnitudes). Explain what is the nose curve/PV curve. Why do we have a maximum transmissible power through a line? What can we do to increase this maximum power transfer? Give short examples of long-term voltage stability and short-term voltage stability. What can we do to prevent voltage instability? What are the impacts of large penetration of distributed energy resources on the voltages of distribution networks? Explain the issue behind reversal power flows.
+    \item \textbf{Voltage Regulation and Voltage Instability:}\\
+    Explain the physical mechanisms coupling active power to voltage angles and reactive power to voltage magnitudes. Describe the voltage control hierarchy (primary AVR, secondary, tertiary). Detail short-term vs. long-term voltage instability mechanisms, and discuss the impacts of high DER penetration (voltage rise, reverse power flows).
     
-    \item Write down the swing equation and describe every term. Explain the equal area criterion and how it relates to the synchronous machine's kinetic energy. Explain the critical clearing time (CCT) and how an upper and lower bound of the CCT can be found knowing the critical clearing angle. Do the damper windings in a synchronous machine help to prevent transient rotor angle instability? Explain the impact of renewable energy resources on the angle stability.
-    
-    \item Explain how frequency evolves in an AC system, the mechanisms implemented to control the frequency, and the impact of renewable energy integration.
+    \item \textbf{Rotor Angle and Transient Stability:}\\
+    Formulate the swing equation and describe every term. Explain the Equal Area Criterion (EAC) and how it relates to machine kinetic energy. Define the Critical Clearing Angle and Critical Clearing Time (CCT), and discuss the influence of damper windings, grid strength (SCR), and renewable energy integration.
+
+    \item \textbf{HVDC Transmission Systems:}\\
+    Describe the main applications of HVDC systems and compare Line-Commutated Converters (LCC) with Voltage Source Converters (VSC). Detail the components of an LCC link, the operating principles of thyristor valves (firing angle $\alpha$, extinction angle $\gamma$), control principles, and representation in power flow.
 \end{enumerate}
 
 \end{multicols}
 
 \vfill
-
 \rule{\linewidth}{0.6pt}
-
-\vspace{0.6em}
+\vspace{0.3em}
 
 \begin{center}
-    \textbf{Write your answers on separate sheets, and indicate the}\\
-    \textbf{date, your name, and your student ID on each sheet.}
+    \textbf{Write your answers and exercise development on separate sheets.}\\
+    \textbf{Indicate the date, your full name, and your student ID on each sheet.}
 \end{center}
 
 \end{document}
