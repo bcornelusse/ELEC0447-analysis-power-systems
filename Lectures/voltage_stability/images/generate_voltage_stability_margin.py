@@ -53,10 +53,10 @@ ax.text((P0 + Pmax) / 2, arrow_y + 0.04, r'Margin $\Delta P = P_{\max} - P_0$',
 
 # Point labels
 ax.annotate(r'Operating Point $(P_0, V_0)$' + f'\n($P_0={P0:.2f}$, $V_0={V0:.2f}$ pu)',
-            xy=(P0, V0), xytext=(P0 - 0.30, V0 + 0.04),
-            arrowprops=dict(arrowstyle='->', color='#1b4f72', lw=1.1),
+            xy=(P0, V0), xytext=(0.18, 0.72),
+            arrowprops=dict(arrowstyle='->', color='#1b4f72', lw=1.2),
             fontsize=8.5, fontweight='bold', color='#1b4f72',
-            bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor='#1b4f72', alpha=0.85))
+            bbox=dict(boxstyle='round,pad=0.25', facecolor='white', edgecolor='#1b4f72', alpha=0.92))
 
 ax.annotate(r'Nose Point $(P_{\max}, V_{\mathrm{crit}})$' + f'\n($P_{{\max}}={Pmax:.2f}$, $V_{{\mathrm{{crit}}}}={Vcrit:.2f}$ pu)',
             xy=(Pmax, Vcrit), xytext=(Pmax - 0.38, Vcrit - 0.18),
@@ -84,7 +84,5 @@ plt.tight_layout()
 out_dir = Path('Lectures/voltage_stability/images')
 out_dir.mkdir(parents=True, exist_ok=True)
 pdf_path = out_dir / 'voltage_stability_margin.pdf'
-png_path = out_dir / 'voltage_stability_margin.png'
 plt.savefig(pdf_path, format='pdf', bbox_inches='tight')
-plt.savefig(png_path, format='png', dpi=300, bbox_inches='tight')
-print(f'Successfully updated {pdf_path} and {png_path}')
+print(f'Successfully updated {pdf_path}')

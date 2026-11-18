@@ -1,0 +1,57 @@
+\documentclass[border=4pt]{standalone}
+\usepackage[siunitx]{circuitikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\begin{document}
+\begin{circuitikz}[american, >=Stealth, line width=0.8pt]
+
+% --- Left: Single-line diagram ---
+\begin{scope}[xshift=0cm]
+  % Generator
+  \draw (0,0) node[vsourcesinshape, scale=0.8] (G) {};
+  \draw (G.east) -- (1.0,0);
+
+  % Sending bus
+  \draw[line width=2.2pt] (1.0,-0.6) -- (1.0,0.6) node[above=2pt] {$\bar{V}_S$};
+
+  % Shunt cap at S
+  \ctikzset{capacitors/scale=0.6}
+  \draw (1.0,0) -- (1.65,0) to[C] (1.65,-0.95) node[ground, scale=0.7] {};
+
+  % Measurement plane S
+  \draw[dashed, gray] (2.2,-0.8) -- (2.2,0.8);
+  \draw[->] (1.85,0.4) -- (2.55,0.4) node[midway, above=2pt] {$P_S + jQ_S$};
+
+  % Line reactance
+  \draw (1.65,0) -- (2.7,0) to[L, l=$jX_L$] (4.7,0) -- (5.75,0);
+
+  % Measurement plane R
+  \draw[dashed, gray] (5.2,-0.8) -- (5.2,0.8);
+  \draw[->] (4.85,0.4) -- (5.55,0.4) node[midway, above=2pt] {$P_R + jQ_R$};
+
+  % Shunt cap at R
+  \draw (5.75,0) to[C] (5.75,-0.95) node[ground, scale=0.7] {};
+
+  % Receiving bus
+  \draw (5.75,0) -- (6.4,0);
+  \draw[line width=2.2pt] (6.4,-0.6) -- (6.4,0.6) node[above=2pt] {$\bar{V}_R$};
+
+  % Load arrow
+  \draw[->] (6.4,0) -- (7.1,0) -- (7.1,-0.65) node[below=1pt] {Load};
+\end{scope}
+
+% --- Right: Equivalent circuit ---
+\begin{scope}[xshift=8.9cm, yshift=-0.7cm]
+  \draw (0,0) to[sV, invert, v=$\bar{V}_S$] (0,1.6)
+        -- (0.9,1.6) to[L, l=$jX_L$] (3.3,1.6)
+        -- (4.1,1.6) to[generic, v=$\bar{V}_R$] (4.1,0)
+        -- (0,0);
+
+  % Power & current arrows
+  \draw[->] (0.25,1.88) -- (1.05,1.88) node[midway, above=1pt] {$P_S + jQ_S$};
+  \draw[->] (3.15,1.88) -- (3.95,1.88) node[midway, above=1pt] {$P_R + jQ_R$};
+  \draw[->] (2.6,1.35) -- (3.25,1.35) node[midway, below=1pt] {$\bar{I}$};
+\end{scope}
+
+\end{circuitikz}
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass[border=4pt]{standalone}
+\usepackage[siunitx]{circuitikz}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{circuitikz}[american, >=Stealth, line width=0.8pt]
+
+% Main loop: source -> reactance X_L -> tap-changer -> conductance G -> return
+\draw (0,0) to[sV, invert, v=$V_S\angle 0$] (0,2.8)
+      -- (0.8,2.8) to[L, l=$X_L$] (3.2,2.8)
+      -- (4.4,2.8);
+
+% Ideal transformer / OLTC representation (two coupled circles)
+\draw (4.4,2.8) -- (4.4,2.35);
+\draw (4.4,2.10) circle (0.25);
+\draw (4.4,1.78) circle (0.25);
+\draw[->] (4.05,1.55) -- (4.75,2.30); % Tap-changer arrow
+\node[right] at (4.75,2.15) {$r$};
+\node[right] at (4.75,1.72) {$1$};
+
+% Secondary conductance G
+\draw (4.4,1.53) -- (4.4,1.25) to[R, l_=$G$] (4.4,0.0) -- (0,0);
+
+% Voltage arrows V_R and V_2
+\draw[->] (3.75,0.15) -- (3.75,2.65) node[midway, left=2pt] {$V_R\angle\theta$};
+\draw[->] (5.35,0.15) -- (5.35,1.45) node[midway, right=2pt] {$V_2\angle\theta$};
+
+\end{circuitikz}
+\end{document}
