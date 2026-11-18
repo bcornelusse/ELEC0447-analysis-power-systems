@@ -4,7 +4,7 @@
 
 %--------------------------------------
 % Table of contents
-\begin{frame}{Overview}
+\begin{frame}{Overview} %TODO reduce the space between lines to fit everything
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
@@ -25,7 +25,7 @@
 \begin{frame}[allowframebreaks]{Reminder: generator model and step up transformer}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth]{images/Principle_TS.png}
+        \includegraphics[width=0.9\textwidth]{images/Principle_TS.png} %TODO replot this image with tikz
         \caption{Generator with step-up transformer connected to infinite bus through two parallel lines.}
         \label{fig:OMIB}
     \end{figure}
@@ -41,7 +41,7 @@
 \begin{frame}[allowframebreaks]{Reminder: active and reactive power flow on a line}
 Consider a simple radial system.
 \begin{center}
-\includegraphics[width=0.7\textwidth]{images/RadialSystem.png}
+\includegraphics[width=0.7\textwidth]{images/RadialSystem.png} %TODO this image was generated in tikz  in the lecture on voltage stability, take it from there
 \end{center}
 Assuming no transmission-line losses:
 $$S_S = P_S + jQ_S = V_S e^{j \delta_S} \left(\frac{V_S e^{-j \delta_S} - V_R e^{-j \delta_R}}{X}\right) e^{j\frac{\pi}{2}}$$
@@ -66,7 +66,7 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
     \begin{columns}
     \begin{column}{0.55\textwidth}
     \begin{center}
-    \includegraphics[width=0.9\textwidth]{images/delta_P_m.png}
+    \includegraphics[width=0.9\textwidth]{images/delta_P_m.png} %TODO flip this plot so that the angle is on the x axis, to avoid confusion with voltage nose curve.
     \end{center}
     \end{column}
     \begin{column}{0.45\textwidth}
@@ -92,9 +92,10 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
 (In this case,  $P_m > 10.$)
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/Angle_MechanicAnalogy.png}
+\includegraphics[width=0.6\textwidth]{images/Angle_MechanicAnalogy.png} %TODO I think this was also regenerated in tikz in the lecture about synchronous machines, take it from there
 \end{center}
-\begin{itemize}
+
+\begin{itemize} %TODO encapsulate this itemize section in a minipage to reduce the with to 0.8 \textwidth
     \item In synchronous machines, the rotor rotates at the same angular speed as the magnetic field produced by the stator.
     \item If we denote $\omega_m$ the rotor angular speed and $\omega_s = 2\pi f_s$ the synchronous speed, then $\omega_m = \omega_s$.
     \item The field produced by the rotor and the stator tend to align. 
@@ -113,7 +114,7 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
         with (all in per unit)
         \begin{itemize}
             \item $E' = 1.1$, $V_B = 1$, $X_{tr} = 0.8$, $X'_d = 0.4$ 
-            \item various values of $X_L = [0.5,1,3]$ (see next slide).
+            \item various values of $X_L = [0.5,\mathcolor{red}{1},\mathcolor{blue}{3}]$ (see next slide).
         \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -127,12 +128,12 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
 \begin{frame} {Let us consider the following sequence of actions}
 
 \begin{columns}
-\begin{column}{0.6\textwidth}
-Refer to Figure~\ref{fig:OMIB}:
+\begin{column}{0.5\textwidth}
+Refer to the Figure above:
 \begin{enumerate}
     \item \textbf{Pre-fault conditions}: the impedance between the generator and the infinite bus system is $jX_L = j 0.5$ pu.
-    \item \textbf{During-fault conditions}: one line is short-circuited, the impedance becomes $jX_L = j 3$ pu.
-    \item \textbf{Post-fault conditions}: the short-circuit is cleared by disconnecting a line, the impedance becomes $jX_L = j 1$ pu.
+    \item \textcolor{blue}{\textbf{During-fault conditions}}: one line is short-circuited, the impedance becomes $jX_L = j 3$ pu.
+    \item \textcolor{red}{\textbf{Post-fault conditions}}: the short-circuit is cleared by disconnecting a line, the impedance becomes $jX_L = j 1$ pu.
 \end{enumerate}
 \end{column}
 \begin{column}{0.4\textwidth}
@@ -191,7 +192,7 @@ Finally, we make the reasonable assumption that $\omega_m \approx \omega_{syn,m}
 
 \begin{frame}[allowframebreaks]{What is a criterion for transient stability?}
 
-\begin{block}{Criterion}
+\begin{block}{Criterion} %TODO Clarify we are talking about the variation of kinetic energy
 Assume $\delta_0$ is an equilibrium point and an incident occurs. For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy becomes 0, and thus:
 $$\int_{\delta_0}^{\delta_m} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$    
 \end{block}
@@ -221,7 +222,7 @@ $$ u^2 = \left(\frac{d\theta}{dt}\right)^2 $$
 Finally, we apply the limits of integration from $t = \delta_0$ to $t = \delta$ for the definite integral:
 $$ \int_{\delta_0}^{\delta} \left(2\frac{d\theta}{dt}\frac{d^2\theta}{dt^2}\right) dt = \left[\left(\frac{d\theta}{dt}\right)^2\right]_{\delta_0}^{\delta} $$
 Evaluating the expression at the upper and lower limits:
-$$ = \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta} - \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta_0} $$
+$$ = \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta} - \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta_0} $$ %TODO should be \theta=\delta and \theta=\delta_0
 
 
 Since $\delta_0$ is an equilibrium point, \emph{i.e.} $d\delta/dt|_{\delta = \delta_0} = 0$, we have:
@@ -280,7 +281,7 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
     \end{column}
     \begin{column}{0.5\textwidth}
         \begin{center}
-        \includegraphics[width=0.9\linewidth]{images/SwingsBack.png}
+        \includegraphics[width=0.9\linewidth]{images/SwingsBack.png} %TODO redo this figure in python and higlight accelaration and deceleration areas.
         \end{center}
     \end{column}
 \end{columns}
@@ -297,7 +298,7 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
     \begin{column}{0.5\textwidth}
         Without any damping (kinetic energy losses), the system oscillates indefinitely between angle $\delta_2$ and $\delta_m$.
         \begin{center}
-        \includegraphics[width=0.95\textwidth]{images/RotorOscillation.png}
+        \includegraphics[width=0.95\textwidth]{images/RotorOscillation.png} %TODO redo this figuer in python, show explicitely $\delta_2$ and $\delta_m$, maybe color the accelaration and decelaration portions to match colors of previous plot.
         \end{center}
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -305,7 +306,7 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
         \vspace{\baselineskip}
         {\scriptsize
         Reminder: Synchronous machines have \emph{damper windings}. 
-        In perfect steady state, the magnetic fields produced by both the stator and the rotor are fixed relative to the rotor so there is no current in the dampers. On the other hand, if the rotor moves with respect to the magnetic field, the current induced in the dampers create a damping torque according to Lenz's law.}
+        In perfect steady state, the magnetic fields produced by both the stator and the rotor are fixed relative to the rotor so there is no current in the dampers. On the other hand, if the rotor moves with respect to the magnetic field, the current induced in the dampers creates a damping torque according to Lenz's law.}
     \end{column}
 \end{columns}
 \end{frame}
@@ -544,6 +545,71 @@ If the actual clearing time is denoted $t^*$, we can conclude that:
 \end{enumerate}
 \end{frame}
 
+\section{Extension on dynamics: damping}
+\begin{frame} {Extension on dynamics: damping}
+\textbf{Swing equations with damping coefficient}
+$$\frac{d\Delta \omega(t)}{dt} = \frac{1}{2H}\left(P_m - P_{e,max}(t) \sin (\delta(t)) \mathcolor{red}{- D \Delta \omega(t)} \right)$$
+$$\frac{d\delta(t)}{dt} = \omega_0 \Delta \omega(t)$$
+Euler discretization
+$$\Delta \omega_{t+1} = (1-\tau \frac{D}{2H})\Delta \omega_{t} + \frac{\tau}{2H}\left(P_m-P_{e,max}^{k \tau}\sin (\delta_{t})\right)$$
+$$\delta_{t+1} = \delta_{t} + \tau\omega_0\Delta \omega_t$$
+where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k \tau}$ is changing over time in a discrete fashion (pre-fault$\rightarrow$during-fault$\rightarrow$post-fault) through the superscript $k \tau$.
+\end{frame}
+
+\begin{frame} {Results  \textbf{without} damping, $t_{cl} = 0.214 s \leq CCT$}
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+       
+        \begin{center}
+        \includegraphics[width=0.9\linewidth]{images/P-dynamics.png}
+        \end{center}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        The fault is cleared after 214 ms (lower bound on the clearing time). As expected from previous calculations, the system is safe.
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame} {Results \textbf{with} damping, $t_{cl} = 0.214 \leq CCT$}
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+        \begin{center}
+        \includegraphics[width=0.9\linewidth]{images/P-dynamics_bis.png}
+        \end{center}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        The fault is cleared after 214 ms (lower bound on the clearing time). As expected from previous calculations, the system is safe. The damping adds energy dissipation, which allows the system to stabilize around $\delta_2 = 1.028$
+    \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame} {Results \textbf{without} damping, $t_{cl} = 0.239 s \geq CCT$}
+    \begin{columns}
+    \begin{column}{0.55\textwidth}
+        \begin{center}
+        \includegraphics[width=0.9\linewidth]{images/P-dynamics_failed.png}
+        \end{center}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        The fault is cleared after 239 ms (upper bound on the clearing time). The machine loses synchronism.
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Results \textbf{with} damping, $t_{cl} = 0.239 s \geq CCT$}
+\begin{columns}
+    \begin{column}{0.55\textwidth}
+        \begin{center}
+        \includegraphics[width=0.9\linewidth]{images/P-dynamics_bis_failed.png}
+        \end{center}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+        The fault is cleared after 239 ms (upper bound on the clearing time). The system is stable thanks to the damping effect (energy dissipation).
+    \end{column}
+\end{columns}
+\end{frame}
+
 \section{Short-Circuit Capacity and Rotor Angle Stability}
 
 \begin{frame}[allowframebreaks]{Grid Strength: Subtransient Reactance and Thévenin Impedance}
@@ -653,69 +719,7 @@ Short-circuit strength also governs the spatial severity of voltage dips during 
 \end{itemize}
 \end{frame}
 
-\begin{frame} {Extension on dynamics}
-\textbf{Swing equations with damping coefficient}
-$$\frac{d\Delta \omega(t)}{dt} = \frac{1}{2H}\left(P_m - P_{e,max}(t) \sin (\delta(t)) - D \Delta \omega(t) \right)$$
-$$\frac{d\delta(t)}{dt} = \omega_0 \Delta \omega(t)$$
-Euler discretization
-$$\Delta \omega_{t+1} = (1-\tau \frac{D}{2H})\Delta \omega_{t} + \frac{\tau}{2H}\left(P_m-P_{e,max}^{k \tau}\sin (\delta_{t})\right)$$
-$$\delta_{t+1} = \delta_{t} + \tau\omega_0\Delta \omega_t$$
-where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k \tau}$ is changing over time in a discrete fashion (pre-fault$\rightarrow$during-fault$\rightarrow$post-fault) through the superscript $k \tau$.
-\end{frame}
 
-\begin{frame} {Results  \textbf{without} damping, $t_{cl} = 0.214 s \leq CCT$}
-\begin{columns}
-    \begin{column}{0.55\textwidth}
-       
-        \begin{center}
-        \includegraphics[width=0.9\linewidth]{images/P-dynamics.png}
-        \end{center}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-        The fault is cleared after 214 ms (lower bound on the clearing time). As expected from previous calculations, the system is safe.
-    \end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame} {Results \textbf{with} damping, $t_{cl} = 0.214 \leq CCT$}
-\begin{columns}
-    \begin{column}{0.55\textwidth}
-        \begin{center}
-        \includegraphics[width=0.9\linewidth]{images/P-dynamics_bis.png}
-        \end{center}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-        The fault is cleared after 214 ms (lower bound on the clearing time). As expected from previous calculations, the system is safe. The damping adds energy dissipation, which allows the system to stabilize around $\delta_2 = 1.028$
-    \end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame} {Results \textbf{without} damping, $t_{cl} = 0.239 s \geq CCT$}
-    \begin{columns}
-    \begin{column}{0.55\textwidth}
-        \begin{center}
-        \includegraphics[width=0.9\linewidth]{images/P-dynamics_failed.png}
-        \end{center}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-        The fault is cleared after 239 ms (upper bound on the clearing time). The machine loses synchronism.
-    \end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}{Results \textbf{with} damping, $t_{cl} = 0.239 s \geq CCT$}
-\begin{columns}
-    \begin{column}{0.55\textwidth}
-        \begin{center}
-        \includegraphics[width=0.9\linewidth]{images/P-dynamics_bis_failed.png}
-        \end{center}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-        The fault is cleared after 239 ms (upper bound on the clearing time). The system is stable thanks to the damping effect (energy dissipation).
-    \end{column}
-\end{columns}
-\end{frame}
 
 \section{{Dynamic Security Assessment}}
 \begin{frame}{Dynamic Security Assessment goal}
