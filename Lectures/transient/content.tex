@@ -4,9 +4,11 @@
 
 %--------------------------------------
 % Table of contents
-\begin{frame}{Overview} %TODO reduce the space between lines to fit everything
+\begin{frame}{Overview}
+  {\footnotesize
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
+  }
 \end{frame}
 
 
@@ -22,29 +24,41 @@
 \end{frame}
 
 \section{Principle of transient stability}
-\begin{frame}[allowframebreaks]{Reminder: generator model and step up transformer}
+\begin{frame}{Reminder: generator model and step up transformer}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth]{images/Principle_TS.png} %TODO replot this image with tikz
+        \includegraphics[width=0.9\textwidth]{images/Principle_TS.pdf}
         \caption{Generator with step-up transformer connected to infinite bus through two parallel lines.}
         \label{fig:OMIB}
     \end{figure}
-\begin{itemize}
-    \item Consider a generator bus connected through a transformer to an infinite bus system ($\bar{V}_B = V_B$ is an ideal voltage source).
-    \item The mechanical power delivered through the shaft is $P_m$.
-    \item The electrical power delivered to the grid is denoted $P_e$.
-    \item In steady-state, the synchronous machine is modelled as a constant voltage source $E' e^{j\delta}$ behind its transient reactance $X'_d$.
-    \item Finally, $X_{tr}$ is the leakage reactance of the transformer.
-\end{itemize}
+    \begin{columns}
+        \begin{column}{0.55\textwidth}        
+            \scriptsize
+            \begin{itemize}
+                \item Consider a generator bus connected through a transformer to an infinite bus system ($\bar{V}_B = V_B$ is an ideal voltage source).
+                \item The mechanical power delivered through the shaft is $P_m$.
+                \item The electrical power delivered to the grid is denoted $P_e$.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+        \scriptsize
+        \begin{itemize}
+            \item In steady-state, the synchronous machine is modelled as a constant voltage source $E' e^{j\delta}$ behind its transient reactance $X'_d$.
+            \item Finally, $X_{tr}$ is the leakage reactance of the transformer.
+            \end{itemize}
+            \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Reminder: active and reactive power flow on a line}
 Consider a simple radial system.
 \begin{center}
-\includegraphics[width=0.7\textwidth]{images/RadialSystem.png} %TODO this image was generated in tikz  in the lecture on voltage stability, take it from there
+\includegraphics[width=0.8\textwidth]{images/RadialSystem.pdf}
 \end{center}
+
 Assuming no transmission-line losses:
 $$S_S = P_S + jQ_S = V_S e^{j \delta_S} \left(\frac{V_S e^{-j \delta_S} - V_R e^{-j \delta_R}}{X}\right) e^{j\frac{\pi}{2}}$$
+
 If we define $\delta = \delta_S-\delta_R$, we have:
 $$P_R = P_S = \frac{V_S V_R}{X_L}\sin \delta$$
 $$Q_{R} = \frac{V_S V_R \cos \delta}{X_L} - \frac{V^2_R}{X_L}$$
@@ -52,7 +66,7 @@ $$Q_{S} = \frac{V_S^2}{X_L} - \frac{V_S V_R \cos \delta}{X_L}$$
 \end{frame}
 
 \begin{frame}{Reminder: Electrical power vs. angle}
-Plugging the generator and transformer models in the previous models, 
+Plugging the generator and transformer models in model of Figure~\ref{fig:OMIB}, 
 the electrical power $P_e$ is expressed as follows:
 \begin{equation}
 P_e = \frac{E' V_B}{X_{tr}+X'_d + X_L/2} \sin(\delta)    \label{eq:P_e_delta}
@@ -63,14 +77,14 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
 \end{frame}
 
 \begin{frame}{Reminder: Electrical power vs. angle, graphically}
-    \begin{columns}
-    \begin{column}{0.55\textwidth}
+    \begin{columns}[T]
+    \begin{column}{0.4\textwidth}
     \begin{center}
-    \includegraphics[width=0.9\textwidth]{images/delta_P_m.png} %TODO flip this plot so that the angle is on the x axis, to avoid confusion with voltage nose curve.
+    \includegraphics[width=0.9\textwidth]{images/delta_P_m.pdf}
     \end{center}
     \end{column}
-    \begin{column}{0.45\textwidth}
-
+    \begin{column}{0.55\textwidth}
+    \small
     \begin{itemize}
         \item When we increase $P_{m}$, the electrical angle at equilibrium also increases. 
         \item The maximum value is reached for $\delta_{eq} = \frac{\pi}{2}$.
@@ -83,19 +97,25 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
     \end{itemize}
     \end{column}
 \end{columns}
-
+\textbf{Stability of the two equilibria:} (We will also remind how $\delta$ relates to $P_e$ nd $P_m$ below)
+\scriptsize
+\begin{itemize}
+        \item $\delta < \frac{\pi}{2}$ ($\frac{dP_e}{d\delta} > 0$): a small increase in $\delta$ gives $P_e > P_m$, which decelerates the rotor back toward equilibrium (\textbf{stable}).
+        \item $\delta > \frac{\pi}{2}$ ($\frac{dP_e}{d\delta} < 0$): a small increase in $\delta$ gives $P_e < P_m$, which further accelerates the rotor away from equilibrium (\textbf{unstable}).
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Reminder: what if $P_m$ exceeds $P_e$?}
-
-(In this case,  $P_m > 10.$)
-
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/Angle_MechanicAnalogy.png} %TODO I think this was also regenerated in tikz in the lecture about synchronous machines, take it from there
-\end{center}
-
-\begin{itemize} %TODO encapsulate this itemize section in a minipage to reduce the with to 0.8 \textwidth
+\begin{frame}{Reminder: what if $P_m$ exceeds $P_e$?}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+    \centering 
+    (In this case,  $P_m > 10.$)
+    \resizebox{\textwidth}{!}{\input{images/interaction_fields.tex}}
+\end{column}
+\begin{column}{0.5\textwidth}
+    \scriptsize
+\begin{itemize}
     \item In synchronous machines, the rotor rotates at the same angular speed as the magnetic field produced by the stator.
     \item If we denote $\omega_m$ the rotor angular speed and $\omega_s = 2\pi f_s$ the synchronous speed, then $\omega_m = \omega_s$.
     \item The field produced by the rotor and the stator tend to align. 
@@ -103,6 +123,8 @@ $$\delta_{eq} = \arcsin\left(P_m \frac{X_{tr}+X'_d + X_L/2}{E' V_B}\right)$$
     \item This misalignment is represented by the electrical angle: a greater angle induces a larger torque. 
     \item \textbf{BUT} if the angle is too large, the machine loses synchronism and the torque becomes 0.
 \end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Principle of transient stability}
@@ -146,7 +168,7 @@ For the system to be stable, the system has to stabilize at $\delta = \delta_2$ 
 
 \section{The Equal Area Criterion}
 \begin{frame} [allowframebreaks]{The swing equation (reminder)}
-Let us define the following quantities: $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has (we omit the damping torque for now, we will discuss its impact later.):
+Let us define the following quantities: $J_m$ is the moment-of-inertia of the rotational system, $T_m$ is the mechanical torque, $T_e$ is the electrical torque, $\omega_m$ is the rotor speed and $\delta_m$ the rotor angle (in mechanical radians). Using Newton's Second Law, one has (\textit{we omit the damping torque for now, we will discuss its impact later}):
 $$J_m\frac{d^2\delta_m}{dt^2} = T_m-T_e$$
 Multiplying both sides by $\omega_m$ (the rotor speed), one has:
 $$\omega_m J_m \frac{d^2\delta_m}{dt^2} = P_m-P_e$$
@@ -192,8 +214,8 @@ Finally, we make the reasonable assumption that $\omega_m \approx \omega_{syn,m}
 
 \begin{frame}[allowframebreaks]{What is a criterion for transient stability?}
 
-\begin{block}{Criterion} %TODO Clarify we are talking about the variation of kinetic energy
-Assume $\delta_0$ is an equilibrium point and an incident occurs. For the system to stabilize, it must exist an angle $\delta_{m}$ at which the kinetic energy becomes 0, and thus:
+\begin{block}{Criterion}
+Assume $\delta_0$ is an equilibrium point and an incident occurs. For the system to stabilize, there must exist an angle $\delta_{m}$ at which the variation of kinetic energy (relative to the synchronous speed) becomes 0, and thus:
 $$\int_{\delta_0}^{\delta_m} \left(P_{m,pu}-P_{e,pu}\right) d\theta = 0$$    
 \end{block}
 
@@ -219,10 +241,10 @@ The indefinite integral of this expression is:
 $$ \int 2u \, du = 2\left(\frac{u^2}{2}\right) + C = u^2 + C $$
 Now, we substitute back the original expression for $u$:
 $$ u^2 = \left(\frac{d\theta}{dt}\right)^2 $$
-Finally, we apply the limits of integration from $t = \delta_0$ to $t = \delta$ for the definite integral:
+Finally, we apply the limits of integration from $\theta = \delta_0$ to $\theta = \delta$ for the definite integral:
 $$ \int_{\delta_0}^{\delta} \left(2\frac{d\theta}{dt}\frac{d^2\theta}{dt^2}\right) dt = \left[\left(\frac{d\theta}{dt}\right)^2\right]_{\delta_0}^{\delta} $$
 Evaluating the expression at the upper and lower limits:
-$$ = \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta} - \left(\frac{d\theta}{dt}\right)^2\bigg|_{t=\delta_0} $$ %TODO should be \theta=\delta and \theta=\delta_0
+$$ = \left(\frac{d\theta}{dt}\right)^2\bigg|_{\theta=\delta} - \left(\frac{d\theta}{dt}\right)^2\bigg|_{\theta=\delta_0} $$
 
 
 Since $\delta_0$ is an equilibrium point, \emph{i.e.} $d\delta/dt|_{\delta = \delta_0} = 0$, we have:
@@ -239,7 +261,7 @@ As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerat
 
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Equal Area Criterion: the case of a fault}
+\begin{frame}{Equal Area Criterion: the case of a fault}
 \begin{columns}
     \begin{column}{0.55\textwidth}
         Let us consider again the system of Figure~\ref{fig:OMIB}, where 
@@ -250,7 +272,7 @@ As long as $P_{m,pu} > P_{e,pu}$, the machine gains kinetic energy and accelerat
     \end{column}
     \begin{column}{0.45\textwidth}
         \begin{center}
-        \includegraphics[width=0.99\textwidth]{images/TransientStabilityEAC_1.png}
+        \includegraphics[width=0.99\textwidth]{images/TransientStabilityEAC_1.pdf}
         \end{center}
     \end{column}
 \end{columns}
@@ -259,32 +281,41 @@ For a stable system, we highlighted that $\int_{\delta_0}^{\delta} \left(P_{m,pu
 
 For our short-circuit example, we can decompose the condition into:
 $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\mathcolor{blue}{P_{e,fault,pu}}\right) d\theta}_{\text{Area A}} - \underbrace{\int_{\mathcolor{green}{\delta_{cl}}}^{\delta_{m}} \left(\mathcolor{red}{P_{e,post-fault,pu}}-P_{m,pu}\right) d\theta}_{\text{Area B}} = 0$$
-\begin{columns}
-    \begin{column}{0.55\textwidth}
+\end{frame}
+
+\begin{frame}{Equal Area Criterion: the case of a fault (...)}
+\begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+        \begin{center}
+        \includegraphics[width=0.9\textwidth]{images/EAC.pdf}
+        \end{center}
+    \end{column}
+    \begin{column}{0.4\textwidth}
         \begin{itemize}
             \item During the first part (Area A), the machine accelerates. 
             \item After the fault (Area B), the machine decelerates and the net acceleration becomes 0. 
         \end{itemize}
     \end{column}
-    \begin{column}{0.45\textwidth}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Equal Area Criterion: the case of a fault (...)}
+
+\begin{columns}[T]
+    \begin{column}{0.5\textwidth}
         \begin{center}
-        \includegraphics[width=0.9\textwidth]{images/EAC.pdf}
+        \includegraphics[width=0.9\linewidth]{images/SwingsBack.pdf}
         \end{center}
     \end{column}
-\end{columns}
-
-\begin{columns}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.4\textwidth}
         At angle $\delta_{m}$, there is still a mismatch between the electrical power and the mechanical power. 
         
         Thus the machine swings back, from $\delta_{m}$ to $\delta_{2}$.
     \end{column}
-    \begin{column}{0.5\textwidth}
-        \begin{center}
-        \includegraphics[width=0.9\linewidth]{images/SwingsBack.png} %TODO redo this figure in python and higlight accelaration and deceleration areas.
-        \end{center}
-    \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}{Equal Area Criterion: the case of a fault (...)}
 \begin{block}{Exercises}
     \begin{itemize}
         \item Compute $\mathcolor{red}{\delta_m}$, the angle reached just after clearing the fault.
@@ -293,12 +324,13 @@ $$\underbrace{\int_{\delta_0}^{\mathcolor{green}{\delta_{cl}}} \left(P_{m,pu}-\m
     
 \end{block}
 
-
+\end{frame}
+\begin{frame}{No damping $\Rightarrow$ oscillations}
 \begin{columns}
     \begin{column}{0.5\textwidth}
         Without any damping (kinetic energy losses), the system oscillates indefinitely between angle $\delta_2$ and $\delta_m$.
         \begin{center}
-        \includegraphics[width=0.95\textwidth]{images/RotorOscillation.png} %TODO redo this figuer in python, show explicitely $\delta_2$ and $\delta_m$, maybe color the accelaration and decelaration portions to match colors of previous plot.
+        \includegraphics[width=0.8\textwidth]{images/RotorOscillation.pdf}
         \end{center}
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -333,6 +365,29 @@ We introduce the concept of critical \textbf{clearing angle} $\mathcolor{green}{
 \end{center}
 
 
+\end{frame}
+
+\begin{frame}{Loss of Synchronism ($t_{cl} > CCT$)}
+\begin{columns}
+    \begin{column}{0.56\textwidth}
+        \begin{center}
+        \includegraphics[width=\textwidth]{images/LossOfSynchronism.pdf}
+        \end{center}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+        \scriptsize
+        \begin{itemize}
+            \item If the fault is cleared after $CCT$ ($\delta_{cl} > \delta_{cct}$), Acceleration Area $A$ exceeds the maximum Deceleration Area $B$.
+            \item The rotor still has $\Delta\omega > 0$ when reaching $\delta_{\max} = 180^\circ - \delta_1$.
+            \item Beyond $\delta_{\max}$, $P_e < P_m$ again: the machine accelerates monotonically and \textbf{slips poles} ($\delta$ passes $180^\circ, 360^\circ, \dots$).
+        \end{itemize}
+        \vspace{0.2cm}
+        \begin{block}{Interactive simulation}
+            \scriptsize
+            Explore live EAC, rotor pole-slipping, and damping in \href{run:interactive_synchronism_loss.html}{\texttt{interactive\_synchronism\_loss.html}}.
+        \end{block}
+    \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Critical Clearing Angle: Solution procedure}
@@ -546,11 +601,11 @@ If the actual clearing time is denoted $t^*$, we can conclude that:
 \end{frame}
 
 \section{Extension on dynamics: damping}
-\begin{frame} {Extension on dynamics: damping}
-\textbf{Swing equations with damping coefficient}
+\begin{frame} {What if the swing equations includes a damping coefficient?}
 $$\frac{d\Delta \omega(t)}{dt} = \frac{1}{2H}\left(P_m - P_{e,max}(t) \sin (\delta(t)) \mathcolor{red}{- D \Delta \omega(t)} \right)$$
 $$\frac{d\delta(t)}{dt} = \omega_0 \Delta \omega(t)$$
-Euler discretization
+
+The figures below use the Euler discretization to solve this equation:
 $$\Delta \omega_{t+1} = (1-\tau \frac{D}{2H})\Delta \omega_{t} + \frac{\tau}{2H}\left(P_m-P_{e,max}^{k \tau}\sin (\delta_{t})\right)$$
 $$\delta_{t+1} = \delta_{t} + \tau\omega_0\Delta \omega_t$$
 where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k \tau}$ is changing over time in a discrete fashion (pre-fault$\rightarrow$during-fault$\rightarrow$post-fault) through the superscript $k \tau$.
@@ -630,6 +685,24 @@ where $\tau$ is the time step and where we explicitly denote that $P_{e,max}^{k 
         \item \textbf{Low $I''_k$ / Low $S''_{sc} \iff$ High $X_{th}$}: \textbf{Weak grid} with high electrical impedance to surrounding sources.
     \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Example: 3-Bus Meshed Short-Circuit Current Calculation}
+\begin{center}
+\includegraphics[width=0.92\textwidth]{images/ShortCircuit3Bus.pdf}
+\end{center}
+\small
+Consider an asymmetric 3-bus meshed system ($S_{\text{base}} = 100\text{ MVA}$, $U_n = 110\text{ kV}$, $c = 1.10$) with $X''_{d1} = 0.24\text{ pu}$, $X''_{d2} = 0.50\text{ pu}$, and line reactances $X_{12} = 0.20\text{ pu}$, $X_{13} = 0.30\text{ pu}$, $X_{23} = 0.50\text{ pu}$, subjected to a three-phase fault at Bus 3:
+\begin{enumerate}
+    \item \textbf{$\Delta$--Y transformation} of lines ($1\text{--}2\text{--}3$, $\Sigma = 0.20+0.30+0.50 = 1.00\text{ pu}$) to star node $N$:
+    $$X_{1N} = \frac{0.20 \times 0.30}{1.00} = 0.06\text{ pu}, \quad X_{2N} = \frac{0.20 \times 0.50}{1.00} = 0.10\text{ pu}, \quad X_{3N} = \frac{0.30 \times 0.50}{1.00} = 0.15\text{ pu}$$
+    \item \textbf{Thévenin reactance seen from Bus 3} (with internal EMFs shorted):
+    $$X_{th,3} = \left[(0.24 + 0.06) \parallel (0.50 + 0.10)\right] + 0.15 = (0.30 \parallel 0.60) + 0.15 = 0.35\text{ pu}$$
+    \item \textbf{Initial symmetrical short-circuit current $I''_k$ and capacity $S''_{sc}$}:
+    $$I''_{k,\text{pu}} = \frac{c}{X_{th,3}} = \frac{1.10}{0.35} \approx 3.14\text{ pu}, \qquad I_{\text{base}} = \frac{S_{\text{base}}}{\sqrt{3}U_n} = \frac{100\text{ MVA}}{\sqrt{3} \cdot 110\text{ kV}} \approx 0.525\text{ kA}$$
+    $$I''_k = 3.143 \times 0.525\text{ kA} \approx 1.65\text{ kA}, \qquad S''_{sc} = \frac{c \cdot S_{\text{base}}}{X_{th,3}} = \frac{1.10 \times 100}{0.35} \approx 314\text{ MVA}$$
+    By current division at $N$, $G_1$ supplies $\frac{0.60}{0.30+0.60} = \frac{2}{3}$ ($I''_{k1} \approx 1.10\text{ kA}$) and $G_2$ supplies $\frac{1}{3}$ ($I''_{k2} \approx 0.55\text{ kA}$).
+\end{enumerate}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{Impact of Short-Circuit Level on the Equal Area Criterion}

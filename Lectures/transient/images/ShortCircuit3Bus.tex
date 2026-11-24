@@ -1,0 +1,73 @@
+\documentclass[border=4pt]{standalone}
+\usepackage[siunitx]{circuitikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\begin{document}
+\begin{circuitikz}[american, >=Stealth, line width=0.8pt, font=\small]
+
+% --- (a) Meshed 3-bus system ---
+\begin{scope}[xshift=0cm]
+  % Bus 1 (top left)
+  \draw[line width=2.2pt] (2.0, 2.0) -- (2.8, 2.0);
+  \node[above=3pt] at (2.4, 2.0) {Bus 1};
+
+  % Generator G1
+  \draw (0.2, 2.0) node[vsourcesinshape, scale=0.72] (G1) {};
+  \node[below=10pt] at (G1) {$G_1$};
+  \draw (G1.east) to[L, l=$X''_{d1}{=}0.24$] (2.0, 2.0);
+  \draw (G1.west) -- (-0.4, 2.0) -- (-0.4, 1.4) node[ground, scale=0.65] {};
+
+  % Bus 2 (bottom left)
+  \draw[line width=2.2pt] (2.0, -0.4) -- (2.8, -0.4);
+  \node[below=3pt] at (2.4, -0.4) {Bus 2};
+
+  % Generator G2
+  \draw (0.2, -0.4) node[vsourcesinshape, scale=0.72] (G2) {};
+  \node[below=10pt] at (G2) {$G_2$};
+  \draw (G2.east) to[L, l_=$X''_{d2}{=}0.50$] (2.0, -0.4);
+  \draw (G2.west) -- (-0.4, -0.4) -- (-0.4, -1.0) node[ground, scale=0.65] {};
+
+  % Line 1-2
+  \draw (2.4, 2.0) to[L, l_=$X_{12}{=}0.20$] (2.4, -0.4);
+
+  % Bus 3 (right)
+  \draw[line width=2.2pt] (5.2, 0.4) -- (5.2, 1.2);
+  \node[above=3pt] at (5.2, 1.2) {Bus 3};
+
+  % Line 1-3 & Line 2-3
+  \draw (2.8, 2.0) to[L, l=$X_{13}{=}0.30$] (5.2, 1.0);
+  \draw (2.8, -0.4) to[L, l_=$X_{23}{=}0.50$] (5.2, 0.6);
+
+  % Closed fault path to ground at Bus 3
+  \draw[red!80!black, line width=1.1pt] (5.2, 0.8) -- (5.85, 0.8) -- (5.85, -0.25) node[ground, scale=0.65] {};
+  \draw[red!80!black, line width=1.0pt, ->] (5.85, 0.65) -- (5.85, 0.15) node[midway, right=3pt] {$I''_k$ (Fault)};
+
+  \node at (2.7, -1.50) {(a) Meshed 3-bus system (pu)};
+\end{scope}
+
+% --- (b) Delta-Y reduction & Thevenin equivalent ---
+\begin{scope}[xshift=7.8cm]
+  % Ground rail on left
+  \draw[line width=1.2pt] (0, -0.4) -- (0, 2.0);
+  \draw (0, -0.4) -- (0, -0.8) node[ground, scale=0.65] {};
+
+  % Top branch: X''d1 + X1N
+  \draw (0, 2.0) to[L, l=$0.24$] (1.5, 2.0) to[L, l=$0.06$] (2.9, 2.0) -- (2.9, 0.8);
+  % Bottom branch: X''d2 + X2N
+  \draw (0, -0.4) to[L, l_=$0.50$] (1.5, -0.4) to[L, l_=$0.10$] (2.9, -0.4) -- (2.9, 0.8);
+
+  % Star node N
+  \fill (2.9, 0.8) circle (2.2pt) node[above left=2pt] {$N$};
+
+  % Branch N to Bus 3
+  \draw (2.9, 0.8) to[L, l=$X_{3N}{=}0.15$] (5.0, 0.8);
+  \draw[line width=2.2pt] (5.0, 0.45) -- (5.0, 1.15) node[above=3pt] {Bus 3};
+
+  % Arrow showing Xth
+  \draw[<-, thick, blue!75!black] (5.3, 0.8) -- (6.0, 0.8) node[right=2pt, align=left] {$X_{th,3} = 0.35\text{ pu}$};
+
+  \node at (2.8, -1.50) {(b) $\Delta$--Y reduction seen from Bus 3};
+\end{scope}
+
+\end{circuitikz}
+\end{document}

@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loss of Synchronism &amp; Transient Stability | ELEC0447</title>
+  <style>
+    :root {
+      --primary: #00843B;
+      --primary-dark: #005a28;
+      --primary-light: #e8f5e9;
+      --secondary: #1a73e8;
+      --accent: #F07F3C;
+      --danger: #d93025;
+      --danger-light: #fce8e6;
+      --warn: #b06000;
+      --warn-light: #fef7e0;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 18px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 20px 26px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    header h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    header p {
+      font-size: 0.92rem;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .status-pill {
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.4px;
+      background: rgba(255,255,255,0.18);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      color: white;
+      white-space: nowrap;
+    }
+
+    .status-pill.fault {
+      background: var(--accent);
+      border-color: #fff;
+    }
+
+    .status-pill.lost {
+      background: var(--danger);
+      border-color: #fff;
+      animation: pulse 1s infinite alternate;
+    }
+
+    .status-pill.stable {
+      background: #0f9d58;
+      border-color: #fff;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.04); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .controls-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    button:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    button.primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    button.primary:hover {
+      background: var(--primary-dark);
+    }
+
+    button.preset.active {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border-color: var(--primary);
+    }
+
+    .sliders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .slider-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .slider-val {
+      color: var(--primary-dark);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .metric {
+      background: var(--bg);
+      padding: 8px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .metric-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 600;
+    }
+
+    .metric-value {
+      font-size: 1.02rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      margin-top: 1px;
+    }
+
+    .metric-value.danger { color: var(--danger); }
+    .metric-value.ok { color: var(--primary-dark); }
+
+    .plots-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .plots-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    canvas {
+      width: 100%;
+      height: 290px;
+      display: block;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .explanation-box {
+      font-size: 0.88rem;
+      color: var(--text);
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 12px;
+    }
+
+    .explanation-box.lost {
+      border-left-color: var(--danger);
+      background: var(--danger-light);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>Transient Stability &amp; Loss of Synchronism</h1>
+      <p>ELEC0447 — Single-Machine Infinite Bus (SMIB) Swing Equation &amp; Equal Area Criterion</p>
+    </div>
+    <div id="statusPill" class="status-pill">PRE-FAULT</div>
+  </header>
+
+  <div class="card">
+    <div class="controls-top">
+      <div class="btn-group">
+        <button class="preset" data-preset="stable">1. Stable Fault (t_cl &lt; CCT)</button>
+        <button class="preset active" data-preset="lost">2. Loss of Synchronism (t_cl &gt; CCT)</button>
+        <button class="preset" data-preset="damped">3. Saved by Damping (D &gt; 0)</button>
+        <button class="preset" data-preset="overload">4. Static Overload (P_m &gt; P_max)</button>
+      </div>
+      <div class="btn-group">
+        <button id="btnPlay" class="primary">Pause</button>
+        <button id="btnStep">Step (+20 ms)</button>
+        <button id="btnReset">Reset</button>
+      </div>
+    </div>
+
+    <div class="sliders-grid">
+      <div class="slider-item">
+        <div class="slider-header">
+          <span>Clearing Time t<sub>cl</sub></span>
+          <span class="slider-val" id="valTcl">260 ms</span>
+        </div>
+        <input type="range" id="slTcl" min="50" max="500" step="5" value="260">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <span>Mechanical Power P<sub>m</sub></span>
+          <span class="slider-val" id="valPm">0.80 pu</span>
+        </div>
+        <input type="range" id="slPm" min="0.20" max="1.45" step="0.05" value="0.80">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <span>Inertia Constant H</span>
+          <span class="slider-val" id="valH">5.0 s</span>
+        </div>
+        <input type="range" id="slH" min="1.5" max="10.0" step="0.5" value="5.0">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <span>Damping D</span>
+          <span class="slider-val" id="valD">0.000 pu·s/rad</span>
+        </div>
+        <input type="range" id="slD" min="0.000" max="0.080" step="0.005" value="0.000">
+      </div>
+      <div class="slider-item">
+        <div class="slider-header">
+          <span>Playback Speed</span>
+          <span class="slider-val" id="valSpeed">1.00×</span>
+        </div>
+        <input type="range" id="slSpeed" min="0.25" max="2.0" step="0.25" value="1.0">
+      </div>
+    </div>
+
+    <div class="metrics-bar">
+      <div class="metric">
+        <div class="metric-label">Sim Time t</div>
+        <div class="metric-value" id="mTime">0.00 s</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Rotor Angle δ</div>
+        <div class="metric-value" id="mDelta">30.0°</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Speed Dev Δω / f</div>
+        <div class="metric-value" id="mOmega">0.00 rad/s (50.00 Hz)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Equilibrium δ₀ / δ₁</div>
+        <div class="metric-value" id="mEq">30.0° / 38.0°</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Limit δ<sub>max</sub> / δ<sub>cct</sub></div>
+        <div class="metric-value" id="mLimits">142.0° / 76.2°</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Analytical CCT (D=0)</div>
+        <div class="metric-value" id="mCCT">~223 ms</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Pole Slips</div>
+        <div class="metric-value" id="mSlips">0</div>
+      </div>
+    </div>
+
+    <div id="explanationBox" class="explanation-box">
+      Fault occurs at t = 0.25 s. Observe how the rotor angle δ(t) and Equal Area Criterion evolve.
+    </div>
+  </div>
+
+  <div class="plots-grid">
+    <div class="card">
+      <div class="card-title">
+        <span>1. Mechanical Analogy (Synchronous Reference Frame)</span>
+        <span class="card-subtitle">Stator field fixed at 0°; rotor at δ(t)</span>
+      </div>
+      <canvas id="cvAnalogy"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>2. P<sub>e</sub>–δ Curve &amp; Equal Area Criterion</span>
+        <span class="card-subtitle">Blue: Acceleration (P<sub>m</sub> &gt; P<sub>e</sub>) · Red: Deceleration (P<sub>e</sub> &gt; P<sub>m</sub>)</span>
+      </div>
+      <canvas id="cvPeDelta"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>3. Rotor Angle δ(t) [degrees]</span>
+        <span class="card-subtitle">Bounded oscillation vs. pole-slipping runaway</span>
+      </div>
+      <canvas id="cvAngle"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>4. Rotor Speed Deviation Δω(t) [rad/s]</span>
+        <span class="card-subtitle">Δω = dδ/dt = ω − ω<sub>syn</sub></span>
+      </div>
+      <canvas id="cvOmega"></canvas>
+    </div>
+  </div>
+
+  <footer>
+    ELEC0447 — Analysis of Electric Power and Energy Systems · University of Liège
+  </footer>
+</div>
+
+<script>
+(() => {
+  // System parameters (matching EAC.py in Lectures/transient/images/)
+  const PMAX_PRE = 1.6;
+  const PMAX_FAULT = 0.5;
+  const PMAX_POST = 1.3;
+  const OMEGA_SYN = 2 * Math.PI * 50; // 314.159 rad/s
+  const T_FAULT = 0.25;               // Fault applied at 0.25 s
+  const DT = 0.001;                   // 1 ms RK4 step
+  const T_WINDOW = 4.5;               // Max simulation horizon (s)
+  const RAD2DEG = 180 / Math.PI;
+
+  // UI elements
+  const slTcl = document.getElementById('slTcl');
+  const slPm = document.getElementById('slPm');
+  const slH = document.getElementById('slH');
+  const slD = document.getElementById('slD');
+  const slSpeed = document.getElementById('slSpeed');
+
+  const valTcl = document.getElementById('valTcl');
+  const valPm = document.getElementById('valPm');
+  const valH = document.getElementById('valH');
+  const valD = document.getElementById('valD');
+  const valSpeed = document.getElementById('valSpeed');
+
+  const statusPill = document.getElementById('statusPill');
+  const explanationBox = document.getElementById('explanationBox');
+
+  const mTime = document.getElementById('mTime');
+  const mDelta = document.getElementById('mDelta');
+  const mOmega = document.getElementById('mOmega');
+  const mEq = document.getElementById('mEq');
+  const mLimits = document.getElementById('mLimits');
+  const mCCT = document.getElementById('mCCT');
+  const mSlips = document.getElementById('mSlips');
+
+  const btnPlay = document.getElementById('btnPlay');
+  const btnStep = document.getElementById('btnStep');
+  const btnReset = document.getElementById('btnReset');
+  const presetBtns = document.querySelectorAll('.preset');
+
+  const cvAnalogy = document.getElementById('cvAnalogy');
+  const cvPeDelta = document.getElementById('cvPeDelta');
+  const cvAngle = document.getElementById('cvAngle');
+  const cvOmega = document.getElementById('cvOmega');
+
+  // Simulation state
+  let params = {
+    tcl: 0.26,
+    Pm: 0.80,
+    H: 5.0,
+    D: 0.0,
+    speed: 1.0
+  };
+
+  let sim = {
+    t: 0,
+    delta: 0,
+    omega: 0,
+    running: true,
+    history: [], // {t, delta, omega, Pe, state}
+    deltaClActual: null,
+    lostSynchronism: false,
+    poleSlips: 0
+  };
+
+  function computeAnalytics() {
+    const Pm = params.Pm;
+    const delta0 = Pm <= PMAX_PRE ? Math.asin(Pm / PMAX_PRE) : Math.PI / 2;
+    let delta1 = null, deltaMax = null, deltaCct = null, cctMs = null;
+
+    if (Pm <= PMAX_POST) {
+      delta1 = Math.asin(Pm / PMAX_POST);
+      deltaMax = Math.PI - delta1;
+      const num = -Pm * (deltaMax - delta0) - PMAX_POST * Math.cos(deltaMax) + PMAX_FAULT * Math.cos(delta0);
+      const den = PMAX_FAULT - PMAX_POST;
+      const cosCct = num / den;
+      if (cosCct >= -1 && cosCct <= 1) {
+        deltaCct = Math.acos(cosCct);
+        // Estimate CCT by integrating fault trajectory with D=0 until delta >= deltaCct
+        let tf = 0, df = delta0, wf = 0;
+        const coeff = OMEGA_SYN / (2 * params.H);
+        while (tf < 2.0 && df < deltaCct) {
+          const k1d = wf, k1w = coeff * (Pm - PMAX_FAULT * Math.sin(df));
+          const k2d = wf + 0.5 * DT * k1w, k2w = coeff * (Pm - PMAX_FAULT * Math.sin(df + 0.5 * DT * k1d));
+          const k3d = wf + 0.5 * DT * k2w, k3w = coeff * (Pm - PMAX_FAULT * Math.sin(df + 0.5 * DT * k2d));
+          const k4d = wf + DT * k3w, k4w = coeff * (Pm - PMAX_FAULT * Math.sin(df + DT * k3d));
+          df += (DT / 6) * (k1d + 2 * k2d + 2 * k3d + k4d);
+          wf += (DT / 6) * (k1w + 2 * k2w + 2 * k3w + k4w);
+          tf += DT;
+        }
+        if (df >= deltaCct) cctMs = Math.round(tf * 1000);
+      }
+    }
+    return { delta0, delta1, deltaMax, deltaCct, cctMs };
+  }
+
+  function currentPmax(t) {
+    if (t < T_FAULT) return PMAX_PRE;
+    if (t < T_FAULT + params.tcl) return PMAX_FAULT;
+    return PMAX_POST;
+  }
+
+  function currentStage(t) {
+    if (t < T_FAULT) return 'PRE';
+    if (t < T_FAULT + params.tcl) return 'FAULT';
+    return 'POST';
+  }
+
+  function resetSim(autoRun = true) {
+    const { delta0 } = computeAnalytics();
+    sim = {
+      t: 0,
+      delta: delta0,
+      omega: 0,
+      running: autoRun,
+      history: [{
+        t: 0,
+        delta: delta0,
+        omega: 0,
+        Pe: PMAX_PRE * Math.sin(delta0),
+        stage: 'PRE'
+      }],
+      deltaClActual: null,
+      lostSynchronism: false,
+      poleSlips: 0
+    };
+    btnPlay.textContent = sim.running ? 'Pause' : 'Play';
+    updateReadouts();
+    drawAll();
+  }
+
+  function stepSim(dtTotal) {
+    const steps = Math.max(1, Math.round(dtTotal / DT));
+    const coeff = OMEGA_SYN / (2 * params.H);
+    const { deltaMax } = computeAnalytics();
+
+    for (let i = 0; i < steps; i++) {
+      if (sim.t >= T_WINDOW) {
+        sim.running = false;
+        btnPlay.textContent = 'Play';
+        break;
+      }
+
+      const stage = currentStage(sim.t);
+      const Pmax = currentPmax(sim.t);
+
+      if (stage === 'POST' && sim.deltaClActual === null) {
+        sim.deltaClActual = sim.delta;
+      }
+
+      const deriv = (d, w) => [
+        w,
+        coeff * (params.Pm - Pmax * Math.sin(d) - params.D * w)
+      ];
+
+      const [k1d, k1w] = deriv(sim.delta, sim.omega);
+      const [k2d, k2w] = deriv(sim.delta + 0.5 * DT * k1d, sim.omega + 0.5 * DT * k1w);
+      const [k3d, k3w] = deriv(sim.delta + 0.5 * DT * k2d, sim.omega + 0.5 * DT * k2w);
+      const [k4d, k4w] = deriv(sim.delta + DT * k3d, sim.omega + DT * k3w);
+
+      sim.delta += (DT / 6) * (k1d + 2 * k2d + 2 * k3d + k4d);
+      sim.omega += (DT / 6) * (k1w + 2 * k2w + 2 * k3w + k4w);
+      sim.t += DT;
+
+      if (deltaMax === null || sim.delta > deltaMax) {
+        if (stage === 'POST' && sim.omega > 0) {
+          sim.lostSynchronism = true;
+        }
+      }
+      if (sim.delta > Math.PI && sim.omega > 0) {
+        sim.lostSynchronism = true;
+      }
+
+      sim.poleSlips = Math.max(0, Math.floor(sim.delta / (2 * Math.PI)));
+
+      // Record every 4 ms for smooth plotting
+      if (Math.round(sim.t * 1000) % 4 === 0 || sim.t >= T_WINDOW) {
+        sim.history.push({
+          t: sim.t,
+          delta: sim.delta,
+          omega: sim.omega,
+          Pe: Pmax * Math.sin(sim.delta),
+          stage
+        });
+      }
+    }
+    updateReadouts();
+  }
+
+  function updateReadouts() {
+    const an = computeAnalytics();
+    const stage = currentStage(sim.t);
+    const freq = 50 + sim.omega / (2 * Math.PI);
+
+    mTime.textContent = `${sim.t.toFixed(2)} s`;
+    mDelta.textContent = `${(sim.delta * RAD2DEG).toFixed(1)}°`;
+    mOmega.textContent = `${sim.omega >= 0 ? '+' : ''}${sim.omega.toFixed(2)} rad/s (${freq.toFixed(2)} Hz)`;
+    mEq.textContent = an.delta1 !== null
+      ? `${(an.delta0 * RAD2DEG).toFixed(1)}° / ${(an.delta1 * RAD2DEG).toFixed(1)}°`
+      : `${(an.delta0 * RAD2DEG).toFixed(1)}° / None`;
+    mLimits.textContent = an.deltaMax !== null && an.deltaCct !== null
+      ? `${(an.deltaMax * RAD2DEG).toFixed(1)}° / ${(an.deltaCct * RAD2DEG).toFixed(1)}°`
+      : 'No post-fault eq.';
+    mCCT.textContent = an.cctMs !== null ? `~${an.cctMs} ms` : 'N/A';
+    mSlips.textContent = `${sim.poleSlips}`;
+
+    mDelta.className = 'metric-value ' + (sim.lostSynchronism ? 'danger' : 'ok');
+    mSlips.className = 'metric-value ' + (sim.poleSlips > 0 ? 'danger' : 'ok');
+
+    if (sim.lostSynchronism) {
+      statusPill.textContent = 'SYNCHRONISM LOST';
+      statusPill.className = 'status-pill lost';
+      explanationBox.className = 'explanation-box lost';
+      explanationBox.innerHTML = an.deltaMax === null
+        ? `<strong>Loss of Synchronism (Static Overload):</strong> P<sub>m</sub> = ${params.Pm.toFixed(2)} pu exceeds post-fault P<sub>max</sub> = ${PMAX_POST.toFixed(2)} pu. No equilibrium exists, so P<sub>m</sub> &gt; P<sub>e</sub> everywhere and the rotor accelerates continuously.`
+        : `<strong>Loss of Synchronism:</strong> The rotor angle exceeded δ<sub>max</sub> = ${(an.deltaMax * RAD2DEG).toFixed(1)}°. Acceleration Area A exceeded the maximum available deceleration Area B, so the machine enters the region where P<sub>e</sub> &lt; P<sub>m</sub> (and even reverses sign past 180°), causing continuous <strong>pole slipping</strong>.`;
+    } else if (stage === 'FAULT') {
+      statusPill.textContent = 'FAULT ACTIVE';
+      statusPill.className = 'status-pill fault';
+      explanationBox.className = 'explanation-box';
+      explanationBox.innerHTML = `<strong>During Fault:</strong> Electrical power drops to P<sub>e,fault</sub>. Since P<sub>m</sub> &gt; P<sub>e</sub>, the rotor accelerates (Δω &gt; 0) and accumulates kinetic energy (blue Area A).`;
+    } else if (stage === 'PRE') {
+      statusPill.textContent = 'PRE-FAULT';
+      statusPill.className = 'status-pill';
+      explanationBox.className = 'explanation-box';
+      explanationBox.innerHTML = `<strong>Pre-Fault Steady State:</strong> P<sub>e</sub> = P<sub>m</sub> at δ₀ = ${(an.delta0 * RAD2DEG).toFixed(1)}° and Δω = 0. Fault will occur at t = ${T_FAULT.toFixed(2)} s.`;
+    } else {
+      statusPill.textContent = 'STABLE';
+      statusPill.className = 'status-pill stable';
+      explanationBox.className = 'explanation-box';
+      explanationBox.innerHTML = params.D > 0
+        ? `<strong>Stable (Damped):</strong> After clearing the fault at t<sub>cl</sub> = ${Math.round(params.tcl * 1000)} ms, deceleration Area B absorbs the excess kinetic energy before δ<sub>max</sub>, and damping (D = ${params.D.toFixed(3)}) settles the rotor at δ₁ = ${(an.delta1 * RAD2DEG).toFixed(1)}°.`
+        : `<strong>Stable (Undamped):</strong> After clearing the fault at t<sub>cl</sub> = ${Math.round(params.tcl * 1000)} ms, Area B = Area A before δ<sub>max</sub> = ${(an.deltaMax * RAD2DEG).toFixed(1)}°. Without damping, the rotor oscillates indefinitely around δ₁ = ${(an.delta1 * RAD2DEG).toFixed(1)}°.`;
+    }
+  }
+
+  function setupCanvas(canvas) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    const w = Math.max(300, Math.floor(rect.width));
+    const h = Math.max(240, Math.floor(rect.height));
+    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+    }
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    return { ctx, w, h };
+  }
+
+  // --- PANEL 1: Mechanical Analogy ---
+  function drawAnalogy() {
+    const { ctx, w, h } = setupCanvas(cvAnalogy);
+    const cx = w * 0.5;
+    const cy = h * 0.52;
+    const Rstat = Math.min(w, h) * 0.37;
+    const Rrot = Rstat * 0.62;
+
+    // Stator core
+    ctx.beginPath();
+    ctx.arc(cx, cy, Rstat, 0, 2 * Math.PI);
+    ctx.fillStyle = '#eaf0f8';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#475569';
+    ctx.stroke();
+
+    // Air gap
+    ctx.beginPath();
+    ctx.arc(cx, cy, Rrot + 8, 0, 2 * Math.PI);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+
+    // Rotor core
+    ctx.beginPath();
+    ctx.arc(cx, cy, Rrot, 0, 2 * Math.PI);
+    ctx.fillStyle = sim.lostSynchronism ? '#fef2f2' : '#f8fafc';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = sim.lostSynchronism ? '#d93025' : '#334155';
+    ctx.stroke();
+
+    // Stator reference pole at 0 deg (pointing right, CCW positive)
+    const statAng = 0;
+    const sx = cx + Rstat * Math.cos(statAng);
+    const sy = cy - Rstat * Math.sin(statAng);
+
+    // Rotor pole at delta(t) (CCW positive)
+    const d = sim.delta;
+    const rx = cx + Rrot * Math.cos(d);
+    const ry = cy - Rrot * Math.sin(d);
+
+    // Reference axis line (0 deg)
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Rstat + 14, cy);
+    ctx.stroke();
+    ctx.restore();
+
+    // Rotor axis line
+    ctx.strokeStyle = sim.lostSynchronism ? '#d93025' : '#1a73e8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(rx, ry);
+    ctx.stroke();
+
+    // Angle arc delta
+    const wrappedDisp = ((d % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    ctx.beginPath();
+    ctx.arc(cx, cy, Rrot * 0.42, 0, -wrappedDisp, true);
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    // Magnetic spring (zigzag) between Rotor pole and Stator reference when synchronized
+    const springBroken = sim.lostSynchronism;
+    ctx.save();
+    ctx.strokeStyle = springBroken ? 'rgba(217,48,37,0.45)' : (currentStage(sim.t) === 'FAULT' ? '#F07F3C' : '#00843B');
+    ctx.lineWidth = springBroken ? 1.8 : 2.6;
+    if (springBroken) ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    const steps = 10;
+    const dx = sx - rx, dy = sy - ry;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len, ny = dx / len;
+    ctx.moveTo(rx, ry);
+    for (let i = 1; i < steps; i++) {
+      const t = i / steps;
+      const amp = (i % 2 === 0 ? 1 : -1) * (springBroken ? 3 : 5.5);
+      ctx.lineTo(rx + dx * t + nx * amp, ry + dy * t + ny * amp);
+    }
+    ctx.lineTo(sx, sy);
+    ctx.stroke();
+    ctx.restore();
+
+    // Pole dots
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath(); ctx.arc(sx, sy, 4.5, 0, 2 * Math.PI); ctx.fill();
+    ctx.fillStyle = sim.lostSynchronism ? '#d93025' : '#1a73e8';
+    ctx.beginPath(); ctx.arc(rx, ry, 5, 0, 2 * Math.PI); ctx.fill();
+
+    // Labels
+    ctx.fillStyle = '#475569';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('STATOR FIELD (0°)', cx, cy - Rstat - 10);
+    ctx.fillText('ROTOR', cx, cy + Rrot * 0.55);
+
+    ctx.fillStyle = sim.lostSynchronism ? '#d93025' : '#0f172a';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText(`δ = ${(d * RAD2DEG).toFixed(1)}°`, cx, cy + Rstat + 20);
+
+    if (sim.lostSynchronism) {
+      ctx.fillStyle = '#d93025';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(`POLE SLIPPING! (${sim.poleSlips} rev)`, 12, 22);
+    } else {
+      ctx.fillStyle = '#00843B';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('SYNCHRONIZED', 12, 22);
+    }
+  }
+
+  // --- PANEL 2: Pe-delta & EAC ---
+  function drawPeDelta() {
+    const { ctx, w, h } = setupCanvas(cvPeDelta);
+    const pad = { l: 46, r: 18, t: 18, b: 36 };
+    const pw = w - pad.l - pad.r;
+    const ph = h - pad.t - pad.b;
+
+    const maxDeg = sim.lostSynchronism ? 360 : 180;
+    const yMin = sim.lostSynchronism ? -1.4 : -0.15;
+    const yMax = 1.75;
+
+    const xOf = deg => pad.l + (deg / maxDeg) * pw;
+    const yOf = val => pad.t + ((yMax - val) / (yMax - yMin)) * ph;
+
+    // Grid & axes
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for (let deg = 0; deg <= maxDeg; deg += (maxDeg === 360 ? 90 : 45)) {
+      const x = xOf(deg);
+      ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ph); ctx.stroke();
+      ctx.fillStyle = '#64748b';
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${deg}°`, x, pad.t + ph + 15);
+    }
+    for (let yv = (yMin < -0.5 ? -1.0 : 0); yv <= 1.5; yv += 0.5) {
+      const y = yOf(yv);
+      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
+      ctx.fillStyle = '#64748b';
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(yv.toFixed(1), pad.l - 6, y + 4);
+    }
+
+    // Zero line
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, yOf(0)); ctx.lineTo(pad.l + pw, yOf(0)); ctx.stroke();
+
+    const an = computeAnalytics();
+
+    // Shade Area A (during fault) and Area B (post fault) from simulation history
+    if (sim.history.length > 1) {
+      // Area A: FAULT points where Pm > Pe
+      const faultPts = sim.history.filter(p => p.stage === 'FAULT');
+      if (faultPts.length > 1) {
+        ctx.fillStyle = 'rgba(26, 115, 232, 0.25)';
+        ctx.beginPath();
+        ctx.moveTo(xOf((faultPts[0].delta * RAD2DEG) % maxDeg), yOf(params.Pm));
+        for (const p of faultPts) {
+          const deg = Math.min(maxDeg, p.delta * RAD2DEG);
+          ctx.lineTo(xOf(deg), yOf(PMAX_FAULT * Math.sin(p.delta)));
+        }
+        ctx.lineTo(xOf(Math.min(maxDeg, faultPts[faultPts.length - 1].delta * RAD2DEG)), yOf(params.Pm));
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Area B: POST points where Pe > Pm (deceleration)
+      const postPts = sim.history.filter(p => p.stage === 'POST' && p.delta * RAD2DEG <= maxDeg);
+      if (postPts.length > 1) {
+        ctx.fillStyle = 'rgba(217, 48, 37, 0.25)';
+        ctx.beginPath();
+        let started = false;
+        let lastX = xOf(postPts[0].delta * RAD2DEG);
+        for (const p of postPts) {
+          const Pe = PMAX_POST * Math.sin(p.delta);
+          const x = xOf(p.delta * RAD2DEG);
+          if (Pe >= params.Pm) {
+            if (!started) {
+              ctx.moveTo(x, yOf(params.Pm));
+              started = true;
+            }
+            ctx.lineTo(x, yOf(Pe));
+            lastX = x;
+          } else if (started) {
+            ctx.lineTo(lastX, yOf(params.Pm));
+            ctx.closePath();
+            ctx.fill();
+            ctx.beginPath();
+            started = false;
+          }
+        }
+        if (started) {
+          ctx.lineTo(lastX, yOf(params.Pm));
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+    }
+
+    // Curves: Pre-fault, During-fault, Post-fault
+    const drawCurve = (Pmax, color, dash = []) => {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.setLineDash(dash);
+      ctx.beginPath();
+      for (let i = 0; i <= 180; i++) {
+        const deg = (i / 180) * maxDeg;
+        const val = Pmax * Math.sin(deg / RAD2DEG);
+        const x = xOf(deg), y = yOf(val);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.restore();
+    };
+
+    drawCurve(PMAX_PRE, '#1e293b');
+    drawCurve(PMAX_FAULT, '#1a73e8');
+    drawCurve(PMAX_POST, '#d93025', [6, 4]);
+
+    // Pm line
+    ctx.save();
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(pad.l, yOf(params.Pm));
+    ctx.lineTo(pad.l + pw, yOf(params.Pm));
+    ctx.stroke();
+    ctx.restore();
+
+    // Limit marker delta_max
+    if (an.deltaMax !== null) {
+      const dmDeg = an.deltaMax * RAD2DEG;
+      ctx.save();
+      ctx.strokeStyle = '#d93025';
+      ctx.setLineDash([2, 3]);
+      ctx.beginPath();
+      ctx.moveTo(xOf(dmDeg), pad.t);
+      ctx.lineTo(xOf(dmDeg), pad.t + ph);
+      ctx.stroke();
+      ctx.fillStyle = '#d93025';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('δmax', xOf(dmDeg), pad.t + 11);
+      ctx.restore();
+    }
+
+    // Current operating point
+    const curDeg = ((sim.delta * RAD2DEG) % maxDeg + maxDeg) % maxDeg;
+    const curPe = currentPmax(sim.t) * Math.sin(sim.delta);
+    ctx.fillStyle = sim.lostSynchronism ? '#d93025' : '#00843B';
+    ctx.beginPath();
+    ctx.arc(xOf(curDeg), yOf(curPe), 6, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Axis labels
+    ctx.fillStyle = '#334155';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('δ [deg]', pad.l + pw / 2, h - 5);
+    ctx.save();
+    ctx.translate(13, pad.t + ph / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('P [pu]', 0, 0);
+    ctx.restore();
+  }
+
+  // --- PANEL 3: delta(t) ---
+  function drawAngle() {
+    const { ctx, w, h } = setupCanvas(cvAngle);
+    const pad = { l: 48, r: 18, t: 18, b: 36 };
+    const pw = w - pad.l - pad.r;
+    const ph = h - pad.t - pad.b;
+
+    let maxDeg = 180;
+    for (const p of sim.history) {
+      if (p.delta * RAD2DEG > maxDeg - 20) {
+        maxDeg = Math.ceil((p.delta * RAD2DEG + 30) / 180) * 180;
+      }
+    }
+    const yMin = 0;
+
+    const xOf = t => pad.l + (t / T_WINDOW) * pw;
+    const yOf = deg => pad.t + ((maxDeg - deg) / (maxDeg - yMin)) * ph;
+
+    // Fault window shading
+    ctx.fillStyle = 'rgba(240, 127, 60, 0.14)';
+    const xF0 = xOf(T_FAULT);
+    const xF1 = xOf(Math.min(T_WINDOW, T_FAULT + params.tcl));
+    ctx.fillRect(xF0, pad.t, xF1 - xF0, ph);
+
+    // Grid
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for (let tv = 0; tv <= T_WINDOW; tv += 0.5) {
+      const x = xOf(tv);
+      ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ph); ctx.stroke();
+      if (Number.isInteger(tv)) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${tv}s`, x, pad.t + ph + 15);
+      }
+    }
+
+    const stepDeg = maxDeg <= 180 ? 45 : (maxDeg <= 360 ? 90 : 180);
+    for (let dg = 0; dg <= maxDeg; dg += stepDeg) {
+      const y = yOf(dg);
+      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
+      ctx.fillStyle = '#64748b';
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(`${dg}°`, pad.l - 5, y + 4);
+    }
+
+    // Reference lines: delta_1 and delta_max
+    const an = computeAnalytics();
+    if (an.deltaMax !== null) {
+      const dmDeg = an.deltaMax * RAD2DEG;
+      ctx.save();
+      ctx.strokeStyle = '#d93025';
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(pad.l, yOf(dmDeg)); ctx.lineTo(pad.l + pw, yOf(dmDeg)); ctx.stroke();
+      ctx.fillStyle = '#d93025';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(`δmax (${dmDeg.toFixed(0)}°)`, pad.l + pw - 4, yOf(dmDeg) - 4);
+      ctx.restore();
+    }
+
+    if (an.delta1 !== null) {
+      const d1Deg = an.delta1 * RAD2DEG;
+      ctx.save();
+      ctx.strokeStyle = '#475569';
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(pad.l, yOf(d1Deg)); ctx.lineTo(pad.l + pw, yOf(d1Deg)); ctx.stroke();
+      ctx.restore();
+    }
+
+    // Trajectory colored by acceleration (blue) / deceleration (red)
+    for (let i = 1; i < sim.history.length; i++) {
+      const p0 = sim.history[i - 1];
+      const p1 = sim.history[i];
+      ctx.strokeStyle = params.Pm >= p1.Pe ? '#1a73e8' : '#d93025';
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(xOf(p0.t), yOf(p0.delta * RAD2DEG));
+      ctx.lineTo(xOf(p1.t), yOf(p1.delta * RAD2DEG));
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = '#334155';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('t [s]', pad.l + pw / 2, h - 5);
+    ctx.save();
+    ctx.translate(13, pad.t + ph / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('δ [deg]', 0, 0);
+    ctx.restore();
+  }
+
+  // --- PANEL 4: omega(t) ---
+  function drawOmega() {
+    const { ctx, w, h } = setupCanvas(cvOmega);
+    const pad = { l: 48, r: 18, t: 18, b: 36 };
+    const pw = w - pad.l - pad.r;
+    const ph = h - pad.t - pad.b;
+
+    let yAbs = 5;
+    for (const p of sim.history) {
+      yAbs = Math.max(yAbs, Math.abs(p.omega) * 1.15);
+    }
+    const yMin = -yAbs;
+    const yMax = yAbs;
+
+    const xOf = t => pad.l + (t / T_WINDOW) * pw;
+    const yOf = val => pad.t + ((yMax - val) / (yMax - yMin)) * ph;
+
+    // Fault window shading
+    ctx.fillStyle = 'rgba(240, 127, 60, 0.14)';
+    const xF0 = xOf(T_FAULT);
+    const xF1 = xOf(Math.min(T_WINDOW, T_FAULT + params.tcl));
+    ctx.fillRect(xF0, pad.t, xF1 - xF0, ph);
+
+    // Grid
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    for (let tv = 0; tv <= T_WINDOW; tv += 0.5) {
+      const x = xOf(tv);
+      ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ph); ctx.stroke();
+      if (Number.isInteger(tv)) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${tv}s`, x, pad.t + ph + 15);
+      }
+    }
+
+    // Zero line
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(pad.l, yOf(0)); ctx.lineTo(pad.l + pw, yOf(0)); ctx.stroke();
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(`+${yAbs.toFixed(0)}`, pad.l - 5, pad.t + 10);
+    ctx.fillText('0', pad.l - 5, yOf(0) + 4);
+    ctx.fillText(`-${yAbs.toFixed(0)}`, pad.l - 5, pad.t + ph);
+
+    // Trajectory
+    for (let i = 1; i < sim.history.length; i++) {
+      const p0 = sim.history[i - 1];
+      const p1 = sim.history[i];
+      ctx.strokeStyle = sim.lostSynchronism ? '#d93025' : '#00843B';
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(xOf(p0.t), yOf(p0.omega));
+      ctx.lineTo(xOf(p1.t), yOf(p1.omega));
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = '#334155';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('t [s]', pad.l + pw / 2, h - 5);
+    ctx.save();
+    ctx.translate(13, pad.t + ph / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('Δω [rad/s]', 0, 0);
+    ctx.restore();
+  }
+
+  function drawAll() {
+    drawAnalogy();
+    drawPeDelta();
+    drawAngle();
+    drawOmega();
+  }
+
+  function syncSlidersFromParams() {
+    slTcl.value = Math.round(params.tcl * 1000);
+    slPm.value = params.Pm;
+    slH.value = params.H;
+    slD.value = params.D;
+    slSpeed.value = params.speed;
+
+    valTcl.textContent = `${Math.round(params.tcl * 1000)} ms`;
+    valPm.textContent = `${params.Pm.toFixed(2)} pu`;
+    valH.textContent = `${params.H.toFixed(1)} s`;
+    valD.textContent = `${params.D.toFixed(3)} pu·s/rad`;
+    valSpeed.textContent = `${params.speed.toFixed(2)}×`;
+  }
+
+  function applyPreset(name) {
+    presetBtns.forEach(b => b.classList.toggle('active', b.dataset.preset === name));
+    if (name === 'stable') {
+      params = { tcl: 0.16, Pm: 0.80, H: 5.0, D: 0.0, speed: params.speed };
+    } else if (name === 'lost') {
+      params = { tcl: 0.40, Pm: 0.80, H: 5.0, D: 0.0, speed: params.speed };
+    } else if (name === 'damped') {
+      params = { tcl: 0.36, Pm: 0.80, H: 5.0, D: 0.04, speed: params.speed };
+    } else if (name === 'overload') {
+      params = { tcl: 0.15, Pm: 1.40, H: 5.0, D: 0.02, speed: params.speed };
+    }
+    syncSlidersFromParams();
+    resetSim(true);
+  }
+
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
+  });
+
+  const onSliderChange = () => {
+    presetBtns.forEach(b => b.classList.remove('active'));
+    params.tcl = Number(slTcl.value) / 1000;
+    params.Pm = Number(slPm.value);
+    params.H = Number(slH.value);
+    params.D = Number(slD.value);
+    params.speed = Number(slSpeed.value);
+    syncSlidersFromParams();
+    resetSim(true);
+  };
+
+  [slTcl, slPm, slH, slD].forEach(sl => sl.addEventListener('input', onSliderChange));
+  slSpeed.addEventListener('input', () => {
+    params.speed = Number(slSpeed.value);
+    valSpeed.textContent = `${params.speed.toFixed(2)}×`;
+  });
+
+  btnPlay.addEventListener('click', () => {
+    if (sim.t >= T_WINDOW) {
+      resetSim(true);
+      return;
+    }
+    sim.running = !sim.running;
+    btnPlay.textContent = sim.running ? 'Pause' : 'Play';
+  });
+
+  btnStep.addEventListener('click', () => {
+    sim.running = false;
+    btnPlay.textContent = 'Play';
+    stepSim(0.02);
+    drawAll();
+  });
+
+  btnReset.addEventListener('click', () => resetSim(true));
+  window.addEventListener('resize', drawAll);
+
+  // Animation loop
+  let lastTs = null;
+  function tick(ts) {
+    if (lastTs === null) lastTs = ts;
+    const elapsed = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+
+    if (sim.running) {
+      stepSim(elapsed * params.speed);
+      drawAll();
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Start with Loss of Synchronism preset
+  applyPreset('lost');
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
